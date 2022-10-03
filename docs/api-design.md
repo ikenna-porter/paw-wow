@@ -5,9 +5,11 @@
 
 Endpoint path: login/
 Endpoint method: “POST”
+
 Request shape (form):
   Username: string
   Password: string
+
 Response: User information and token
 Response shape (JSON):
   ``` json
@@ -108,8 +110,10 @@ Response shape:
 ### Create notifications
 Endpoint path: notifications/
 Endpoint method: "POST"
+
 Headers: 
 Authorization: Bearer token
+
 Response: Send a notification to one or multiple users
 Response shape:
 ```json
@@ -124,8 +128,10 @@ Response shape:
 ### Fetch notifications
 Endpoint path: notifications/
 Endpoint method: "GET"
+
 Headers:
 	Authorization: Bearer token
+
 Response: Fetch user's notifications by ID
 Response shape:
 ```json
@@ -140,16 +146,20 @@ Response shape:
 ### Mark notification as read
 Endpoint path: notifications/
 Endpoint method: "GET"
+
 Headers:
 	Authorization: Bearer token
+
 Response: Mark a user's notification as read
 Response shape: ""
 
 ### Delete a notification
 Endpoint path: notifications/
 Endpoint method: "DELETE"
+
 Headers:
 	Authorization: Bearer token
+
 Response: Delete a user's notification by ID
 Response shape: ""
 
@@ -157,10 +167,13 @@ Response shape: ""
 ### Search Bar 
   Endpoint path: search/
   Endpoint method: “GET”
+
   Query parameters:
     q: search option
+
   Headers:
     Authorization: Bearer token
+
   Response: 
     Dog search: A list of user (dog) instances (objects)
     Park search: A list of parks
