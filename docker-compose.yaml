@@ -63,4 +63,4 @@ services:
             - 15432:5432
 volumes:
   postgres-data:
-  external: true
+      external: true
