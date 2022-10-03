@@ -201,9 +201,9 @@ Response shape:
     ]
   }
 ```
-<!-- Conversations -->
+### Conversations
 
-<!-- Get a list of conversations -->
+#### Get a list of conversations 
 * Endpoint path: /conversations_list
 * Endpoint method: GET
 
@@ -224,7 +224,7 @@ Response shape:
         ]
     }
 
-<!-- Get a conversation detail -->
+#### Get a conversation detail
 * Endpoint path: /conversation/id
 * Endpoint method: GET
 
@@ -248,7 +248,7 @@ Response shape:
     }
     ```
 
-<!-- Post message to a conversation -->
+### Post message to a conversation
 * Endpoint path: /conversation/id
 * Endpoint method: POST
 
@@ -281,7 +281,7 @@ Response shape:
     ```
 
 
-<!-- Sign Up Endpoint -->
+#### Sign Up Endpoint 
 * Endpoint path: /token
 * Endpoint method: POST
 
