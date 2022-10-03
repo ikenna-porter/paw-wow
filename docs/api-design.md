@@ -1,76 +1,75 @@
-This is where we will design our APIs
+## Paw Wow API Design
 
-<<<<<<< HEAD
 ### Login form (login form) 
-  #### Login
+#### Login
 
-  Endpoint path: login/
-  Endpoint method: “POST”
-  Request shape (form):
-      Username: string
-      Password: string
-  Response: User information and token
-  Response shape (JSON):
-    ``` json
-    {
-      “Acount”: {
-        Key: string,
-      },
-      “Token”: string
-    }
-    ```
+Endpoint path: login/
+Endpoint method: “POST”
+Request shape (form):
+  Username: string
+  Password: string
+Response: User information and token
+Response shape (JSON):
+  ``` json
+  {
+    “Acount”: {
+      Key: string,
+    },
+    “Token”: string
+  }
+  ```
 
 
-  #### Log out
+#### Log out
 
-  Endpoint path: /token
-  Endpoint method: DELETE
+Endpoint path: /token
+Endpoint method: DELETE
 
-  Headers:
-    Authorization: Bearer token
+Headers:
+  Authorization: Bearer token
 
-  Response: Always true
-  Response shape (JSON):
-      ```json
-      true
-      ```
+Response: Always true
+Response shape (JSON):
+```json
+    true
+  ```
 
 
 
 
 ### Main page/profile (when user is logged in)
-  Endpoint path: /
-  Endpoint method: GET
+Endpoint path: /
+Endpoint method: GET
 
-  Headers: 
-    Authorization: Bearer token
+Headers: 
+  Authorization: Bearer token
 
-  Response: A detail of a profile
-  Response shape (JSON):
-    ``` json
-    {
-      "name": string,
-      "picture_url": string,
-      "description": string,
-      "vaccination": boolean,
-      "fixed": boolean,
-      "owner": {
-        "owner_name": string,
-        "owner_picture_url": string,
-        "owner_description": string
-      }
+Response: A detail of a profile
+Response shape (JSON):
+  ``` json
+  {
+    "name": string,
+    "picture_url": string,
+    "description": string,
+    "vaccination": boolean,
+    "fixed": boolean,
+    "owner": {
+      "owner_name": string,
+      "owner_picture_url": string,
+      "owner_description": string
     }
-    ```
+  }
+  ```
 
 
 ### Edit profile (form)
-  Endpoint path: /
-  Endpoint method: PATCH
+Endpoint path: /
+Endpoint method: PATCH
 
-  Headers:
-    Authorization: Bearer token
+Headers:
+  Authorization: Bearer token
 
-  Request body:
+Request body:
   ``` json
     {
       "name": string,
@@ -87,8 +86,8 @@ This is where we will design our APIs
     }
   ```
 
-  Response: the profile page (detail of a profile)
-  Response shape: 
+Response: the profile page (detail of a profile)
+Response shape: 
   ``` json
     {
       "name": string,
@@ -113,12 +112,14 @@ Headers:
 Authorization: Bearer token
 Response: Send a notification to one or multiple users
 Response shape:
-{
-"ID": "string",
-"Title": "string",
-"Content": "string",
-"Action_url": "string",
-}
+```json
+  {
+  "ID": "string",
+  "Title": "string",
+  "Content": "string",
+  "Action_url": "string",
+  }
+```
 
 ### Fetch notifications
 Endpoint path: notifications/
@@ -127,11 +128,13 @@ Headers:
 	Authorization: Bearer token
 Response: Fetch user's notifications by ID
 Response shape:
-{
-"Per_page": Integer,
-"Page": Integer,
-"Read": Boolean
-}
+```json
+  {
+  "Per_page": Integer,
+  "Page": Integer,
+  "Read": Boolean
+  }
+```
 
 
 ### Mark notification as read
@@ -198,7 +201,6 @@ Response shape:
     ]
   }
 ```
-=======
 <!-- Conversations -->
 
 <!-- Get a list of conversations -->
@@ -304,4 +306,3 @@ Response shape:
       }
     }
     ```
->>>>>>> 2622d58dbd3a623ce95d71daed49e5a147fb826d
