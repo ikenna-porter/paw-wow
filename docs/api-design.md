@@ -1,8 +1,8 @@
 This is where we will design our APIs
 
 <<<<<<< HEAD
-1) Login form (login form) 
-  Login
+### Login form (login form) 
+  #### Login
 
   Endpoint path: login/
   Endpoint method: “POST”
@@ -21,7 +21,7 @@ This is where we will design our APIs
     ```
 
 
-  Log out
+  #### Log out
 
   Endpoint path: /token
   Endpoint method: DELETE
@@ -36,10 +36,9 @@ This is where we will design our APIs
       ```
 
 
-2) Sign-up form (if user has no account) - Ikenna
 
 
-3) Main page/profile (when user is logged in)
+### Main page/profile (when user is logged in)
   Endpoint path: /
   Endpoint method: GET
 
@@ -64,7 +63,7 @@ This is where we will design our APIs
     ```
 
 
-4) Edit profile (form)
+### Edit profile (form)
   Endpoint path: /
   Endpoint method: PATCH
 
@@ -106,10 +105,7 @@ This is where we will design our APIs
     }
   ```
 
-5) Messaging - Ikenna
 
-
-6) Notifications - Henry
 ### Create notifications
 Endpoint path: notifications/
 Endpoint method: "POST"
@@ -155,7 +151,7 @@ Response: Delete a user's notification by ID
 Response shape: ""
 
 
-7) Search Bar 
+### Search Bar 
   Endpoint path: search/
   Endpoint method: “GET”
   Query parameters:
@@ -180,7 +176,7 @@ Response shape: ""
   }
   ```
 
-8) Friends list
+### Friends list
 Endpoint path: /friends
 Endpoint method: GET
 
