@@ -1,7 +1,10 @@
-## Paw Wow API Design
+# **Paw Wow API Design**
 
-### Login form (login form) 
-#### Login
+---
+
+## Login form (login form) 
+
+#### *Login*
 
 Endpoint path: login/
 Endpoint method: “POST”
@@ -22,7 +25,7 @@ Response shape (JSON):
   ```
 
 
-#### Log out
+#### *Log out*
 
 Endpoint path: /token
 Endpoint method: DELETE
@@ -36,10 +39,38 @@ Response shape (JSON):
     true
   ```
 
+---
 
 
+## Sign Up Endpoint 
+* Endpoint path: /token
+* Endpoint method: POST
 
-### Main page/profile (when user is logged in)
+* Request shape (form):
+  * username: string
+  * password: string
+
+* Response: Account information and a token
+* Response shape (JSON):
+    ```json
+    {
+      "account": {
+        «key»: type»,
+      },
+      "token": string,
+      "content": {
+        "username": string,
+        "password": string,
+        "email": string,
+        "city": string,
+        "state": string
+      }
+    }
+    ```
+
+---
+
+## Main page/profile (*when user is logged in*)
 Endpoint path: /
 Endpoint method: GET
 
@@ -63,8 +94,9 @@ Response shape (JSON):
   }
   ```
 
+---
 
-### Edit profile (form)
+## Edit profile (form)
 Endpoint path: /
 Endpoint method: PATCH
 
@@ -106,8 +138,11 @@ Response shape:
     }
   ```
 
+---
 
-### Create notifications
+## Notifications
+
+#### *Create notifications*
 Endpoint path: notifications/
 Endpoint method: "POST"
 
@@ -125,7 +160,7 @@ Response shape:
   }
 ```
 
-### Fetch notifications
+### *Fetch notifications*
 Endpoint path: notifications/
 Endpoint method: "GET"
 
@@ -143,7 +178,7 @@ Response shape:
 ```
 
 
-### Mark notification as read
+### *Mark notification as read*
 Endpoint path: notifications/
 Endpoint method: "GET"
 
@@ -153,7 +188,7 @@ Headers:
 Response: Mark a user's notification as read
 Response shape: ""
 
-### Delete a notification
+### *Delete a notification*
 Endpoint path: notifications/
 Endpoint method: "DELETE"
 
@@ -163,8 +198,9 @@ Headers:
 Response: Delete a user's notification by ID
 Response shape: ""
 
+---
 
-### Search Bar 
+## Search Bar 
   Endpoint path: search/
   Endpoint method: “GET”
 
@@ -192,7 +228,9 @@ Response shape: ""
   }
   ```
 
-### Friends list
+---
+
+## Friends list
 Endpoint path: /friends
 Endpoint method: GET
 
@@ -214,9 +252,12 @@ Response shape:
     ]
   }
 ```
-### Conversations
 
-#### Get a list of conversations 
+---
+
+## Conversations
+
+#### *Get a list of conversations*
 * Endpoint path: /conversations_list
 * Endpoint method: GET
 
@@ -237,7 +278,7 @@ Response shape:
         ]
     }
 
-#### Get a conversation detail
+#### *Get a conversation detail*
 * Endpoint path: /conversation/id
 * Endpoint method: GET
 
@@ -261,7 +302,7 @@ Response shape:
     }
     ```
 
-### Post message to a conversation
+### *Post message to a conversation*
 * Endpoint path: /conversation/id
 * Endpoint method: POST
 
@@ -294,28 +335,3 @@ Response shape:
     ```
 
 
-#### Sign Up Endpoint 
-* Endpoint path: /token
-* Endpoint method: POST
-
-* Request shape (form):
-  * username: string
-  * password: string
-
-* Response: Account information and a token
-* Response shape (JSON):
-    ```json
-    {
-      "account": {
-        «key»: type»,
-      },
-      "token": string,
-      "content": {
-        "username": string,
-        "password": string,
-        "email": string,
-        "city": string,
-        "state": string
-      }
-    }
-    ```
