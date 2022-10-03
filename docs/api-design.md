@@ -17,10 +17,10 @@ Response: User information and token
 Response shape (JSON):
   ``` json
   {
-    “Acount”: {
+    "Acount": {
       Key: string,
     },
-    “Token”: string
+    "Token": string
   }
   ```
 
@@ -112,7 +112,7 @@ Request body:
       "vaccination": boolean,
       "fixed": boolean,
       "size": string,
-      “age": string,
+      "age": string,
       "owner": {
         "owner_name": string,
         "owner_picture_url": string,
@@ -130,7 +130,7 @@ Response shape:
       "vaccination": boolean,
       "fixed": boolean,
       "size": string,
-      “age": string,
+      "age": string,
       "owner": {
         "owner_name": string,
         "owner_picture_url": string,
