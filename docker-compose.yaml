@@ -2,8 +2,8 @@
 services:
   profile:
     build:
-        context: ./profile
-        dockerfile: ./Dockerfile.dev
+        context: profile
+        dockerfile: Dockerfile.dev
     ports:
         - "8100:8000"
     volumes:
@@ -14,8 +14,8 @@ services:
   
   messaging:
     build:
-        context: ./messaging
-        dockerfile: ./Dockerfile.dev
+        context: messaging
+        dockerfile: Dockerfile.dev
     ports:
         - "8200:8000"
     volumes:
@@ -26,8 +26,8 @@ services:
   
   notifactions:
     build:
-        context: ./notifications
-        dockerfile: ./Dockerfile.dev
+        context: notifications
+        dockerfile: Dockerfile.dev
     ports:
         - "8300:8000"
     volumes:
@@ -52,8 +52,8 @@ services:
 
   postgres:
         build:
-            context: ./relational-data
-            dockerfile: ./Dockerfile.dev
+            context: relational-data
+            dockerfile: Dockerfile.dev
         volumes:
             - postgres-data:/var/lib/postgresql/data
         environment:
