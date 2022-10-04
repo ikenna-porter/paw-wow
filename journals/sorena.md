@@ -17,7 +17,7 @@ At least one ah-ha! moment that you had during your coding, however small
 
 Today, I worked on:
 
-*Setting up the docker files and ghi folder with my team.
+*Setting up the docker files and ghi folder with my team.*
 
 Before getting started, we all discussed how we should approach our MVPs.
 We all agreed that we will follow the order of our Excalidraw pages as
