@@ -12,6 +12,23 @@ At least one ah-ha! moment that you had during your coding, however small
 
 ----
 
+## October 5, 2022
+
+Today I worked on:
+
+*Creating our queries and routers for profile service.*
+
+As a group, with America driving, we implemented our first routers and queries for the profile service.
+We created pydantic models for ProfileIn and ProfileOut, utilizing them to create a get and post request.
+
+We were debating whether to use one large table or create multiple tables to hold our data for profiles and their details.
+We agreed upon creating separate tables to better manage the data and be able to work with git with less conflicts.
+
+After the pair-programming today, I understood better why we include an index location for the id when it is being returned
+from the results. Because when the ProfileOut is generated, an ID is created by SQL that is placed at index 0. 
+
+----
+
 ## October 4, 2022
 
 Today I worked on:
