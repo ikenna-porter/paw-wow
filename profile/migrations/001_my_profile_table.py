@@ -2,10 +2,10 @@ steps = [
     [
         ## Create an account table
         """
-        CREATE TABLE account (
+        CREATE TABLE accounts (
             id SERIAL PRIMARY KEY NOT NULL,
             username VARCHAR(50) NOT NULL,
-            password VARCHAR(100) NOT NULL
+            hashed_password VARCHAR(100) NOT NULL
         );
         """,
 
@@ -22,7 +22,7 @@ steps = [
             dog_name VARCHAR(50) NOT NULL,
             city VARCHAR(100) NOT NULL,
             state VARCHAR(2) NOT NULL,
-            account_id INTEGER REFERENCES account("id") ON DELETE CASCADE,
+            account_id INTEGER REFERENCES accounts("id") ON DELETE CASCADE,
             owner_name VARCHAR(50),
             owner_description TEXT,
             avatar TEXT

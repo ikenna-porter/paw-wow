@@ -11,6 +11,7 @@ services:
     environment:
       DATABASE_URL: postgresql://profile:password@postgres/profile
       WAIT_HOSTS: postgres:5432
+      SIGNING_KEY: 8461fadcd908ae362d80be6da7314c020633c57e2082d619a5b56443e0ae9e6baa418a873078547828d81e485909e93c22b4482139192fd9ad72d7b2c7e3ba7a
   
   messaging:
     build:
