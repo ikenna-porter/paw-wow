@@ -2,14 +2,14 @@ from pydantic import BaseModel
 from typing import Optional
 from queries.pool import pool
 
-class VaccinationIn(BaseModel):
+class VaccinationRecordIn(BaseModel):
     distemper: Optional[bool]
     parvo: Optional[bool]
     adeno: Optional[bool]
     rabies: Optional[bool]
     other: Optional[str]
 
-class VaccinationOut(BaseModel):
+class VaccinationRecordOut(BaseModel):
     id: int
     distemper: Optional[bool]
     parvo: Optional[bool]
@@ -17,37 +17,37 @@ class VaccinationOut(BaseModel):
     rabies: Optional[bool]
     other: Optional[str]
 
-class VaccinationRepository:
-    def create(self, vaccination: VaccinationIn) -> VaccinationOut:
+class VaccinationRecordRepository:
+    def create(self, vaccination_record: VaccinationRecordIn) -> VaccinationRecordOut:
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    INSERT INTO vaccination
+                    INSERT INTO vaccination_records
                         (distemper, parvo, adeno, rabies, other)
                     VALUES 
                         (%s, %s, %s, %s, %s)
                     RETURNING id;    
                     """,
                     [
-                    vaccination.distemper,
-                    vaccination.parvo,
-                    vaccination.adeno,
-                    vaccination.rabies,
-                    vaccination.other
+                    vaccination_record.distemper,
+                    vaccination_record.parvo,
+                    vaccination_record.adeno,
+                    vaccination_record.rabies,
+                    vaccination_record.other
                     ]
                 )
                 id = result.fetchone()[0]
                 print("PRINTING FETCHONE", id)
-                incoming_data = vaccination.dict()
-                return VaccinationOut(id=id, **incoming_data)
+                incoming_data = vaccination_record.dict()
+                return VaccinationRecordOut(id=id, **incoming_data)
     
-    def update(self, id: int, vaccination: VaccinationIn) -> VaccinationOut:
+    def update(self, id: int, vaccination_record: VaccinationRecordIn) -> VaccinationRecordOut:
         with pool.connection() as conn:
             with conn.cursor() as db:
                 db.execute(
                     """
-                    UPDATE vaccination
+                    UPDATE vaccination_records
                     SET distemper = %s
                      , parvo = %s
                      , adeno = %s
@@ -56,16 +56,16 @@ class VaccinationRepository:
                     WHERE id = %s
                     """,
                     [
-                        vaccination.distemper,
-                        vaccination.parvo,
-                        vaccination.adeno,
-                        vaccination.rabies,
-                        vaccination.other,
+                        vaccination_record.distemper,
+                        vaccination_record.parvo,
+                        vaccination_record.adeno,
+                        vaccination_record.rabies,
+                        vaccination_record.other,
                         id
                     ]
                 )
-                old_data = vaccination.dict()
-                return VaccinationOut(id=id, **old_data)
+                old_data = vaccination_record.dict()
+                return VaccinationRecordOut(id=id, **old_data)
     
     def delete(self, id: int) -> bool:
         try:
@@ -73,7 +73,7 @@ class VaccinationRepository:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        DELETE FROM vaccination
+                        DELETE FROM vaccination_records
                         WHERE id = %s
                         """,
                         [id]
@@ -83,7 +83,7 @@ class VaccinationRepository:
             print(e)
             return False
     
-    def get_one(self, id: int) -> VaccinationOut:
+    def get_one(self, id: int) -> VaccinationRecordOut:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -95,7 +95,7 @@ class VaccinationRepository:
                          , adeno
                          , rabies
                          , other
-                        FROM vaccination
+                        FROM vaccination_records
                         WHERE id = %s
                         """,
                         [id]
@@ -103,7 +103,7 @@ class VaccinationRepository:
                     record = result.fetchone()
                     if record is None:
                         return None
-                    return VaccinationOut(
+                    return VaccinationRecordOut(
                         id=record[0],
                         distemper=record[1],
                         parvo=record[2],
