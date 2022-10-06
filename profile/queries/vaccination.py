@@ -82,3 +82,35 @@ class VaccinationRepository:
         except Exception as e:
             print(e)
             return False
+    
+    def get_one(self, id: int) -> VaccinationOut:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        SELECT id
+                         , distemper
+                         , parvo
+                         , adeno
+                         , rabies
+                         , other
+                        FROM vaccination
+                        WHERE id = %s
+                        """,
+                        [id]
+                    )
+                    record = result.fetchone()
+                    if record is None:
+                        return None
+                    return VaccinationOut(
+                        id=record[0],
+                        distemper=record[1],
+                        parvo=record[2],
+                        adeno=record[3],
+                        rabies=record[4],
+                        other=record[5]
+                    )
+        except Exception as e:
+            print(e)
+            return {"message": "Could not find this vaccination record"}

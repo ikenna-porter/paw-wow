@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends 
+from fastapi import APIRouter, Depends, Response
 from queries.vaccination import (
     VaccinationIn, 
     VaccinationOut, 
@@ -25,3 +25,14 @@ def delete_vaccination(
     repo: VaccinationRepository = Depends()
 ) -> bool:
     return repo.delete(id)
+
+@router.get("/api/vaccination/{id}", response_model = VaccinationOut)
+def get_one_vaccination(
+    id: int,
+    response: Response,
+    repo: VaccinationRepository = Depends()
+) -> VaccinationOut:
+    vaccination = repo.get_one(id)
+    if vaccination is None:
+        response.status_code = 404
+    return vaccination
