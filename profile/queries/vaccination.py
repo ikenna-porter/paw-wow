@@ -10,7 +10,7 @@ class VaccinationIn(BaseModel):
     other: Optional[str]
 
 class VaccinationOut(BaseModel):
-    vaccination_id: int
+    id: int
     distemper: Optional[bool]
     parvo: Optional[bool]
     adeno: Optional[bool]
