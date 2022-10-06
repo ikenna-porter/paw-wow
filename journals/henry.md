@@ -15,4 +15,16 @@ Today I worked on implementing the Magic Bell notification API.
 I installed it onto the ghi container that handles React components
 on my gitlab branch. I came across 69 vulnerabilities and tried
 running "npm audit fix" and "npm audit fix --force" but those ran
-into some errors.
+into some errors. I met with the cohort lead, Tai, and told her
+one of my goals this module was to ask more questions and I think
+we came to a goal of at least 2 questions a week.
+
+# October 5, 2022
+
+America was the driver today and we worked on creating tables in
+the database today. I followed along by watching the exploration
+videos from this weekend and found it helpful. During individual
+work time, I watched a little bit of the videos and was able to
+follow along a lot better while America was live coding. America
+was very on top of everything and was able to answer the questions
+I had. We ran into some issues that were resolved quickly.
