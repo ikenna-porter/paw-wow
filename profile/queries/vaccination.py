@@ -41,3 +41,28 @@ class VaccinationRepository:
                 print("PRINTING FETCHONE", id)
                 incoming_data = vaccination.dict()
                 return VaccinationOut(id=id, **incoming_data)
+    
+    def update(self, id: int, vaccination: VaccinationIn) -> VaccinationOut:
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                db.execute(
+                    """
+                    UPDATE vaccination
+                    SET distemper = %s
+                     , parvo = %s
+                     , adeno = %s
+                     , rabies = %s
+                     , other = %s
+                    WHERE id = %s
+                    """,
+                    [
+                        vaccination.distemper,
+                        vaccination.parvo,
+                        vaccination.adeno,
+                        vaccination.rabies,
+                        vaccination.other,
+                        id
+                    ]
+                )
+                old_data = vaccination.dict()
+                return VaccinationOut(id=id, **old_data)
