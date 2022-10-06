@@ -4,7 +4,6 @@ steps = [
     """
     CREATE TABLE vaccination (
         id SERIAL PRIMARY KEY NOT NULL,
-        profile_id INTEGER REFERENCES profile("id") ON DELETE CASCADE,
         distemper BOOL NULL,
         parvo BOOL NULL,
         adeno BOOL NULL,
