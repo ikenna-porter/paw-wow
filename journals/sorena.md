@@ -12,6 +12,22 @@ At least one ah-ha! moment that you had during your coding, however small
 
 ----
 
+## October 6, 2022
+
+Today I worked on:
+
+*Creating endpoints for vaccination*
+
+I created a migration file to create a vaccination table. In queries, I created pydantic models for
+Vaccination in and out and then the functionality to create, update, delete, and get one record. 
+
+We decided to include a separate link to view a single vaccination record.
+
+It is super important to include .py at the end of your migration file. It's easy to forget when you're typing
+a very long name. But important regardless! 
+
+----
+
 ## October 5, 2022
 
 Today I worked on:
