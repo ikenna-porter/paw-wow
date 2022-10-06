@@ -14,7 +14,7 @@ def create_vaccination_record(vaccination_record: VaccinationRecordIn, repo: Vac
 @router.put("/api/vaccination/{id}", response_model = VaccinationRecordOut)
 def update_vaccination_record(
     id: int,
-    vaccination: VaccinationRecordIn,
+    vaccination_record: VaccinationRecordIn,
     repo: VaccinationRecordRepository = Depends()
 ) -> VaccinationRecordOut:
     return repo.update(id, vaccination_record)
