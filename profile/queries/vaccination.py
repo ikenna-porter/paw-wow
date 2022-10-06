@@ -66,3 +66,19 @@ class VaccinationRepository:
                 )
                 old_data = vaccination.dict()
                 return VaccinationOut(id=id, **old_data)
+    
+    def delete(self, id: int) -> bool:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        DELETE FROM vaccination
+                        WHERE id = %s
+                        """,
+                        [id]
+                    )
+                    return True
+        except Exception as e:
+            print(e)
+            return False
