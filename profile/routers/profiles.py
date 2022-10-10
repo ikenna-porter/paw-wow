@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, Response
 from typing import List, Union, Optional
-from queries.profile import (
+from queries.profiles import (
     ProfileIn, 
     ProfileOut,
     ProfileRepository,

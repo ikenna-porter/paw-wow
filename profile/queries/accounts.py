@@ -62,3 +62,20 @@ class AccountRepository:
                     hashed_password = hashed_password
                 )
 
+
+    def delete(self, accounts_id: int):
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        DELETE FROM accounts
+                        WHERE id = %s
+                        """,
+                        [accounts_id]
+                    )
+                return True
+
+        except Exception as e:
+            return False            
+
