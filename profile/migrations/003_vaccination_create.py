@@ -2,7 +2,7 @@ steps = [
     [
     ## Create a vaccination table
     """
-    CREATE TABLE vaccination (
+    CREATE TABLE vaccination_records (
         id SERIAL PRIMARY KEY NOT NULL,
         distemper BOOL NULL,
         parvo BOOL NULL,
@@ -14,7 +14,7 @@ steps = [
 
     ## Drop a vaccination table
     """
-    DROP TABLE vaccination;
+    DROP TABLE vaccination_records;
     """
     ]
 ]
