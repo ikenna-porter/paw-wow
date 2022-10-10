@@ -1,9 +1,10 @@
 from fastapi import FastAPI
-from routers import profile, accounts, vaccination_records
+from routers import profiles, accounts, vaccination_records, characteristics
 from authenticator import authenticator
 
 app = FastAPI()
-app.include_router(profile.router)
+app.include_router(profiles.router)
 app.include_router(accounts.router)
 app.include_router(authenticator.router)
 app.include_router(vaccination_records.router)
+app.include_router(characteristics.router)

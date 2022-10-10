@@ -8,6 +8,7 @@ class VaccinationRecordIn(BaseModel):
     adeno: Optional[bool]
     rabies: Optional[bool]
     other: Optional[str]
+    profile_id: int
 
 class VaccinationRecordOut(BaseModel):
     id: int
@@ -16,6 +17,7 @@ class VaccinationRecordOut(BaseModel):
     adeno: Optional[bool]
     rabies: Optional[bool]
     other: Optional[str]
+    profile_id: int
 
 class VaccinationRecordRepository:
     def create(self, vaccination_record: VaccinationRecordIn) -> VaccinationRecordOut:
@@ -24,9 +26,9 @@ class VaccinationRecordRepository:
                 result = db.execute(
                     """
                     INSERT INTO vaccination_records
-                        (distemper, parvo, adeno, rabies, other)
+                        (distemper, parvo, adeno, rabies, other, profile_id)
                     VALUES 
-                        (%s, %s, %s, %s, %s)
+                        (%s, %s, %s, %s, %s, %s)
                     RETURNING id;    
                     """,
                     [
@@ -34,11 +36,11 @@ class VaccinationRecordRepository:
                     vaccination_record.parvo,
                     vaccination_record.adeno,
                     vaccination_record.rabies,
-                    vaccination_record.other
+                    vaccination_record.other,
+                    vaccination_record.profile_id
                     ]
                 )
                 id = result.fetchone()[0]
-                print("PRINTING FETCHONE", id)
                 incoming_data = vaccination_record.dict()
                 return VaccinationRecordOut(id=id, **incoming_data)
     
@@ -53,6 +55,7 @@ class VaccinationRecordRepository:
                      , adeno = %s
                      , rabies = %s
                      , other = %s
+                     , profile_id = %s
                     WHERE id = %s
                     """,
                     [
@@ -61,6 +64,7 @@ class VaccinationRecordRepository:
                         vaccination_record.adeno,
                         vaccination_record.rabies,
                         vaccination_record.other,
+                        vaccination_record.profile_id,
                         id
                     ]
                 )
@@ -95,6 +99,7 @@ class VaccinationRecordRepository:
                          , adeno
                          , rabies
                          , other
+                         , profile_id
                         FROM vaccination_records
                         WHERE id = %s
                         """,
@@ -109,7 +114,8 @@ class VaccinationRecordRepository:
                         parvo=record[2],
                         adeno=record[3],
                         rabies=record[4],
-                        other=record[5]
+                        other=record[5],
+                        profile_id = record[6]
                     )
         except Exception as e:
             print(e)
