@@ -39,3 +39,10 @@ to put the file extension at the end of the file name. At the end of the
 day I ran into merging conflicts that my team and Curtis helped me through.
 Today was very productive individually and as a group and I'm happy
 with how far the group has gotten. We're a good team.
+
+# October 10, 2022
+
+Today we spent the day working on individual parts of the project.
+I worked on integrating the third party notifications API. I spent
+a lot of the day reading the documentation and getting the install
+of the API working.
