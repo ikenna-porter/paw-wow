@@ -5,6 +5,7 @@ from queries.pool import pool
 
 class Error(BaseModel):
     message: str
+
 class ProfileIn(BaseModel):
     dog_name: str
     city: str
@@ -21,7 +22,6 @@ class ProfileOut(BaseModel):
     owner_name: Optional[str]
     owner_description: Optional[str]
     avatar: Optional[str] 
-
 
 
 class ProfileRepository:

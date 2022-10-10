@@ -41,7 +41,7 @@ steps = [
             id SERIAL PRIMARY KEY NOT NULL,
             user VARCHAR(100) NOT NULL REFERENCES user_vo(id),
             other_user VARCHAR(100) NOT NULL REFERENCES user_vo(id),
-            conversation_id INTEGER NOT NULL REFERENCES conversations(id)
+            conversation_id SERIAL NOT NULL REFERENCES conversations(id)
         );
         """,
 
@@ -59,8 +59,8 @@ steps = [
             recipient VARCHAR(100) NOT NULL REFERENCES user_vo(id),
             timestamp TIMESTAMPTZ NOT NULL,
             content TEXT NOT NULL,
-            READ BOOL NOT NULL DEFAULT False,
-            chat_id NOT NULL REFERENCES chats(id)
+            read BOOL NOT NULL DEFAULT False,
+            chat_id SERIAL NOT NULL REFERENCES chats(id)
         );
         """,
 
