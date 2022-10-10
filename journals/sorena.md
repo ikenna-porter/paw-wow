@@ -12,6 +12,27 @@ At least one ah-ha! moment that you had during your coding, however small
 
 ----
 
+## October 10, 2022
+
+Today I worked on:
+
+*Connecting foreign keys throughout the profile*
+
+America and I pair-programmed today. We had to alter tables and columns to 
+include the associated foreign keys, as well as make an adjustment to a table name.
+This meant we also had to fix any differences throughout the routers/queries to 
+reflect the changes in the columns that were made.
+
+After discussing with SEIRs, we decided to stick with our plan to have
+the profile table contain a reference to the account table. And for profile to 
+share a foreign key to our other tables, vaccination records and characteristics. 
+
+From doing migration files, we have learned that our steps needed to contain
+two strings within each step. This is based on how the code is written to handle
+the migrations up and migrations down commands. 
+
+----
+
 ## October 6, 2022
 
 Today I worked on:
