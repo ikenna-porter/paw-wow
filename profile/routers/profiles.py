@@ -6,6 +6,7 @@ from queries.profiles import (
     ProfileRepository,
     Error
 )    
+from authenticator import authenticator
 
 router = APIRouter()
 
@@ -13,6 +14,7 @@ router = APIRouter()
 def get_one_profile(
     profile_id: int, 
     response: Response,
+    account_data: dict = Depends(authenticator.get_current_account_data),
     repo: ProfileRepository = Depends()
 ) -> ProfileOut:
 
@@ -24,20 +26,33 @@ def get_one_profile(
     return profile
 
 @router.get("/api/profiles", response_model = List[ProfileOut])
-def get_all_profiles(repo: ProfileRepository = Depends()):
+def get_all_profiles(
+    account_data: dict = Depends(authenticator.get_current_account_data),
+    repo: ProfileRepository = Depends()
+):
     return repo.get_all()
 
 @router.post("/api/profiles", response_model = ProfileOut)
-def create_profile(profile: ProfileIn, repo: ProfileRepository = Depends()):
-    return repo.create(profile)    
+def create_profile(
+    profile: ProfileIn, 
+    account_data: dict = Depends(authenticator.get_current_account_data),
+    repo: ProfileRepository = Depends()
+):
+    print("account_data:", account_data)
+    return repo.create(profile, account_data)    
 
 @router.put("/api/profiles/{profile_id}", response_model = Union[Error, ProfileOut])
 def update_profile(
     profile: ProfileIn, 
     profile_id: int, 
+    account_data: dict = Depends(authenticator.get_current_account_data),
     repo: ProfileRepository = Depends()) -> Union[Error, ProfileOut]:
-    return repo.update(profile, profile_id)
+    return repo.update(profile, profile_id, account_data)
 
 @router.delete("/api/profiles/{profile_id}", response_model = int)
-def delete_profile(profile_id: int, repo: ProfileRepository = Depends()) -> bool:
+def delete_profile(
+    profile_id: int, 
+    account_data: dict = Depends(authenticator.get_current_account_data),
+    repo: ProfileRepository = Depends()
+) -> bool:
     return repo.delete(profile_id)

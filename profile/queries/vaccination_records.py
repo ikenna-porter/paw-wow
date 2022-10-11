@@ -8,7 +8,6 @@ class VaccinationRecordIn(BaseModel):
     adeno: Optional[bool]
     rabies: Optional[bool]
     other: Optional[str]
-    profile_id: int
 
 class VaccinationRecordOut(BaseModel):
     id: int
@@ -20,9 +19,19 @@ class VaccinationRecordOut(BaseModel):
     profile_id: int
 
 class VaccinationRecordRepository:
-    def create(self, vaccination_record: VaccinationRecordIn) -> VaccinationRecordOut:
+    def create(self, vaccination_record: VaccinationRecordIn, account_data) -> VaccinationRecordOut:
         with pool.connection() as conn:
             with conn.cursor() as db:
+                profile_result = db.execute(
+                    """
+                    SELECT * 
+                    FROM profiles
+                    WHERE account_id = %s
+                    """,
+                    [account_data['id']]
+                )
+                profile_id = profile_result.fetchone()
+
                 result = db.execute(
                     """
                     INSERT INTO vaccination_records
@@ -37,16 +46,26 @@ class VaccinationRecordRepository:
                     vaccination_record.adeno,
                     vaccination_record.rabies,
                     vaccination_record.other,
-                    vaccination_record.profile_id
+                    profile_id[0]
                     ]
                 )
                 id = result.fetchone()[0]
                 incoming_data = vaccination_record.dict()
-                return VaccinationRecordOut(id=id, **incoming_data)
+                return VaccinationRecordOut(id=id, profile_id=profile_id[0], **incoming_data)
     
-    def update(self, id: int, vaccination_record: VaccinationRecordIn) -> VaccinationRecordOut:
+    def update(self, vaccination_id: int, vaccination_record: VaccinationRecordIn, account_data) -> VaccinationRecordOut:
         with pool.connection() as conn:
             with conn.cursor() as db:
+                result = db.execute(
+                    """
+                    SELECT * 
+                    FROM profiles
+                    WHERE account_id = %s
+                    """,
+                    [account_data['id']]
+                )
+                profile_id = result.fetchone()
+
                 db.execute(
                     """
                     UPDATE vaccination_records
@@ -64,12 +83,12 @@ class VaccinationRecordRepository:
                         vaccination_record.adeno,
                         vaccination_record.rabies,
                         vaccination_record.other,
-                        vaccination_record.profile_id,
-                        id
+                        profile_id[0],
+                        vaccination_id
                     ]
                 )
                 old_data = vaccination_record.dict()
-                return VaccinationRecordOut(id=id, **old_data)
+                return VaccinationRecordOut(id=vaccination_id, profile_id=profile_id[0], **old_data)
     
     def delete(self, id: int) -> bool:
         try:
