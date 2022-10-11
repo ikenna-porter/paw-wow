@@ -10,6 +10,7 @@ class ProfileIn(BaseModel):
     dog_name: str
     city: str
     state: str
+    account_id: int
     owner_name: Optional[str]
     owner_description: Optional[str]
     avatar: Optional[str]
@@ -19,6 +20,7 @@ class ProfileOut(BaseModel):
     dog_name: str
     city: str
     state: str
+    account_id: int
     owner_name: Optional[str]
     owner_description: Optional[str]
     avatar: Optional[str] 
@@ -30,23 +32,23 @@ class ProfileRepository:
             with conn.cursor() as db:
                 result = db.execute(
                     """
-                    INSERT INTO profile
-                        (dog_name, city, state, owner_name, owner_description, avatar)
+                    INSERT INTO profiles
+                        (dog_name, city, state, account_id, owner_name, owner_description, avatar)
                     VALUES 
-                        (%s, %s, %s, %s, %s, %s)
+                        (%s, %s, %s, %s, %s, %s, %s)
                     RETURNING id;    
                     """,
                     [
                     profile.dog_name,
                     profile.city,
                     profile.state,
+                    profile.account_id,
                     profile.owner_name,
                     profile.owner_description,
                     profile.avatar
                     ]
                 )
                 id = result.fetchone()[0]
-                print("PRINTING FETCHONE", id)
                 incoming_data = profile.dict()
                 return ProfileOut(id=id, **incoming_data)              
 
@@ -57,8 +59,8 @@ class ProfileRepository:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        SELECT id, dog_name, city, state, owner_name, owner_description, avatar
-                        FROM profile;
+                        SELECT id, dog_name, city, state, account_id, owner_name, owner_description, avatar
+                        FROM profiles;
                         """
                     )
                     return [ProfileOut(
@@ -66,9 +68,10 @@ class ProfileRepository:
                         dog_name = record[1],
                         city = record[2],
                         state = record[3],
-                        owner_name = record[4],
-                        owner_description = record[5],
-                        avatar = record[6],
+                        account_id = record[4],
+                        owner_name = record[5],
+                        owner_description = record[6],
+                        avatar = record[7],
                     )
                     for record in db 
                     ]
@@ -86,10 +89,11 @@ class ProfileRepository:
                             , dog_name
                             , city
                             , state
+                            , account_id
                             , owner_name
                             , owner_description
                             , avatar
-                        FROM profile
+                        FROM profiles
                         WHERE id = %s
                         """,
                         [profile_id]
@@ -111,10 +115,11 @@ class ProfileRepository:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        UPDATE profile
+                        UPDATE profiles
                         SET dog_name = %s
                         ,   city = %s
                         ,   state = %s
+                        ,   account_id = %s
                         ,   owner_name = %s
                         ,   owner_description = %s
                         ,   avatar = %s
@@ -124,6 +129,7 @@ class ProfileRepository:
                             profile.dog_name, 
                             profile.city, 
                             profile.state, 
+                            profile.account_id,
                             profile.owner_name, 
                             profile.owner_description, 
                             profile.avatar,
@@ -142,7 +148,7 @@ class ProfileRepository:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        DELETE FROM profile
+                        DELETE FROM profiles
                         WHERE id = %s
                         """,
                         [profile_id]

@@ -6,17 +6,23 @@ from queries.pool import pool
 class CharsIn(BaseModel):
     DOB: date
     dog_friendly: int
-    well_trained: int
+    kid_friendly: int
+    people_friendly: int
     energy_level: int
-    playfulness: int
+    fixed: bool
+    size: str
+    profile_id: int
 
 class CharsOut(BaseModel):
     id: int
     DOB: date
     dog_friendly: int
-    well_trained: int
+    kid_friendly: int
+    people_friendly: int
     energy_level: int
-    playfulness: int
+    fixed: bool
+    size: str
+    profile_id: int
 
 class CharacteristicsRepository:
     def create(self, characteristic: CharsIn) -> CharsOut:
@@ -25,44 +31,68 @@ class CharacteristicsRepository:
                 result = db.execute(
                 """
                 INSERT INTO characteristics
-                    (DOB, dog_friendly, well_trained, energy_level, playfulness)
+                    (
+                        DOB, 
+                        dog_friendly, 
+                        kid_friendly, 
+                        people_friendly, 
+                        energy_level, 
+                        fixed, 
+                        size, 
+                        profile_id
+                    )
                 VALUES
-                    (%s, %s, %s, %s, %s)
+                    (%s, %s, %s, %s, %s, %s, %s, %s)
                 RETURNING id;
                 """,
                 [
                 characteristic.DOB, 
                 characteristic.dog_friendly,
-                characteristic.well_trained,
+                characteristic.kid_friendly,
+                characteristic.people_friendly,
                 characteristic.energy_level,
-                characteristic.playfulness
+                characteristic.fixed,
+                characteristic.size,
+                characteristic.profile_id
                 ]
                 )
                 id = result.fetchone()[0]
                 return self.characteristic_in_to_out(id, characteristic)
+
+
     def update(self, characteristics_id: int, characteristic: CharsIn) -> CharsOut:
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(
                     """
                     UPDATE characteristics
-                    SET dob = %s,
-                    dog_friendly = %s,
-                    well_trained = %s,
-                    energy_level = %s,
-                    playfulness = %s
+                    SET (
+                        DOB = %s,
+                        dog_friendly = %s,
+                        kid_friendly = %s, 
+                        people_friendly = %s, 
+                        energy_level = %s, 
+                        fixed = %s, 
+                        size = %s, 
+                        profile_id = %s
+                    )
                     WHERE id = %s
                     """,
                 [
                 characteristic.DOB, 
                 characteristic.dog_friendly,
-                characteristic.well_trained,
+                characteristic.kid_friendly,
+                characteristic.people_friendly,
                 characteristic.energy_level,
-                characteristic.playfulness,
+                characteristic.fixed,
+                characteristic.size,
+                characteristic.profile_id,
                 characteristics_id
                 ]
                 )
                 return self.characteristic_in_to_out(characteristics_id, characteristic)
+
+
     def delete(self, characteristics_id: int) -> bool:
         with pool.connection() as conn:
             with conn.cursor() as db:
@@ -75,6 +105,7 @@ class CharacteristicsRepository:
                 )
                 return True
     
+
     def characteristic_in_to_out(self, id: int, characteristic: CharsIn):
         old_data = characteristic.dict()
         return CharsOut(id=id, **old_data)
