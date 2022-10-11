@@ -10,7 +10,6 @@ class ProfileIn(BaseModel):
     dog_name: str
     city: str
     state: str
-    account_id: int
     owner_name: Optional[str]
     owner_description: Optional[str]
     avatar: Optional[str]
@@ -28,7 +27,7 @@ class ProfileOut(BaseModel):
 
 
 class ProfileRepository:
-    def create(self, profile: ProfileIn) -> ProfileOut:
+    def create(self, profile: ProfileIn, account_data) -> ProfileOut:
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(
@@ -43,7 +42,7 @@ class ProfileRepository:
                     profile.dog_name,
                     profile.city,
                     profile.state,
-                    profile.account_id,
+                    account_data['id'],
                     profile.owner_name,
                     profile.owner_description,
                     profile.avatar
@@ -51,7 +50,7 @@ class ProfileRepository:
                 )
                 id = result.fetchone()[0]
                 incoming_data = profile.dict()
-                return ProfileOut(id=id, **incoming_data)              
+                return ProfileOut(id=id, account_id=account_data['id'], **incoming_data)              
 
 
     def get_all(self) -> List[ProfileOut]:
@@ -110,7 +109,7 @@ class ProfileRepository:
             print("########################################",e)
             return {"message": "Error in retrieving profile detail."}
     
-    def update(self, profile: ProfileIn, profile_id: int) -> Union[ProfileOut, Error]:
+    def update(self, profile: ProfileIn, profile_id: int, account_data) -> Union[ProfileOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -130,14 +129,14 @@ class ProfileRepository:
                             profile.dog_name, 
                             profile.city, 
                             profile.state, 
-                            profile.account_id,
+                            account_data['id'],
                             profile.owner_name, 
                             profile.owner_description, 
                             profile.avatar,
                             profile_id
                         ]
                     )
-                    return self.profile_in_to_out(profile_id, profile)
+                    return self.profile_in_to_out(profile_id, profile, account_data)
 
         except Exception as e:
             print(e)
@@ -160,9 +159,9 @@ class ProfileRepository:
             return False
 
 
-    def profile_in_to_out(self, id: int, profile: ProfileIn):
+    def profile_in_to_out(self, id: int, profile: ProfileIn, account_data):
         old_data = profile.dict()
-        return ProfileOut(id=id, **old_data)
+        return ProfileOut(id=id, account_id=account_data["id"], **old_data)
 
 
     def record_to_profile_out(self, record):
