@@ -11,6 +11,25 @@ A reflection on any design conversations that you had
 At least one ah-ha! moment that you had during your coding, however small
 
 ----
+- ---
+
+## October 11, 2022
+
+Today I worked on:
+
+*Creating a form to sign up*
+
+America and I pair-programmed today, where I was the one coding. We created a form
+that allows a user to sign up for an account. It is still a work in progress, as it does not currently
+save on submit. We also configured everything to have bootstrap properly working
+in our application.
+
+We had a conversation with Ikenna over the schema for the messaging database tables.
+Which led to the decision to remove one of the tables to stay in a normalized form.
+
+To ensure that bootstrap works in your react application, it's important to
+change into the ghi directory and run the npm commands. As well as
+importing that bootstrap directory from node_modules in index.js.
 
 ## October 10, 2022
 
