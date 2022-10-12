@@ -14,6 +14,7 @@ from pydantic import BaseModel
 from queries.accounts import (
     AccountIn,
     AccountOut,
+    Account,
     AccountRepository,
     DuplicateAccountError,
 )
@@ -23,7 +24,7 @@ class AccountForm(BaseModel):
     password: str
 
 class AccountToken(Token):
-    account: AccountOut
+    account: Account
 
 class HttpError(BaseModel):
     detail: str
@@ -61,6 +62,8 @@ async def create_account(
         )
     form = AccountForm(username=info.username, password=info.password)
     token = await authenticator.login(response, request, form, accounts)
+    print("token:", token)
+    print("account:", account)
     return AccountToken(account=account, **token.dict())
 
 
