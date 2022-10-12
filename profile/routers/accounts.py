@@ -61,6 +61,7 @@ async def create_account(
             detail="Cannot create an account with those credentials",
         )
     form = AccountForm(username=info.username, password=info.password)
+    print("form", form)
     token = await authenticator.login(response, request, form, accounts)
     print("token:", token)
     print("account:", account)
