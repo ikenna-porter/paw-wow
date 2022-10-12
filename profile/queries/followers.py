@@ -30,4 +30,4 @@ class FollowerRepository:
                 )
                 id = result.fetchone()[0]
                 incoming_data = follower.dict()
-                return FollowerIn(id=id, **incoming_data)
+                return FollowerOut(id=id, **incoming_data)
