@@ -1,30 +1,35 @@
 import { useState } from 'react'
+import { Navigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 export default function Login(props) {
     const [ username, setUsername ] = useState('');
     const [ password, setPassword ] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const data = {
-            username: username,
-            password: password
-        }
-        console.log("data:", data)
+        const form = new FormData();
+        form.append('username', username)
+        form.append('password', password)
+        console.log("form", form)
+
         const url = 'http://localhost:8100/token';
         const fetchConfig = {
             method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            body: form,
+            credentials: "include",
         }
 
         const response = await fetch(url, fetchConfig);
         console.log(response)
         if (response.ok) {
-            console.log(response)
+            const responseData = await response.json()
+            props.setToken(responseData.access_token)
+            setUsername('');
+            setPassword('');
+            navigate('/profile');
         }
     }
 
