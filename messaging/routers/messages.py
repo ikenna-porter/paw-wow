@@ -1,14 +1,31 @@
-from fastapi import APIRouter, Depends, Response
-from typing import List, Union, Optional
+from fastapi import APIRouter, Depends
+from typing import List
 from queries.messages import (
     MessageIn,
     MessageOut,
-    MessageRepository,
-    Error
+    MessageRepository
 )
 
 router = APIRouter()
 
 @router.get("/api/messages", response_model = List[MessageOut])
-def get_all_messages(repo: MessageRepository = Depends()):
-    return repo.get_all()
+def get_all_messages(
+    conversation_id: int,
+    repo: MessageRepository = Depends()
+) -> List[MessageOut]:
+    return repo.get_all(conversation_id)
+
+
+@router.post("/api/messages", response_model = MessageOut)
+def create(
+    message: MessageIn, 
+    repo: MessageRepository = Depends()
+) -> MessageOut:
+    repo.create(message)
+
+@router.delete("/api/messages/{message_id}", response_model=bool)
+def delete(
+    message_id: int, 
+    repo: MessageRepository = Depends()
+) -> bool:
+    return repo.delete(message_id)

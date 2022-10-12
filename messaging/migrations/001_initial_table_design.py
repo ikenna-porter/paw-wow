@@ -35,22 +35,6 @@ steps = [
         """
     ],
     [
-        ## Create a chats table
-        """
-        CREATE TABLE chats (
-            id SERIAL PRIMARY KEY NOT NULL,
-            user VARCHAR(100) NOT NULL REFERENCES user_vo(id),
-            other_user VARCHAR(100) NOT NULL REFERENCES user_vo(id),
-            conversation_id SERIAL NOT NULL REFERENCES conversations(id)
-        );
-        """,
-
-        ## Destroy a chats table
-        """
-        DROP TABLE chats;
-        """
-    ],
-    [
         ## Create an messages table
         """
         CREATE TABLE messages (
@@ -60,7 +44,7 @@ steps = [
             timestamp TIMESTAMPTZ NOT NULL,
             content TEXT NOT NULL,
             read BOOL NOT NULL DEFAULT False,
-            chat_id SERIAL NOT NULL REFERENCES chats(id)
+            conversation_id SERIAL NOT NULL REFERENCES chats(id)
         );
         """,
 
