@@ -35,11 +35,11 @@ def get_all_profiles(
 @router.post("/api/profiles", response_model = ProfileOut)
 def create_profile(
     profile: ProfileIn, 
-    account_data: dict = Depends(authenticator.get_current_account_data),
+    # account_data: dict = Depends(authenticator.get_current_account_data),
     repo: ProfileRepository = Depends()
 ):
-    print("account_data:", account_data)
-    return repo.create(profile, account_data)    
+    # print("account_data:", account_data)
+    return repo.create(profile)    
 
 @router.put("/api/profiles/{profile_id}", response_model = Union[Error, ProfileOut])
 def update_profile(

@@ -10,6 +10,7 @@ class ProfileIn(BaseModel):
     dog_name: str
     city: str
     state: str
+    account_id: int
     owner_name: Optional[str]
     owner_description: Optional[str]
     avatar: Optional[str]
@@ -27,7 +28,7 @@ class ProfileOut(BaseModel):
 
 
 class ProfileRepository:
-    def create(self, profile: ProfileIn, account_data) -> ProfileOut:
+    def create(self, profile: ProfileIn) -> ProfileOut:
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(
@@ -42,7 +43,7 @@ class ProfileRepository:
                     profile.dog_name,
                     profile.city,
                     profile.state,
-                    account_data['id'],
+                    profile.account_id,
                     profile.owner_name,
                     profile.owner_description,
                     profile.avatar
@@ -50,7 +51,7 @@ class ProfileRepository:
                 )
                 id = result.fetchone()[0]
                 incoming_data = profile.dict()
-                return ProfileOut(id=id, account_id=account_data['id'], **incoming_data)              
+                return ProfileOut(id=id, **incoming_data)              
 
 
     def get_all(self) -> List[ProfileOut]:

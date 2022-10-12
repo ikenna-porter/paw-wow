@@ -28,9 +28,11 @@ export default function SignUp(props) {
     console.log(accountResponse)
     if (accountResponse.ok) {
       const accountData = await accountResponse.json();
+      console.log("accountData", accountData)
       // accountData has access_token, account{id, username}
       props.setToken(accountData.access_token)
       props.setAccountId(accountData.account.id)
+      props.setUsername(accountData.account.username)
       setUsername('')
       setPassword('')
       navigate("/create-profile");
