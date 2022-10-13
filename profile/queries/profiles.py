@@ -26,7 +26,6 @@ class ProfileOut(BaseModel):
     avatar: Optional[str] 
 
 
-
 class ProfileRepository:
     def create(self, profile: ProfileIn) -> ProfileOut:
         with pool.connection() as conn:

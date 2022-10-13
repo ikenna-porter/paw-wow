@@ -11,7 +11,26 @@ A reflection on any design conversations that you had
 At least one ah-ha! moment that you had during your coding, however small
 
 ----
-- ---
+
+## October 12, 2022 
+
+Today I worked on:
+
+*Creating a follower feature*
+
+Jason and I pair-programmed today, where I was primarily coding. We created a table
+for followers, which has an id which is the primary key, a followee and a follower which
+referenced the profile id. We also created a create method to create a new follow instance.
+
+We had a conversation about proceeding with the friends list, which may be harder to implement
+within our deadline, or to go for a follow feature instead which would be more
+manageable. And then go for a friends list as a stretch goal. 
+
+It is useful to create an id for each table acting as the primary key. And it is
+also important to make sure you are returning the correct pydantic model in your
+queries! 
+
+----
 
 ## October 11, 2022
 
@@ -20,8 +39,7 @@ Today I worked on:
 *Creating a form to sign up*
 
 America and I pair-programmed today, where I was the one coding. We created a form
-that allows a user to sign up for an account. It is still a work in progress, as it does not currently
-save on submit. We also configured everything to have bootstrap properly working
+that allows a user to sign up for an account. It is still a work in progress, as it does not currently save on submit. We also configured everything to have bootstrap properly working
 in our application.
 
 We had a conversation with Ikenna over the schema for the messaging database tables.
@@ -30,6 +48,8 @@ Which led to the decision to remove one of the tables to stay in a normalized fo
 To ensure that bootstrap works in your react application, it's important to
 change into the ghi directory and run the npm commands. As well as
 importing that bootstrap directory from node_modules in index.js.
+
+----
 
 ## October 10, 2022
 
