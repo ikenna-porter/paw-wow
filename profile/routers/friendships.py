@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, Response
-from typing import List, Optional
+from typing import List
 from queries.friendships import (
     FriendshipRepository, 
     FriendshipIn, 
@@ -16,9 +16,17 @@ def create_friendship(
     return repo.create(friendship)
 
 @router.get("/api/friendships/{user_one}", response_model = List[FriendshipOut])
-def get_friendlist(
+def get_list_friends(
     user_one: int,
     repo: FriendshipRepository = Depends()
 
 ):
-    return repo.get_friendlist(user_one)
+    return repo.get_friend_list(user_one)
+
+@router.get("/api/friendships/{user_one}/pending", response_model = List[FriendshipOut])
+def get_pending(
+    user_one: int,
+    repo: FriendshipRepository = Depends()
+
+):
+    return repo.get_pending_requests(user_one)

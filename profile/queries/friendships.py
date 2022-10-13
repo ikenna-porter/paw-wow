@@ -36,7 +36,7 @@ class FriendshipRepository:
                 incoming_data = friendship.dict()
                 return FriendshipOut(id=id, **incoming_data)
 
-    def get_friendlist(self, user_one) -> List[FriendshipOut]:
+    def get_friend_list(self, user_one) -> List[FriendshipOut]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -60,4 +60,30 @@ class FriendshipRepository:
                     return return_list
         except Exception as e:
             print(e)
-            return {"Message": "WHAT A LOSER! YOU HAVE NO PAW PALS"}
+            return {"Message": "You have no Paw Pals yet"}
+
+    def get_pending_requests(self, user_one) -> List[FriendshipOut]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        SELECT *  
+                        FROM friendships
+                        WHERE user_one = %s
+                        AND status = 0;
+                        """,
+                        [user_one]
+                    )
+                    return_list = [FriendshipOut(
+                        id = record[0],
+                        status = record[1],
+                        user_one = record[2],
+                        user_two= record[3],
+                    )
+                    for record in db]
+                    print("TESTING", return_list)
+                    return return_list
+        except Exception as e:
+            print(e)
+            return {"Message": "You have no pending requests"}
