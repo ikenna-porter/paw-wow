@@ -44,7 +44,8 @@ class FriendshipRepository:
                         """
                         SELECT *  
                         FROM friendships
-                        WHERE user_one = %s;
+                        WHERE user_one = %s
+                        AND status = 1;
                         """,
                         [user_one]
                     )
