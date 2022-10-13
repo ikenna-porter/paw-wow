@@ -44,17 +44,19 @@ class FriendshipRepository:
                         """
                         SELECT *  
                         FROM friendships
-                        WHERE user_1 = %s;
+                        WHERE user_one = %s;
                         """,
                         [user_one]
                     )
-                    return [FriendshipOut(
+                    return_list = [FriendshipOut(
                         id = record[0],
                         status = record[1],
                         user_one = record[2],
                         user_two= record[3],
                     )
                     for record in db]
+                    print("TESTING", return_list)
+                    return return_list
         except Exception as e:
             print(e)
             return {"Message": "WHAT A LOSER! YOU HAVE NO PAW PALS"}
