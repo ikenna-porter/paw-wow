@@ -1,19 +1,19 @@
 steps = [
     [
-        ## Create an user value object table
+        ## Create a user value object table
         """
-        CREATE TABLE user_vo (
+        CREATE TABLE user_vos (
             id SERIAL PRIMARY KEY NOT NULL,
             name VARCHAR(100) NOT NULL,
             picture_url VARCHAR(300),
             profile_id INTEGER NOT NULL,
-            profile_url VARCHAR(300),
+            profile_url VARCHAR(300)
         );
         """,
 
-        ## Destroy an user value object table
+        ## Destroy a user value object table
         """
-        DESTROY TABLE user_vo;
+        DESTROY TABLE user_vos;
         """
     ],
     [
@@ -21,9 +21,9 @@ steps = [
         """
         CREATE TABLE conversations (
             id SERIAL PRIMARY KEY NOT NULL,
-            user VARCHAR(100) REFERENCES user_vo(id),
-            other_user VARCHAR(100) REFERENCES user_vo(id),
-            read BOOL DEFAULT False,
+            primary_user INTEGER REFERENCES user_vos(id),
+            other_user INTEGER REFERENCES user_vos(id),
+            read BOOL DEFAULT FALSE,
             unseen_message_count INTEGER,
             last_message TEXT
         );
@@ -35,32 +35,16 @@ steps = [
         """
     ],
     [
-        ## Create a chats table
-        """
-        CREATE TABLE chats (
-            id SERIAL PRIMARY KEY NOT NULL,
-            user VARCHAR(100) NOT NULL REFERENCES user_vo(id),
-            other_user VARCHAR(100) NOT NULL REFERENCES user_vo(id),
-            conversation_id INTEGER NOT NULL REFERENCES conversations(id)
-        );
-        """,
-
-        ## Destroy a chats table
-        """
-        DROP TABLE chats;
-        """
-    ],
-    [
         ## Create an messages table
         """
         CREATE TABLE messages (
             id SERIAL PRIMARY KEY NOT NULL,
-            sender VARCHAR(100) NOT NULL REFERENCES user_vo(id),
-            recipient VARCHAR(100) NOT NULL REFERENCES user_vo(id),
-            timestamp TIMESTAMPTZ NOT NULL,
+            sender INTEGER NOT NULL REFERENCES user_vos(id) ON DELETE CASCADE,
+            recipient INTEGER NOT NULL REFERENCES user_vos(id) ON DELETE CASCADE,
+            timestamp TIMESTAMP NOT NULL,
             content TEXT NOT NULL,
-            READ BOOL NOT NULL DEFAULT False,
-            chat_id NOT NULL REFERENCES chats(id)
+            read BOOL NOT NULL DEFAULT False,
+            conversation_id INTEGER NOT NULL REFERENCES conversations(id) ON DELETE CASCADE
         );
         """,
 
