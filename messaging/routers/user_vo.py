@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from typing import List
-from queries.conversations import (
+from queries.user_vo import (
     UserVOIn,
     UserVOOut,
     UserVORepository
@@ -8,9 +8,9 @@ from queries.conversations import (
 
 router = APIRouter()
 
-@router.post("/api/conversations", response_model = UserVOOut)
+@router.post("/api/user", response_model = UserVOOut)
 def create(
-    conversation: UserVOIn, 
+    user_vo: UserVOIn, 
     repo: UserVORepository = Depends()
 ) -> UserVOOut:
-    repo.create(conversation)
+    repo.create(user_vo)
