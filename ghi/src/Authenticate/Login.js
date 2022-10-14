@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Navigate } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 
 export default function Login(props) {
@@ -40,22 +39,22 @@ export default function Login(props) {
                     <h1>Login</h1>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3">
+                            <label className="form-label" htmlFor="username">Username</label>
                             <input
                                 placeholder="Username" 
                                 required type="text" 
                                 onChange={e => setUsername(e.target.value)} 
                                 value={username}
                             />
-                            <label className="form-label" htmlFor="username">Username</label>
                         </div>
                         <div className="mb-3">
+                            <label className="form-label" htmlFor="password">Password</label>
                             <input
                                 placeholder="Password" 
                                 required type="password" 
                                 onChange={e => setPassword(e.target.value)} 
                                 value={password}
                             />
-                            <label className="form-label" htmlFor="password">Password</label>
                         </div>
                         <button 
                             type="submit" 

@@ -48,12 +48,22 @@ export default function SignUp(props) {
           <h1>Sign Up Form</h1>
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
-              <input placeholder="Username" required type="text" onChange={e => setUsername(e.target.value)} value={username}/>
               <label className="form-label" htmlFor="username">Username</label>
+              <input
+                placeholder="Username" 
+                required type="text" 
+                onChange={e => setUsername(e.target.value)} 
+                value={username}
+              />
             </div>
             <div className="mb-3">
-              <input placeholder="Password" required type="password" onChange={e => setPassword(e.target.value)} value={password}/>
               <label className="form-label" htmlFor="password">Password</label>
+              <input
+                placeholder="Password" 
+                required type="password" 
+                onChange={e => setPassword(e.target.value)} 
+                value={password}
+              />
             </div>
             <button type="submit" className="btn btn-primary mb-2">Sign Up</button>
           </form>

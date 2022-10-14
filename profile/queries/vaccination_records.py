@@ -8,6 +8,7 @@ class VaccinationRecordIn(BaseModel):
     adeno: Optional[bool]
     rabies: Optional[bool]
     other: Optional[str]
+    profile_id: int
 
 class VaccinationRecordOut(BaseModel):
     id: int
@@ -19,18 +20,18 @@ class VaccinationRecordOut(BaseModel):
     profile_id: int
 
 class VaccinationRecordRepository:
-    def create(self, vaccination_record: VaccinationRecordIn, account_data) -> VaccinationRecordOut:
+    def create(self, vaccination_record: VaccinationRecordIn) -> VaccinationRecordOut:
         with pool.connection() as conn:
             with conn.cursor() as db:
-                profile_result = db.execute(
-                    """
-                    SELECT * 
-                    FROM profiles
-                    WHERE account_id = %s
-                    """,
-                    [account_data['id']]
-                )
-                profile_id = profile_result.fetchone()
+                # profile_result = db.execute(
+                #     """
+                #     SELECT * 
+                #     FROM profiles
+                #     WHERE account_id = %s
+                #     """,
+                #     [account_data['id']]
+                # )
+                # profile_id = profile_result.fetchone()
 
                 result = db.execute(
                     """
@@ -46,27 +47,28 @@ class VaccinationRecordRepository:
                     vaccination_record.adeno,
                     vaccination_record.rabies,
                     vaccination_record.other,
-                    profile_id[0]
+                    vaccination_record.profile_id
                     ]
                 )
                 id = result.fetchone()[0]
+                print("id",id)
                 incoming_data = vaccination_record.dict()
-                return VaccinationRecordOut(id=id, profile_id=profile_id[0], **incoming_data)
+                return VaccinationRecordOut(id=id, **incoming_data)
     
-    def update(self, vaccination_id: int, vaccination_record: VaccinationRecordIn, account_data) -> VaccinationRecordOut:
+    def update(self, profile_id: int, vaccination_record: VaccinationRecordIn) -> VaccinationRecordOut:
         with pool.connection() as conn:
             with conn.cursor() as db:
-                result = db.execute(
-                    """
-                    SELECT * 
-                    FROM profiles
-                    WHERE account_id = %s
-                    """,
-                    [account_data['id']]
-                )
-                profile_id = result.fetchone()
+                # result = db.execute(
+                #     """
+                #     SELECT * 
+                #     FROM profiles
+                #     WHERE account_id = %s
+                #     """,
+                #     [account_data['id']]
+                # )
+                # profile_id = result.fetchone()
 
-                db.execute(
+                result = db.execute(
                     """
                     UPDATE vaccination_records
                     SET distemper = %s
@@ -74,8 +76,8 @@ class VaccinationRecordRepository:
                      , adeno = %s
                      , rabies = %s
                      , other = %s
-                     , profile_id = %s
-                    WHERE id = %s
+                    WHERE profile_id = %s
+                    RETURNING id
                     """,
                     [
                         vaccination_record.distemper,
@@ -83,14 +85,14 @@ class VaccinationRecordRepository:
                         vaccination_record.adeno,
                         vaccination_record.rabies,
                         vaccination_record.other,
-                        profile_id[0],
-                        vaccination_id
+                        profile_id
                     ]
                 )
+                vaccination_id = result.fetchone()[0]
                 old_data = vaccination_record.dict()
-                return VaccinationRecordOut(id=vaccination_id, profile_id=profile_id[0], **old_data)
+                return VaccinationRecordOut(id=vaccination_id, **old_data)
     
-    def delete(self, id: int) -> bool:
+    def delete(self, profile_id: int) -> bool:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -99,14 +101,14 @@ class VaccinationRecordRepository:
                         DELETE FROM vaccination_records
                         WHERE id = %s
                         """,
-                        [id]
+                        [profile_id]
                     )
                     return True
         except Exception as e:
             print(e)
             return False
     
-    def get_one(self, id: int) -> VaccinationRecordOut:
+    def get_one(self, profile_id: int) -> VaccinationRecordOut:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -120,9 +122,9 @@ class VaccinationRecordRepository:
                          , other
                          , profile_id
                         FROM vaccination_records
-                        WHERE id = %s
+                        WHERE profile_id = %s
                         """,
-                        [id]
+                        [profile_id]
                     )
                     record = result.fetchone()
                     if record is None:
