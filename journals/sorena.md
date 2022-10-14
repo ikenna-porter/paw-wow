@@ -12,6 +12,26 @@ At least one ah-ha! moment that you had during your coding, however small
 
 ----
 
+## October 13, 2022
+
+Today I worked on:
+
+*Changing follower feature to friends feature*
+
+Jason and I pair programmed today. I changed the follower feature we had thus far
+to reflect a friendship instead. Which entailed changing the table name
+and including a status column and renaming some columns. I also created the method
+to show pending friend requests in the back-end. We both created the ability to
+get a user's friend list of accepted friends.
+
+We discussed whether we should continue with the follower feature or
+go ahead and tackle a friends feature.
+
+After making the SQL commands, if there is a place holder, what follows after
+the three quotations is what key that value will be.
+
+----
+
 ## October 12, 2022 
 
 Today I worked on:
