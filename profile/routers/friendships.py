@@ -3,7 +3,8 @@ from typing import List
 from queries.friendships import (
     FriendshipRepository, 
     FriendshipIn, 
-    FriendshipOut
+    FriendshipOut,
+    FriendshipUpdate
 )
 
 router = APIRouter()
@@ -30,3 +31,11 @@ def get_pending(
 
 ):
     return repo.get_pending_requests(user_one)
+
+@router.put("/api/friendships/{user_one}/pending", response_model = FriendshipOut)
+def update_approve_request(
+    user_one: int,
+    user_two: int,
+    repo: FriendshipRepository = Depends()
+):
+    return repo.approve_request(user_one, user_two)
