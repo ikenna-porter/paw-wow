@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 
 export default function Login(props) {
     const [ username, setUsername ] = useState('');
     const [ password, setPassword ] = useState('');
+    const [ token, setToken ] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -22,15 +23,22 @@ export default function Login(props) {
         }
 
         const response = await fetch(url, fetchConfig);
-        console.log(response)
+        console.log("login response:", response)
         if (response.ok) {
-            const responseData = await response.json()
-            props.setToken(responseData.access_token)
+            const responseData = await response.json();
+            console.log(responseData);
+            setToken(responseData.access_token)
             setUsername('');
             setPassword('');
             navigate('/profile');
         }
-    }
+
+        // const tokenUrl = 'http://localhost:8100/token';
+        // const tokenFetch = {
+        //     method: 'POST',
+        //     body:
+        // }
+    }    
 
     return (
         <div className="row">

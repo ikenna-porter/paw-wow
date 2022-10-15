@@ -1,26 +1,24 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react'
 
-export default function CreateVacctinations() {
-    const [ distemper, setDistemper ] = useState(false);
-    const [ parvo, setParvo ] = useState(false);
-    const [ adeno, setAdeno ] = useState(false);
-    const [ rabies, setRabies ] = useState(false);
-    const [ other, setOther ] = useState('');
-    const profileId = 13
+export default function CreateVacctinations(props) {
+    const [ vaccines, setVaccines ] = useState(
+        {
+            distemper: false,
+            parvo: false,
+            adeno: false,
+            rabies: false,
+            other: ''
+        })
+    const profileId = 14
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const data = {
-            distemper: distemper,
-            parvo: parvo,
-            adeno: adeno,
-            rabies: rabies,
-            other: other,
-            profile_id: profileId
-        }
+        const data = vaccines;
+        data['profile_id'] = profileId;
+
         const url = 'http://localhost:8100/api/vaccinations'
         const fetchConfig = {
             method: 'POST',
@@ -31,14 +29,14 @@ export default function CreateVacctinations() {
         }
         
         const response = await fetch(url, fetchConfig);
-        console.log("vaccination response", response)
         if (response.ok) {
-            setDistemper(false);
-            setParvo(false);
-            setAdeno(false);
-            setRabies(false);
-            setOther('')
-            navigate("/profile") 
+            setVaccines({
+                distemper: false,
+                parvo: false,
+                adeno: false,
+                rabies: false,
+                other: '' 
+            })
         }
 
     }
@@ -55,7 +53,7 @@ export default function CreateVacctinations() {
                             type="checkbox" 
                             value="" 
                             id="flexCheckDefault"
-                            onChange={(e) => {setDistemper(true)}}
+                            onChange={(e) => {setVaccines.distemper(true)}}
                         />
                         <label className="form-check-label" htmlFor="flexCheckDefault">Distemper</label>
                     </div>
@@ -65,7 +63,7 @@ export default function CreateVacctinations() {
                             type="checkbox" 
                             value="" 
                             id="flexCheckDefault"
-                            onChange={(e) => {setParvo(true)}}
+                            onChange={(e) => {setVaccines.parvo(true)}}
                         />
                         <label className="form-check-label" htmlFor="flexCheckDefault">Parvo</label>
                     </div>
@@ -75,7 +73,7 @@ export default function CreateVacctinations() {
                             type="checkbox" 
                             value="" 
                             id="flexCheckDefault"
-                            onChange={(e) => {setAdeno(true)}}
+                            onChange={(e) => {setVaccines.adeno(true)}}
                         />
                         <label className="form-check-label" htmlFor="flexCheckDefault">Adeno</label>
                     </div>
@@ -85,7 +83,7 @@ export default function CreateVacctinations() {
                             type="checkbox" 
                             value="" 
                             id="flexCheckDefault"
-                            onChange={(e) => {setRabies(true)}}
+                            onChange={(e) => {setVaccines.rabies(true)}}
                         />
                         <label className="form-check-label" htmlFor="flexCheckDefault">Rabies</label>
                     </div>
@@ -95,8 +93,8 @@ export default function CreateVacctinations() {
                             className="form-control" 
                             id="floatingInput" 
                             placeholder="Other vaccines"
-                            onChange={(e) => {setOther(e.target.value)}}
-                            value={other}
+                            onChange={(e) => {setVaccines.other(e.target.value)}}
+                            value={vaccines.other}
                         />
                         <label htmlFor="floatingInput">Other</label>
                     </div>

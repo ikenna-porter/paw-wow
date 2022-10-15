@@ -9,15 +9,15 @@ router = APIRouter()
 @router.post("/api/characteristics")
 def create_characteristics(
     characteristic: CharsIn,
-    account_data: dict = Depends(authenticator.get_current_account_data),
+    # account_data: dict = Depends(authenticator.get_current_account_data),
     repo: CharacteristicsRepository = Depends()
 ):
-    return repo.create(characteristic, account_data)
+    return repo.create(characteristic)
 
 @router.delete("/api/characteristics/{characteristics_id}")
 def delete_characteristics(
     characteristics_id: int,
-    account_data: dict = Depends(authenticator.get_current_account_data),
+    # account_data: dict = Depends(authenticator.get_current_account_data),
     repo: CharacteristicsRepository = Depends(),
 ) -> bool:
     return repo.delete(characteristics_id)
@@ -27,7 +27,14 @@ def delete_characteristics(
 def update_characteristics(
     characteristics_id: int,
     characteristic: CharsIn,
-    account_data: dict = Depends(authenticator.get_current_account_data),
+    # account_data: dict = Depends(authenticator.get_current_account_data),
     repo: CharacteristicsRepository = Depends(),
     ) -> CharsOut:
-    return repo.update(characteristics_id, characteristic, account_data)
+    return repo.update(characteristics_id, characteristic)
+
+@router.get("/api/characteristics/{profile_id}")
+def get_one_characteristic(
+    profile_id: int,
+    repo: CharacteristicsRepository = Depends()
+) -> CharsOut:
+    return repo.get(profile_id)    
