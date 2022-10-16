@@ -21,7 +21,7 @@ class UserVORepository:
             with conn.cursor() as cur:
                 result = cur.execute(
                 """
-                INSERT INTO conversations (
+                INSERT INTO user_vos (
                       name
                     , picture_url
                     , profile_id

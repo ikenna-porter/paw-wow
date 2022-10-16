@@ -19,7 +19,7 @@ class ConversationIn(BaseModel):
 
 class ConversationRepository:
 
-    def get_all_conversations(self) -> List[ConversationOut]:
+    def get_all(self) -> List[ConversationOut]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -73,7 +73,7 @@ class ConversationRepository:
                 return ConversationOut(id=id, **old_data)
 
     def get(self, conversation_id: int) -> ConversationOut:
-        with pool.connection as conn:
+        with pool.connection() as conn:
             with conn.cursor() as cur:
                 result = cur.execute(
                     """
