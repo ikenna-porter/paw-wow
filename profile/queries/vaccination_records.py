@@ -99,7 +99,7 @@ class VaccinationRecordRepository:
                     db.execute(
                         """
                         DELETE FROM vaccination_records
-                        WHERE id = %s
+                        WHERE profile_id = %s
                         """,
                         [profile_id]
                     )

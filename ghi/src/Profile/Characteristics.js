@@ -11,5 +11,5 @@ export default function Characteristics(props) {
                 }
             </div>
         </div> 
-    )
+    )   
 }

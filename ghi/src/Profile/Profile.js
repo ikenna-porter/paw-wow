@@ -78,7 +78,7 @@ export default function Profile(props) {
                     </div>
                     <div>
                         <div className="col-lg-8">
-                                <Vaccinations profileId={profileId} />
+                                <Vaccinations dogName ={profile.dog_name} profileId={profileId} />
                         </div>
                     </div>      
                     </div>
