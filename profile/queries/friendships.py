@@ -14,9 +14,6 @@ class FriendshipOut(BaseModel):
     user_one: int
     user_two: int
 
-class FriendshipUpdate(BaseModel):
-    user_one: int
-    user_two: int
 
 class FriendshipRepository:
     def create(self, friendship: FriendshipIn) -> FriendshipOut:
@@ -66,7 +63,7 @@ class FriendshipRepository:
             print(e)
             return {"Message": "You have no Paw Pals yet"}
 
-    def get_pending_requests(self, user_one) -> List[FriendshipOut]:
+    def get_pending_requests(self, user_two) -> List[FriendshipOut]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -77,7 +74,7 @@ class FriendshipRepository:
                         WHERE user_two = %s
                         AND status = 0;
                         """,
-                        [user_one]
+                        [user_two]
                     )
                     return_list = [FriendshipOut(
                         id = record[0],
@@ -109,17 +106,18 @@ class FriendshipRepository:
                             user_two
                         ]
                     )
-                    record = result.fetchone()
-                    print(record)
-                    return self.pending_to_approved(record)
+                    id = result.fetchone()[0]
+                    incoming_data = result.dict()
+                    return FriendshipOut(id=id, **incoming_data)
         except Exception as e:
             print(e)
             return {"Message": "This request does not exist."}
 
-    def pending_to_approved(self, record):
-        return FriendshipOut(
-            id=record[0],
-            status=record[1],
-            user_one=record[2],
-            user_two=record[3],
-        )
+    # def pending_to_approved(self, record):
+    #     return FriendshipUpdate(
+    #         bool=record[0]
+    #         # id=record[0],
+    #         # status=record[1],
+    #         # user_one=record[2],
+    #         # user_two=record[3],
+    #     )
