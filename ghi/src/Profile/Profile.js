@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-import { useReducer } from "react"
-
-export default function Profile() {
-
-    // return(
-    //     <div className="container my-5">
-    //     <input type="text"></input>
-    //     <button className="btn btn-primary">Add Friend</button>
-    //     </div>
-    // )
-=======
 import { useState, useEffect } from 'react'
 import Vaccinations from './Vaccinations';
 import { Link } from 'react-router-dom';
@@ -118,5 +106,4 @@ export default function Profile(props) {
                 </div>
             </div>
     )
->>>>>>> ee797770f12e41483a568074872c415a63ee7e1c
 }
