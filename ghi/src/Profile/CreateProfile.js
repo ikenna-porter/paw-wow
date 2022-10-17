@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react'
-import { Navigate } from 'react-router-dom';
-import stateList from '../Authenticate/States'
+import { useState } from 'react'
+import stateList from './States'
 import { useNavigate } from "react-router-dom";
 
 export default function CreateProfile(props) {
@@ -25,7 +24,6 @@ export default function CreateProfile(props) {
             owner_name: ownerName,
             owner_description: ownerDescription
         };
-        console.log("data", data)
         const url = 'http://localhost:8100/api/profiles';
         const fetchConfig = {
             method: 'post',
@@ -36,8 +34,10 @@ export default function CreateProfile(props) {
         }
 
         const response = await fetch(url, fetchConfig);
-        console.log("response:", response)
         if (response.ok) {
+            const responseData = await response.json()
+            props.setProfileId(responseData.id)
+            console.log("response in create profile", responseData)
             setCity('');
             setState('');
             setDogName('');
@@ -55,12 +55,22 @@ export default function CreateProfile(props) {
                 <h1>Create a Profile</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">
-                        <input placeholder="Dog Name" required type="text"  onChange={e => setDogName(e.target.value)} value={dogName}/>
-                        <label htmlFor="dog name">Dog Name</label>
+                        <label htmlFor="dog name" className="form-label">Dog Name</label>
+                        <input
+                            placeholder="Dog Name" 
+                            required type="text"  
+                            onChange={e => setDogName(e.target.value)} 
+                            value={dogName}
+                        />
                     </div>
                     <div className="mb-3">
-                    <input placeholder="City" required type="text" onChange={e => setCity(e.target.value)} value={city}/>
-                    <label htmlFor="city">City</label>
+                        <label htmlFor="city" className="form-label">City</label>
+                        <input
+                            placeholder="City" 
+                            required type="text" 
+                            onChange={e => setCity(e.target.value)} 
+                            value={city}
+                        />
                     </div>
                     <div className="mb-3">
                         <select required onChange={e => setState(e.target.value)}>
@@ -73,12 +83,23 @@ export default function CreateProfile(props) {
                         </select>
                     </div>
                     <div className="mb-3">
-                        <input placeholder="Owner Name" required type="text"  onChange={e => setOwnerName(e.target.value)} value={ownerName}/>
-                        <label htmlFor="owner name">Owner Name</label>
+                        <label htmlFor="owner name" className="form-label">Owner Name</label>
+                        <input
+                            placeholder="Owner Name" 
+                            required type="text"  
+                            onChange={e => setOwnerName(e.target.value)} 
+                            value={ownerName}
+                        />
                     </div>
                     <div className="mb-3">
-                        <input placeholder="About my owner" required type="text"  onChange={e => setOwnerDescription(e.target.value)} value={ownerDescription}/>
-                        <label htmlFor="owner description">Owner Description</label>
+                        <label htmlFor="owner description" className="form-label">Owner Description</label>
+                        <textarea
+                        placeholder="About my owner"
+                        required 
+                        type="text"  
+                        onChange={e => setOwnerDescription(e.target.value)} 
+                        value={ownerDescription}
+                        />
                     </div>
                     <button type="submit" className="btn btn-primary mb-2">Sign Up</button>
                 </form>
