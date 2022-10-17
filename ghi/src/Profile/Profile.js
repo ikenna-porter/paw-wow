@@ -22,6 +22,25 @@ export default function Profile(props) {
     const profileId = 13
     const username = "Cookie123"
 
+    function calculateAge(DOB) {
+        let arr = DOB.split('-')
+        let newDOB = arr.map(num => parseInt(num))
+        let y = newDOB[0]
+        let m = newDOB[1]
+        const date = new Date()
+        let currentY = date.getFullYear()
+        let currentM = date.getMonth() + 1
+        let ageY = currentY - y
+        let ageM = currentM - m
+
+        if (ageM === 0) {
+            return `${ageY} years`
+        } else if (ageM < 0) {
+            return `${ageY - 1} years, ${Math.abs(ageM)} months`
+        }
+        
+    }
+
     async function getChars() {
         const charsResponse = await fetch(`http://localhost:8100/api/characteristics/${profileId}`)
         if (charsResponse.ok) {
@@ -74,7 +93,7 @@ export default function Profile(props) {
                         <h2>{profile.dog_name}</h2>
                     </div>
                         <div className="card-body">
-                            <p className="mb-0"><strong className="pr-1">I was born: </strong>{DOB}</p>
+                            <p className="mb-0"><strong className="pr-1">I am this young: </strong>{calculateAge(DOB)}</p>
                             <p className="mb-0"><strong className="pr-1">My size is: </strong>{size}</p>
                             <p className="mb-0"><strong className="pr-1">I am fixed: </strong>{String(fixed)}</p>
                             <p className="mb-0"><strong className="pr-1">I live in: </strong>{profile.city}, {profile.states}</p>
