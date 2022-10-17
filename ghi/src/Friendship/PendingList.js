@@ -25,7 +25,7 @@ function PendingList(props) {
     return (
         <>
         {pending_friends.map(pending => {
-            return (
+            return ( 
                 <div className="container">
                 <div className='row col-lg-4'>
                     <div className='card shadow-sm'>
