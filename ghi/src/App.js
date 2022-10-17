@@ -37,7 +37,7 @@ export default function App() {
           <Route path="characteristics" element={<Characteristics />} />
           <Route path="create-characteristics" element={<CreateChars profileId={profileId} />} />
         </Route>  
-        <Route path="create-profile" element={<CreateProfile token={token} accountId={accountId} />} />
+        {/* <Route path="create-profile" element={<CreateProfile token={token} accountId={accountId} />} /> */}
         <Route path="profile" element={<Profile />} />
         <Route path='list-friends' element={<ListFriends />} />
       </Routes>
