@@ -16,7 +16,7 @@ export default function ListFriends(props) {
 
 return(
     <div className='container my-5'>
-    <h2>Friend List</h2>
+0    <h2>Friend List</h2>
     <table className='table'>
         {/* maketh the table */}
         <tbody>
