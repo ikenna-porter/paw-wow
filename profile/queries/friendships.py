@@ -14,6 +14,10 @@ class FriendshipOut(BaseModel):
     user_one: int
     user_two: int
 
+# class SuccessChange(BaseModel):
+#     success: bool
+
+
 class FriendshipRepository:
     def create(self, friendship: FriendshipIn) -> FriendshipOut:
         with pool.connection() as conn:
@@ -36,7 +40,7 @@ class FriendshipRepository:
                 incoming_data = friendship.dict()
                 return FriendshipOut(id=id, **incoming_data)
 
-    def get_friendlist(self, user_one) -> List[FriendshipOut]:
+    def get_friend_list(self, user_one) -> List[FriendshipOut]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -44,17 +48,79 @@ class FriendshipRepository:
                         """
                         SELECT *  
                         FROM friendships
-                        WHERE user_1 = %s;
+                        WHERE status = 1
+                        AND user_one = %(user_one)s
+                        OR user_two = %(user_one)s;
                         """,
-                        [user_one]
+                        {"user_one":user_one}
                     )
-                    return [FriendshipOut(
+                    return_list = [FriendshipOut(
                         id = record[0],
                         status = record[1],
                         user_one = record[2],
                         user_two= record[3],
                     )
                     for record in db]
+                    print("PRINTING", return_list)
+                    return return_list
         except Exception as e:
             print(e)
-            return {"Message": "WHAT A LOSER! YOU HAVE NO PAW PALS"}
+            return {"Message": "You have no Paw Pals yet"}
+
+    def get_pending_requests(self, user_two) -> List[FriendshipOut]:
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    db.execute(
+                        """
+                        SELECT *  
+                        FROM friendships
+                        WHERE user_two = %s
+                        AND status = 0;
+                        """,
+                        [user_two]
+                    )
+                    return_list = [FriendshipOut(
+                        id = record[0],
+                        status = record[1],
+                        user_one = record[2],
+                        user_two= record[3],
+                    )
+                    for record in db]
+                    print("TESTING", return_list)
+                    return return_list
+        except Exception as e:
+            print(e)
+            return {"Message": "You have no pending requests"}
+
+    def approve_request(self, user_one: int, user_two: int):
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        UPDATE friendships
+                        SET status = 1
+                        WHERE user_one = %s
+                        AND user_two = %s
+                        """,
+                        [
+                            user_one, 
+                            user_two
+                        ]
+                    )
+                    if result:
+                        return True
+                    return False
+        except Exception as e:
+            print(e)
+            return {"Message": "This request does not exist."}
+
+    # def pending_to_approved(self, record):
+    #     return FriendshipUpdate(
+    #         bool=record[0]
+    #         # id=record[0],
+    #         # status=record[1],
+    #         # user_one=record[2],
+    #         # user_two=record[3],
+    #     )
