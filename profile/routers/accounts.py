@@ -14,7 +14,6 @@ from pydantic import BaseModel
 from queries.accounts import (
     AccountIn,
     AccountOut,
-    Account,
     AccountRepository,
     DuplicateAccountError,
 )
@@ -24,7 +23,7 @@ class AccountForm(BaseModel):
     password: str
 
 class AccountToken(Token):
-    account: Account
+    account: AccountOut
 
 class HttpError(BaseModel):
     detail: str
@@ -38,11 +37,19 @@ async def get_token(
     account: AccountOut = Depends(authenticator.try_get_current_account_data)
 ) -> AccountToken | None:
     if authenticator.cookie_name in request.cookies:
+        print("TESTING 2:", account)
+        print("REQUEST:", request)
         return {
             "access_token": request.cookies[authenticator.cookie_name],
             "type": "Bearer",
             "account": account,
         }
+    else:
+        raise HTTPException(
+            status_code=404,
+            detail="Item not found",
+            headers={"X-Error": "There goes my error"},
+        )    
 
 
 @router.post("/api/accounts", response_model=AccountToken | HttpError)

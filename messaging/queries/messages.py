@@ -4,19 +4,19 @@ from queries.pool import pool
 
 class MessageOut(BaseModel):
     id: int
-    sender: str
-    recipient: str
+    sender: int
+    recipient: int
     timestamp: str
     content: str
-    read: int
+    read: bool
     conversation_id: int
 
 class MessageIn(BaseModel):
-    sender: str
-    recipient: str
+    sender: int
+    recipient: int
     timestamp: str
     content: str
-    read: int
+    read: bool
     conversation_id: int
 
 class MessageRepository:
@@ -24,15 +24,24 @@ class MessageRepository:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    db.execute(
+                    result = db.execute(
                         """
-                        SELECT id, sender, recipient, timestamp, content, read, conversation_id
+                        SELECT 
+                          id
+                        , sender
+                        , recipient
+                        , timestamp
+                        , content
+                        , read
+                        , conversation_id
                         FROM messages
                         WHERE conversation_id = %s;
                         """,
                         [conversation_id]
                     )
 
+                    print("&&&&&&&&&&&&&&&&&&&&&&&&",result)
+                    print("&&&&&&&&&&&&&&&&&&&&&&&&",db)
                     return [ MessageOut (
                         id = record[0],
                         sender = record[1],
@@ -49,7 +58,7 @@ class MessageRepository:
             return {"message": "Could not retrieve chat history."}
 
     def create(self, message: MessageIn) -> MessageOut:
-        with pool.connection as conn:
+        with pool.connection() as conn:
             with conn.cursor() as cur:
                 result = cur.execute(
                 """
