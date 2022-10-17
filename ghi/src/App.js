@@ -4,6 +4,7 @@ import Nav from './Nav'
 import AuthenticateUser from './Authenticate/AuthenticateUser'
 import CreateProfile from './Profile/CreateProfile'
 import Profile from './Profile/Profile'
+import ListFriends from './Friendship/FriendList'
 
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
                                 />} />
         <Route path="create-profile" element={<CreateProfile token={token} accountId={accountId} />} />
         <Route path="profile" element={<Profile />} />
+        <Route path='list-friends' element={<ListFriends />} />
       </Routes>
     </BrowserRouter>
   )

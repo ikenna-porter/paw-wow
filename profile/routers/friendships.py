@@ -18,8 +18,8 @@ def create_friendship(
 @router.get("/api/friendships/{user_one}", response_model= List[FriendshipOut])
 def get_friendlist(
     user_one: int,
-    friendship: FriendshipIn,
-    repo: FriendshipRepository = Depends
+    # friendship: FriendshipIn,
+    repo: FriendshipRepository = Depends()
 
 ):
-    return repo.get_friendlist(friendship)
+    return repo.get_friendlist(user_one)
