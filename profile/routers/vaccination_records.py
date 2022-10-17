@@ -8,39 +8,42 @@ from authenticator import authenticator
 
 router = APIRouter()
 
-@router.post("/api/vaccination", response_model = VaccinationRecordOut)
+@router.post("/api/vaccinations", response_model = VaccinationRecordOut)
 def create_vaccination_record(
     vaccination_record: VaccinationRecordIn, 
-    account_data: dict = Depends(authenticator.get_current_account_data),
+    # account_data: dict = Depends(authenticator.get_current_account_data),
     repo: VaccinationRecordRepository = Depends()
 ):
-    return repo.create(vaccination_record, account_data)
+    return repo.create(vaccination_record)
 
-@router.put("/api/vaccination/{id}", response_model = VaccinationRecordOut)
+@router.put("/api/vaccinations/{profile_id}", response_model = VaccinationRecordOut)
 def update_vaccination_record(
-    vaccination_id: int,
+    profile_id: int,
     vaccination_record: VaccinationRecordIn,
-    account_data: dict = Depends(authenticator.get_current_account_data),
+    # account_data: dict = Depends(authenticator.get_current_account_data),
     repo: VaccinationRecordRepository = Depends()
 ) -> VaccinationRecordOut:
-    return repo.update(vaccination_id, vaccination_record, account_data)
+    return repo.update(profile_id, vaccination_record)
 
-@router.delete("/api/vaccination/{id}", response_model = bool)
+@router.delete("/api/vaccinations/{profile_id}", response_model = bool)
 def delete_vaccination_record(
-    id: int,
-    account_data: dict = Depends(authenticator.get_current_account_data),
+    profile_id: int,
+    # account_data: dict = Depends(authenticator.get_current_account_data),
     repo: VaccinationRecordRepository = Depends()
 ) -> bool:
-    return repo.delete(id)
+    return repo.delete(profile_id)
 
-@router.get("/api/vaccination/{id}", response_model = VaccinationRecordOut)
+@router.get("/api/vaccinations/{profile_id}", response_model = VaccinationRecordOut)
 def get_one_vaccination_record(
-    id: int,
+    profile_id: int,
     response: Response,
-    account_data: dict = Depends(authenticator.get_current_account_data),
+    # account_data: dict = Depends(authenticator.get_current_account_data),
     repo: VaccinationRecordRepository = Depends()
 ) -> VaccinationRecordOut:
-    vaccination_record = repo.get_one(id)
+    print("testing")
+    vaccination_record = repo.get_one(profile_id)
+    print("did vac print?", vaccination_record)
     if vaccination_record is None:
         response.status_code = 404
+        return response
     return vaccination_record

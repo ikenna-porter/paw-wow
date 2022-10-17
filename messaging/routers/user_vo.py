@@ -8,7 +8,7 @@ from queries.user_vo import (
 
 router = APIRouter()
 
-@router.post("/api/user", response_model = UserVOOut)
+@router.post("/api/user=", response_model = UserVOOut)
 def create(
     user_vo: UserVOIn, 
     repo: UserVORepository = Depends()
