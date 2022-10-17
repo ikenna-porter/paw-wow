@@ -72,20 +72,20 @@ class CharacteristicsRepository:
                 return self.characteristic_in_to_out(id, characteristic)
 
 
-    def update(self, characteristics_id: int, characteristic: CharsIn) -> CharsOut:
+    def update(self, profile_id: int, characteristic: CharsIn) -> CharsOut:
         with pool.connection() as conn:
             with conn.cursor() as db:
-                # profile_result = db.execute(
-                #     """
-                #     SELECT * 
-                #     FROM profiles
-                #     WHERE account_id = %s
-                #     """,
-                #     [account_data['id']]
-                # )
-                # profile_id = profile_result.fetchone()
+                target_char = db.execute(
+                    """
+                    SELECT * 
+                    FROM characteristics
+                    WHERE profile_id = %s
+                    """,
+                    [profile_id]
+                )
+                char_id = target_char.fetchone()
                 
-                result = db.execute(
+                db.execute(
                     """
                     UPDATE characteristics
                     SET
@@ -97,36 +97,36 @@ class CharacteristicsRepository:
                         fixed = %s, 
                         size = %s, 
                         profile_id = %s
-                    WHERE id = %s
+                    WHERE profile_id = %s
                     """,
-                [
-                characteristic.DOB, 
-                characteristic.dog_friendly,
-                characteristic.kid_friendly,
-                characteristic.people_friendly,
-                characteristic.energy_level,
-                characteristic.fixed,
-                characteristic.size,
-                characteristic.profile_id,
-                characteristics_id
-                ]
+                    [
+                        characteristic.DOB, 
+                        characteristic.dog_friendly,
+                        characteristic.kid_friendly,
+                        characteristic.people_friendly,
+                        characteristic.energy_level,
+                        characteristic.fixed,
+                        characteristic.size,
+                        characteristic.profile_id,
+                        profile_id
+                    ]
                 )
-                return self.characteristic_in_to_out(characteristics_id, characteristic)
+                return self.characteristic_in_to_out(char_id[0], characteristic)
 
 
-    def delete(self, characteristics_id: int) -> bool:
+    def delete(self, profile_id: int) -> bool:
         with pool.connection() as conn:
             with conn.cursor() as db:
                 db.execute(
                     """
                     DELETE FROM characteristics
-                    WHERE id = %s
+                    WHERE profile_id = %s
                     """,
-                    [characteristics_id]
+                    [profile_id]
                 )
                 return True
     
-    def get(self, profile_id: int) -> CharsOut:
+    def get_one(self, profile_id: int) -> CharsOut:
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(
