@@ -11,7 +11,7 @@ export default function VacctinationsModal(props) {
     const [ checkRabies, setCheckRabies ] = useState(props.vaccines.rabies);
     const [ other, setOther ] = useState(props.vaccines.other);
     const profileId = props.profileId;
-    console.log("distemper vacc in modal:", checkDistemper)
+    // console.log("distemper vacc in modal:", checkDistemper)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -26,14 +26,14 @@ export default function VacctinationsModal(props) {
         };
 
         if (props.hasVaccines) {
-            const putUrl = `http://localhost:8100/api/vaccinations/${profileId}`
+            const putUrl = `http://localhost:8100/api/vaccinations/${profileId}`;
             const putFetchConfig = {
                 method: 'PUT',
                 body: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            }
+            };
             const putResponse = await fetch(putUrl, putFetchConfig);
             if (putResponse.ok) {
                 props.getVaccines()
@@ -65,46 +65,50 @@ export default function VacctinationsModal(props) {
                 </Modal.Header>
                 <Modal.Body>
                     <form onSubmit={handleSubmit}>
-                        <div className="form-check">
+                        <div className="form-check form-switch">
                             <input
                                 className="form-check-input" 
                                 type="checkbox" 
+                                role="switch"
                                 checked={checkDistemper}
-                                id="flexCheckDefault"
+                                id="flexSwitchCheckDefault"
                                 onChange={(e) => {setCheckDistemper(e.target.checked)}}
                             />
-                            <label className="form-check-label" htmlFor="flexCheckDefault">Distemper</label>
+                            <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Distemper</label>
                         </div>
-                        <div className="form-check">
+                        <div className="form-check form-switch">
                             <input
                                 className="form-check-input" 
                                 type="checkbox" 
+                                role="switch"
                                 checked={checkParvo}
-                                id="flexCheckDefault"
+                                id="flexSwitchCheckDefault"
                                 onChange={(e) => {setCheckParvo(e.target.checked)}}
                             />
-                            <label className="form-check-label" htmlFor="flexCheckDefault">Parvo</label>
+                            <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Parvo</label>
                         </div>
-                        <div className="form-check">
+                        <div className="form-check form-switch">
                             <input
                                 className="form-check-input" 
                                 type="checkbox" 
+                                role="switch"
                                 checked={checkAdeno}
                                 value=""
-                                id="flexCheckDefault"
+                                id="flexSwitchCheckDefault"
                                 onChange={(e) => {setCheckAdeno(e.target.checked)}}
                             />
-                            <label className="form-check-label" htmlFor="flexCheckDefault">Adeno</label>
+                            <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Adeno</label>
                         </div>
-                        <div className="form-check">
+                        <div className="form-check form-switch">
                             <input
                                 className="form-check-input" 
                                 type="checkbox" 
+                                role="switch"
                                 checked={checkRabies}
-                                id="flexCheckDefault"
+                                id="flexSwitchCheckDefault"
                                 onChange={(e) => {setCheckRabies(e.target.checked)}}
                             />
-                            <label className="form-check-label" htmlFor="flexCheckDefault">Rabies</label>
+                            <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Rabies</label>
                         </div>
                         <div className="form-floating mb-3">
                             <input

@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
 import VacctinationsModal from './VaccinationsModal';
 
 export default function Vaccinations(props) {
@@ -18,8 +16,7 @@ export default function Vaccinations(props) {
             other: ''
         })
     const profileId = props.profileId
-    const dogName = props.dogName
-    console.log("distemper in vacc:", vaccines.distemper)
+    // console.log("distemper in vacc:", vaccines.distemper)
 
     async function getVaccines() {
         const response = await fetch(`http://localhost:8100/api/vaccinations/${profileId}`)
@@ -51,7 +48,7 @@ export default function Vaccinations(props) {
                     ?
                     <div>
                         <Button variant="primary" onClick={handleShow}>
-                            Edit Vaccination Records for {dogName}
+                            Edit Vaccination Records for {props.dogName}
                         </Button>
                         <table className="table table-striped">
                             <thead>
@@ -75,7 +72,7 @@ export default function Vaccinations(props) {
                         </table>
                     </div>
                     : <Button variant="primary" onClick={handleShow}>
-                        Add Vaccination records for {dogName}
+                        Add Vaccination records for {props.dogName}
                     </Button>
                 }
             </div>

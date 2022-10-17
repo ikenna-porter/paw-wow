@@ -145,14 +145,15 @@ class ProfileRepository:
                     db.execute(
                         """
                         UPDATE profiles
-                        SET dog_name = %s
-                        ,   city = %s
-                        ,   state = %s
-                        ,   owner_name = %s
-                        ,   owner_description = %s
-                        ,   avatar = %s
-                        ,   account_id = %s
-                        WHERE id= %s
+                        SET 
+                            dog_name = %s,
+                            city = %s,
+                            state = %s,
+                            owner_name = %s,
+                            owner_description = %s,
+                            avatar = %s,
+                            account_id = %s
+                        WHERE account_id= %s
                         """,
                         [
                             profile.dog_name, 
@@ -161,8 +162,8 @@ class ProfileRepository:
                             profile.owner_name, 
                             profile.owner_description, 
                             profile.avatar,
-                            account_info[0],
-                            profile_id[0]
+                            profile.account_id,
+                            account_info[0]
                         ]
                     )
                     return self.profile_in_to_out(profile_id[0], profile)

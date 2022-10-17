@@ -7,7 +7,7 @@ import Profile from './Profile/Profile'
 import Vaccinations from './Profile/Vaccinations'
 import VaccinationsModal from './Profile/VaccinationsModal'
 import Characteristics from './Profile/Characteristics'
-import CreateChars from './Profile/CreateChars'
+import CharacteristicsModal from './Profile/CharsModal'
 import ListFriends from './Friendship/FriendList'
 import PendingList from './Friendship/PendingList'
 
@@ -35,8 +35,10 @@ export default function App() {
           <Route index element={<Profile profileId={profileId} />} />
           <Route path="vaccinations" element={<Vaccinations />} />
           <Route path="create-vaccinations" element={<VaccinationsModal profileId={profileId} />} />
+          <Route path="edit-vaccinations" element={<VaccinationsModal profileId={profileId} />} />
           <Route path="characteristics" element={<Characteristics />} />
-          <Route path="create-characteristics" element={<CreateChars profileId={profileId} />} />
+          <Route path="create-characteristics" element={<CharacteristicsModal profileId={profileId} />} />
+          <Route path="edit-characteristics" element={<CharacteristicsModal profileId={profileId} />} />
         </Route>  
         {/* <Route path="create-profile" element={<CreateProfile token={token} accountId={accountId} />} /> */}
         <Route path="profile" element={<Profile />} />
