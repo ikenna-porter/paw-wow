@@ -1,22 +1,26 @@
-// import {useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 
-function Conversations(props) {
-    // const setSelectedConversation = props.setSelectedConversation
-    // const [loading, setLoading] = useState(true);
-    // const [conversations, setConversations] = useState([]);
+export default function Conversations(props) {
+    const setSelectedConversation = props.setSelectedConversation
+    const [loading, setLoading] = useState(true);
+    const [conversations, setConversations] = useState([]);
 
-    // useEffect(async () => {
-    //     const response = await fetch('http://localhost:8200/api/conversations')
-    //     if (response.ok) {
-    //         const data = await response.json()
-    //         setConversations(...data)
-    //     }
-    // }, [])
+    useEffect(() => {
+        const fetchConversations = async () => {
+            const response = await fetch('http://localhost:8200/api/conversations')
+            if (response.ok) {
+                const data = await response.json()
+                setConversations(...data)
+                console.log(conversations)
+            }
+        }
+        fetchConversations();
+    }, [])
 
-    // handleConversationClick = e => {
-    //     //need to access the conversation.id - key and pass as argument ->
-    //     setSelectedConversation() //changes state of parent, thereby rendering conversation
-    // }
+    const handleConversationClick = e => {
+        //need to access the conversation.id - key and pass as argument ->
+        setSelectedConversation() //changes state of parent, thereby rendering conversation
+    }
 
     return (
         // <ul>
@@ -30,12 +34,7 @@ function Conversations(props) {
         //         </li>
         //     })}
         // </ul>
-        <div>
-            test conversations
-        </div>
+        <div>testing</div>
     )
 
 }
-
-
-export default Conversations

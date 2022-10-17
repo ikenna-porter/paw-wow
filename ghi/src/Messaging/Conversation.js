@@ -5,21 +5,27 @@ export default function Conversation(props) {
     const [connected, setConnected] = useState(false);
     const [loading, setLoading] = useState(true);
 
-    // useEffect( async () => {
-    //     // retrieves messages for conversation
-    //     const url = `http://localhost:8200/api/conversations/${conversation_id}`
+   // useEffect(() => { 
 
-    //     const ws = new WebSocket(`ws://localhost:8200/api/conversations/${conversation_id}`)
-    //     ws.addEventListener('open', () => {
-    //         setConnected(true);
-    //         setLoading(false);
-    //     });
+    //     const fetchConversation = () => {
+    //         // retrieves messages for conversation
+    //         const url = `http://localhost:8200/api/conversations/${conversation_id}`
 
-    //     ws.addEventListener('close', () => {
-    //         setConnected(false);
-    //         setLoading(false);
-    //     });
+    //         const ws = new WebSocket(`ws://localhost:8200/api/conversations/${conversation_id}`)
+    //         ws.addEventListener('open', () => {
+    //             setConnected(true);
+    //             setLoading(false);
+    //         });
+
+    //         ws.addEventListener('close', () => {
+    //             setConnected(false);
+    //             setLoading(false);
+    //         });
+    //     }
+
+    //     fetchConversation();
     // }), [];
+
 
     return (
         <div>

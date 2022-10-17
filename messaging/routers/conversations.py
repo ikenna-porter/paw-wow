@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, WebSocket, WebSocketDisconnect
-from websocket import ConnectionManager
+from .websocket import ConnectionManager
 from typing import List
 from queries.conversations import (
     ConversationIn,
