@@ -14,9 +14,6 @@ class FriendshipOut(BaseModel):
     user_one: int
     user_two: int
 
-# class SuccessChange(BaseModel):
-#     success: bool
-
 
 class FriendshipRepository:
     def create(self, friendship: FriendshipIn) -> FriendshipOut:
@@ -116,11 +113,24 @@ class FriendshipRepository:
             print(e)
             return {"Message": "This request does not exist."}
 
-    # def pending_to_approved(self, record):
-    #     return FriendshipUpdate(
-    #         bool=record[0]
-    #         # id=record[0],
-    #         # status=record[1],
-    #         # user_one=record[2],
-    #         # user_two=record[3],
-    #     )
+    def deny_request(self, user_one: int, user_two: int):
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                        DELETE FROM friendships
+                        WHERE user_one = %s
+                        AND user_two = %s
+                        """,
+                        [
+                            user_one, 
+                            user_two
+                        ]
+                    )
+                    if result:
+                        return True
+                    return False
+        except Exception as e:
+            print(e)
+            return {"Message": "This request does not exist."}
