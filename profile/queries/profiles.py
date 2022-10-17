@@ -79,10 +79,20 @@ class ProfileRepository:
             print(e)
             return {"message": "Could not get all profiles."}     
 
-    def get_one(self, profile_id: int)  -> Optional[ProfileOut]:
+    def get_one(self, username: str)  -> Optional[ProfileOut]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
+                    account = db.execute(
+                        """
+                        SELECT * 
+                        FROM accounts
+                        WHERE username = %s
+                        """,
+                        [username]
+                    )
+                    account_info = account.fetchone()
+
                     result = db.execute(
                         """
                         SELECT id
@@ -94,9 +104,9 @@ class ProfileRepository:
                             , avatar
                             , account_id
                         FROM profiles
-                        WHERE id = %s
+                        WHERE account_id = %s
                         """,
-                        [profile_id]
+                        [account_info[0]]
                     )
                     record = result.fetchone()
 
@@ -109,10 +119,30 @@ class ProfileRepository:
             print("########################################",e)
             return {"message": "Error in retrieving profile detail."}
     
-    def update(self, profile: ProfileIn, profile_id: int) -> Union[ProfileOut, Error]:
+    def update(self, profile: ProfileIn, username: str) -> Union[ProfileOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
+                    account = db.execute(
+                        """
+                        SELECT * 
+                        FROM accounts
+                        WHERE username = %s
+                        """,
+                        [username]
+                    )
+                    account_info = account.fetchone()
+
+                    profile = db.execute(
+                        """
+                        SELECT * 
+                        FROM profiles
+                        WHERE account_id = %s
+                        """,
+                        [account_info[0]]
+                    ) 
+                    profile_id = profile.fetchone()
+
                     db.execute(
                         """
                         UPDATE profiles
@@ -132,26 +162,36 @@ class ProfileRepository:
                             profile.owner_name, 
                             profile.owner_description, 
                             profile.avatar,
-                            profile.account_id,
-                            profile_id
+                            account_info[0],
+                            profile_id[0]
                         ]
                     )
-                    return self.profile_in_to_out(profile_id, profile)
+                    return self.profile_in_to_out(profile_id[0], profile)
 
         except Exception as e:
             print(e)
             return {"message": "Could not update profile detail."}
     
-    def delete(self, profile_id: int):
+    def delete(self, username: str):
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
+                    account = db.execute(
+                        """
+                        SELECT * 
+                        FROM accounts
+                        WHERE username = %s
+                        """,
+                        [username]
+                    )
+                    account_info = account.fetchone()
+
                     db.execute(
                         """
                         DELETE FROM profiles
-                        WHERE id = %s
+                        WHERE account_id = %s
                         """,
-                        [profile_id]
+                        [account_info[0]]
                     )
                 return True
 

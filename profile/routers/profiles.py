@@ -10,15 +10,15 @@ from authenticator import authenticator
 
 router = APIRouter()
 
-@router.get("/api/profiles/{profile_id}", response_model = Optional[ProfileOut])
+@router.get("/api/profiles/{username}", response_model = Optional[ProfileOut])
 def get_one_profile(
-    profile_id: int, 
+    username: str, 
     response: Response,
     # account_data: dict = Depends(authenticator.get_current_account_data),
     repo: ProfileRepository = Depends()
 ) -> ProfileOut:
 
-    profile = repo.get_one(profile_id)
+    profile = repo.get_one(username)
 
     if profile is None:
         response.status_code = 404
@@ -41,18 +41,18 @@ def create_profile(
     # print("account_data:", account_data)
     return repo.create(profile)    
 
-@router.put("/api/profiles/{profile_id}", response_model = Union[Error, ProfileOut])
+@router.put("/api/profiles/{username}", response_model = Union[Error, ProfileOut])
 def update_profile(
     profile: ProfileIn, 
-    profile_id: int, 
+    username: str, 
     # account_data: dict = Depends(authenticator.get_current_account_data),
     repo: ProfileRepository = Depends()) -> Union[Error, ProfileOut]:
-    return repo.update(profile, profile_id)
+    return repo.update(profile, username)
 
-@router.delete("/api/profiles/{profile_id}", response_model = bool)
+@router.delete("/api/profiles/{username}", response_model = bool)
 def delete_profile(
-    profile_id: int, 
+    username: str, 
     # account_data: dict = Depends(authenticator.get_current_account_data),
     repo: ProfileRepository = Depends()
 ) -> bool:
-    return repo.delete(profile_id)
+    return repo.delete(username)

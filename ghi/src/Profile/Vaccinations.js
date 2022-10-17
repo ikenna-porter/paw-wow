@@ -19,7 +19,7 @@ export default function Vaccinations(props) {
         })
     const profileId = props.profileId
     const dogName = props.dogName
-    console.log("vaccines:", vaccines)
+    console.log("distemper in vacc:", vaccines.distemper)
 
     async function getVaccines() {
         const response = await fetch(`http://localhost:8100/api/vaccinations/${profileId}`)

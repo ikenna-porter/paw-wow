@@ -15,13 +15,14 @@ export default function Profile(props) {
     })
     const [ chars, setChars ] = useState([]);
     const profileId = 13
+    const username = "Cookie123"
 
     useEffect(() => {
         async function getProfile() {
-            const profileResponse = await fetch(`http://localhost:8100/api/profiles/${profileId}`)
+            const profileResponse = await fetch(`http://localhost:8100/api/profiles/${username}`)
             if (profileResponse.ok) {
                 const data = await profileResponse.json();
-                setProfile(data);
+                setProfile({...data, states: data.state});
             }
         }   
         getProfile();
