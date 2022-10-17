@@ -9,6 +9,7 @@ import VaccinationsModal from './Profile/VaccinationsModal'
 import Characteristics from './Profile/Characteristics'
 import CreateChars from './Profile/CreateChars'
 import ListFriends from './Friendship/FriendList'
+import PendingList from './Friendship/PendingList'
 
 
 export default function App() {
@@ -40,6 +41,7 @@ export default function App() {
         {/* <Route path="create-profile" element={<CreateProfile token={token} accountId={accountId} />} /> */}
         <Route path="profile" element={<Profile />} />
         <Route path='list-friends' element={<ListFriends />} />
+        <Route path="pending" element={<PendingList userTwo={profileId} />} />
       </Routes>
     </BrowserRouter>
   )

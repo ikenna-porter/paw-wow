@@ -14,8 +14,8 @@ export default function Profile(props) {
         avatar: ''
     })
     const [ chars, setChars ] = useState([]);
-    const profileId = 13
-    const username = "Cookie123"
+    const profileId = 5
+    const username = "brunobuddy"
 
     useEffect(() => {
         async function getProfile() {
