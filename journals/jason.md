@@ -12,49 +12,54 @@ At least one ah-ha! moment that you had during your coding, however small
 
 ----
 - ---
+## October 14, 2022 
+
+Today I worked on:
+The group was a little short-staffed today, so we each broke up to code on our own. I started the day by going over pydantic, because I am a bit confused on how the models work. After, I started working on the front-end design for a list friends feature. 
+
+## October 13, 2022 
+
+Today I worked on:
+
+*Creating a friends feature*
+Today, Sorena and I pair-programmed where I was the primary coder. We re-evaluated how we wanted our followers table to be, and modified it to act more like a friend's list. 
+
+We didn't think we had the ability to create a functional list of friends for users and we were both ecstatic that we got it to work. 
+
+## October 12, 2022 
+
+Today I worked on:
+
+*Creating a follower feature*
+Sorena and I pair-programmed today, where she was primarily coding. We created a table
+for followers, which has an id which is the primary key, a followee and a follower which
+referenced the profile id. We also created a create method to create a new follow instance.
+
+We had a conversation about proceeding with the friends list, which may be harder to implement
+within our deadline, or to go for a follow feature instead which would be more
+manageable. And then go for a friends list as a stretch goal. 
+
+It is useful to create an id for each table acting as the primary key. And it is
+also important to make sure you are returning the correct pydantic model in your
+queries! 
+
+----
 
 ## October 11, 2022
 
 Today I worked on:
 
+*I forgot and my past journals got deleted 😢*
 
 
-## October 11, 2022
-
-Today I worked on:
-
-*Creating a form to sign up*
-
-America and I pair-programmed today, where I was the one coding. We created a form
-that allows a user to sign up for an account. It is still a work in progress, as it does not currently
-save on submit. We also configured everything to have bootstrap properly working
-in our application.
-
-We had a conversation with Ikenna over the schema for the messaging database tables.
-Which led to the decision to remove one of the tables to stay in a normalized form.
-
-To ensure that bootstrap works in your react application, it's important to
-change into the ghi directory and run the npm commands. As well as
-importing that bootstrap directory from node_modules in index.js.
 
 ## October 10, 2022
 
 Today I worked on:
 
-*Connecting foreign keys throughout the profile*
+*added multiple endpoints*
 
-America and I pair-programmed today. We had to alter tables and columns to 
-include the associated foreign keys, as well as make an adjustment to a table name.
-This meant we also had to fix any differences throughout the routers/queries to 
-reflect the changes in the columns that were made.
-
-After discussing with SEIRs, we decided to stick with our plan to have
-the profile table contain a reference to the account table. And for profile to 
-share a foreign key to our other tables, vaccination records and characteristics. 
-
-From doing migration files, we have learned that our steps needed to contain
-two strings within each step. This is based on how the code is written to handle
-the migrations up and migrations down commands. 
+Today I worked with Ikenna to finish making the endpoints for the profile page. We ended up creating three different endpoints for vaccinations and characteristics. 
 
 ----
 
@@ -62,15 +67,9 @@ the migrations up and migrations down commands.
 
 Today I worked on:
 
-*Creating endpoints for vaccination*
+*self-study*
 
-I created a migration file to create a vaccination table. In queries, I created pydantic models for
-Vaccination in and out and then the functionality to create, update, delete, and get one record. 
-
-We decided to include a separate link to view a single vaccination record.
-
-It is super important to include .py at the end of your migration file. It's easy to forget when you're typing
-a very long name. But important regardless! 
+Today, I continued self-study, going over postgres and databases
 
 ----
 
@@ -78,16 +77,11 @@ a very long name. But important regardless!
 
 Today I worked on:
 
-*Creating our queries and routers for profile service.*
+*group-build*
 
-As a group, with America driving, we implemented our first routers and queries for the profile service.
-We created pydantic models for ProfileIn and ProfileOut, utilizing them to create a get and post request.
+Today, we all had a pair programming session together, where the most confident member (America) drove. She explained any gaps in knowledge that we had with FastAPI. 
 
-We were debating whether to use one large table or create multiple tables to hold our data for profiles and their details.
-We agreed upon creating separate tables to better manage the data and be able to work with git with less conflicts.
-
-After the pair-programming today, I understood better why we include an index location for the id when it is being returned
-from the results. Because when the ProfileOut is generated, an ID is created by SQL that is placed at index 0. 
+We set ujp our routers and queries for our profile services as well as created pydantic models.
 
 ----
 
@@ -95,7 +89,8 @@ from the results. Because when the ProfileOut is generated, an ID is created by 
 
 Today I worked on:
 
-*Fixing our services to run FastAPI.*
+*Self-study and catch-up*
+Today I refreshed my knowledge of React as well as FastAPI, I felt behind the group and wanted to familiarize myself with the material.
 
 
 ----
@@ -104,13 +99,8 @@ Today I worked on:
 
 Today, I worked on:
 
-*Setting up the docker files and ghi folder with my team.*
+*Setting up Docker.*
 
-Before getting started, we all discussed how we should approach our MVPs.
-We all agreed that we will follow the order of our Excalidraw pages as
-the order of importance for implementing those functions.
-
-We realized we needed to have Services and Volumes on their own so 
-when we run the command to bring up docker containers, it is able
-to also create the volume.
+We all discussed the order in which we would implement our MVPs
+We started to draw out and plan each microservice and set up Docker services.
 
