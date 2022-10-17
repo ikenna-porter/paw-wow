@@ -1,4 +1,5 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, WebSocket, WebSocketDisconnect
+from websocket import ConnectionManager
 from typing import List
 from queries.conversations import (
     ConversationIn,
@@ -39,3 +40,20 @@ def update(
     repo: ConversationRepository = Depends()
 ) -> ConversationOut:
     return repo.update(conversation_id, conversation)
+
+
+manager = ConnectionManager()
+
+@router.websocket("/api/conversations/{conversation_id}")
+async def websocket_endpoint(
+    websocket: WebSocket,
+    conversation_id: int,
+):
+    await manager.connect(websocket, conversation_id)
+    try:
+        while True:
+            message = await websocket.receive_text()
+            await manager.broadcast(message, conversation_id)
+    except WebSocketDisconnect:
+        manager.disconnect(websocket)
+        await manager.broadcast("Disconnected", conversation_id)

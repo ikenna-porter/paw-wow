@@ -4,6 +4,7 @@ import Nav from './Nav'
 import AuthenticateUser from './Authenticate/AuthenticateUser'
 import CreateProfile from './Profile/CreateProfile'
 import Profile from './Profile/Profile'
+import Messaging from './Messaging/Messaging'
 
 
 export default function App() {
@@ -22,6 +23,8 @@ export default function App() {
                                 />} />
         <Route path="create-profile" element={<CreateProfile token={token} accountId={accountId} />} />
         <Route path="profile" element={<Profile />} />
+        
+        <Route path="messaging" element={<Messaging />} />
       </Routes>
     </BrowserRouter>
   )
