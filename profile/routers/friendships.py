@@ -31,7 +31,7 @@ def get_pending(
 ):
     return repo.get_pending_requests(user_two)
 
-@router.put("/api/friendships/{user_one}/pending", response_model = FriendshipOut)
+@router.put("/api/friendships/{user_one}/pending")
 def update_approve_request(
     user_one: int,
     user_two: int,

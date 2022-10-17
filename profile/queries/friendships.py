@@ -14,6 +14,9 @@ class FriendshipOut(BaseModel):
     user_one: int
     user_two: int
 
+# class SuccessChange(BaseModel):
+#     success: bool
+
 
 class FriendshipRepository:
     def create(self, friendship: FriendshipIn) -> FriendshipOut:
@@ -45,10 +48,11 @@ class FriendshipRepository:
                         """
                         SELECT *  
                         FROM friendships
-                        WHERE user_one = %s
-                        AND status = 1;
+                        WHERE status = 1
+                        AND user_one = %(user_one)s
+                        OR user_two = %(user_one)s;
                         """,
-                        [user_one]
+                        {"user_one":user_one}
                     )
                     return_list = [FriendshipOut(
                         id = record[0],
@@ -57,7 +61,7 @@ class FriendshipRepository:
                         user_two= record[3],
                     )
                     for record in db]
-                    print("TESTING", return_list)
+                    print("PRINTING", return_list)
                     return return_list
         except Exception as e:
             print(e)
@@ -89,26 +93,25 @@ class FriendshipRepository:
             print(e)
             return {"Message": "You have no pending requests"}
 
-    def approve_request(self, user_one: int, user_two: int) -> FriendshipOut:
+    def approve_request(self, user_one: int, user_two: int):
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    result =db.execute(
+                    result = db.execute(
                         """
                         UPDATE friendships
                         SET status = 1
                         WHERE user_one = %s
                         AND user_two = %s
-                        RETURNING id;
                         """,
                         [
                             user_one, 
                             user_two
                         ]
                     )
-                    id = result.fetchone()[0]
-                    incoming_data = result.dict()
-                    return FriendshipOut(id=id, **incoming_data)
+                    if result:
+                        return True
+                    return False
         except Exception as e:
             print(e)
             return {"Message": "This request does not exist."}
