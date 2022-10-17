@@ -12,6 +12,20 @@ At least one ah-ha! moment that you had during your coding, however small
 
 ----
 
+## October 17, 2022
+
+Today I worked on:
+
+*Finishing back-end for friends feature and starting front-end for pending requests*
+
+I mostly worked solo today on finishing the last endpoints for the friends feature, which was the changing of the status for both accepting or denying. As well as fixing a technical issue with showing the pending list of requests for a user. I began working on the front end page for showing the list of pending requests. I got with Jason at the end of the day to help him with the list of friends that have been accepted.
+
+Jason and I realized that we may need to rework our SQL statements to join the data from the profile table, so the front end will have access to the profile data.
+
+It is really helpful to remember that there is a delete http request which makes having two different methods with the same endpoint work. 
+
+----
+
 ## October 13, 2022
 
 Today I worked on:
