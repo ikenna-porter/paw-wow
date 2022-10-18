@@ -7,7 +7,7 @@ import Profile from './Profile/Profile'
 import Vaccinations from './Profile/Vaccinations'
 import VaccinationsModal from './Profile/VaccinationsModal'
 import Characteristics from './Profile/Characteristics'
-import CharacteristicsModal from './Profile/CharsModal'
+import CharsModal from './Profile/CharacteristicsModal'
 
 
 export default function App() {
@@ -35,8 +35,8 @@ export default function App() {
           <Route path="create-vaccinations" element={<VaccinationsModal profileId={profileId} />} />
           <Route path="edit-vaccinations" element={<VaccinationsModal profileId={profileId} />} />
           <Route path="characteristics" element={<Characteristics />} />
-          <Route path="create-characteristics" element={<CharacteristicsModal profileId={profileId} />} />
-          <Route path="edit-characteristics" element={<CharacteristicsModal profileId={profileId} />} />
+          <Route path="create-characteristics" element={<CharsModal profileId={profileId} />} />
+          <Route path="edit-characteristics" element={<CharsModal profileId={profileId} />} />
         </Route>  
       </Routes>
     </BrowserRouter>

@@ -47,7 +47,7 @@ export default function Vaccinations(props) {
                 { hasVaccines
                     ?
                     <div>
-                        <Button variant="primary" onClick={handleShow}>
+                        <Button className="btn btn-info btn-sm" onClick={handleShow}>
                             Edit Vaccination Records for {props.dogName}
                         </Button>
                         <table className="table table-striped">
@@ -71,7 +71,7 @@ export default function Vaccinations(props) {
                             </tbody>
                         </table>
                     </div>
-                    : <Button variant="primary" onClick={handleShow}>
+                    : <Button className="btn btn-info btn-sm" onClick={handleShow}>
                         Add Vaccination records for {props.dogName}
                     </Button>
                 }
