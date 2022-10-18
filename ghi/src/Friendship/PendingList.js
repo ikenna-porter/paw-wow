@@ -30,7 +30,7 @@ function PendingList(props) {
                 <div className='row col-lg-4'>
                     <div className='card shadow-sm'>
                         <div className='card-header bg-transparent text-center'>
-                            {pending.user_one}
+                            {pending.dog_name}
                         </div>
                     </div>
                 </div>

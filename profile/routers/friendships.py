@@ -3,7 +3,8 @@ from typing import List
 from queries.friendships import (
     FriendshipRepository, 
     FriendshipIn, 
-    FriendshipOut
+    FriendshipOut,
+    FriendListOut
 )
 
 router = APIRouter()
@@ -15,7 +16,7 @@ def create_friendship(
 ):
     return repo.create(friendship)
 
-@router.get("/api/friendships/{user_one}", response_model = List[FriendshipOut])
+@router.get("/api/friendships/{user_one}", response_model = List[FriendListOut])
 def get_list_friends(
     user_one: int,
     repo: FriendshipRepository = Depends()
@@ -23,7 +24,7 @@ def get_list_friends(
 ):
     return repo.get_friend_list(user_one)
 
-@router.get("/api/friendships/{user_two}/pending", response_model = List[FriendshipOut])
+@router.get("/api/friendships/{user_two}/pending", response_model = List[FriendListOut])
 def get_pending(
     user_two: int,
     repo: FriendshipRepository = Depends()

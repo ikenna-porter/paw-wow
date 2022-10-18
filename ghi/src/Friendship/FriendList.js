@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 export default function ListFriends(props) {
     const [friends, setFriends] = useState([]);
-    const user_one = 2
+    const user_one = 1
     // fix the hard coded user id
 
     useEffect(() => {
@@ -14,12 +14,12 @@ export default function ListFriends(props) {
                 const data = await response.json();
                 setFriends(data);
                 console.log('PRINTING',data)
-            }else{
+            } else {
                 console.log("ERROR!");
             }
             } getFriendList()
         }, [setFriends, user_one])
-  
+
 
 
 
@@ -33,7 +33,7 @@ return(
                 <div className='row col-lg-4'>
                     <div className='card shadow-sm'>
                         <div className='card-header bg-transparent text-center'>
-                            {friend.user_two}
+                            {friend.dog_name}
                         </div>
                     </div>
                 </div>
