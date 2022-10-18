@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 export default function ListFriends(props) {
     const [friends, setFriends] = useState([]);
-    const user_one = 1
+    const user_one = 2
     // fix the hard coded user id
 
     useEffect(() => {
@@ -26,12 +26,21 @@ export default function ListFriends(props) {
 return(
     <div className='container my-5'>
     <h2>Friend List</h2>
-    <table className='table'>
-        {/* maketh the table */}
-        <tbody>
-             {/* {friends.filter} */}
-        </tbody>
-    </table>
+    <div>
+        {friends.map(friend => {
+            return (
+                <div className='container'>
+                <div className='row col-lg-4'>
+                    <div className='card shadow-sm'>
+                        <div className='card-header bg-transparent text-center'>
+                            {friend.user_two}
+                        </div>
+                    </div>
+                </div>
+                </div>
+            )
+        })}
+    </div>
     </div>
 );
 

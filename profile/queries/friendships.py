@@ -46,7 +46,7 @@ class FriendshipRepository:
                         SELECT *  
                         FROM friendships
                         WHERE status = 1
-                        AND user_one = %(user_one)s
+                        AND user_one = %(user_one)s;
                         OR user_two = %(user_one)s;
                         """,
                         {"user_one":user_one}
