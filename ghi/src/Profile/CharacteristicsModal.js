@@ -6,30 +6,23 @@ export default function CharsModal(props) {
     const show = props.show;
     const handleClose = props.handleClose;
     const chars = props.chars;
-    const [ changedChar, setChangedChar ] = useState(chars);
-
-    if (!props.hasChars) {
-        setChangedChar([
-            {char: 'dog friendly', value: 1},
-            {char: 'kid friendly', value: 1},
-            {char: 'people friendly', value: 1},
-            {char: 'energy level', value: 1}
-        ])
-    }
+    const [ editChars, setEditChars ] = useState(chars);
+    const details = props.dogDetails;
+    const [ editDetails, setEditDetails ] = useState(details);
 
     function changeChar(char, value) {
-        let targetObj = changedChar.filter(obj => obj.char === char);
-        let idx = changedChar.indexOf(targetObj[0])
-        let newArr = [...changedChar]
+        let targetObj = editChars.filter(obj => obj.char === char);
+        let idx = editChars.indexOf(targetObj[0])
+        let newArr = [...editChars]
         newArr[idx] = {char: char, value: value}
-        setChangedChar(newArr)
+        setEditChars(newArr)
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const updatedChars = {};
-        for (let obj of changedChar) {
+        for (let obj of editChars) {
             updatedChars[obj.char] = obj.value
         };
         const data = {
@@ -37,18 +30,18 @@ export default function CharsModal(props) {
             kid_friendly: parseInt(updatedChars['kid friendly']),
             people_friendly: parseInt(updatedChars['people friendly']),
             energy_level: parseInt(updatedChars['energy level']),
-            DOB: props.dogDetails.DOB,
-            fixed: props.dogDetails.fixed,
-            size: props.dogDetails.size,
+            DOB: editDetails.DOB,
+            fixed: editDetails.fixed,
+            size: editDetails.size,
             profile_id: props.profileId,
-            gender: props.dogDetails.gender,
-            breed: props.dogDetails.breed,
-            dog_bio: props.dogDetails.dog_bio
+            gender: editDetails.gender,
+            breed: editDetails.breed,
+            dog_bio: editDetails.dog_bio
         };
         console.log("data", data)
-        const charsUrl = `http://localhost:8100/api/characteristics/${props.profileId}`;
         
         if (props.hasChars) {
+            const putUrl = `http://localhost:8100/api/characteristics/${props.profileId}`;
             const putFetchConfig = {
                 method: 'PUT',
                 body: JSON.stringify(data),
@@ -56,12 +49,13 @@ export default function CharsModal(props) {
                     'Content-Type': 'application/json'
                 }
             }
-            const putResponse = await fetch(charsUrl, putFetchConfig);
+            const putResponse = await fetch(putUrl, putFetchConfig);
             console.log(putResponse)
             if (putResponse.ok) {
-                props.getChars()
+                // props.getChars()
             }
         } else {
+            const postUrl = `http://localhost:8100/api/characteristics`
             const postFetchConfig = {
                 method: 'POST',
                 body: JSON.stringify(data),
@@ -69,13 +63,11 @@ export default function CharsModal(props) {
                     'Content-Type': 'application/json'
                 }
             }
-            const postResponse = await fetch(charsUrl, postFetchConfig);
+            const postResponse = await fetch(postUrl, postFetchConfig);
             if (postResponse.ok) {
                 props.getChars()
             }
         }
-        
-        
     }
 
     return(
@@ -89,29 +81,115 @@ export default function CharsModal(props) {
             <Modal.Body>
                 <form onSubmit={handleSubmit}>
                     <div>
-                        {changedChar.map(obj => {
-                            return (
-                                <div key={obj.char}>
-                                    <label htmlFor="customRange2" className="form-label">{obj.char}</label>
-                                    <input
-                                        type="range" 
-                                        name={obj.char}
-                                        value={obj.value} 
-                                        className="form-range" 
-                                        min="1" 
-                                        max="5" 
-                                        id="customRange2"
-                                        onInput={(e) => {changeChar(e.target.name, e.target.value)}}
-                                    />
-                                </div>
-                            )
-                        })}
+                        <label className="form-label fw-semibold">{props.dogName}'s Bio</label>
+                        <div className="form-floating mb-3">
+                            <input
+                                type="date" 
+                                value={editDetails.DOB}
+                                className="form-control" 
+                                id="floatingInput"
+                                onChange={(e) => {setEditDetails({
+                                    ...editDetails,
+                                    DOB: e.target.value
+                                })}}
+                            />
+                            <label htmlFor="floatingInput">DOB</label>
+                        </div>
+                        <div className="form-floating mb-3">
+                            <input
+                                type="text" 
+                                value={editDetails.breed}
+                                className="form-control" 
+                                id="floatingInput" 
+                                placeholder="breed"
+                                onChange={(e) => { setEditDetails({
+                                    ...editDetails,
+                                    breed: e.target.value
+                                })}}
+                            />
+                            <label htmlFor="floatingInput">Breed</label>
+                        </div>
+                        <div className="mb-3">
+                            <select
+                                className="form-select" 
+                                onChange={(e) => {setEditDetails({
+                                    ...editDetails,
+                                    gender: e.target.value
+                                })}}
+                            >
+                                <option defaultValue>Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                        <div className="mb-3">
+                            <select
+                                className="form-select"
+                                onChange={(e) => {setEditDetails({
+                                    ...editDetails,
+                                    size: e.target.value
+                                })}}
+                            >
+                                <option defaultValue>Select a size</option>
+                                <option value="Small">Small</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Large">Large</option>
+                            </select>
+                        </div>
+                        <div className="form-check mb-3 form-switch">
+                            <input
+                                type="checkbox" 
+                                checked={editDetails.fixed}
+                                className="form-check-input" 
+                                role="switch" 
+                                id="flexSwitchCheckDefault"
+                                onChange={(e) => {setEditDetails({
+                                    ...editDetails,
+                                    fixed: e.target.checked
+                                })}}
+                            />
+                            <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Is {props.dogName} fixed?</label>
+                        </div>
+                        <div className="form-floating mb-3">
+                            <textarea
+                                className="form-control" 
+                                value={editDetails.dog_bio}
+                                placeholder="dog bio" 
+                                id="floatingTextarea2" 
+                                style={{height: "100px"}}
+                                onChange={(e) => {setEditDetails({
+                                    ...editDetails,
+                                    dog_bio: e.target.value
+                                })}}
+                            />
+                            <label htmlFor="floatingTextarea2">Tell us more about {props.dogName}</label>
+                        </div>
+                    </div>
+                    <div>
+                        <label className="form-label fw-semibold">Characteristics</label>
+                            {editChars.map(obj => {
+                                return (
+                                    <div key={obj.char}>
+                                        <label htmlFor="customRange2" className="form-label">{obj.char}</label>
+                                        <input
+                                            type="range" 
+                                            name={obj.char}
+                                            value={obj.value} 
+                                            className="form-range" 
+                                            min="1" 
+                                            max="5" 
+                                            id="customRange2"
+                                            onInput={(e) => {changeChar(e.target.name, e.target.value)}}
+                                        />
+                                    </div>
+                                )
+                            })}
                     </div>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
                             Close
                         </Button>
-                        <Button variant="primary" type="submit" onClick={handleClose}>
+                        <Button variant="info" type="submit" onClick={handleClose}>
                             Save Changes
                         </Button>
                     </Modal.Footer> 

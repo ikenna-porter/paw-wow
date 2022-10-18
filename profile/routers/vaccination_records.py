@@ -40,9 +40,7 @@ def get_one_vaccination_record(
     # account_data: dict = Depends(authenticator.get_current_account_data),
     repo: VaccinationRecordRepository = Depends()
 ) -> VaccinationRecordOut:
-    print("testing")
     vaccination_record = repo.get_one(profile_id)
-    print("did vac print?", vaccination_record)
     if vaccination_record is None:
         response.status_code = 404
         return response

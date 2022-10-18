@@ -27,30 +27,27 @@ export default function Characteristics(props) {
     }
 
     return (
-        <div className="card-body">
-            <h5 className="card-title">Characteristics</h5>
-                <div> 
-                    <table className="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Characteristic</th>
-                                <th>Rating</th>
-                                <th>How I feel</th>
+        <div> 
+            <table className="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Characteristic</th>
+                        <th>Rating</th>
+                        <th>How I feel</th>
+                    </tr>
+                </thead>    
+                <tbody>
+                    {props.chars.map(obj => {
+                        return(
+                            <tr key={obj.char}>
+                                <td>{obj.char}</td>
+                                <td>{obj.value}</td>
+                                <td>{rate(obj.char, obj.value)}</td>
                             </tr>
-                        </thead>    
-                        <tbody>
-                            {props.chars.map(obj => {
-                                return(
-                                    <tr key={obj.char}>
-                                        <td>{obj.char}</td>
-                                        <td>{obj.value}</td>
-                                        <td>{rate(obj.char, obj.value)}</td>
-                                    </tr>
-                                )
-                            })}
-                        </tbody>
-                    </table>
-                </div>
+                        )
+                    })}
+                </tbody>
+            </table>
         </div>
     )   
 }

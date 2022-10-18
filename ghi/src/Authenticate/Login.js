@@ -50,7 +50,8 @@ export default function Login(props) {
                             <label className="form-label" htmlFor="username">Username</label>
                             <input
                                 placeholder="Username" 
-                                required type="text" 
+                                required 
+                                type="text" 
                                 onChange={e => setUsername(e.target.value)} 
                                 value={username}
                             />
@@ -59,7 +60,8 @@ export default function Login(props) {
                             <label className="form-label" htmlFor="password">Password</label>
                             <input
                                 placeholder="Password" 
-                                required type="password" 
+                                required 
+                                type="password" 
                                 onChange={e => setPassword(e.target.value)} 
                                 value={password}
                             />

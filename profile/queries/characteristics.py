@@ -156,6 +156,8 @@ class CharacteristicsRepository:
                     [profile_id]
                 )
                 record = result.fetchone()
+                if record == None:
+                    return None 
                 return CharsOut(
                     id = record[0],
                     dog_friendly = record[1],

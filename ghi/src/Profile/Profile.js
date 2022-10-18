@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import Vaccinations from './Vaccinations';
-import { Link } from 'react-router-dom';
 import Characteristics from './Characteristics';
 import CharsModal from './CharacteristicsModal';
 import Button from 'react-bootstrap/Button';
@@ -18,7 +17,12 @@ export default function Profile(props) {
         states: '',
         avatar: ''
     })
-    const [ chars, setChars ] = useState([]);
+    const [ chars, setChars ] = useState([
+        {char: 'dog friendly', value: 1},
+        {char: 'kid friendly', value: 1},
+        {char: 'people friendly', value: 1},
+        {char: 'energy level', value: 1}
+    ]);
     const [ dogDetails, setDogDetails ] = useState({
         DOB: '',
         fixed: false,
@@ -29,8 +33,8 @@ export default function Profile(props) {
     })
     // This id is hard coded until I put this in local storage
     // If you want to try this out create an account and profile and insert that profile's id and username here
-    const profileId = 13
-    const username = "Cookie123"
+    const profileId = 8
+    const username = "Autumn19"
 
     function calculateAge(DOB) {
         let arr = DOB.split('-')
@@ -51,39 +55,41 @@ export default function Profile(props) {
     }
     
     async function getChars() {
-        const charsResponse = await fetch(`http://localhost:8100/api/characteristics/${profileId}`)
-        if (charsResponse.ok) {
-            const charsData = await charsResponse.json();
-            setHasChars(true);
-            setChars([
-                {char: 'dog friendly', value: charsData.dog_friendly},
-                {char: 'kid friendly', value: charsData.kid_friendly},
-                {char: 'people friendly', value: charsData.people_friendly},
-                {char: 'energy level', value: charsData.energy_level}
-            ]);
-            setDogDetails({
-                DOB: charsData.DOB,
-                fixed: charsData.fixed,
-                size: charsData.size,
-                breed: charsData.breed,
-                gender: charsData.gender,
-                dog_bio: charsData.dog_bio
-            });
-        }
+            const charsResponse = await fetch(`http://localhost:8100/api/characteristics/${profileId}`)
+            if (charsResponse.ok) {
+                const charsData = await charsResponse.json();
+                setHasChars(true);
+                setChars([
+                    {char: 'dog friendly', value: charsData.dog_friendly},
+                    {char: 'kid friendly', value: charsData.kid_friendly},
+                    {char: 'people friendly', value: charsData.people_friendly},
+                    {char: 'energy level', value: charsData.energy_level}
+                ]);
+                setDogDetails({
+                    DOB: charsData.DOB,
+                    fixed: charsData.fixed,
+                    size: charsData.size,
+                    breed: charsData.breed,
+                    gender: charsData.gender,
+                    dog_bio: charsData.dog_bio
+                });
+            }
     }
 
     useEffect(() => {
         async function getProfile() {
             const profileResponse = await fetch(`http://localhost:8100/api/profiles/${username}`)
             if (profileResponse.ok) {
+                console.log("profile fetch successful")
                 const data = await profileResponse.json();
+                console.log("data", data)
                 setProfile({...data, states: data.state});
+                console.log("profile", profile)
+                getChars();
             }
         }   
         getProfile();
-        getChars();
-
-    }, [])
+    }, [profile.dog_name])
     
     if (!profile.dog_name) {
         return(
@@ -115,19 +121,22 @@ export default function Profile(props) {
                             : <p className="mb-0"><strong className="pr-1">I am not fixed</strong></p>
                         }
                         <p className="mb-0"><strong className="pr-1">More about me: </strong>{dogDetails.dog_bio}</p>
-                    </div>   
-                    <div className="card-body pt-0">
-                        <Characteristics chars={chars} />
-                    </div> 
+                    </div>  
+                    <div className="card-body">
+                        <h5 className="card-title">Characteristics</h5> 
                         { hasChars
-                            ? <Button className="btn btn-info btn-sm" onClick={handleShow}>
-                                Edit Characteristics for {profile.dog_name}
-                            </Button> 
+                            ? <div>
+                                <Characteristics chars={chars} />
+                                <Button className="btn btn-info btn-sm" onClick={handleShow}>
+                                    Edit Characteristics for {profile.dog_name}
+                                </Button> 
+                            </div>
                             : <Button className="btn btn-info btn-sm" onClick={handleShow}>
-                                Add Characteristics for {profile.dog_name}
+                                Add more information for {profile.dog_name}
                             </Button>
                         }    
                     </div>
+                </div>    
                     <CharsModal
                         show={show} 
                         handleClose={handleClose} 
