@@ -37,8 +37,9 @@ export default function Profile(props) {
             return `${ageY} years`
         } else if (ageM < 0) {
             return `${ageY - 1} years, ${Math.abs(ageM)} months`
+        } else if (ageM > 0) {
+            return `${ageY} years, ${ageM} months`
         }
-        
     }
 
     async function getChars() {
