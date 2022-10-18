@@ -79,7 +79,7 @@ class FriendshipRepository:
                         """
                         SELECT profiles.dog_name, friendships.user_one, friendships.user_two, friendships.status  
                         FROM profiles
-                        INNER JOIN friendships ON profiles.id=friendships.user_two
+                        INNER JOIN friendships ON profiles.id=friendships.user_one
                         WHERE user_two = %s
                         AND status = 0;
                         """,

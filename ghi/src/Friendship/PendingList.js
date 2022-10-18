@@ -24,9 +24,9 @@ function PendingList(props) {
     console.log('PENDING', pending_friends)
     return (
         <>
-        {pending_friends.map(pending => {
+        {pending_friends.map((pending, idx) => {
             return ( 
-                <div className="container">
+                <div key={idx} className="container">
                 <div className='row col-lg-4'>
                     <div className='card shadow-sm'>
                         <div className='card-header bg-transparent text-center'>
