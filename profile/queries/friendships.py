@@ -47,7 +47,7 @@ class FriendshipRepository:
                         FROM profiles
                         INNER JOIN friendships ON profiles.id=friendships.user_one
                         WHERE status = 1
-                        AND user_one = %(user_one)s
+                        AND user_one = %(user_one)s;
                         OR user_two = %(user_one)s;
                         AND status = 1
                         """,
