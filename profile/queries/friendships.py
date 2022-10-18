@@ -20,6 +20,10 @@ class FriendListOut(BaseModel):
     user_two: int
     status: int
 
+class FriendsOut(BaseModel):
+    dog_name: str
+
+
 class FriendshipRepository:
     def create(self, friendship: FriendshipIn) -> FriendshipOut:
         with pool.connection() as conn:
@@ -42,36 +46,32 @@ class FriendshipRepository:
                 incoming_data = friendship.dict()
                 return FriendshipOut(id=id, **incoming_data)
 
-    def get_friend_list(self, user_one) -> List[FriendListOut]:
+    def get_friend_list(self, user_one) -> List:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        SELECT profiles.dog_name, friendships.user_one, friendships.user_two, friendships.status
+                        SELECT profiles.id, profiles.dog_name, friendships.user_one, friendships.user_two, friendships.status
                         FROM profiles
-                        INNER JOIN friendships ON profiles.id=friendships.user_two
-                        WHERE status = 1
-                        AND user_one = %(user_one)s
-                        OR user_two = %(user_one)s
-                        AND status = 1;
+                        INNER JOIN friendships ON profiles.id=friendships.user_one OR profiles.id=friendships.user_two
+                        WHERE status=1
+                        AND (user_one = %(user_one)s
+                        OR user_two = %(user_one)s)
+                        AND NOT profiles.id = %(user_one)s;
                         """,
                         {"user_one":user_one}
                     )
-                    return_list = [FriendListOut(
-                        dog_name = record[0],
-                        user_one = record[1],
-                        user_two = record[2],
-                        status = record[3],
-                    )
-                    for record in db]
-                    print("PRINTING", return_list)
-                    return return_list
+                    result = []
+                    for record in db:
+                        result.append(record[1])
+                    print(result)
+                    return result
         except Exception as e:
             print(e)
             return {"Message": "You have no Paw Pals yet"}
 
-    def get_pending_requests(self, user_two) -> List[FriendListOut]:
+    def get_pending_requests(self, user_two) -> List[FriendshipOut]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -79,7 +79,7 @@ class FriendshipRepository:
                         """
                         SELECT profiles.dog_name, friendships.user_one, friendships.user_two, friendships.status  
                         FROM profiles
-                        INNER JOIN friendships ON profiles.id=friendships.user_one
+                        INNER JOIN friendships ON profiles.id=friendships.user_two
                         WHERE user_two = %s
                         AND status = 0;
                         """,

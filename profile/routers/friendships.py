@@ -4,7 +4,8 @@ from queries.friendships import (
     FriendshipRepository, 
     FriendshipIn, 
     FriendshipOut,
-    FriendListOut
+    FriendListOut,
+    FriendsOut
 )
 
 router = APIRouter()
@@ -16,7 +17,7 @@ def create_friendship(
 ):
     return repo.create(friendship)
 
-@router.get("/api/friendships/{user_one}", response_model = List[FriendListOut])
+@router.get("/api/friendships/{user_one}", response_model = List)
 def get_list_friends(
     user_one: int,
     repo: FriendshipRepository = Depends()
