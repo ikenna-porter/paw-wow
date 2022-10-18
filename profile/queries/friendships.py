@@ -43,11 +43,13 @@ class FriendshipRepository:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        SELECT *  
-                        FROM friendships
+                        SELECT profiles.dog_name, friendships.user_one, friendships.user_two, friendships.status
+                        FROM profiles
+                        INNER JOIN friendships ON profiles.id=friendships.user_one
                         WHERE status = 1
                         AND user_one = %(user_one)s
                         OR user_two = %(user_one)s;
+                        AND status = 1
                         """,
                         {"user_one":user_one}
                     )
