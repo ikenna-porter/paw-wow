@@ -12,6 +12,34 @@ At least one ah-ha! moment that you had during your coding, however small
 
 ----
 
+## October 18, 2022
+
+Today I worked on:
+
+*Altering the back-end for proper functionality with front-end*
+
+I went back over the back-end SQL queries to make adjustments so that I was getting the dog name from profiles instead of the id, which was currently displaying on the front end. After making a join between the profile and friendship tables, I was able to get the dog names for either the pending requests or the current friends.
+
+There were no design conversations today, just a lot of working through problems.
+
+It is easier to manipulate the tables in a SQL query and get the actual data you need instead of trying to do anything else.
+
+----
+
+## October 17, 2022
+
+Today I worked on:
+
+*Finishing back-end for friends feature and starting front-end for pending requests*
+
+I mostly worked solo today on finishing the last endpoints for the friends feature, which was the changing of the status for both accepting or denying. As well as fixing a technical issue with showing the pending list of requests for a user. I began working on the front end page for showing the list of pending requests. I got with Jason at the end of the day to help him with the list of friends that have been accepted.
+
+Jason and I realized that we may need to rework our SQL statements to join the data from the profile table, so the front end will have access to the profile data.
+
+It is really helpful to remember that there is a delete http request which makes having two different methods with the same endpoint work. 
+
+----
+
 ## October 13, 2022
 
 Today I worked on:
