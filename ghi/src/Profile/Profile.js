@@ -2,10 +2,14 @@ import { useState, useEffect } from 'react'
 import Vaccinations from './Vaccinations';
 import { Link } from 'react-router-dom';
 import Characteristics from './Characteristics';
+import React from 'react';
+import { PersonPlus } from 'react-bootstrap-icons';
+import Button from 'react-bootstrap/Button';
 
 export default function Profile(props) {
     const [ hasChars, setHasChars ] = useState(false);
     const [ profile, setProfile ] = useState({
+        id: '',
         dog_name: '',
         owner_name: '',
         owner_description: '',
@@ -65,6 +69,7 @@ export default function Profile(props) {
             const profileResponse = await fetch(`http://localhost:8100/api/profiles/${username}`)
             if (profileResponse.ok) {
                 const data = await profileResponse.json();
+                console.log(data);
                 setProfile({...data, states: data.state});
             }
         }   
@@ -72,12 +77,36 @@ export default function Profile(props) {
         getChars();
 
     }, [])
+
+    const handleAdd = async (e) => {
+        e.preventDefault();
+        const id = e.target.value;
+        console.log(e.target)
+        const requestUrl = `http://localhost:8100/api/friendships/${id}`;
+        const fetchConfig = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify( {
+                'status': 0,
+                'user_one': Number(id),
+                'user_two': 5
+            })
+        };
+        const reqResponse = await fetch(requestUrl, fetchConfig);
+        if (reqResponse.ok) {
+            console.log(reqResponse);
+        }
+        console.log("THE BUTTON WAS PRESSED")
+    }
     
     if (!profile.dog_name) {
         return(
             <>Loading Profile</>
         )
     }
+
 
     return(
         <div className="dog-profile py-4">
@@ -101,6 +130,15 @@ export default function Profile(props) {
                             <p className="mb-0"><strong className="pr-1">My human is: </strong>{profile.owner_name}</p>
                             <p className="mb-0"><strong className="pr-1">More about my human: </strong>{profile.owner_description}</p>
                         </div>
+                    </div>
+                    <div className='container p-3'>
+                        {
+                            profile.id != 5
+                            ?
+                            <Button size='md' onClick={handleAdd} value={profile.id}> ADD ME </Button>
+                            :
+                            <Button size='md' href='http://localhost:3000/list-friends'> View Friends </Button>
+                        }
                     </div>
                     <div>   
                     </div>
