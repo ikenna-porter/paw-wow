@@ -19,6 +19,7 @@ class FriendListOut(BaseModel):
     user_one: int
     user_two: int
     status: int
+    id: int
 
 class FriendsOut(BaseModel):
     dog_name: str
@@ -77,7 +78,7 @@ class FriendshipRepository:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        SELECT profiles.dog_name, friendships.user_one, friendships.user_two, friendships.status  
+                        SELECT profiles.dog_name, friendships.user_one, friendships.user_two, friendships.status, friendships.id 
                         FROM profiles
                         INNER JOIN friendships ON profiles.id=friendships.user_one
                         WHERE user_two = %s
@@ -90,6 +91,7 @@ class FriendshipRepository:
                         user_one = record[1],
                         user_two = record[2],
                         status= record[3],
+                        id = record[4]
                     )
                     for record in db]
                     print("TESTING", return_list)
@@ -121,20 +123,26 @@ class FriendshipRepository:
             print(e)
             return {"Message": "This request does not exist."}
 
-    def deny_request(self, user_one: int, user_two: int):
+    def deny_request(self, id):
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
                         DELETE FROM friendships
-                        WHERE user_one = %s
-                        AND user_two = %s
+                        WHERE id = %s;
                         """,
-                        [
-                            user_one, 
-                            user_two
-                        ]
+                        [id]
+                        # """
+                        # DELETE FROM friendships
+                        # WHERE user_one = %s
+                        # AND user_two = %s
+                        # """,
+                        # [
+                        #     user_one, 
+                        #     user_two
+                        # ]
+                        # user_one: int, user_two: int
                     )
                     if result:
                         return True

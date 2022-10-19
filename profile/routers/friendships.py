@@ -33,7 +33,7 @@ def get_pending(
 ):
     return repo.get_pending_requests(user_two)
 
-@router.put("/api/friendships/{user_two}/pending")
+@router.put("/api/friendships/{id}/pending")
 def update_request(
     user_one: int,
     user_two: int,
@@ -42,11 +42,12 @@ def update_request(
 ):
     return repo.approve_request(user_one, user_two)
 
-@router.delete("/api/friendships/{user_two}/pending")
+@router.delete("/api/friendships/{id}/pending")
 def update_deny_request(
-    user_one: int,
-    user_two: int,
+    # user_one: int,
+    # user_two: int,
+    id,
     repo: FriendshipRepository = Depends()
 
 ):
-    return repo.deny_request(user_one, user_two)
+    return repo.deny_request(id)
