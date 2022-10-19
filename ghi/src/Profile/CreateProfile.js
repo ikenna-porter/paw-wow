@@ -73,11 +73,18 @@ export default function CreateProfile(props) {
                         />
                     </div>
                     <div className="mb-3">
-                        <select required onChange={e => setState(e.target.value)}>
+                        <select
+                            className="form-select" 
+                            required 
+                            onChange={e => setState(e.target.value)}
+                        >
                         <option value='default'>Select a State</option>
                         {states.map(state => { 
                             return (
-                            <option value={state.abbreviation} key={state.abbreviation}>{state.name}</option>
+                            <option
+                                value={state.abbreviation} 
+                                key={state.abbreviation}>{state.name}
+                            </option>
                             )
                         })}
                         </select>
@@ -92,7 +99,12 @@ export default function CreateProfile(props) {
                         />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="owner description" className="form-label">Owner Description</label>
+                        <label
+                            htmlFor="owner description" 
+                            className="form-label"
+                        >
+                            Owner Description
+                        </label>
                         <textarea
                         placeholder="About my owner"
                         required 

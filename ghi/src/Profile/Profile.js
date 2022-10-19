@@ -3,12 +3,16 @@ import Vaccinations from './Vaccinations';
 import Characteristics from './Characteristics';
 import CharsModal from './CharacteristicsModal';
 import Button from 'react-bootstrap/Button';
+import EditProfileModal from './EditProfileModal';
 
 export default function Profile(props) {
     const [ hasChars, setHasChars ] = useState(false);
-    const [ show, setShow ] = useState(false);
-    const handleShow = () => setShow(true);
-    const handleClose = () => setShow(false);
+    const [ showChars, setShowChars ] = useState(false);
+    const [ showProfile, setShowProfile ] = useState(false);
+    const handleShowChars = () => setShowChars(true);
+    const handleCloseChars = () => setShowChars(false);
+    const handleShowProf = () => setShowProfile(true);
+    const handleCloseProf = () => setShowProfile(false);
     const [ profile, setProfile ] = useState({
         dog_name: '',
         owner_name: '',
@@ -76,18 +80,18 @@ export default function Profile(props) {
             }
     }
 
+    async function getProfile() {
+        const profileResponse = await fetch(`http://localhost:8100/api/profiles/${username}`)
+        if (profileResponse.ok) {
+            const data = await profileResponse.json();
+            console.log("data", data)
+            setProfile({...data, states: data.state});
+            console.log("profile", profile)
+            getChars();
+        }
+    }   
+
     useEffect(() => {
-        async function getProfile() {
-            const profileResponse = await fetch(`http://localhost:8100/api/profiles/${username}`)
-            if (profileResponse.ok) {
-                console.log("profile fetch successful")
-                const data = await profileResponse.json();
-                console.log("data", data)
-                setProfile({...data, states: data.state});
-                console.log("profile", profile)
-                getChars();
-            }
-        }   
         getProfile();
     }, [profile.dog_name])
     
@@ -127,19 +131,19 @@ export default function Profile(props) {
                         { hasChars
                             ? <div>
                                 <Characteristics chars={chars} />
-                                <Button className="btn btn-info btn-sm" onClick={handleShow}>
+                                <Button className="btn btn-info btn-sm" onClick={handleShowChars}>
                                     Edit Characteristics for {profile.dog_name}
                                 </Button> 
                             </div>
-                            : <Button className="btn btn-info btn-sm" onClick={handleShow}>
+                            : <Button className="btn btn-info btn-sm" onClick={handleShowChars}>
                                 Add more information for {profile.dog_name}
                             </Button>
                         }    
                     </div>
                 </div>    
                     <CharsModal
-                        show={show} 
-                        handleClose={handleClose} 
+                        show={showChars} 
+                        handleClose={handleCloseChars} 
                         profileId={profileId} 
                         dogName={profile.dog_name}
                         chars={chars}
@@ -147,9 +151,20 @@ export default function Profile(props) {
                         getChars={getChars}
                         hasChars={hasChars}
                     />
+                    <EditProfileModal
+                        show={showProfile}
+                        handleClose={handleCloseProf}
+                        profileId={profileId}
+                        dogName={profile.dog_name}
+                        getProfile={getProfile}
+                        profile={profile}
+                    />
                     <div className="card">   
                         <div className="card-body">
                             <h5>{profile.owner_name}'s Bio</h5>
+                            <Button className="btn btn-info btn-sm mb-2" onClick={handleShowProf}>
+                                Edit Profile
+                            </Button>
                             <p className="mb-0"><strong className="pr-1">My human is: </strong>{profile.owner_name}</p>
                             <p className="mb-0"><strong className="pr-1">{profile.owner_name} and I live in: </strong>{profile.city}, {profile.states}</p>
                             <p className="mb-0"><strong className="pr-1">More about my human: </strong>{profile.owner_description}</p>

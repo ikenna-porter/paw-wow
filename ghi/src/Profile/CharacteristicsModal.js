@@ -1,6 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { useState } from 'react'
+import { useState } from 'react';
 
 export default function CharsModal(props) {
     const show = props.show;

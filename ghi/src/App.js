@@ -8,6 +8,7 @@ import Vaccinations from './Profile/Vaccinations'
 import VaccinationsModal from './Profile/VaccinationsModal'
 import Characteristics from './Profile/Characteristics'
 import CharsModal from './Profile/CharacteristicsModal'
+import EditProfileModal from './Profile/EditProfileModal'
 
 
 export default function App() {
@@ -31,6 +32,7 @@ export default function App() {
         />
         <Route path="profile">
           <Route index element={<Profile profileId={profileId} />} />
+          <Route path="edot-profile" element={<EditProfileModal />} />
           <Route path="vaccinations" element={<Vaccinations />} />
           <Route path="create-vaccinations" element={<VaccinationsModal profileId={profileId} />} />
           <Route path="edit-vaccinations" element={<VaccinationsModal profileId={profileId} />} />
