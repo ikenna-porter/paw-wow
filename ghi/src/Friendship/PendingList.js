@@ -6,8 +6,8 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 function PendingList(props) {
     const [pending_friends, setPending] = useState([]);
     const [error, setError] = useState('');
-    const user_two = 5
-    // fix the hard coded user id
+    const user_two = 5 
+    // handle hard coded user id
 
     useEffect(() => {
         async function getPendingData() {

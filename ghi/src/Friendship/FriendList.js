@@ -1,14 +1,15 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import Button from 'react-bootstrap/Button';
 
 export default function ListFriends(props) {
     const [friends, setFriends] = useState([]);
-    const user_one = 4
-    // fix the hard coded user id
+    const id = 5
+    // fix hard coding id
 
     useEffect(() => {
         async function getFriendList() {
-            const url = `http://localhost:8100/api/friendships/${user_one}`;
+            const url = `http://localhost:8100/api/friendships/${id}`;
             const response = await fetch(url);
             if (response.ok) {
                 const data = await response.json();
@@ -18,20 +19,18 @@ export default function ListFriends(props) {
                 console.log("ERROR!");
             }
             } getFriendList()
-        }, [setFriends, user_one])
+        }, [setFriends, id])
 
-
-    console.log('FRIENDS HERE',friends)
 
 return(
     <div className='container my-5'>
-    <h2>Friend List</h2>
-    <div>
+    <h2>Your Paw Pals</h2>
+    <div className='text-center'>
         {friends.map((friend, idx) => {
             return (
                 <div key={idx} className='container'>
-                <div className='row col-lg-4'>
-                    <div className='card shadow-sm'>
+                <div className='row col-lg-4 text-center'>
+                    <div className='card shadow-sm text-center'>
                         <div className='card-header bg-transparent text-center'>
                             {friend}
                         </div>
@@ -41,10 +40,10 @@ return(
             )
         })}
     </div>
+    <div>
+    <Button variant='outline-primary' href='http://localhost:3000/profile/pending'> Pending Requests </Button>
+    </div>
     </div>
 );
 
 }
-
-
-// return the list

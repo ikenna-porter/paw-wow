@@ -3,7 +3,6 @@ import Vaccinations from './Vaccinations';
 import { Link } from 'react-router-dom';
 import Characteristics from './Characteristics';
 import React from 'react';
-import { PersonPlus } from 'react-bootstrap-icons';
 import Button from 'react-bootstrap/Button';
 
 export default function Profile(props) {
@@ -133,11 +132,11 @@ export default function Profile(props) {
                     </div>
                     <div className='container p-3'>
                         {
-                            profile.id != 5
+                            profile.id != 4
                             ?
                             <Button size='md' onClick={handleAdd} value={profile.id}> ADD ME </Button>
                             :
-                            <Button size='md' href='http://localhost:3000/list-friends'> View Friends </Button>
+                            null
                         }
                     </div>
                     <div>   

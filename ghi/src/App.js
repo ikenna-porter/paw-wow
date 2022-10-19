@@ -42,8 +42,8 @@ export default function App() {
         </Route>  
         {/* <Route path="create-profile" element={<CreateProfile token={token} accountId={accountId} />} /> */}
         <Route path="profile" element={<Profile />} />
-        <Route path='list-friends' element={<ListFriends />} />
-        <Route path="pending" element={<PendingList userTwo={profileId} />} />
+        <Route path='profile/friends' element={<ListFriends />} />
+        <Route path="profile/pending" element={<PendingList userTwo={profileId} />} />
       </Routes>
     </BrowserRouter>
   )
