@@ -115,7 +115,6 @@ class ProfileRepository:
                     return self.record_to_profile_out(record)
 
         except Exception as e:
-            print("########################################",e)
             return {"message": "Error in retrieving profile detail."}
     
     def update(self, profile: ProfileIn, username: str) -> Union[ProfileOut, Error]:
