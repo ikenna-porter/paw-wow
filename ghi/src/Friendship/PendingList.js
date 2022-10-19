@@ -23,9 +23,21 @@ function PendingList(props) {
         } getPendingData()
     }, [setPending, setError, user_two])
 
-    const handleAccept = (e) => {
-        e.preventDefault();
-        console.log('ACCEPTED CLICKED');
+    const handleAccept = async (e) => {
+        const id = e.target.value;
+        const acceptUrl = `http://localhost:8100/api/friendships/${id}/pending`;
+        const fetchConfig = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        const acceptResponse = await fetch(acceptUrl, fetchConfig);
+        if (acceptResponse.ok) {
+            setPending(
+                pending_friends.filter(pending => pending.id != id)
+            )
+        }
     }
 
     const handleDeny = async (e) => {

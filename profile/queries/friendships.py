@@ -100,7 +100,7 @@ class FriendshipRepository:
             print(e)
             return {"Message": "You have no pending requests"}
 
-    def approve_request(self, user_one: int, user_two: int):
+    def approve_request(self, id):
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -108,13 +108,9 @@ class FriendshipRepository:
                         """
                         UPDATE friendships
                         SET status = 1
-                        WHERE user_one = %s
-                        AND user_two = %s
+                        WHERE id = %s
                         """,
-                        [
-                            user_one, 
-                            user_two
-                        ]
+                        [id]
                     )
                     if result:
                         return True
