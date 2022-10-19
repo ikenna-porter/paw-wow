@@ -9,7 +9,8 @@ import Conversations from './Messaging/Conversations'
 import Vaccinations from './Profile/Vaccinations'
 import VaccinationsModal from './Profile/VaccinationsModal'
 import Characteristics from './Profile/Characteristics'
-import CreateChars from './Profile/CreateChars'
+import MessagingTest from './Messaging/MessagingTest'
+// import CreateChars from './Profile/CreateChars'
 
 
 export default function App() {
@@ -38,8 +39,9 @@ export default function App() {
           <Route path="create-vaccinations" element={<VaccinationsModal profileId={profileId} />} />
           <Route path="edit-vaccinations" element={<VaccinationsModal profileId={profileId} />} />
           <Route path="characteristics" element={<Characteristics />} />
-          <Route path="create-characteristics" element={<CreateChars profileId={profileId} />} />
-        </Route>  
+          {/* <Route path="create-characteristics" element={<CreateChars profileId={profileId} />} /> */}
+        </Route>
+        <Route path="messaging" element={<MessagingTest />}/>
       </Routes>
     </BrowserRouter>
   )

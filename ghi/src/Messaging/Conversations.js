@@ -3,36 +3,25 @@ import Conversation from './Conversation'
 import './style.css'
 
 export default function Conversations(props) {
+    const conversations = props.conversations
     const setSelectedConversation = props.setSelectedConversation
     const [loading, setLoading] = useState(true);
-    const [conversations, setConversations] = useState([]);
 
-    useEffect(() => {
-        const fetchConversations = async () => {
-            const response = await fetch('http://localhost:8200/api/conversations')
-            if (response.ok) {
-                const data = await response.json()
-                // console.log(data)
-                setConversations(data)
-                // console.log(conversations)
-            }
-        }
-        fetchConversations();
-    }, [])
-
-    const handleConversationClick = (conversation_id, e) => {
-        //need to access the conversation.id - key and pass as argument ->
-        setSelectedConversation(conversation_id) //changes state of parent, thereby rendering conversation
+    //Function should change state of parent, thereby rendering a new chat window 
+    const handleConversationClick = (conversation_id) => {
+        setSelectedConversation(conversation_id)
     }
 
     return (
         <ul className="conversations-list">
             {conversations.map(conversation => {
-                return <Conversation
-                    key={conversation.id}
-                    onClick={handleConversationClick(conversation.id)}
-                    conversation={conversation} 
-                />
+                return (
+                    <div key={conversation.id} onClick={ e => handleConversationClick(conversation.id)}>
+                        <Conversation
+                            conversation={conversation}
+                        />
+                    </div>
+                )
             })}
         </ul>
     )

@@ -10,6 +10,7 @@ export default function MessagingTest(props) {
     const [loading, setLoading] = useState(true);
     const [selectedConversation, setSelectedConversation] = useState(0)
     const [messages, setMessages] = useState([])
+    const [conversations, setConversations] = useState([]);
 
     useEffect(() => { 
 
@@ -17,11 +18,11 @@ export default function MessagingTest(props) {
             const response = await fetch(`http://localhost:8200/api/messages/${selectedConversation}`)
             if (response.ok) {
                 const data = await response.json()
-                setMessages(...data)
+                setMessages(data)
                 console.log(messages); //empty?
             }
 
-            // const ws = new WebSocket(`ws://localhost:8200/api/conversations/${conversation.id}`)
+            // const ws = new WebSocket(`ws://localhost:8200/api/messages/${selectedConversation}`)
             // ws.addEventListener('open', () => {
             //     setConnected(true);
             //     setLoading(false);
@@ -36,10 +37,26 @@ export default function MessagingTest(props) {
         fetchMessages();
     }, [selectedConversation]);
 
+    useEffect(() => {
+        const fetchConversations = async () => {
+            const response = await fetch('http://localhost:8200/api/conversations')
+            if (response.ok) {
+                const data = await response.json()
+                console.log(data)
+                setConversations(data)
+                // console.log(conversations)
+            }
+        }
+        fetchConversations();
+    }, [])
+
     return (
         <div className="messaging-container">
             <div className="conversations-container">
-                <Conversations setSelectedConversation={setSelectedConversation}/>
+                <Conversations 
+                conversations={conversations}
+                setSelectedConversation={setSelectedConversation}
+                />
             </div>
             <div>
                 {!selectedConversation

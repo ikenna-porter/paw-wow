@@ -3,7 +3,6 @@ import Message from './Message'
 
 export default function Chat(props) {
     const messages = props.messages
-    console.log(messages)
 
     return(
         <div>

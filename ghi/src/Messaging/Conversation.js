@@ -23,8 +23,9 @@ export default function Conversation(props) {
                     <img className="conversation-card-image" src="https://www.collinsdictionary.com/images/full/dog_230497594.jpg" alt="" />
                 </div>
                 <div className="conversation-card-main-content">
-                    <p className="conversation-card-name">{conversation.other_user}</p>
-                    <p className="conversation-card-text">{conversation.last_message}</p>
+                    <p className="conversation-card-name">User:{conversation.other_user}</p>
+                    <p className="conversation-card-text">Last Message:{conversation.last_message}</p>
+                    <p>Conversation ID: {conversation.id}</p>
                 </div>
             </div>
         </li>
