@@ -47,7 +47,7 @@ class FriendshipRepository:
                 incoming_data = friendship.dict()
                 return FriendshipOut(id=id, **incoming_data)
 
-    def get_friend_list(self, user_one) -> List:
+    def get_friend_list(self, id) -> List:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -61,7 +61,7 @@ class FriendshipRepository:
                         OR user_two = %(user_one)s)
                         AND NOT profiles.id = %(user_one)s;
                         """,
-                        {"user_one":user_one}
+                        {"user_one": id}
                     )
                     result = []
                     for record in db:

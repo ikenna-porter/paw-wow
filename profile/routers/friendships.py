@@ -10,20 +10,20 @@ from queries.friendships import (
 
 router = APIRouter()
 
-@router.post("/api/friendships", response_model = FriendshipOut)
+@router.post("/api/friendships/{id}", response_model = FriendshipOut)
 def create_friendship(
     friendship: FriendshipIn,
     repo: FriendshipRepository = Depends()
 ):
     return repo.create(friendship)
 
-@router.get("/api/friendships/{user_one}", response_model = List)
+@router.get("/api/friendships/{id}", response_model = List)
 def get_list_friends(
-    user_one: int,
+    id: int,
     repo: FriendshipRepository = Depends()
 
 ):
-    return repo.get_friend_list(user_one)
+    return repo.get_friend_list(id)
 
 @router.get("/api/friendships/{user_two}/pending", response_model = List[FriendListOut])
 def get_pending(
