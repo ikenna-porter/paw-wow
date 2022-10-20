@@ -44,7 +44,6 @@ export default function Login(props) {
         <div className="row">
             <div className="offset-3 col-6">
                 <div className="shadow p-4 mt-4">
-                    <h1>Login</h1>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3">
                             <label className="form-label" htmlFor="username">Username</label>

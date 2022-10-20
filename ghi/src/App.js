@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, Component, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Nav from './Nav'
 import AuthenticateUser from './Authenticate/AuthenticateUser'
@@ -9,11 +9,20 @@ import VaccinationsModal from './Profile/VaccinationsModal'
 import Characteristics from './Profile/Characteristics'
 import CharacteristicsModal from './Profile/CharsModal'
 
-
 export default function App() {
   const [accountId, setAccountId] = useState('');
   const [username, setUsername] = useState('');
   const [profileId, setProfileId] = useState('');
+  //const client = new WebSocket('ws://localhost:8300/api/notifications');
+  
+    // useEffect(() =>{
+    //   client.onopen = () => {
+    //     console.log('WebSocket Client Connected');
+    //   };
+    //   client.onmessage = (message) => {
+    //     console.log(message);
+    //   }
+    // },[client]);
 
   return (
     <BrowserRouter>
@@ -41,4 +50,4 @@ export default function App() {
       </Routes>
     </BrowserRouter>
   )
-}
+        }
