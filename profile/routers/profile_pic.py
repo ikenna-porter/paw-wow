@@ -18,3 +18,11 @@ async def get_pic(
     repo: ProfilePicRepository = Depends()
 ):
     return repo.get_one(profile_id)
+
+@router.put("/api/profile-pic/{profile_id}") 
+async def update_pic(
+    profile_id: int,
+    data_URI: str = Form(...),
+    repo: ProfilePicRepository = Depends()
+):
+    return repo.update(data_URI, profile_id)
