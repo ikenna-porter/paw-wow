@@ -12,6 +12,20 @@ At least one ah-ha! moment that you had during your coding, however small
 
 ----
 
+## October 19, 2022
+
+Today I worked on:
+
+*Adding buttons to front-end for friends feature*
+
+I made small adjustments to the pending, accept/deny, and creation routers/queries. Then I worked on the front end, where I added buttons to the pending requests so a person can accept or deny a request. I also implemented a link in the nav bar to friends list and the option to go to pending requests from a friends list. 
+
+There were no design conversations today, but I did work on a logo.
+
+Trying to include an icon on a button can cause issues if you click on the icon. I removed the icon.
+
+----
+
 ## October 18, 2022
 
 Today I worked on:
