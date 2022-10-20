@@ -3,7 +3,10 @@
     height: 30px;
 }
 
+
 .icons {
+    cursor: pointer;
+    margin-left: 30px;
     display: flex;
     align-items: center;
     justify-content: center;

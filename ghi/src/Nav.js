@@ -1,5 +1,6 @@
 import { NavLink, Link } from 'react-router-dom';
 import Notifications from "./Images/Notifications.svg"
+import Messages from "./Images/Messages.svg"
 import "./Nav.css"
 
 const displayNotification = (()=>{
@@ -21,10 +22,13 @@ export default function Nav() {
                 <div className="icons">
                     <div className="icon">
                         <img src={Notifications} className="iconImg" alt=""/>
-                        <div className="counter">1 </div>
+                        <div className="counter">1</div>
+                    </div>
+                    <div className="icon">
+                        <img src={Messages} className="iconImg" alt=""/>
+                        <div className="counter">5</div>
                     </div>
                 </div>
-
             </div>
         </nav>        
     )
