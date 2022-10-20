@@ -11,25 +11,18 @@ export default function VacctinationsModal(props) {
     const [ checkRabies, setCheckRabies ] = useState(props.vaccines.rabies);
     const [ other, setOther ] = useState(props.vaccines.other);
     const profileId = props.profileId;
-    // console.log("distemper vacc in modal:", checkDistemper)
-    const [ vaccinesToDisplay, setVaccinesToDisplay] = useState(props.vaccines)
-    console.log(vaccinesToDisplay)
-    console.log("These are the vaccs for the modal: ", vaccinesToDisplay);
-
-    useEffect(() => {
-        props.getVaccines(props.profileId)
-            .then((vaccinations) => {
-                setVaccinesToDisplay(vaccinations);
-            })
-            .catch((e) => {
-                console.log('Could not resolve getVaccines promise!')
-            })
-    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const data = vaccinesToDisplay;
+        const data = {
+            distemper: checkDistemper,
+            parvo: checkParvo,
+            adeno: checkAdeno,
+            rabies: checkRabies,
+            other: other,
+            profile_id: profileId
+        };
 
         if (props.hasVaccines) {
             const putUrl = `http://localhost:8100/api/vaccinations/${profileId}`;
@@ -42,12 +35,7 @@ export default function VacctinationsModal(props) {
             };
             const putResponse = await fetch(putUrl, putFetchConfig);
             if (putResponse.ok) {
-                console.log("Finna put some vaccs");
-                props.getVaccines(props.profileId)
-                    .then((updatedVaccinations) => {
-                        props.setVaccines(updatedVaccinations);
-                    });
-                console.log("I should see new vaccs")
+                props.getVaccines()
             }
         }  else {
             const postUrl = 'http://localhost:8100/api/vaccinations'
@@ -61,16 +49,11 @@ export default function VacctinationsModal(props) {
         
             const postResponse = await fetch(postUrl, postFetchConfig);
             if (postResponse.ok) {
-                props.getVaccines(props.profileId)
-                    .then((newVaccinations) => {
-                        props.setVaccines(newVaccinations)
-                    })
-                    .catch((e) => {
-                        'Could not resolve getVaccines promise!'
-                    });
+                props.getVaccines()
             } 
         }         
     }
+
 
     return(
         <Modal show={show} onHide={handleClose}>
@@ -87,12 +70,9 @@ export default function VacctinationsModal(props) {
                                 className="form-check-input" 
                                 type="checkbox" 
                                 role="switch"
-                                checked={vaccinesToDisplay.distemper}
+                                checked={checkDistemper}
                                 id="flexSwitchCheckDefault"
-                                onChange={(e) => {setVaccinesToDisplay({
-                                    ...vaccinesToDisplay,
-                                    distemper: e.target.checked,
-                                })}}
+                                onChange={(e) => {setCheckDistemper(e.target.checked)}}
                             />
                             <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Distemper</label>
                         </div>
@@ -101,12 +81,9 @@ export default function VacctinationsModal(props) {
                                 className="form-check-input" 
                                 type="checkbox" 
                                 role="switch"
-                                checked={vaccinesToDisplay.parvo}
+                                checked={checkParvo}
                                 id="flexSwitchCheckDefault"
-                                onChange={(e) => {setVaccinesToDisplay({
-                                    ...vaccinesToDisplay,
-                                    parvo: e.target.checked,
-                                })}}
+                                onChange={(e) => {setCheckParvo(e.target.checked)}}
                             />
                             <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Parvo</label>
                         </div>
@@ -115,13 +92,10 @@ export default function VacctinationsModal(props) {
                                 className="form-check-input" 
                                 type="checkbox" 
                                 role="switch"
-                                checked={vaccinesToDisplay.adeno}
+                                checked={checkAdeno}
                                 value=""
                                 id="flexSwitchCheckDefault"
-                                onChange={(e) => {setVaccinesToDisplay({
-                                    ...vaccinesToDisplay,
-                                    adeno: e.target.checked,
-                                })}}
+                                onChange={(e) => {setCheckAdeno(e.target.checked)}}
                             />
                             <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Adeno</label>
                         </div>
@@ -130,12 +104,9 @@ export default function VacctinationsModal(props) {
                                 className="form-check-input" 
                                 type="checkbox" 
                                 role="switch"
-                                checked={vaccinesToDisplay.rabies}
+                                checked={checkRabies}
                                 id="flexSwitchCheckDefault"
-                                onChange={(e) => {setVaccinesToDisplay({
-                                    ...vaccinesToDisplay,
-                                    rabies: e.target.checked,
-                                })}}
+                                onChange={(e) => {setCheckRabies(e.target.checked)}}
                             />
                             <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Rabies</label>
                         </div>
@@ -146,10 +117,7 @@ export default function VacctinationsModal(props) {
                                 id="floatingInput" 
                                 placeholder="Other vaccines"
                                 value={other}
-                                onChange={(e) => {setVaccinesToDisplay({
-                                    ...vaccinesToDisplay,
-                                    other: e.target.value,
-                                })}}
+                                onChange={(e) => {setOther(e.target.value)}}
                             />
                             <label htmlFor="floatingInput">Other</label>
                         </div>

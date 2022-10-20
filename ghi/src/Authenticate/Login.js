@@ -33,11 +33,8 @@ export default function Login(props) {
             navigate('/profile');
         }
 
-        // const tokenUrl = 'http://localhost:8100/token';
-        // const tokenFetch = {
-        //     method: 'POST',
-        //     body:
-        // }
+        const tokenUrl = await fetch('http://localhost:8100/token', {credentials: 'include'});
+        console.log("token response", tokenUrl)
     }    
 
     return (

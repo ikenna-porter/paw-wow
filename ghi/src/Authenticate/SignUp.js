@@ -36,7 +36,9 @@ export default function SignUp(props) {
       setPassword('')
       navigate("/create-profile");
     }
-    
+
+    const tokenUrl = await fetch('http://localhost:8100/token', {credentials: 'include'});
+    console.log("token response", tokenUrl)
 
   }
 

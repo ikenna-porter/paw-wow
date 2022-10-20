@@ -9,6 +9,23 @@ export default function EditProfileModal(props) {
     const statesOptions = stateList; 
     const profile = props.profile;
     const [ editProfile, setEditProfile ] = useState(profile);
+    console.log(editProfile)
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        
+        const data = {...editProfile}
+        const response = await fetch(`http://localhost:8100/api/profiles/${props.username}`, {
+            method:'PUT',
+            body: JSON.stringify(data),
+            headers: {'Content-Type': 'application/json'}
+        }) 
+        console.log("response", response)
+        if (response.ok) {
+            console.log("response went through", response)
+            props.getProfile();
+        }
+    }
 
     return ( 
         <Modal show={show} onHide={handleClose}>
@@ -16,12 +33,8 @@ export default function EditProfileModal(props) {
                 <Modal.Title>Edit {props.dogName}'s Profile</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div>
-                    <div className="mb-3">
-                        <label htmlFor="formFile" className="form-label">{props.dogName}'s picture</label>
-                        <input value={editProfile.avatar} className="form-control" type="file" id="formFile"/>
-                    </div>
                         <div className="form-floating mb-3">
                             <input
                                 type="text" 
@@ -29,10 +42,10 @@ export default function EditProfileModal(props) {
                                 className="form-control" 
                                 id="floatingInput" 
                                 placeholder="breed"
-                                // onChange={(e) => { setEditDetails({
-                                //     ...editDetails,
-                                //     breed: e.target.value
-                                // })}}
+                                onChange={(e) => { setEditProfile({
+                                    ...editProfile,
+                                    dog_name: e.target.value
+                                })}}
                             />
                             <label htmlFor="floatingInput">Dog Name</label>
                         </div>
@@ -43,15 +56,21 @@ export default function EditProfileModal(props) {
                                 className="form-control" 
                                 id="floatingInput" 
                                 placeholder="breed"
-                                // onChange={(e) => { setEditDetails({
-                                //     ...editDetails,
-                                //     breed: e.target.value
-                                // })}}
+                                onChange={(e) => { setEditProfile({
+                                    ...editProfile,
+                                    city: e.target.value
+                                })}}
                             />
                             <label htmlFor="floatingInput">City</label>
                         </div>
                         <div className="mb-3">
-                            <select className="form-select" required>
+                            <select
+                                className="form-select" 
+                                required 
+                                onChange={(e) => {setEditProfile({
+                                    ...editProfile,
+                                    state: e.target.value
+                                })}}>
                                 <option value='default'>Select a State</option>
                                 {statesOptions.map(state => { 
                                     return (
@@ -67,24 +86,24 @@ export default function EditProfileModal(props) {
                                 className="form-control" 
                                 id="floatingInput" 
                                 placeholder="breed"
-                                // onChange={(e) => { setEditDetails({
-                                //     ...editDetails,
-                                //     breed: e.target.value
-                                // })}}
+                                onChange={(e) => { setEditProfile({
+                                    ...editProfile,
+                                    owner_name: e.target.value
+                                })}}
                             />
                             <label htmlFor="floatingInput">Owner Name</label>
                         </div>
                         <div className="form-floating mb-3">
                             <textarea
                                 className="form-control" 
-                                value={editProfile.owner_bio}
+                                value={editProfile.owner_description}
                                 placeholder="owner bio" 
                                 id="floatingTextarea2" 
                                 style={{height: "100px"}}
-                                // onChange={(e) => {setEditDetails({
-                                //     ...editDetails,
-                                //     dog_bio: e.target.value
-                                // })}}
+                                onChange={(e) => {setEditProfile({
+                                    ...editProfile,
+                                    owner_description: e.target.value
+                                })}}
                             />
                             <label htmlFor="floatingTextarea2">More about owner</label>
                         </div>

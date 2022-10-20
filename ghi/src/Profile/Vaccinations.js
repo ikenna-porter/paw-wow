@@ -4,74 +4,47 @@ import VacctinationsModal from './VaccinationsModal';
 
 export default function Vaccinations(props) {
     const profileId = props.profileId
-    let vaccinationsData = {
-        distemper: false,
-        parvo: false,
-        adeno: false,
-        rabies: false,
-        other: '',
-    }
-
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [ hasVaccines, setHasVaccines ] = useState(false);
-    const [ vaccines, setVaccines ] = useState(vaccinationsData);
-    const [ vaccinesForModal, setVaccinesForModal] = useState(vaccinationsData);
-    // console.log("distemper in vacc:", vaccines.distemper)
+    const [ vaccines, setVaccines ] = useState({
+        distemper: false,
+        parvo: false,
+        adeno: false,
+        rabies: false,
+        other: ''
+    });
 
-    // async function getVaccines() {
-    //     const response = await fetch(`http://localhost:8100/api/vaccinations/${profileId}`)
-    //     if (response.ok) {
-    //         setHasVaccines(true);
-    //         const data = await response.json();
-    //         setVaccines(data);
-    //     }
-    // } 
-
-    async function getVaccines(profileId) {
-        const response = await fetch(`http://localhost:8100/api/vaccinations/${profileId}`);
-        const data = await response.json();
-        return data;
-    }
+    async function getVaccines() {
+        const response = await fetch(`http://localhost:8100/api/vaccinations/${profileId}`)
+        if (response.ok) {
+            setHasVaccines(true);
+            const data = await response.json();
+            setVaccines(data);
+        }
+    } 
 
     useEffect(() => {
-        getVaccines(profileId)
-            .then((vaccinations) => {
-                setVaccines(vaccinations);
-                setVaccinesForModal(vaccinations)
-                setHasVaccines(true)
-            })
-            .catch((e) => {
-                console.log('Could not resolve getVaccines promise!')
-            })
+        getVaccines();
     }, [hasVaccines]);
 
     return(
         <div className="card">
             <div className="card-body">
                 <h5 className="card-title">Vaccination Records</h5>
-                {/* <VacctinationsModal
+                <VacctinationsModal
                     show={show} 
                     handleClose={handleClose} 
                     profileId={profileId} 
                     getVaccines={getVaccines}
                     hasVaccines={hasVaccines}
-                    vaccines={vaccinesForModal}
+                    vaccines={vaccines}
                     setVaccines={setVaccines}
-                /> */}
+                />
                 { hasVaccines
                     ?
                     <div>
-                        <VacctinationsModal
-                            show={show} 
-                            handleClose={handleClose} 
-                            profileId={profileId} 
-                            getVaccines={getVaccines}
-                            hasVaccines={hasVaccines}
-                            vaccines={vaccines}
-                            setVaccines={setVaccines}
-                        />
                         <Button className="btn btn-info btn-sm" onClick={handleShow}>
                             Edit Vaccination Records for {props.dogName}
                         </Button>
@@ -98,15 +71,6 @@ export default function Vaccinations(props) {
                     </div>
                     : 
                     <div>
-                        <VacctinationsModal
-                            show={show} 
-                            handleClose={handleClose} 
-                            profileId={profileId} 
-                            getVaccines={getVaccines}
-                            hasVaccines={hasVaccines}
-                            vaccines={vaccinesForModal}
-                            setVaccines={setVaccines}
-                        />
                         <Button className="btn btn-info btn-sm" onClick={handleShow}>
                             Add Vaccination records for {props.dogName}
                         </Button>

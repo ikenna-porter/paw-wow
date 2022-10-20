@@ -4,23 +4,26 @@ import Characteristics from './Characteristics';
 import CharsModal from './CharacteristicsModal';
 import Button from 'react-bootstrap/Button';
 import EditProfileModal from './EditProfileModal';
+import ProfilePic from './ProfilePic';
 
 export default function Profile(props) {
     const [ hasChars, setHasChars ] = useState(false);
     const [ showChars, setShowChars ] = useState(false);
     const [ showProfile, setShowProfile ] = useState(false);
+    const [ profilePic, setProfilePic ] = useState('')
     const handleShowChars = () => setShowChars(true);
     const handleCloseChars = () => setShowChars(false);
     const handleShowProf = () => setShowProfile(true);
     const handleCloseProf = () => setShowProfile(false);
     const [ profile, setProfile ] = useState({
+        id: '',
         dog_name: '',
         owner_name: '',
         owner_description: '',
         city: '',
-        states: '',
-        avatar: ''
+        state: ''
     })
+    // console.log("profile", profile)
     const [ chars, setChars ] = useState([
         {char: 'dog friendly', value: 1},
         {char: 'kid friendly', value: 1},
@@ -37,7 +40,7 @@ export default function Profile(props) {
     })
     // This id is hard coded until I put this in local storage
     // If you want to try this out create an account and profile and insert that profile's id and username here
-    const profileId = 8
+    const profileId = 29
     const username = "Autumn19"
 
     function calculateAge(DOB) {
@@ -52,9 +55,9 @@ export default function Profile(props) {
         if (ageM === 0) {
             return `${ageY} years`
         } else if (ageM < 0) {
-            return `${ageY - 1} years, ${Math.abs(ageM)} months`
+            return `${ageY - 1} years, ${12+ageM} months`
         } else if (ageM > 0) {
-            return `${ageY} years, ${12-m} months`
+            return `${ageY} years, ${ageM} months`
         }
     }
     
@@ -84,12 +87,22 @@ export default function Profile(props) {
         const profileResponse = await fetch(`http://localhost:8100/api/profiles/${username}`)
         if (profileResponse.ok) {
             const data = await profileResponse.json();
-            console.log("data", data)
-            setProfile({...data, states: data.state});
-            console.log("profile", profile)
+            console.log("data from profile", data)
+            setProfile({...data});
             getChars();
+            getProfilePic(profileId);
         }
-    }   
+    }
+
+    async function getProfilePic(profileId) {
+        const url = `http://localhost:8100/api/profile-pic/${profileId}`;
+        const response = await fetch(url);
+        if (response.ok) {
+            const profilePicData = await response.json();
+            console.log(profilePicData);
+            setProfilePic(profilePicData.URI);
+        }
+    }
 
     useEffect(() => {
         getProfile();
@@ -108,10 +121,11 @@ export default function Profile(props) {
                 <div className="col-lg-4">
                     <div className="card shadow-sm">
                     <div className="card-header bg-transparent text-center">
+                        <ProfilePic profileId={profileId} />
                         <img
                             className="dog_img" 
-                            src="https://www.humanesociety.org/sites/default/files/styles/1240x698/public/2019/02/dog-451643.jpg?h=bf654dbc&itok=MQGvBmuo" 
-                            alt="student dp"
+                            src={profilePic}
+                            alt='Standard Dog Image'
                         />
                         <h2>{profile.dog_name}</h2>
                     </div>
@@ -158,6 +172,7 @@ export default function Profile(props) {
                         dogName={profile.dog_name}
                         getProfile={getProfile}
                         profile={profile}
+                        username={username}
                     />
                     <div className="card">   
                         <div className="card-body">
@@ -166,7 +181,7 @@ export default function Profile(props) {
                                 Edit Profile
                             </Button>
                             <p className="mb-0"><strong className="pr-1">My human is: </strong>{profile.owner_name}</p>
-                            <p className="mb-0"><strong className="pr-1">{profile.owner_name} and I live in: </strong>{profile.city}, {profile.states}</p>
+                            <p className="mb-0"><strong className="pr-1">{profile.owner_name} and I live in: </strong>{profile.city}, {profile.state}</p>
                             <p className="mb-0"><strong className="pr-1">More about my human: </strong>{profile.owner_description}</p>
                         </div>
                     </div>
