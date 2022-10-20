@@ -41,9 +41,9 @@ export default function App() {
           <Route path="characteristics" element={<Characteristics />} />
           <Route path="create-characteristics" element={<CharsModal profileId={profileId} />} />
           <Route path="edit-characteristics" element={<CharsModal profileId={profileId} />} />
+          <Route path='friends' element={<ListFriends />} />
+          <Route path="pending" element={<PendingList userTwo={profileId} />} />
         </Route>  
-        <Route path='profile/friends' element={<ListFriends />} />
-        <Route path="profile/pending" element={<PendingList userTwo={profileId} />} />
       </Routes>
     </BrowserRouter>
   )
