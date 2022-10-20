@@ -4,18 +4,23 @@ import Characteristics from './Characteristics';
 import CharsModal from './CharacteristicsModal';
 import Button from 'react-bootstrap/Button';
 import EditProfileModal from './EditProfileModal';
-import ProfilePic from './ProfilePic';
+import ProfilePicModal from './ProfilePicModal';
 
 export default function Profile(props) {
     const [ hasChars, setHasChars ] = useState(false);
+    const [ hasPic, setHasPic ] = useState(false);
     const [ showChars, setShowChars ] = useState(false);
     const [ showProfile, setShowProfile ] = useState(false);
-    const [ profilePic, setProfilePic ] = useState('')
+    const [ showPic, setShowPic ] = useState(false);
+    const [ profilePic, setProfilePic ] = useState('');
     const handleShowChars = () => setShowChars(true);
     const handleCloseChars = () => setShowChars(false);
     const handleShowProf = () => setShowProfile(true);
     const handleCloseProf = () => setShowProfile(false);
+    const handleShowPic = () => setShowPic(true);
+    const handleClosePic = () => setShowPic(false);
     const [ profile, setProfile ] = useState({
+        id: '',
         dog_name: '',
         owner_name: '',
         owner_description: '',
@@ -95,12 +100,36 @@ export default function Profile(props) {
 
     async function getProfilePic(profileId) {
         const url = `http://localhost:8100/api/profile-pic/${profileId}`;
-        const response = await fetch(url);
+        const response = await fetch(url, {credentials: 'include'});
         if (response.ok) {
             const profilePicData = await response.json();
             console.log(profilePicData);
             setProfilePic(profilePicData.URI);
+            setHasPic(true);
         }
+    }
+
+    const handleAdd = async (e) => {
+        e.preventDefault();
+        const id = e.target.value;
+        console.log(e.target)
+        const requestUrl = `http://localhost:8100/api/friendships/${id}`;
+        const fetchConfig = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify( {
+                'status': 0,
+                'user_one': Number(id),
+                'user_two': 5
+            })
+        };
+        const reqResponse = await fetch(requestUrl, fetchConfig);
+        if (reqResponse.ok) {
+            console.log(reqResponse);
+        }
+        console.log("THE BUTTON WAS PRESSED")
     }
 
     useEffect(() => {
@@ -113,20 +142,46 @@ export default function Profile(props) {
         )
     }
 
+
     return(
         <div className="dog-profile py-4">
             <div className="container">
                 <div className="row">
                 <div className="col-lg-4">
+                    <div className='container p-3'>
+                            {
+                                profile.id != profileId
+                                ?
+                                <Button size='md' onClick={handleAdd} value={profile.id}> ADD ME </Button>
+                                :
+                                null
+                            }
+                    </div>
                     <div className="card shadow-sm">
                     <div className="card-header bg-transparent text-center">
-                        <ProfilePic profileId={profileId} />
+                        <ProfilePicModal
+                            hasPic={hasPic}
+                            profileId={profileId} 
+                            handleClose={handleClosePic}
+                            show={showPic}
+                            getProfilePic={getProfilePic}
+                        />
                         <img
                             className="dog_img" 
                             src={profilePic}
                             alt='Standard Dog Image'
                         />
                         <h2>{profile.dog_name}</h2>
+                        { hasPic
+                            ? <div>
+                                <Button className="btn btn-info btn-sm" onClick={handleShowPic}>
+                                    Edit Profile Picture for {profile.dog_name}
+                                </Button> 
+                            </div>
+                            : <Button className="btn btn-info btn-sm" onClick={handleShowPic}>
+                                Add Profile Picture for {profile.dog_name}
+                            </Button>
+                        }
                     </div>
                     <div className="card-header bg-transparent card-body">
                         <h5>{profile.dog_name}'s Bio</h5>
