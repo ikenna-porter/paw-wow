@@ -7,7 +7,10 @@ import Profile from './Profile/Profile'
 import Vaccinations from './Profile/Vaccinations'
 import VaccinationsModal from './Profile/VaccinationsModal'
 import Characteristics from './Profile/Characteristics'
-import CharacteristicsModal from './Profile/CharsModal'
+import CharsModal from './Profile/CharacteristicsModal'
+import EditProfileModal from './Profile/EditProfileModal'
+import ListFriends from './Friendship/FriendList'
+import PendingList from './Friendship/PendingList'
 
 
 export default function App() {
@@ -31,13 +34,16 @@ export default function App() {
         />
         <Route path="profile">
           <Route index element={<Profile profileId={profileId} />} />
+          <Route path="edit-profile" element={<EditProfileModal />} />
           <Route path="vaccinations" element={<Vaccinations />} />
           <Route path="create-vaccinations" element={<VaccinationsModal profileId={profileId} />} />
           <Route path="edit-vaccinations" element={<VaccinationsModal profileId={profileId} />} />
           <Route path="characteristics" element={<Characteristics />} />
-          <Route path="create-characteristics" element={<CharacteristicsModal profileId={profileId} />} />
-          <Route path="edit-characteristics" element={<CharacteristicsModal profileId={profileId} />} />
+          <Route path="create-characteristics" element={<CharsModal profileId={profileId} />} />
+          <Route path="edit-characteristics" element={<CharsModal profileId={profileId} />} />
         </Route>  
+        <Route path='profile/friends' element={<ListFriends />} />
+        <Route path="profile/pending" element={<PendingList userTwo={profileId} />} />
       </Routes>
     </BrowserRouter>
   )

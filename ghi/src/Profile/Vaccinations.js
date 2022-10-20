@@ -3,20 +3,18 @@ import Button from 'react-bootstrap/Button';
 import VacctinationsModal from './VaccinationsModal';
 
 export default function Vaccinations(props) {
+    const profileId = props.profileId
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [ hasVaccines, setHasVaccines ] = useState(false);
-    const [ vaccines, setVaccines ] = useState(
-        {
-            distemper: false,
-            parvo: false,
-            adeno: false,
-            rabies: false,
-            other: ''
-        })
-    const profileId = props.profileId
-    // console.log("distemper in vacc:", vaccines.distemper)
+    const [ vaccines, setVaccines ] = useState({
+        distemper: false,
+        parvo: false,
+        adeno: false,
+        rabies: false,
+        other: ''
+    });
 
     async function getVaccines() {
         const response = await fetch(`http://localhost:8100/api/vaccinations/${profileId}`)
@@ -28,7 +26,7 @@ export default function Vaccinations(props) {
     } 
 
     useEffect(() => {
-        getVaccines();   
+        getVaccines();
     }, [hasVaccines]);
 
     return(
@@ -47,7 +45,7 @@ export default function Vaccinations(props) {
                 { hasVaccines
                     ?
                     <div>
-                        <Button variant="primary" onClick={handleShow}>
+                        <Button className="btn btn-info btn-sm" onClick={handleShow}>
                             Edit Vaccination Records for {props.dogName}
                         </Button>
                         <table className="table table-striped">
@@ -71,9 +69,12 @@ export default function Vaccinations(props) {
                             </tbody>
                         </table>
                     </div>
-                    : <Button variant="primary" onClick={handleShow}>
-                        Add Vaccination records for {props.dogName}
-                    </Button>
+                    : 
+                    <div>
+                        <Button className="btn btn-info btn-sm" onClick={handleShow}>
+                            Add Vaccination records for {props.dogName}
+                        </Button>
+                    </div>
                 }
             </div>
         </div>    
