@@ -16,7 +16,6 @@ export default function Profile(props) {
     const handleShowProf = () => setShowProfile(true);
     const handleCloseProf = () => setShowProfile(false);
     const [ profile, setProfile ] = useState({
-        id: '',
         dog_name: '',
         owner_name: '',
         owner_description: '',
