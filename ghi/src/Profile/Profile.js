@@ -1,29 +1,51 @@
 import { useState, useEffect } from 'react'
 import Vaccinations from './Vaccinations';
-import { Link } from 'react-router-dom';
 import Characteristics from './Characteristics';
-import React from 'react';
+import CharsModal from './CharacteristicsModal';
 import Button from 'react-bootstrap/Button';
+import EditProfileModal from './EditProfileModal';
+import ProfilePicModal from './ProfilePicModal';
 
 export default function Profile(props) {
     const [ hasChars, setHasChars ] = useState(false);
+    const [ hasPic, setHasPic ] = useState(false);
+    const [ showChars, setShowChars ] = useState(false);
+    const [ showProfile, setShowProfile ] = useState(false);
+    const [ showPic, setShowPic ] = useState(false);
+    const [ profilePic, setProfilePic ] = useState('');
+    const handleShowChars = () => setShowChars(true);
+    const handleCloseChars = () => setShowChars(false);
+    const handleShowProf = () => setShowProfile(true);
+    const handleCloseProf = () => setShowProfile(false);
+    const handleShowPic = () => setShowPic(true);
+    const handleClosePic = () => setShowPic(false);
     const [ profile, setProfile ] = useState({
         id: '',
         dog_name: '',
         owner_name: '',
         owner_description: '',
         city: '',
-        states: '',
-        avatar: ''
+        state: ''
     })
-    const [ chars, setChars ] = useState([]);
-    const [ DOB, setDOB ] = useState('');
-    const [ fixed, setFixed ] = useState(false);
-    const [ size, setSize ] = useState('');
+    // console.log("profile", profile)
+    const [ chars, setChars ] = useState([
+        {char: 'dog friendly', value: 1},
+        {char: 'kid friendly', value: 1},
+        {char: 'people friendly', value: 1},
+        {char: 'energy level', value: 1}
+    ]);
+    const [ dogDetails, setDogDetails ] = useState({
+        DOB: '',
+        fixed: false,
+        size: '',
+        breed: '',
+        gender: '',
+        dog_bio: ''
+    })
     // This id is hard coded until I put this in local storage
     // If you want to try this out create an account and profile and insert that profile's id and username here
-    const profileId = 5
-    const username = "brunobuddy"
+    const profileId = 29
+    const username = "Autumn19"
 
     function calculateAge(DOB) {
         let arr = DOB.split('-')
@@ -31,51 +53,61 @@ export default function Profile(props) {
         let y = newDOB[0]
         let m = newDOB[1]
         const date = new Date()
-        let currentY = date.getFullYear()
-        let currentM = date.getMonth() + 1
-        let ageY = currentY - y
-        let ageM = currentM - m
+        let ageY = date.getFullYear() - y
+        let ageM = (date.getMonth() + 1) - m
 
         if (ageM === 0) {
             return `${ageY} years`
         } else if (ageM < 0) {
-            return `${ageY - 1} years, ${Math.abs(ageM)} months`
+            return `${ageY - 1} years, ${12+ageM} months`
         } else if (ageM > 0) {
             return `${ageY} years, ${ageM} months`
         }
     }
-
+    
     async function getChars() {
-        const charsResponse = await fetch(`http://localhost:8100/api/characteristics/${profileId}`)
-        if (charsResponse.ok) {
-            const charsData = await charsResponse.json();
-            console.log(charsData)
-            setHasChars(true);
-            setChars([
-                {char: 'dog friendly', value: charsData.dog_friendly},
-                {char: 'kid friendly', value: charsData.kid_friendly},
-                {char: 'people friendly', value: charsData.people_friendly},
-                {char: 'energy level', value: charsData.energy_level}
-            ]);
-            setDOB(charsData.DOB);
-            setFixed(charsData.fixed);
-            setSize(charsData.size);
+            const charsResponse = await fetch(`http://localhost:8100/api/characteristics/${profileId}`)
+            if (charsResponse.ok) {
+                const charsData = await charsResponse.json();
+                setHasChars(true);
+                setChars([
+                    {char: 'dog friendly', value: charsData.dog_friendly},
+                    {char: 'kid friendly', value: charsData.kid_friendly},
+                    {char: 'people friendly', value: charsData.people_friendly},
+                    {char: 'energy level', value: charsData.energy_level}
+                ]);
+                setDogDetails({
+                    DOB: charsData.DOB,
+                    fixed: charsData.fixed,
+                    size: charsData.size,
+                    breed: charsData.breed,
+                    gender: charsData.gender,
+                    dog_bio: charsData.dog_bio
+                });
+            }
+    }
+
+    async function getProfile() {
+        const profileResponse = await fetch(`http://localhost:8100/api/profiles/${username}`)
+        if (profileResponse.ok) {
+            const data = await profileResponse.json();
+            console.log("data from profile", data)
+            setProfile({...data});
+            getChars();
+            getProfilePic(profileId);
         }
     }
 
-    useEffect(() => {
-        async function getProfile() {
-            const profileResponse = await fetch(`http://localhost:8100/api/profiles/${username}`)
-            if (profileResponse.ok) {
-                const data = await profileResponse.json();
-                console.log(data);
-                setProfile({...data, states: data.state});
-            }
-        }   
-        getProfile();
-        getChars();
-
-    }, [])
+    async function getProfilePic(profileId) {
+        const url = `http://localhost:8100/api/profile-pic/${profileId}`;
+        const response = await fetch(url, {credentials: 'include'});
+        if (response.ok) {
+            const profilePicData = await response.json();
+            console.log(profilePicData);
+            setProfilePic(profilePicData.URI);
+            setHasPic(true);
+        }
+    }
 
     const handleAdd = async (e) => {
         e.preventDefault();
@@ -99,6 +131,10 @@ export default function Profile(props) {
         }
         console.log("THE BUTTON WAS PRESSED")
     }
+
+    useEffect(() => {
+        getProfile();
+    }, [profile.dog_name])
     
     if (!profile.dog_name) {
         return(
@@ -112,55 +148,105 @@ export default function Profile(props) {
             <div className="container">
                 <div className="row">
                 <div className="col-lg-4">
+                    <div className='container p-3'>
+                            {
+                                profile.id != profileId
+                                ?
+                                <Button size='md' onClick={handleAdd} value={profile.id}> ADD ME </Button>
+                                :
+                                null
+                            }
+                    </div>
                     <div className="card shadow-sm">
                     <div className="card-header bg-transparent text-center">
+                        <ProfilePicModal
+                            hasPic={hasPic}
+                            profileId={profileId} 
+                            handleClose={handleClosePic}
+                            show={showPic}
+                            getProfilePic={getProfilePic}
+                        />
                         <img
                             className="dog_img" 
-                            src="https://www.humanesociety.org/sites/default/files/styles/1240x698/public/2019/02/dog-451643.jpg?h=bf654dbc&itok=MQGvBmuo" 
-                            alt="student dp"
+                            src={profilePic}
+                            alt='Standard Dog Image'
                         />
                         <h2>{profile.dog_name}</h2>
-                    </div>
-                        <div className="card-body">
-                            <p className="mb-0"><strong className="pr-1">I am this young: </strong>{calculateAge(DOB)}</p>
-                            <p className="mb-0"><strong className="pr-1">My size is: </strong>{size}</p>
-                            <p className="mb-0"><strong className="pr-1">I am fixed: </strong>{String(fixed)}</p>
-                            <p className="mb-0"><strong className="pr-1">I live in: </strong>{profile.city}, {profile.states}</p>
-                            <p className="mb-0"><strong className="pr-1">My human is: </strong>{profile.owner_name}</p>
-                            <p className="mb-0"><strong className="pr-1">More about my human: </strong>{profile.owner_description}</p>
-                        </div>
-                    </div>
-                    <div className='container p-3'>
-                        {
-                            profile.id != 4
-                            ?
-                            <Button size='md' onClick={handleAdd} value={profile.id}> ADD ME </Button>
-                            :
-                            null
+                        { hasPic
+                            ? <div>
+                                <Button className="btn btn-info btn-sm" onClick={handleShowPic}>
+                                    Edit Profile Picture for {profile.dog_name}
+                                </Button> 
+                            </div>
+                            : <Button className="btn btn-info btn-sm" onClick={handleShowPic}>
+                                Add Profile Picture for {profile.dog_name}
+                            </Button>
                         }
                     </div>
-                    <div>   
+                    <div className="card-header bg-transparent card-body">
+                        <h5>{profile.dog_name}'s Bio</h5>
+                        <p className="mb-0"><strong className="pr-1">I am a: </strong>{dogDetails.size} {dogDetails.breed}</p>
+                        <p className="mb-0"><strong className="pr-1">My gender: </strong>{dogDetails.gender}</p>
+                        <p className="mb-0"><strong className="pr-1">My age: </strong>{calculateAge(dogDetails.DOB)}</p>
+                        { dogDetails.fixed
+                            ? <p className="mb-0"><strong className="pr-1">I am fixed</strong></p>
+                            : <p className="mb-0"><strong className="pr-1">I am not fixed</strong></p>
+                        }
+                        <p className="mb-0"><strong className="pr-1">More about me: </strong>{dogDetails.dog_bio}</p>
+                    </div>  
+                    <div className="card-body">
+                        <h5 className="card-title">Characteristics</h5> 
+                        { hasChars
+                            ? <div>
+                                <Characteristics chars={chars} />
+                                <Button className="btn btn-info btn-sm" onClick={handleShowChars}>
+                                    Edit Characteristics for {profile.dog_name}
+                                </Button> 
+                            </div>
+                            : <Button className="btn btn-info btn-sm" onClick={handleShowChars}>
+                                Add more information for {profile.dog_name}
+                            </Button>
+                        }    
                     </div>
-                        <div className="card-body pt-0">
-                                <Characteristics
-                                    hasChars={hasChars} 
-                                    profileId={profileId} 
-                                    chars={chars} 
-                                    dogName={profile.dog_name}
-                                    DOB={DOB}
-                                    size={size}
-                                    fixed={fixed}
-                                    getChars={getChars}
-                                />
-                        </div>    
+                </div>    
+                    <CharsModal
+                        show={showChars} 
+                        handleClose={handleCloseChars} 
+                        profileId={profileId} 
+                        dogName={profile.dog_name}
+                        chars={chars}
+                        dogDetails={dogDetails}
+                        getChars={getChars}
+                        hasChars={hasChars}
+                    />
+                    <EditProfileModal
+                        show={showProfile}
+                        handleClose={handleCloseProf}
+                        profileId={profileId}
+                        dogName={profile.dog_name}
+                        getProfile={getProfile}
+                        profile={profile}
+                        username={username}
+                    />
+                    <div className="card">   
+                        <div className="card-body">
+                            <h5>{profile.owner_name}'s Bio</h5>
+                            <Button className="btn btn-info btn-sm mb-2" onClick={handleShowProf}>
+                                Edit Profile
+                            </Button>
+                            <p className="mb-0"><strong className="pr-1">My human is: </strong>{profile.owner_name}</p>
+                            <p className="mb-0"><strong className="pr-1">{profile.owner_name} and I live in: </strong>{profile.city}, {profile.state}</p>
+                            <p className="mb-0"><strong className="pr-1">More about my human: </strong>{profile.owner_description}</p>
+                        </div>
                     </div>
                     <div>
                         <div className="col-lg-8">
                                 <Vaccinations dogName ={profile.dog_name} profileId={profileId} />
                         </div>
-                    </div>      
-                    </div>
+                    </div>    
+                </div>      
                 </div>
             </div>
+        </div>
     )
 }

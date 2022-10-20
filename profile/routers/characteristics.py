@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends 
+from fastapi import APIRouter, Depends, Response 
 from typing import List, Optional, Union
 from queries.characteristics import CharsIn, CharsOut, CharacteristicsRepository
 from authenticator import authenticator
@@ -35,6 +35,10 @@ def update_characteristics(
 @router.get("/api/characteristics/{profile_id}")
 def get_one_characteristic(
     profile_id: int,
+    response: Response,
     repo: CharacteristicsRepository = Depends()
 ) -> CharsOut:
-    return repo.get_one(profile_id)    
+    char = repo.get_one(profile_id)
+    if char is None:
+        response.status_code = 404
+    return char    

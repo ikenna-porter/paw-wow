@@ -10,7 +10,7 @@ export default function Nav() {
             <Navbar.Collapse className="me-auto" id="navbarSupportedContent">
                 <nav className="me-auto mb-2 mb-lg-0">
                     <div className="nav-item">
-                        <NavLink className="nav-link active" aria-current="page" to="/profile/friends">Friends</NavLink>
+                        <NavLink className="nav-link active" aria-current="page" to="profile/friends">Friends</NavLink>
                     </div>
                 </nav>
             </Navbar.Collapse>
