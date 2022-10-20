@@ -2,6 +2,15 @@ import { NavLink, Link } from 'react-router-dom';
 import Notifications from "./Images/Notifications.svg"
 import "./Nav.css"
 
+const displayNotification = (()=>{
+    return (
+        <span className="notification">
+            "X wants to be friends with you"
+        </span>
+    )
+}
+)
+
 export default function Nav() {
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-success">
@@ -13,8 +22,9 @@ export default function Nav() {
                     <div className="icon">
                         <img src={Notifications} className="iconImg" alt=""/>
                         <div className="counter">1 </div>
+                    </div>
                 </div>
-            </div>
+
             </div>
         </nav>        
     )
