@@ -7,7 +7,6 @@ app = FastAPI()
 
 @app.websocket("/api/notifications")
 async def websocket_endpoint(websocket: WebSocket):
-    print("cat")
     await websocket.accept()
     while True:
         #data = await websocket.receive_text()

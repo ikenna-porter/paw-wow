@@ -16,16 +16,19 @@ export default function App() {
   const [accountId, setAccountId] = useState('');
   const [username, setUsername] = useState('');
   const [profileId, setProfileId] = useState('');
-  //const client = new WebSocket('ws://localhost:8300/api/notifications');
+  const client = new WebSocket('ws://localhost:8300/api/notifications');
   
-    // useEffect(() =>{
-    //   client.onopen = () => {
-    //     console.log('WebSocket Client Connected');
-    //   };
-    //   client.onmessage = (message) => {
-    //     console.log(message);
-    //   }
-    // },[client]);
+    useEffect(() =>{
+      client.onopen = () => {
+        console.log('WebSocket Client Connected');
+      };
+      client.onmessage = (message) => {
+        console.log(message);
+      }
+      client.onclose = () => {
+        console.log("cat")
+      }
+    },[client]);
 
   return (
     <BrowserRouter>

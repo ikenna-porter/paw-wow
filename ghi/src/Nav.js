@@ -1,19 +1,21 @@
 import { NavLink, Link } from 'react-router-dom';
+import { useState } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
-import Notifications from "./Images/Notifications.svg"
+import Notification from './Images/Notification.svg'
 import Messages from "./Images/Messages.svg"
 import "./Nav.css"
+import Notifications from "react-notifications-menu";
 
-const displayNotification = (()=>{
-    return (
-        <span className="notification">
-            "X wants to be friends with you"
-        </span>
-    )
-}
-)
+const DEFAULT_NOTIFICATION = {
+    image:
+      "https://cutshort-data.s3.amazonaws.com/cloudfront/public/companies/5809d1d8af3059ed5b346ed1/logo-1615367026425-logo-v6.png",
+    message: "Notification one.",
+    detailPage: "/",
+    receivedTime: "12h ago"
+  };
 
 export default function Nav() {
+    const [data, setData] = useState([DEFAULT_NOTIFICATION]);
     return (
         <nav className="navbar navbar-expand-lg navbar-dark text-white bg-success">
             <div>
@@ -23,8 +25,16 @@ export default function Nav() {
                 <div className='d-flex'>
                 <div className="d-flex flex-row align-items-md-center icons">
                     <div className="p-2 icon">
-                        <img src={Notifications} className="iconImg" alt=""/>
-                        <div className="d-flex p-1 align-items-center justify-content-center mx-auto position-absolute font-weight-bold counter">99+</div>
+                        <Notifications
+                        data={data}
+                        header={{
+                            title: "Notifications",
+                            option: { text: "View All", onClick: () => console.log("Clicked") }
+                        }}
+                        markAsRead={(data) => {
+                            console.log(data);
+                        }}
+                        />
                     </div>
                     </div>
                     <div className="d-flex flex-row align-items-md-center icons">
@@ -34,6 +44,8 @@ export default function Nav() {
                     </div>
                 </div>
                 </div>
+
+                
             </div>
             <Navbar.Collapse className="me-auto" id="navbarSupportedContent">
                 <nav className="me-auto mb-2 mb-lg-0">
