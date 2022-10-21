@@ -12,7 +12,7 @@ app.include_router(characteristics.router)
 app.include_router(friendships.router)
 app.include_router(profile_pic.router)
 
-origins = ['*']    
+origins = ['*', 'http://localhost:3000']    
 
 app.add_middleware(
     CORSMiddleware,

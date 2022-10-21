@@ -20,7 +20,7 @@ def create_vaccination_record(
 def update_vaccination_record(
     profile_id: int,
     vaccination_record: VaccinationRecordIn,
-    # account_data: dict = Depends(authenticator.get_current_account_data),
+    account_data: dict = Depends(authenticator.get_current_account_data),
     repo: VaccinationRecordRepository = Depends()
 ) -> VaccinationRecordOut:
     return repo.update(profile_id, vaccination_record)

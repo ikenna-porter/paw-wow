@@ -9,7 +9,6 @@ export default function CreateProfile(props) {
     const [ states, setStates ] = useState(stateList);
     const [ ownerName, setOwnerName ] = useState('');
     const [ ownerDescription, setOwnerDescription ] = useState('');
-    const token = props.token
     const accountId = props.accountId
     const navigate = useNavigate();
 
@@ -31,12 +30,12 @@ export default function CreateProfile(props) {
             headers: {
               'Content-Type': 'application/json'
             },
+            credentials: 'include'
         }
 
         const response = await fetch(url, fetchConfig);
         if (response.ok) {
             const responseData = await response.json()
-            props.setProfileId(responseData.id)
             console.log("response in create profile", responseData)
             setCity('');
             setState('');

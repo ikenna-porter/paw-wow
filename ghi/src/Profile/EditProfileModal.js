@@ -9,7 +9,6 @@ export default function EditProfileModal(props) {
     const statesOptions = stateList; 
     const profile = props.profile;
     const [ editProfile, setEditProfile ] = useState(profile);
-    console.log(editProfile)
 
     const handleSubmit = async (e) => {
         e.preventDefault();

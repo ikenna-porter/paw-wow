@@ -5,6 +5,8 @@ import CharsModal from './CharacteristicsModal';
 import Button from 'react-bootstrap/Button';
 import EditProfileModal from './EditProfileModal';
 import ProfilePicModal from './ProfilePicModal';
+import ListFriends from '../Friendship/FriendList';
+import { useNavigate } from "react-router-dom";
 
 export default function Profile(props) {
     const [ hasChars, setHasChars ] = useState(false);
@@ -27,7 +29,6 @@ export default function Profile(props) {
         city: '',
         state: ''
     })
-    // console.log("profile", profile)
     const [ chars, setChars ] = useState([
         {char: 'dog friendly', value: 1},
         {char: 'kid friendly', value: 1},
@@ -42,10 +43,12 @@ export default function Profile(props) {
         gender: '',
         dog_bio: ''
     })
+    const navigate = useNavigate();
     // This id is hard coded until I put this in local storage
     // If you want to try this out create an account and profile and insert that profile's id and username here
-    const profileId = 29
-    const username = "Autumn19"
+    const [profileId, setProfileId] = useState(null);
+    const username = props.currentUser
+
 
     function calculateAge(DOB) {
         let arr = DOB.split('-')
@@ -65,7 +68,7 @@ export default function Profile(props) {
         }
     }
     
-    async function getChars() {
+    async function getChars(profileId) {
             const charsResponse = await fetch(`http://localhost:8100/api/characteristics/${profileId}`)
             if (charsResponse.ok) {
                 const charsData = await charsResponse.json();
@@ -91,10 +94,10 @@ export default function Profile(props) {
         const profileResponse = await fetch(`http://localhost:8100/api/profiles/${username}`)
         if (profileResponse.ok) {
             const data = await profileResponse.json();
-            console.log("data from profile", data)
             setProfile({...data});
-            getChars();
-            getProfilePic(profileId);
+            setProfileId(data.id)
+            getChars(data.id);
+            getProfilePic(data.id);
         }
     }
 
@@ -154,7 +157,7 @@ export default function Profile(props) {
                                 ?
                                 <Button size='md' onClick={handleAdd} value={profile.id}> ADD ME </Button>
                                 :
-                                null
+                                <Button size='md'> Friends List </Button>
                             }
                     </div>
                     <div className="card shadow-sm">

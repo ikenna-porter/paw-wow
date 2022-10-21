@@ -22,7 +22,6 @@ export default function ProfilePicModal(props) {
             }
             const putResponse = await fetch(url, putFetchConfig);
             if (putResponse.ok) {
-                console.log("put response", putResponse)
                 props.getProfilePic();
             }
         } else {

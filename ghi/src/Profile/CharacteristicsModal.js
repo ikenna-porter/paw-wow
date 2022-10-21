@@ -52,7 +52,7 @@ export default function CharsModal(props) {
             const putResponse = await fetch(putUrl, putFetchConfig);
             console.log(putResponse)
             if (putResponse.ok) {
-                // props.getChars()
+                props.getChars()
             }
         } else {
             const postUrl = `http://localhost:8100/api/characteristics`

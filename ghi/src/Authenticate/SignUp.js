@@ -22,6 +22,7 @@ export default function SignUp(props) {
       headers: {
         'Content-Type': 'application/json'
       },
+      credentials: 'include'
     }
 
     const accountResponse = await fetch(url, fetchConfig);
@@ -31,9 +32,7 @@ export default function SignUp(props) {
       // accountData has access_token, account{id, username}
       console.log(document.cookie)
       props.setAccountId(accountData.account.id)
-      props.setUsername(accountData.account.username)
-      setUsername('')
-      setPassword('')
+      props.setCurrentUser(accountData.account.username)
       navigate("/create-profile");
     }
 

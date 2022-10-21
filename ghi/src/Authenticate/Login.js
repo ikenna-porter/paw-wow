@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from "react-router-dom";
 
 export default function Login(props) {
@@ -26,15 +26,19 @@ export default function Login(props) {
         console.log("login response:", response)
         if (response.ok) {
             const responseData = await response.json();
-            console.log(responseData);
+            console.log("login response", responseData);
             setToken(responseData.access_token)
             setUsername('');
             setPassword('');
             navigate('/profile');
         }
 
-        const tokenUrl = await fetch('http://localhost:8100/token', {credentials: 'include'});
-        console.log("token response", tokenUrl)
+        const getToken = await fetch('http://localhost:8100/token', {credentials: 'include'});
+        if (getToken.ok) {
+            const tokenData = await getToken.json();
+            console.log("token data", tokenData)
+            props.setCurrentUser(tokenData.account.username);
+        }
     }    
 
     return (
@@ -42,6 +46,7 @@ export default function Login(props) {
             <div className="offset-3 col-6">
                 <div className="shadow p-4 mt-4">
                     <form onSubmit={handleSubmit}>
+                        <h3>Log In</h3>
                         <div className="mb-3">
                             <label className="form-label" htmlFor="username">Username</label>
                             <input
