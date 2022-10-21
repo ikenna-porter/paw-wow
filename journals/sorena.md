@@ -22,7 +22,7 @@ I got with America to merge a large amount of code from both of our branches tog
 
 I reworked our logo and we all discussed adding it to the sign-up page! 
 
-Using Link is really helpful and much easier to include in the jsx.
+Using Link is really helpful and much easier to include in the jsx. 
 
 ----
 
