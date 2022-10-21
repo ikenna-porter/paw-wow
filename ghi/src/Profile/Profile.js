@@ -5,6 +5,7 @@ import CharsModal from './CharacteristicsModal';
 import Button from 'react-bootstrap/Button';
 import EditProfileModal from './EditProfileModal';
 import ProfilePicModal from './ProfilePicModal';
+import { Link } from 'react-router-dom';
 
 export default function Profile(props) {
     const [ hasChars, setHasChars ] = useState(false);
@@ -44,8 +45,8 @@ export default function Profile(props) {
     })
     // This id is hard coded until I put this in local storage
     // If you want to try this out create an account and profile and insert that profile's id and username here
-    const profileId = 29
-    const username = "Autumn19"
+    const profileId = 3
+    const username = "scoobydoo"
 
     function calculateAge(DOB) {
         let arr = DOB.split('-')
@@ -150,11 +151,11 @@ export default function Profile(props) {
                 <div className="col-lg-4">
                     <div className='container p-3'>
                             {
-                                profile.id != profileId
+                                profile.id != 3
                                 ?
                                 <Button size='md' onClick={handleAdd} value={profile.id}> ADD ME </Button>
                                 :
-                                null
+                                <Link to='/profile/friends'><Button>Friends List</Button></Link>
                             }
                     </div>
                     <div className="card shadow-sm">
