@@ -20,15 +20,19 @@ export default function Nav() {
                 <NavLink className="navbar-brand" to="/">
                     Paw Wow
                 </NavLink>
-                <div className="icons">
-                    <div className="icon">
+                <div className='d-flex'>
+                <div className="d-flex flex-row align-items-md-center icons">
+                    <div className="p-2 icon">
                         <img src={Notifications} className="iconImg" alt=""/>
-                        <div className="counter">1</div>
+                        <div className="d-flex p-1 align-items-center justify-content-center mx-auto position-absolute font-weight-bold counter">99+</div>
                     </div>
-                    <div className="icon">
+                    </div>
+                    <div className="d-flex flex-row align-items-md-center icons">
+                    <div className="p-2 icon">
                         <img src={Messages} className="iconImg" alt=""/>
-                        <div className="counter">5</div>
+                        <div className="d-flex p-1 align-items-center justify-content-center mx-auto position-absolute font-weight-bold counter">99+</div>
                     </div>
+                </div>
                 </div>
             </div>
             <Navbar.Collapse className="me-auto" id="navbarSupportedContent">
