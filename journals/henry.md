@@ -47,7 +47,7 @@ I worked on integrating the third party notifications API. I spent
 a lot of the day reading the documentation and getting the install
 of the API working.
 
-# October 20, 2022
+# October 19, 2022
 
 I spent the day reading over websocket documentation and trying to bugfix
 a 403 error when trying to implement the websocket. I got help from
@@ -57,3 +57,6 @@ a connection with the frontend and backend. I worked on the frontend UI
 for notifications afterward. The goal for tomorrow is to implement a
 notifications UI that can be interacted with. Right now, everything
 is hardcoded in.
+
+# October 20, 2022
+

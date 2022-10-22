@@ -14,8 +14,12 @@ const DEFAULT_NOTIFICATION = {
     receivedTime: "12h ago"
   };
 
+
+
 export default function Nav() {
+    const [message, setMessage] = useState("");
     const [data, setData] = useState([DEFAULT_NOTIFICATION]);
+
     return (
         <nav className="navbar navbar-expand-lg navbar-dark text-white bg-success">
             <div>
@@ -56,4 +60,5 @@ export default function Nav() {
             </Navbar.Collapse>
         </nav>        
     )
-}
+                    }
+
