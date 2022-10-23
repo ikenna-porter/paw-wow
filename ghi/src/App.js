@@ -4,6 +4,8 @@ import Nav from './Nav'
 import AuthenticateUser from './Authenticate/AuthenticateUser'
 import CreateProfile from './Profile/CreateProfile'
 import Profile from './Profile/Profile'
+// import MessagingTest from './Messaging/MessagingTest'
+import Conversations from './Messaging/Conversations'
 import Vaccinations from './Profile/Vaccinations'
 import VaccinationsModal from './Profile/VaccinationsModal'
 import Characteristics from './Profile/Characteristics'
@@ -23,6 +25,9 @@ export default function App() {
     //   };
     //   client.onmessage = (message) => {
     //     console.log(message);
+    //   }
+    //   client.onclose = () => {
+    //     console.log("cat")
     //   }
     // },[client]);
 

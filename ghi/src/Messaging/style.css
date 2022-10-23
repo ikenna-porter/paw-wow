@@ -1,0 +1,86 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.messaging-container {
+    display: flex;
+}
+
+.conversations-container {
+    display: flex;
+    width: 25vw;
+    height: 100vh;
+    flex-direction: column;
+    border: solid black 2px;
+}
+
+.conversations-list {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+}
+
+.conversation-card {
+    display: flex;
+    padding: 5px;
+    height: 8vh;
+    border: black;
+    box-sizing: border-box;
+}
+
+.conversation-card:hover {
+    background-color: rgb(221, 221, 221);
+}
+
+.conversation-card-image-container {
+    flex-basis: 1;
+}
+
+.conversation-card-image {
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+}
+
+.conversation-card-main-content {
+    flex-grow: 3;
+    height: 100%;
+}
+
+.conversation-card-name {
+    margin-bottom: .25em;
+}
+
+.conversation-card-text {
+    margin-bottom: .25em;
+}
+
+.chat-container {
+    display: flex;
+}
+
+/* "no-chat-container" falls under chat-container */
+#no-chat-container {
+    justify-content: center;
+    align-items: center;
+    display: block;
+    margin: auto;
+    flex: 1;
+}
+
+#no-chat-image {
+    display: block;
+    margin: auto;
+    max-width: 45%;
+}
+
+#no-chat-text {
+    font-size: 3rem;
+    font-weight: bold;
+    color: rgba(142, 121, 115, 1);
+    text-align: center;
+}

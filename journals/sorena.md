@@ -12,6 +12,20 @@ At least one ah-ha! moment that you had during your coding, however small
 
 ----
 
+## October 20, 2022
+
+Today I worked on:
+
+*Merging large chunks of code*
+
+I got with America to merge a large amount of code from both of our branches together. Which was then pushed to main; we both worked together to fix merge issues and make sure everything was still working. Then I also fixed a turnery operator to show an add button on a profile if it is not of the person logged in and a friends list button if it is.  
+
+I reworked our logo and we all discussed adding it to the sign-up page! 
+
+Using Link is really helpful and much easier to include in the jsx. 
+
+----
+
 ## October 19, 2022
 
 Today I worked on:
@@ -51,6 +65,20 @@ I mostly worked solo today on finishing the last endpoints for the friends featu
 Jason and I realized that we may need to rework our SQL statements to join the data from the profile table, so the front end will have access to the profile data.
 
 It is really helpful to remember that there is a delete http request which makes having two different methods with the same endpoint work. 
+
+----
+
+## October 14, 2022
+
+Today I worked on:
+
+*Implementing the approve function for friends feature*
+
+I mostly worked alone today on the ability to approve an incoming friend request. I ended up having a few issues to still work out by the end of the day, but plan to get back to it on Monday. I was really stuck on what I should be passing in to reference on the database table to make the status change from 0 to 1.
+
+There was not really a conversation on design today.  
+
+Knowing what your database tables have available to reference is super helpful. It is also important to keep in mind the normalization of your tables. 
 
 ----
 

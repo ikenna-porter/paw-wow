@@ -1,12 +1,13 @@
 from pydantic import BaseModel
 from typing import Optional, List, Union
 from queries.pool import pool
+from datetime import datetime
 
 class MessageOut(BaseModel):
     id: int
     sender: int
     recipient: int
-    timestamp: str
+    timestamp: datetime
     content: str
     read: bool
     conversation_id: int
@@ -14,7 +15,7 @@ class MessageOut(BaseModel):
 class MessageIn(BaseModel):
     sender: int
     recipient: int
-    timestamp: str
+    timestamp: datetime
     content: str
     read: bool
     conversation_id: int
@@ -24,7 +25,7 @@ class MessageRepository:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    result = db.execute(
+                    db.execute(
                         """
                         SELECT 
                           id
@@ -40,22 +41,56 @@ class MessageRepository:
                         [conversation_id]
                     )
 
-                    print("&&&&&&&&&&&&&&&&&&&&&&&&",result)
-                    print("&&&&&&&&&&&&&&&&&&&&&&&&",db)
-                    return [ MessageOut (
+                    result = [ MessageOut (
                         id = record[0],
                         sender = record[1],
                         recipient = record[2],
                         timestamp = record[3],
                         content = record[4],
                         read = record[5],
-                        conversation_id = record[6],
+                        conversation_id = record[6]
                     )
                     for record in db 
                     ]
+
+                    return result
         except Exception as e:
             print(e)
             return {"message": "Could not retrieve chat history."}
+
+    def get_one(self, message_id: int)  -> MessageOut:
+        # try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    message = db.execute(
+                        """
+                        SELECT * 
+                        FROM messages
+                        WHERE id = %s
+                        """,
+                        [message_id]
+                    )
+                    record = message.fetchone()
+
+                    # if record is None:
+                    #     return None
+                     
+                    result = MessageOut(
+                        id = record[0],
+                        sender = record[1],
+                        recipient = record[2],
+                        timestamp = record[3],
+                        content = record[4],
+                        read = record[5],
+                        conversation_id = record[6]
+                    )
+                    print("################################", result)
+                    return result
+
+
+        # except Exception as e:
+        #     print(e)
+        #     return {"message": "Error in retrieving message."}
 
     def create(self, message: MessageIn) -> MessageOut:
         with pool.connection() as conn:

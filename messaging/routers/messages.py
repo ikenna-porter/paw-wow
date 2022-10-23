@@ -8,13 +8,19 @@ from queries.messages import (
 
 router = APIRouter()
 
-@router.get("/api/messages", response_model = List[MessageOut])
+@router.get("/api/messages/{conversation_id}", response_model = List[MessageOut])
 def get_all_messages(
     conversation_id: int,
     repo: MessageRepository = Depends()
 ) -> List[MessageOut]:
     return repo.get_all(conversation_id)
 
+@router.get("/api/messages/{message_id}", response_model = MessageOut)
+def get_one(
+    message_id: int,
+    repo: MessageRepository = Depends()
+) -> MessageOut:
+    return repo.get_one(message_id)
 
 @router.post("/api/messages", response_model = MessageOut)
 def create(
