@@ -66,7 +66,7 @@ export default function Chat(props) {
     }
 
     return(
-        <div>
+        <div id="messages-container">
             <ul id='messages'>
                 {messages.map(message => {
                     return <Message
@@ -76,17 +76,19 @@ export default function Chat(props) {
                 })}
             </ul>
             <form 
-                className="m-5" 
                 onSubmit={e => handleSubmission(e)}
             >
                 <input
                     id="chat-input" 
-                    type="text" 
+                    type="text"
+                    placeholder="Message..." 
                     required 
                     // onChange={e => setCurrentMessage(e.target.value)}
                     // value={currentMessage}
                 />
-                <button className='p-1'>Submit</button>
+                <div id="button-container">
+                    <button type="button" class="btn btn-success" id="btn">Send</button>
+                </div>
             </form>
             
         </div>

@@ -74,22 +74,27 @@ export default function MessagingTest(props) {
     }, [])
 
     return (
-        <div className="messaging-container">
-            <div className="conversations-container">
-                <Conversations 
-                conversations={conversations}
-                setSelectedConversation={setSelectedConversation}
-                />
-            </div>
-            <div className="chat-container">
-                {!selectedConversation
-                ? <NoChat />
-                : <Chat 
-                    // setUsersLastMessage={setUsersLastMessage}
-                    selectedConversation={selectedConversation}
-                    messages={messages}
-                  />
-                }
+        <div className="outer-messaging-container">
+            <div className="messaging-container">
+                <div className="conversations-container">
+                    <div id="messages-header-container">
+                        <h4>Messages</h4>
+                    </div>
+                    <Conversations
+                    conversations={conversations}
+                    setSelectedConversation={setSelectedConversation}
+                    />
+                </div>
+                <div className="chat-container">
+                    {!selectedConversation
+                    ? <NoChat />
+                    : <Chat
+                        // setUsersLastMessage={setUsersLastMessage}
+                        selectedConversation={selectedConversation}
+                        messages={messages}
+                      />
+                    }
+                </div>
             </div>
         </div>
     )

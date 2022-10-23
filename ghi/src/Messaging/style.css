@@ -4,16 +4,32 @@
     padding: 0;
 }
 
+.outer-messaging-container {
+    width: 100vw;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(250, 250, 250, 1);
+}
+
+/* Change in the future so that smaller screens have messaging-container class occupy all of its parents width/height */
 .messaging-container {
     display: flex;
+    width: 70%;
+    height: 95%;
+    border: solid gray 1px;
+    border-radius: 5px;
+    background-color: white;
 }
 
 .conversations-container {
     display: flex;
-    width: 25vw;
-    height: 100vh;
+    min-width: 33%;
+    min-height: 100%;
     flex-direction: column;
-    border: solid black 2px;
+    border-right: solid gray 1px;
+    overflow: scroll;
 }
 
 .conversations-list {
@@ -33,7 +49,7 @@
 }
 
 .conversation-card:hover {
-    background-color: rgb(221, 221, 221);
+    background-color: rgba(239, 239, 239, 1);
 }
 
 .conversation-card-image-container {
@@ -61,6 +77,9 @@
 
 .chat-container {
     display: flex;
+    min-width: 67%;
+    min-height: 100%;
+    overflow: scroll;
 }
 
 /* "no-chat-container" falls under chat-container */
@@ -75,12 +94,112 @@
 #no-chat-image {
     display: block;
     margin: auto;
-    max-width: 45%;
+    max-width: 30%;
+
 }
 
 #no-chat-text {
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: bold;
     color: rgba(142, 121, 115, 1);
     text-align: center;
 }
+
+#messages-header-container {
+    border-bottom: solid gray 1px;
+}
+
+#messages-header-container > h4 {
+    font-size: 20px;
+    font-weight: 400;
+    margin: 5px 25px;
+}
+
+#messages-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#messages-container > form {
+    width: 100%;
+    height: 6%;
+    border-top: solid gray 1px;
+    display: flex;
+    justify-content: space-between;
+    /* pushes form to bottom: */
+    margin-top: auto; 
+}
+
+input {
+    width: 85%;
+    padding: 10px;
+    border: none;
+    outline: none;
+}
+
+#button-container {
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#btn {
+    background-color: rgb(172, 219, 193);
+    color: black;
+    width: 85%;
+    border: none;
+}
+
+#btn:hover,
+#btn:focus {
+  background-color: rgb(151, 194, 170);
+}
+
+/* button {
+    padding: 0 5px;
+    margin: 5px 5px 5px 0;
+} */
+
+/* CSS */
+/* button {
+  background-color: rgb(192, 222, 206);
+  border: none;
+  box-shadow: rgba(255, 255, 255, .7) 0 1px 0 0 inset;
+  box-sizing: border-box;
+  color: rgb(32, 31, 31);
+  cursor: pointer;
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.15385;
+  margin: 0;
+  outline: none;
+  padding: 8px .8em;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: baseline;
+  white-space: nowrap;
+  border-radius: 10px;
+}
+
+button:hover,
+button:focus {
+  background-color: rgb(172, 219, 193);
+  color: black;
+}
+
+button:focus {
+  box-shadow: 0 0 0 4px rgb(142, 121, 115);
+}
+
+button:active {
+  background-color: rgb(142, 121, 115);
+  box-shadow: none;
+  color: black;
+} */
