@@ -12,14 +12,7 @@ class ProfileIn(BaseModel):
     state: str
     owner_name: Optional[str]
     owner_description: Optional[str]
-    account_id: int
 
-class UpdateProfileIn(BaseModel):
-    dog_name: str
-    city: str
-    state: str
-    owner_name: Optional[str]
-    owner_description: Optional[str]
 
 class ProfileOut(BaseModel):
     id: int
@@ -32,7 +25,7 @@ class ProfileOut(BaseModel):
 
 
 class ProfileRepository:
-    def create(self, profile: ProfileIn) -> ProfileOut:
+    def create(self, profile: ProfileIn, account_data) -> ProfileOut:
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(
@@ -49,14 +42,13 @@ class ProfileRepository:
                     profile.state,
                     profile.owner_name,
                     profile.owner_description,
-                    profile.account_id
+                    account_data['id']
                     ]
                 )
                 profile_id = result.fetchone()[0]     
                 old_data = profile.dict()
-                return ProfileOut(id=profile_id, **old_data)
+                return ProfileOut(id=profile_id, account_id=account_data['id'], **old_data)
          
-
 
     def get_all(self) -> Union[Error, List[ProfileOut]]:
         try:
@@ -81,7 +73,7 @@ class ProfileRepository:
                     ]
         except Exception as e:
             print(e)
-            return {"message": "Could not get all profiles."}     
+            return {"message": "Could not get all profiles"}     
 
     def get_one(self, username: str)  -> Optional[ProfileOut]:
         try:
@@ -115,7 +107,7 @@ class ProfileRepository:
         except Exception as e:
             return {"message": "Error in retrieving profile detail."}
     
-    def update(self, profile: UpdateProfileIn, username: str) -> Union[ProfileOut, Error]:
+    def update(self, profile: ProfileIn, username: str) -> Union[ProfileOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:

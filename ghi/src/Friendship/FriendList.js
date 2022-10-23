@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 
 export default function ListFriends(props) {
     const [friends, setFriends] = useState([]);
-    const id = 3
+    const id = 29
     // fix hard coding id
 
     useEffect(() => {

@@ -1,5 +1,12 @@
 from fastapi import FastAPI
-from routers import profiles, accounts, vaccination_records, characteristics, friendships, profile_pic
+from routers import (
+    profiles, 
+    accounts, 
+    vaccination_records, 
+    characteristics, 
+    friendships, 
+    profile_pic
+)
 from authenticator import authenticator
 from fastapi.middleware.cors import CORSMiddleware
 

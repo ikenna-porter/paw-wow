@@ -14,7 +14,6 @@ class CharsIn(BaseModel):
     size: str
     gender: str
     dog_bio: str
-    profile_id: int
 
 class CharsOut(BaseModel):
     id: int
@@ -31,20 +30,19 @@ class CharsOut(BaseModel):
     profile_id: int
 
 class CharacteristicsRepository:
-    def create(self, characteristic: CharsIn) -> CharsOut:
+    def create(self, characteristic: CharsIn, account_data) -> CharsOut:
         with pool.connection() as conn:
             with conn.cursor() as db:
-                # profile_result = db.execute(
-                #     """
-                #     SELECT *
-                #     FROM profiles
-                #     WHERE account_id = %s
-                #     """,
-                #     [account_data['id']]
-                # )
-                # profile_id = profile_result.fetchone()
-                # print("profile_id:", profile_id)
-                # print("real_profile_id:", profile_id[0])
+                profile_result = db.execute(
+                    """
+                    SELECT *
+                    FROM profiles
+                    WHERE account_id = %s
+                    """,
+                    [account_data['id']]
+                )
+                profile_id = profile_result.fetchone()[0]
+                print("profile_id", profile_id)
                 
                 result = db.execute(
                 """
@@ -77,11 +75,11 @@ class CharacteristicsRepository:
                     characteristic.size,
                     characteristic.gender,
                     characteristic.dog_bio,
-                    characteristic.profile_id
+                    profile_id
                 ]
                 )
                 id = result.fetchone()[0]
-                return self.characteristic_in_to_out(id, characteristic)
+                return self.characteristic_in_to_out(id, profile_id, characteristic)
 
 
     def update(self, profile_id: int, characteristic: CharsIn) -> CharsOut:
@@ -95,7 +93,7 @@ class CharacteristicsRepository:
                     """,
                     [profile_id]
                 )
-                char_id = target_char.fetchone()
+                char_id = target_char.fetchone()[0]
                 
                 db.execute(
                     """
@@ -125,11 +123,11 @@ class CharacteristicsRepository:
                         characteristic.size,
                         characteristic.gender,
                         characteristic.dog_bio,
-                        characteristic.profile_id,
+                        profile_id,
                         profile_id
                     ]
                 )
-                return self.characteristic_in_to_out(char_id[0], characteristic)
+                return self.characteristic_in_to_out(char_id, profile_id, characteristic)
 
 
     def delete(self, profile_id: int) -> bool:
@@ -156,8 +154,10 @@ class CharacteristicsRepository:
                     [profile_id]
                 )
                 record = result.fetchone()
+
                 if record == None:
                     return None 
+                    
                 return CharsOut(
                     id = record[0],
                     dog_friendly = record[1],
@@ -173,6 +173,6 @@ class CharacteristicsRepository:
                     profile_id = record[11]
                 )    
 
-    def characteristic_in_to_out(self, id: int, characteristic: CharsIn):
+    def characteristic_in_to_out(self, id: int, profile_id: int, characteristic: CharsIn):
         old_data = characteristic.dict()
-        return CharsOut(id=id, **old_data)
+        return CharsOut(id=id, profile_id=profile_id, **old_data)
