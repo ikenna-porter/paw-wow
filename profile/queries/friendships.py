@@ -16,10 +16,10 @@ class FriendshipOut(BaseModel):
 
 class FriendListOut(BaseModel):
     dog_name: str
+    account_id: int
+    city: str
+    state: str
     user_one: int
-    user_two: int
-    status: int
-    id: int
 
 class FriendsOut(BaseModel):
     dog_name: str
@@ -78,7 +78,7 @@ class FriendshipRepository:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        SELECT profiles.dog_name, friendships.user_one, friendships.user_two, friendships.status, friendships.id 
+                        SELECT profiles.dog_name, profiles.account_id, profiles.city, profiles.state, friendships.user_one
                         FROM profiles
                         INNER JOIN friendships ON profiles.id=friendships.user_one
                         WHERE user_two = %s
@@ -88,10 +88,10 @@ class FriendshipRepository:
                     )
                     return_list = [FriendListOut(
                         dog_name = record[0],
-                        user_one = record[1],
-                        user_two = record[2],
-                        status= record[3],
-                        id = record[4]
+                        account_id = record[1],
+                        city = record[2],
+                        state = record[3],
+                        user_one = record[4]
                     )
                     for record in db]
                     print("TESTING", return_list)
