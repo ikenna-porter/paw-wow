@@ -25,4 +25,6 @@
 ## Oct 13, 2022
 
 * Today I worked on finishing up the backend for the messaging feature. I wanted to start working on the WebSocket, but I ran into a lot of error messages with the database and endpoints. The most frustrating was not realizing that "user" is a reserved keyword in Postgres. I spent over an hour trying to figure out why I kept getting a "syntax error" in the migrations file because of this. I also realized today that I need to create user_vo endpoints to represent users in the database, so that I can start testing out the rest of the endpoints. Overall, today was pretty frustrating.
+## Oct 18, 2022
 
+* Today I feel like I made a decent amount of progress on messaging. I have a lot of the logic for the front end set up, excluding the websocket. I spent most of my time working on the flow of data through state on the front end, although I did have to fix a bug on the backend that made it impossible for me to retrieve a list of messages from the database. Overall, I feel like I made a decent amount of progress, but today more than ever I realized just how much work has to be done before submitting the project next week. Tomorrow, if I can finish working on the flow of state, it would like to implement the websocket.

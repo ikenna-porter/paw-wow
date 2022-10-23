@@ -25,21 +25,28 @@ class ConversationRepository:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        SELECT id, primary_user, other_user, read, unseen_message_count, last_message
-                        FROM conversations
+                        SELECT id
+                        , primary_user
+                        , other_user
+                        , read
+                        , unseen_message_count
+                        , last_message
+                        FROM conversations;
                         """
                     )
-
-                    return [ ConversationOut (
-                        id = record[0],
-                        primary_user = record[1],
-                        other_user = record[2],
-                        read = record[3],
-                        unseen_message_count = record[4],
-                        last_message = record[5],
-                    )
-                    for record in db 
-                    ]
+                    result = []
+                    for record in db:
+                        conversation = ConversationOut (
+                            id = record[0],
+                            primary_user = record[1],
+                            other_user = record[2],
+                            read = record[3],
+                            unseen_message_count = record[4],
+                            last_message = record[5],
+                        )
+                        result.append(conversation)
+                    return result
+                    
         except Exception as e:
             print(e)
             return {"message": "Could not retrieve conversations."}

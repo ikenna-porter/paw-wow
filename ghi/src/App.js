@@ -4,6 +4,8 @@ import Nav from './Nav'
 import AuthenticateUser from './Authenticate/AuthenticateUser'
 import CreateProfile from './Profile/CreateProfile'
 import Profile from './Profile/Profile'
+// import MessagingTest from './Messaging/MessagingTest'
+import Conversations from './Messaging/Conversations'
 import Vaccinations from './Profile/Vaccinations'
 import VaccinationsModal from './Profile/VaccinationsModal'
 import Characteristics from './Profile/Characteristics'
@@ -37,8 +39,9 @@ export default function App() {
         <Route path="/" element={<AuthenticateUser 
                                   setAccountId={setAccountId} 
                                   setUsername={setUsername}
-                                />} 
-        />
+                                />} />
+        {/* <Route path="create-profile" element={<CreateProfile token={token} accountId={accountId} />} />
+        <Route path="profile" element={<Profile />} /> */}
         <Route path="create-profile" element={<CreateProfile 
                                                 accountId={accountId} 
                                                 setProfileId={setProfileId}
