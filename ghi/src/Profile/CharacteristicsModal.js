@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
 
 export default function CharsModal(props) {
+    const profileId = localStorage.getItem('profileId')
     const show = props.show;
     const handleClose = props.handleClose;
     const chars = props.chars;
@@ -33,39 +34,38 @@ export default function CharsModal(props) {
             DOB: editDetails.DOB,
             fixed: editDetails.fixed,
             size: editDetails.size,
-            profile_id: props.profileId,
             gender: editDetails.gender,
             breed: editDetails.breed,
             dog_bio: editDetails.dog_bio
         };
-        console.log("data", data)
         
         if (props.hasChars) {
-            const putUrl = `http://localhost:8100/api/characteristics/${props.profileId}`;
+            const putUrl = `http://localhost:8100/api/characteristics/${profileId}`;
             const putFetchConfig = {
                 method: 'PUT',
                 body: JSON.stringify(data),
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json'
                 }
             }
             const putResponse = await fetch(putUrl, putFetchConfig);
-            console.log(putResponse)
             if (putResponse.ok) {
-                // props.getChars()
+                props.getChars(profileId)
             }
         } else {
             const postUrl = `http://localhost:8100/api/characteristics`
             const postFetchConfig = {
                 method: 'POST',
                 body: JSON.stringify(data),
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json'
                 }
             }
             const postResponse = await fetch(postUrl, postFetchConfig);
             if (postResponse.ok) {
-                props.getChars()
+                props.getChars(profileId)
             }
         }
     }

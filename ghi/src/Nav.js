@@ -1,32 +1,57 @@
 import { NavLink, Link } from 'react-router-dom';
+import { useState } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
-import Notifications from "./Images/Notifications.svg"
+import Notification from './Images/Notification.svg'
+import Messages from "./Images/Messages.svg"
 import "./Nav.css"
+import Notifications from "react-notifications-menu";
+import Button from 'react-bootstrap/Button';
+import Logout from './Authenticate/Logout';
+// import MagicBell, { FloatingNotificationInbox } from '@magicbell/magicbell-react';
 
-const displayNotification = (()=>{
-    return (
-        <span className="notification">
-            "X wants to be friends with you"
-        </span>
-    )
-}
-)
+const DEFAULT_NOTIFICATION = {
+    image:
+      "https://cutshort-data.s3.amazonaws.com/cloudfront/public/companies/5809d1d8af3059ed5b346ed1/logo-1615367026425-logo-v6.png",
+    message: "Notification one.",
+    detailPage: "/",
+    receivedTime: "12h ago"
+  };
+
+
 
 export default function Nav() {
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     return (
         <nav className="navbar navbar-expand-lg navbar-dark text-white bg-success">
             <div>
                 <NavLink className="navbar-brand" to="/">
                     Paw Wow
                 </NavLink>
-                <div className="icons">
-                    <div className="icon">
-                        <img src={Notifications} className="iconImg" alt=""/>
-                        <div className="counter">1 </div>
+                <div className='d-flex'>
+                <div className="d-flex flex-row align-items-md-center icons">
+                    <div className="p-2 icon">
+                        {/* <MagicBell apiKey="96c11587b6ac4027795611e453cdcc6fa19afa23" userExternalId="u001">
+                        {(props) => <FloatingNotificationInbox height={500} {...props} />}
+                        </MagicBell> */}
+                    </div>
+                    </div>
+                    <div className="d-flex flex-row align-items-md-center icons">
+                    <div className="p-2 icon">
+                        <img src={Messages} className="iconImg" alt=""/>
+                        <div className="d-flex p-1 align-items-center justify-content-center mx-auto position-absolute font-weight-bold counter">99+</div>
                     </div>
                 </div>
+                </div>
 
+                
             </div>
+            <Logout show={show} handleClose={handleClose} />
+            <Button className="btn btn-info btn-sm" onClick={handleShow}>
+                Logout
+            </Button>
             <Navbar.Collapse className="me-auto" id="navbarSupportedContent">
                 <nav className="me-auto mb-2 mb-lg-0">
                     <div className="nav-item">
@@ -36,4 +61,5 @@ export default function Nav() {
             </Navbar.Collapse>
         </nav>        
     )
-}
+                    }
+

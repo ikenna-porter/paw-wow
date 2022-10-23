@@ -5,7 +5,8 @@ import CharsModal from './CharacteristicsModal';
 import Button from 'react-bootstrap/Button';
 import EditProfileModal from './EditProfileModal';
 import ProfilePicModal from './ProfilePicModal';
-import { Link } from 'react-router-dom';
+import ListFriends from '../Friendship/FriendList';
+import { useNavigate } from "react-router-dom";
 
 export default function Profile(props) {
     const [ hasChars, setHasChars ] = useState(false);
@@ -28,7 +29,6 @@ export default function Profile(props) {
         city: '',
         state: ''
     })
-    // console.log("profile", profile)
     const [ chars, setChars ] = useState([
         {char: 'dog friendly', value: 1},
         {char: 'kid friendly', value: 1},
@@ -43,58 +43,70 @@ export default function Profile(props) {
         gender: '',
         dog_bio: ''
     })
+    const navigate = useNavigate();
     // This id is hard coded until I put this in local storage
     // If you want to try this out create an account and profile and insert that profile's id and username here
-    const profileId = 3
-    const username = "scoobydoo"
+    const profileId = localStorage.getItem('profileId')
+    const username = localStorage.getItem('currentUser')
 
     function calculateAge(DOB) {
-        let arr = DOB.split('-')
-        let newDOB = arr.map(num => parseInt(num))
-        let y = newDOB[0]
-        let m = newDOB[1]
-        const date = new Date()
-        let ageY = date.getFullYear() - y
-        let ageM = (date.getMonth() + 1) - m
+        if (DOB) {
+            let arr = DOB.split('-')
+            let newDOB = arr.map(num => parseInt(num))
+            let y = newDOB[0]
+            let m = newDOB[1]
+            const date = new Date()
+            let ageY = date.getFullYear() - y
+            let ageM = (date.getMonth() + 1) - m
 
-        if (ageM === 0) {
-            return `${ageY} years`
-        } else if (ageM < 0) {
-            return `${ageY - 1} years, ${12+ageM} months`
-        } else if (ageM > 0) {
-            return `${ageY} years, ${ageM} months`
+            if (ageM === 0) {
+                return `${ageY} years`
+            } else if (ageM < 0) {
+                return `${ageY - 1} years, ${12+ageM} months`
+            } else if (ageM > 0) {
+                return `${ageY} years, ${ageM} months`
+            }
         }
     }
     
-    async function getChars() {
-            const charsResponse = await fetch(`http://localhost:8100/api/characteristics/${profileId}`)
+    async function getChars(profileId) {
+            const charsResponse = await fetch(
+                `http://localhost:8100/api/characteristics/${profileId}`,
+                {credentials: 'include'}
+            )
             if (charsResponse.ok) {
                 const charsData = await charsResponse.json();
-                setHasChars(true);
-                setChars([
-                    {char: 'dog friendly', value: charsData.dog_friendly},
-                    {char: 'kid friendly', value: charsData.kid_friendly},
-                    {char: 'people friendly', value: charsData.people_friendly},
-                    {char: 'energy level', value: charsData.energy_level}
-                ]);
-                setDogDetails({
-                    DOB: charsData.DOB,
-                    fixed: charsData.fixed,
-                    size: charsData.size,
-                    breed: charsData.breed,
-                    gender: charsData.gender,
-                    dog_bio: charsData.dog_bio
-                });
+                if (Object.keys(charsData).length > 1) {
+                    setHasChars(true);
+                    setChars([
+                        {char: 'dog friendly', value: charsData.dog_friendly},
+                        {char: 'kid friendly', value: charsData.kid_friendly},
+                        {char: 'people friendly', value: charsData.people_friendly},
+                        {char: 'energy level', value: charsData.energy_level}
+                    ]);
+                    setDogDetails({
+                        DOB: charsData.DOB,
+                        fixed: charsData.fixed,
+                        size: charsData.size,
+                        breed: charsData.breed,
+                        gender: charsData.gender,
+                        dog_bio: charsData.dog_bio
+                    });
+                }
             }
     }
 
     async function getProfile() {
-        const profileResponse = await fetch(`http://localhost:8100/api/profiles/${username}`)
+        const profileResponse = await fetch(
+            `http://localhost:8100/api/profiles/${username}`,
+            {credentials: 'include'}
+        )
         if (profileResponse.ok) {
             const data = await profileResponse.json();
-            console.log("data from profile", data)
             setProfile({...data});
-            getChars();
+            localStorage.setItem('profileId', `${data.id}`)
+            // setProfileId(data.id)
+            getChars(profileId);
             getProfilePic(profileId);
         }
     }
@@ -104,9 +116,10 @@ export default function Profile(props) {
         const response = await fetch(url, {credentials: 'include'});
         if (response.ok) {
             const profilePicData = await response.json();
-            console.log(profilePicData);
-            setProfilePic(profilePicData.URI);
-            setHasPic(true);
+            if (Object.keys(profilePicData).length > 1) {
+                setProfilePic(profilePicData.URI);
+                setHasPic(true);
+            }
         }
     }
 
@@ -123,7 +136,7 @@ export default function Profile(props) {
             body:JSON.stringify( {
                 'status': 0,
                 'user_one': Number(id),
-                'user_two': 5
+                'user_two': 4
             })
         };
         const reqResponse = await fetch(requestUrl, fetchConfig);
@@ -151,18 +164,17 @@ export default function Profile(props) {
                 <div className="col-lg-4">
                     <div className='container p-3'>
                             {
-                                profile.id != 3
+                                profile.id != profileId
                                 ?
                                 <Button size='md' onClick={handleAdd} value={profile.id}> ADD ME </Button>
                                 :
-                                <Link to='/profile/friends'><Button>Friends List</Button></Link>
+                                <Button size='md'> Friends List </Button>
                             }
                     </div>
                     <div className="card shadow-sm">
                     <div className="card-header bg-transparent text-center">
                         <ProfilePicModal
                             hasPic={hasPic}
-                            profileId={profileId} 
                             handleClose={handleClosePic}
                             show={showPic}
                             getProfilePic={getProfilePic}
@@ -213,7 +225,6 @@ export default function Profile(props) {
                     <CharsModal
                         show={showChars} 
                         handleClose={handleCloseChars} 
-                        profileId={profileId} 
                         dogName={profile.dog_name}
                         chars={chars}
                         dogDetails={dogDetails}
@@ -223,7 +234,6 @@ export default function Profile(props) {
                     <EditProfileModal
                         show={showProfile}
                         handleClose={handleCloseProf}
-                        profileId={profileId}
                         dogName={profile.dog_name}
                         getProfile={getProfile}
                         profile={profile}
@@ -242,7 +252,7 @@ export default function Profile(props) {
                     </div>
                     <div>
                         <div className="col-lg-8">
-                                <Vaccinations dogName ={profile.dog_name} profileId={profileId} />
+                                <Vaccinations dogName ={profile.dog_name} />
                         </div>
                     </div>    
                 </div>      

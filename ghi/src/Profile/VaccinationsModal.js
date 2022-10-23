@@ -10,7 +10,7 @@ export default function VacctinationsModal(props) {
     const [ checkAdeno, setCheckAdeno ] = useState(props.vaccines.adeno);
     const [ checkRabies, setCheckRabies ] = useState(props.vaccines.rabies);
     const [ other, setOther ] = useState(props.vaccines.other);
-    const profileId = props.profileId;
+    const profileId = localStorage.getItem('profileId')
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -20,8 +20,7 @@ export default function VacctinationsModal(props) {
             parvo: checkParvo,
             adeno: checkAdeno,
             rabies: checkRabies,
-            other: other,
-            profile_id: profileId
+            other: other
         };
 
         if (props.hasVaccines) {
@@ -29,6 +28,7 @@ export default function VacctinationsModal(props) {
             const putFetchConfig = {
                 method: 'PUT',
                 body: JSON.stringify(data),
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -42,6 +42,7 @@ export default function VacctinationsModal(props) {
             const postFetchConfig = {
                 method: 'POST',
                 body: JSON.stringify(data),
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json'
                 }
