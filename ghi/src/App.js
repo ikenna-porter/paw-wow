@@ -48,7 +48,7 @@ export default function App() {
           <Route path="edit-characteristics" element={<CharsModal />} />
           <Route path='friends' element={<ListFriends />} />
           <Route path="pending" element={<PendingList />} />
-        </Route>  
+        </Route>
       </Routes>
     </BrowserRouter>
   )
