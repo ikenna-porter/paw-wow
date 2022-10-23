@@ -5,15 +5,6 @@ import CharsModal from './CharacteristicsModal';
 import Button from 'react-bootstrap/Button';
 import EditProfileModal from './EditProfileModal';
 import ProfilePicModal from './ProfilePicModal';
-import Notifications from "react-notifications-menu";
-
-const DEFAULT_NOTIFICATION = {
-    image:
-      "https://cutshort-data.s3.amazonaws.com/cloudfront/public/companies/5809d1d8af3059ed5b346ed1/logo-1615367026425-logo-v6.png",
-    message: "Notification one.",
-    detailPage: "/",
-    receivedTime: "12h ago"
-  };
 
 export default function Profile(props) {
     const [ hasChars, setHasChars ] = useState(false);
@@ -28,8 +19,6 @@ export default function Profile(props) {
     const handleCloseProf = () => setShowProfile(false);
     const handleShowPic = () => setShowPic(true);
     const handleClosePic = () => setShowPic(false);
-    const [data, setData] = useState([DEFAULT_NOTIFICATION]);
-    const [message, setMessage] = useState("");
     const [ profile, setProfile ] = useState({
         id: '',
         dog_name: '',
@@ -56,7 +45,7 @@ export default function Profile(props) {
     // This id is hard coded until I put this in local storage
     // If you want to try this out create an account and profile and insert that profile's id and username here
     const profileId = 3
-    const username = "account3"
+    const username = "username3"
 
     function calculateAge(DOB) {
         let arr = DOB.split('-')
@@ -139,13 +128,6 @@ export default function Profile(props) {
         const reqResponse = await fetch(requestUrl, fetchConfig);
         if (reqResponse.ok) {
             console.log(reqResponse);
-            setData([
-                ...data,
-                {
-                  ...DEFAULT_NOTIFICATION,
-                  message: `cat added you`
-                }
-              ]);
         }
         console.log("THE BUTTON WAS PRESSED")
     }
