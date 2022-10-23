@@ -7,6 +7,7 @@ import "./Nav.css"
 import Notifications from "react-notifications-menu";
 import Button from 'react-bootstrap/Button';
 import Logout from './Authenticate/Logout';
+// import MagicBell, { FloatingNotificationInbox } from '@magicbell/magicbell-react';
 
 const DEFAULT_NOTIFICATION = {
     image:
@@ -22,8 +23,6 @@ export default function Nav() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const [message, setMessage] = useState("");
-    const [data, setData] = useState([DEFAULT_NOTIFICATION]);
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark text-white bg-success">
@@ -34,16 +33,9 @@ export default function Nav() {
                 <div className='d-flex'>
                 <div className="d-flex flex-row align-items-md-center icons">
                     <div className="p-2 icon">
-                        <Notifications
-                        data={data}
-                        header={{
-                            title: "Notifications",
-                            option: { text: "View All", onClick: () => console.log("Clicked") }
-                        }}
-                        markAsRead={(data) => {
-                            console.log(data);
-                        }}
-                        />
+                        {/* <MagicBell apiKey="96c11587b6ac4027795611e453cdcc6fa19afa23" userExternalId="u001">
+                        {(props) => <FloatingNotificationInbox height={500} {...props} />}
+                        </MagicBell> */}
                     </div>
                     </div>
                     <div className="d-flex flex-row align-items-md-center icons">
