@@ -36,43 +36,48 @@ export default function SignUp(props) {
   }
 
   return (
-    <div className="row">
-      <div className="offset-3 col-6">
-        <div className="shadow p-4 mt-4">
-          <h1>Sign Up Form</h1>
-          <form onSubmit={handleSubmit}>
-            <div className="mb-3">
-              <label className="form-label" htmlFor="username">Username</label>
-              <input
-                placeholder="Username" 
-                required 
-                type="text" 
-                onChange={e => setUsername(e.target.value)} 
-                value={username}
-              />
+    <section className='ftco-section'>
+      <div className='container'>
+        <div className="row justify-content-center">
+          <div className="col-md-7 col-lg-5">
+              <div className='wrap'>
+                <div className='flex-img'>
+                  <img src={require('../Images/pawow.png')} alt='paw wow logo'/>
+                </div>
+
+                  <div className='login-wrap p-4 p-md-5'>
+                    <div className='d-flex'>
+                      <div className='w-100'>
+                        <h3 className='mb-4'>Sign Up</h3>
+                      </div>
+
+                    </div>
+
+                    <form onSubmit={handleSubmit} className='signin-form'>
+                    <div className="form-group mt-3">
+                      <input type="text" className="form-control" onChange={e => setUsername(e.target.value)} 
+                    value={username} required/>
+                        <label className="form-control-placeholder" htmlFor="username">Username</label>
+                    </div>
+
+                    <div className="form-group">
+                    <input id="password-field" type="password" className="form-control" required onChange={e => setPassword(e.target.value)} 
+                    value={password}/>
+                    <label className="form-control-placeholder" htmlFor="password">Password</label>
+                    </div>
+
+                    <div className="form-group">
+                    <button type="signup-submit" className="form-control btn btn-primary rounded submit px-3">Sign Up</button>
+                      </div>
+
+                    </form>
+
+                    <p className="text-center">Not a member? <a data-toggle="tab" href="#signup" onClick={() => props.setShowSignUp(false)}>Sign Up</a></p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="mb-3">
-              <label className="form-label" htmlFor="password">Password</label>
-              <input
-                placeholder="Password" 
-                required 
-                type="password" 
-                onChange={e => setPassword(e.target.value)} 
-                value={password}
-              />
-            </div>
-            <button type="submit" className="btn btn-primary mb-2">Sign Up</button>
-          </form>
-          <button
-            onClick={() => props.setShowSignUp(false)}
-            type="button"
-            style={{all: 'unset',}}
-            className="login-signup-toggle"
-          >
-            Already have an account? Login!
-          </button> 
-        </div>
-      </div>
-    </div>
+          </div>
+      </section>
   )
 }
