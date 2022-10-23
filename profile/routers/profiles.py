@@ -3,7 +3,6 @@ from typing import List, Union, Optional
 from queries.profiles import (
     ProfileIn, 
     ProfileOut,
-    UpdateProfileIn,
     ProfileRepository,
     Error
 )    
@@ -15,22 +14,22 @@ router = APIRouter()
 def get_one_profile(
     username: str, 
     response: Response,
-    # account_data: dict = Depends(authenticator.get_current_account_data),
+    account_data: dict = Depends(authenticator.get_current_account_data),
     repo: ProfileRepository = Depends()
 ) -> ProfileOut:
-
     profile = repo.get_one(username)
 
     if profile is None:
-        response.status_code = 404
+        return {"message: profile not found"}
 
     return profile
 
 @router.get("/api/profiles", response_model = Union[List[ProfileOut], Error])
 def get_all_profiles(
-    # account_data: dict = Depends(authenticator.get_current_account_data),
+    account_data: dict = Depends(authenticator.get_current_account_data),
     repo: ProfileRepository = Depends()
 ):
+    print("account_data", account_data)
     return repo.get_all()
 
 @router.post("/api/profiles", response_model = ProfileOut)
@@ -39,22 +38,20 @@ def create_profile(
     account_data: dict = Depends(authenticator.get_current_account_data),
     repo: ProfileRepository = Depends()
 ):
-    # print("account_data:", account_data)
-    return repo.create(profile)    
+    return repo.create(profile, account_data)    
 
 @router.put("/api/profiles/{username}", response_model = Union[Error, ProfileOut])
 def update_profile(
-    profile: UpdateProfileIn, 
+    profile: ProfileIn, 
     username: str, 
-    # account_data: dict = Depends(authenticator.get_current_account_data),
+    account_data: dict = Depends(authenticator.get_current_account_data),
     repo: ProfileRepository = Depends()) -> Union[Error, ProfileOut]:
-    print('TRYING TO UPDATE PROFILE')
     return repo.update(profile, username)
 
 @router.delete("/api/profiles/{username}", response_model = bool)
 def delete_profile(
     username: str, 
-    # account_data: dict = Depends(authenticator.get_current_account_data),
+    account_data: dict = Depends(authenticator.get_current_account_data),
     repo: ProfileRepository = Depends()
 ) -> bool:
     return repo.delete(username)

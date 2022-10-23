@@ -9,7 +9,6 @@ export default function CreateProfile(props) {
     const [ states, setStates ] = useState(stateList);
     const [ ownerName, setOwnerName ] = useState('');
     const [ ownerDescription, setOwnerDescription ] = useState('');
-    const accountId = props.accountId
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -19,7 +18,6 @@ export default function CreateProfile(props) {
             city: city,
             state: state,
             dog_name: dogName,
-            account_id: accountId,
             owner_name: ownerName,
             owner_description: ownerDescription
         };

@@ -13,7 +13,6 @@ export default function Login(props) {
         const form = new FormData();
         form.append('username', username)
         form.append('password', password)
-        console.log("form", form)
 
         const url = 'http://localhost:8100/token';
         const fetchConfig = {
@@ -23,7 +22,6 @@ export default function Login(props) {
         }
 
         const response = await fetch(url, fetchConfig);
-        console.log("login response:", response)
         if (response.ok) {
             const responseData = await response.json();
             console.log("login response", responseData);

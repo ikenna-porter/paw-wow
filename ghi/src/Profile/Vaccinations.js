@@ -17,17 +17,24 @@ export default function Vaccinations(props) {
     });
 
     async function getVaccines() {
-        const response = await fetch(`http://localhost:8100/api/vaccinations/${profileId}`)
+        const response = await fetch(
+            `http://localhost:8100/api/vaccinations/${profileId}`,
+            {credentials: 'include'}
+        )
+        console.log("vax response", response)
         if (response.ok) {
-            setHasVaccines(true);
             const data = await response.json();
-            setVaccines(data);
+            console.log("vax data", data)
+            if (Object.keys(data).length > 1) {
+                setHasVaccines(true);
+                setVaccines(data);
+            }
         }
     } 
 
     useEffect(() => {
         getVaccines();
-    }, [hasVaccines]);
+    }, []);
 
     return(
         <div className="card">

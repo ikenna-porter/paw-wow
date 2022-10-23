@@ -1,5 +1,12 @@
 from fastapi import FastAPI
-from routers import profiles, accounts, vaccination_records, characteristics, friendships, profile_pic
+from routers import (
+    profiles, 
+    accounts, 
+    vaccination_records, 
+    characteristics, 
+    friendships, 
+    profile_pic
+)
 from authenticator import authenticator
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -12,7 +19,7 @@ app.include_router(characteristics.router)
 app.include_router(friendships.router)
 app.include_router(profile_pic.router)
 
-origins = ['*', 'http://localhost:3000']    
+origins = ['*']    
 
 app.add_middleware(
     CORSMiddleware,

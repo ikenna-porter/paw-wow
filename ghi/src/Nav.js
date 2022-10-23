@@ -5,6 +5,8 @@ import Notification from './Images/Notification.svg'
 import Messages from "./Images/Messages.svg"
 import "./Nav.css"
 import Notifications from "react-notifications-menu";
+import Button from 'react-bootstrap/Button';
+import Logout from './Authenticate/Logout';
 
 const DEFAULT_NOTIFICATION = {
     image:
@@ -17,6 +19,9 @@ const DEFAULT_NOTIFICATION = {
 
 
 export default function Nav() {
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     const [message, setMessage] = useState("");
     const [data, setData] = useState([DEFAULT_NOTIFICATION]);
 
@@ -51,6 +56,10 @@ export default function Nav() {
 
                 
             </div>
+            <Logout show={show} handleClose={handleClose} />
+            <Button className="btn btn-info btn-sm" onClick={handleShow}>
+                Logout
+            </Button>
             <Navbar.Collapse className="me-auto" id="navbarSupportedContent">
                 <nav className="me-auto mb-2 mb-lg-0">
                     <div className="nav-item">

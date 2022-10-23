@@ -60,49 +60,58 @@ export default function Profile(props) {
     const [profileId, setProfileId] = useState(null);
     const username = props.currentUser
 
-
     function calculateAge(DOB) {
-        let arr = DOB.split('-')
-        let newDOB = arr.map(num => parseInt(num))
-        let y = newDOB[0]
-        let m = newDOB[1]
-        const date = new Date()
-        let ageY = date.getFullYear() - y
-        let ageM = (date.getMonth() + 1) - m
+        if (DOB) {
+            let arr = DOB.split('-')
+            let newDOB = arr.map(num => parseInt(num))
+            let y = newDOB[0]
+            let m = newDOB[1]
+            const date = new Date()
+            let ageY = date.getFullYear() - y
+            let ageM = (date.getMonth() + 1) - m
 
-        if (ageM === 0) {
-            return `${ageY} years`
-        } else if (ageM < 0) {
-            return `${ageY - 1} years, ${12+ageM} months`
-        } else if (ageM > 0) {
-            return `${ageY} years, ${ageM} months`
+            if (ageM === 0) {
+                return `${ageY} years`
+            } else if (ageM < 0) {
+                return `${ageY - 1} years, ${12+ageM} months`
+            } else if (ageM > 0) {
+                return `${ageY} years, ${ageM} months`
+            }
         }
     }
     
     async function getChars(profileId) {
-            const charsResponse = await fetch(`http://localhost:8100/api/characteristics/${profileId}`)
+            const charsResponse = await fetch(
+                `http://localhost:8100/api/characteristics/${profileId}`,
+                {credentials: 'include'}
+            )
             if (charsResponse.ok) {
                 const charsData = await charsResponse.json();
-                setHasChars(true);
-                setChars([
-                    {char: 'dog friendly', value: charsData.dog_friendly},
-                    {char: 'kid friendly', value: charsData.kid_friendly},
-                    {char: 'people friendly', value: charsData.people_friendly},
-                    {char: 'energy level', value: charsData.energy_level}
-                ]);
-                setDogDetails({
-                    DOB: charsData.DOB,
-                    fixed: charsData.fixed,
-                    size: charsData.size,
-                    breed: charsData.breed,
-                    gender: charsData.gender,
-                    dog_bio: charsData.dog_bio
-                });
+                if (Object.keys(charsData).length > 1) {
+                    setHasChars(true);
+                    setChars([
+                        {char: 'dog friendly', value: charsData.dog_friendly},
+                        {char: 'kid friendly', value: charsData.kid_friendly},
+                        {char: 'people friendly', value: charsData.people_friendly},
+                        {char: 'energy level', value: charsData.energy_level}
+                    ]);
+                    setDogDetails({
+                        DOB: charsData.DOB,
+                        fixed: charsData.fixed,
+                        size: charsData.size,
+                        breed: charsData.breed,
+                        gender: charsData.gender,
+                        dog_bio: charsData.dog_bio
+                    });
+                }
             }
     }
 
     async function getProfile() {
-        const profileResponse = await fetch(`http://localhost:8100/api/profiles/${username}`)
+        const profileResponse = await fetch(
+            `http://localhost:8100/api/profiles/${username}`,
+            {credentials: 'include'}
+        )
         if (profileResponse.ok) {
             const data = await profileResponse.json();
             setProfile({...data});
@@ -117,9 +126,10 @@ export default function Profile(props) {
         const response = await fetch(url, {credentials: 'include'});
         if (response.ok) {
             const profilePicData = await response.json();
-            console.log(profilePicData);
-            setProfilePic(profilePicData.URI);
-            setHasPic(true);
+            if (Object.keys(profilePicData).length > 1) {
+                setProfilePic(profilePicData.URI);
+                setHasPic(true);
+            }
         }
     }
 
@@ -171,7 +181,7 @@ export default function Profile(props) {
                 <div className="col-lg-4">
                     <div className='container p-3'>
                             {
-                                profile.id != 2
+                                profile.id != profileId
                                 ?
                                 <Button size='md' onClick={handleAdd} value={profile.id}> ADD ME </Button>
                                 :

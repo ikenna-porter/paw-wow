@@ -17,6 +17,7 @@ export default function EditProfileModal(props) {
         const response = await fetch(`http://localhost:8100/api/profiles/${props.username}`, {
             method:'PUT',
             body: JSON.stringify(data),
+            credentials: 'include',
             headers: {'Content-Type': 'application/json'}
         }) 
         console.log("response", response)

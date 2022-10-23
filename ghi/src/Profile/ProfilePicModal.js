@@ -33,7 +33,7 @@ export default function ProfilePicModal(props) {
             };
             const postResponse = await fetch(url, postFetchConfig);
             if (postResponse.ok) {
-                props.getProfilePic();
+                props.getProfilePic(props.profileId);
             }
         }         
     }

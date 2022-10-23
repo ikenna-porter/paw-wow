@@ -31,7 +31,6 @@ export default function SignUp(props) {
       console.log("accountData", accountData)
       // accountData has access_token, account{id, username}
       console.log(document.cookie)
-      props.setAccountId(accountData.account.id)
       props.setCurrentUser(accountData.account.username)
       navigate("/create-profile");
     }
