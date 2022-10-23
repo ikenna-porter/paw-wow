@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './profile.css';
+import './Nav.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

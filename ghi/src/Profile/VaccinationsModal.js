@@ -1,6 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function VacctinationsModal(props) {
     const show = props.show;
@@ -11,7 +11,6 @@ export default function VacctinationsModal(props) {
     const [ checkRabies, setCheckRabies ] = useState(props.vaccines.rabies);
     const [ other, setOther ] = useState(props.vaccines.other);
     const profileId = props.profileId;
-    // console.log("distemper vacc in modal:", checkDistemper)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -54,6 +53,7 @@ export default function VacctinationsModal(props) {
             } 
         }         
     }
+
 
     return(
         <Modal show={show} onHide={handleClose}>
@@ -116,8 +116,8 @@ export default function VacctinationsModal(props) {
                                 className="form-control" 
                                 id="floatingInput" 
                                 placeholder="Other vaccines"
-                                onChange={(e) => {setOther(e.target.value)}}
                                 value={other}
+                                onChange={(e) => {setOther(e.target.value)}}
                             />
                             <label htmlFor="floatingInput">Other</label>
                         </div>

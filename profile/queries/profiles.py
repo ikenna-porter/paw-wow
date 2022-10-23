@@ -12,8 +12,14 @@ class ProfileIn(BaseModel):
     state: str
     owner_name: Optional[str]
     owner_description: Optional[str]
-    avatar: Optional[str]
     account_id: int
+
+class UpdateProfileIn(BaseModel):
+    dog_name: str
+    city: str
+    state: str
+    owner_name: Optional[str]
+    owner_description: Optional[str]
 
 class ProfileOut(BaseModel):
     id: int
@@ -22,7 +28,6 @@ class ProfileOut(BaseModel):
     state: str
     owner_name: Optional[str]
     owner_description: Optional[str]
-    avatar: Optional[str] 
     account_id: int
 
 
@@ -33,9 +38,9 @@ class ProfileRepository:
                 result = db.execute(
                     """
                     INSERT INTO profiles
-                        (dog_name, city, state, owner_name, owner_description, avatar, account_id)
+                        (dog_name, city, state, owner_name, owner_description, account_id)
                     VALUES 
-                        (%s, %s, %s, %s, %s, %s, %s)
+                        (%s, %s, %s, %s, %s, %s)
                     RETURNING id;    
                     """,
                     [
@@ -44,12 +49,13 @@ class ProfileRepository:
                     profile.state,
                     profile.owner_name,
                     profile.owner_description,
-                    profile.avatar,
                     profile.account_id
                     ]
                 )
                 profile_id = result.fetchone()[0]     
-                return self.profile_in_to_out(profile_id, profile)        
+                old_data = profile.dict()
+                return ProfileOut(id=profile_id, **old_data)
+         
 
 
     def get_all(self) -> Union[Error, List[ProfileOut]]:
@@ -58,7 +64,7 @@ class ProfileRepository:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        SELECT id, dog_name, city, state, owner_name, owner_description, avatar, account_id
+                        SELECT *
                         FROM profiles;
                         """
                     )
@@ -69,8 +75,7 @@ class ProfileRepository:
                         state = record[3],
                         owner_name = record[4],
                         owner_description = record[5],
-                        avatar = record[6],
-                        account_id = record[7]
+                        account_id = record[6]
                     )
                     for record in db 
                     ]
@@ -94,14 +99,7 @@ class ProfileRepository:
 
                     result = db.execute(
                         """
-                        SELECT id
-                            , dog_name
-                            , city
-                            , state
-                            , owner_name
-                            , owner_description
-                            , avatar
-                            , account_id
+                        SELECT *
                         FROM profiles
                         WHERE account_id = %s
                         """,
@@ -117,40 +115,29 @@ class ProfileRepository:
         except Exception as e:
             return {"message": "Error in retrieving profile detail."}
     
-    def update(self, profile: ProfileIn, username: str) -> Union[ProfileOut, Error]:
+    def update(self, profile: UpdateProfileIn, username: str) -> Union[ProfileOut, Error]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    account = db.execute(
+                    result = db.execute(
                         """
-                        SELECT * 
+                        SELECT accounts.username, accounts.id AS account_id, profiles.id AS profile_id 
                         FROM accounts
-                        WHERE username = %s
+                        INNER JOIN profiles
+                        ON accounts.id = profiles.account_id AND accounts.username = %s
                         """,
                         [username]
                     )
-                    account_info = account.fetchone()
-
-                    profile = db.execute(
-                        """
-                        SELECT * 
-                        FROM profiles
-                        WHERE account_id = %s
-                        """,
-                        [account_info[0]]
-                    ) 
-                    profile_id = profile.fetchone()
+                    info = result.fetchone()
 
                     db.execute(
                         """
                         UPDATE profiles
-                        SET 
-                            dog_name = %s,
+                        SET dog_name = %s,
                             city = %s,
                             state = %s,
                             owner_name = %s,
                             owner_description = %s,
-                            avatar = %s,
                             account_id = %s
                         WHERE account_id= %s
                         """,
@@ -160,12 +147,12 @@ class ProfileRepository:
                             profile.state, 
                             profile.owner_name, 
                             profile.owner_description, 
-                            profile.avatar,
-                            profile.account_id,
-                            account_info[0]
+                            info[1],
+                            info[1]
                         ]
                     )
-                    return self.profile_in_to_out(profile_id[0], profile)
+                    old_data = profile.dict()
+                    return ProfileOut(id=info[2], account_id=info[1], **old_data)
 
         except Exception as e:
             print(e)
@@ -198,11 +185,6 @@ class ProfileRepository:
             return False
 
 
-    def profile_in_to_out(self, id: int, profile: ProfileIn):
-        old_data = profile.dict()
-        return ProfileOut(id=id, **old_data)
-
-
     def record_to_profile_out(self, record):
         return ProfileOut(
             id = record[0],
@@ -211,6 +193,5 @@ class ProfileRepository:
             state = record[3],
             owner_name = record[4],
             owner_description = record[5],
-            avatar = record[6],
-            account_id = record[7]
+            account_id = record[6]
         )

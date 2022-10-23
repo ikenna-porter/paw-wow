@@ -1,9 +1,9 @@
 .dog-profile .card .card-header .dog_img {
-    width: 150px;
-    height: 150px;
+    width: 180px;
+    height: 180px;
     object-fit: cover;
     margin: 10px auto;
-    border: 10px solid #ccc;
+    border: 8px solid #ccc;
     border-radius: 50%;
 }
   

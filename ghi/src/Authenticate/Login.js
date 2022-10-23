@@ -33,24 +33,21 @@ export default function Login(props) {
             navigate('/profile');
         }
 
-        // const tokenUrl = 'http://localhost:8100/token';
-        // const tokenFetch = {
-        //     method: 'POST',
-        //     body:
-        // }
+        const tokenUrl = await fetch('http://localhost:8100/token', {credentials: 'include'});
+        console.log("token response", tokenUrl)
     }    
 
     return (
         <div className="row">
             <div className="offset-3 col-6">
                 <div className="shadow p-4 mt-4">
-                    <h1>Login</h1>
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3">
                             <label className="form-label" htmlFor="username">Username</label>
                             <input
                                 placeholder="Username" 
-                                required type="text" 
+                                required 
+                                type="text" 
                                 onChange={e => setUsername(e.target.value)} 
                                 value={username}
                             />
@@ -59,7 +56,8 @@ export default function Login(props) {
                             <label className="form-label" htmlFor="password">Password</label>
                             <input
                                 placeholder="Password" 
-                                required type="password" 
+                                required 
+                                type="password" 
                                 onChange={e => setPassword(e.target.value)} 
                                 value={password}
                             />
