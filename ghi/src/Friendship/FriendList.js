@@ -31,7 +31,8 @@ return(
                 <div className='row col-lg-4 text-center'>
                     <div className='card shadow-sm text-center'>
                         <div className='card-header bg-transparent text-center'>
-                            {friend}
+                            <h4>{friend.dog_name}</h4>
+                            <p>{friend.city}, {friend.state}</p>
                         </div>
                     </div>
                 </div>

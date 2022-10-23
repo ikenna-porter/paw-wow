@@ -24,8 +24,8 @@ function PendingList(props) {
   }, [setPending, setError, user_two])
 
   const handleAccept = async (e) => {
-      const id = e.target.value;
-      const acceptUrl = `http://localhost:8100/api/friendships/${id}/pending`;
+      const user_one = e.target.value;
+      const acceptUrl = `http://localhost:8100/api/friendships/${user_one}/pending`;
       const fetchConfig = {
           method: 'PUT',
           headers: {
@@ -35,14 +35,14 @@ function PendingList(props) {
       const acceptResponse = await fetch(acceptUrl, fetchConfig);
       if (acceptResponse.ok) {
           setPending(
-              pending_friends.filter(pending => pending.id != id)
+              pending_friends.filter(pending => pending.user_one != user_one)
           )
       }
   }
 
   const handleDeny = async (e) => {
-      const id = e.target.value;
-      const pendingUrl = `http://localhost:8100/api/friendships/${id}/pending`;
+      const user_one = e.target.value;
+      const pendingUrl = `http://localhost:8100/api/friendships/${user_one}/pending`;
       const fetchConfig = {
           method: 'DELETE',
           headers: {
@@ -52,7 +52,7 @@ function PendingList(props) {
       const pendingResponse = await fetch(pendingUrl, fetchConfig);
       if (pendingResponse.ok) {
           setPending(
-              pending_friends.filter(pending => pending.id != id)
+              pending_friends.filter(pending => pending.user_one != user_one)
           )
       }
   }
@@ -74,8 +74,8 @@ function PendingList(props) {
                 </div>
                 <div>
                   <ButtonGroup aria-label="Basic example">
-                    <Button variant="outline-success" onClick={handleAccept} value={pending.id}>Accept</Button>
-                    <Button variant="outline-danger" onClick={handleDeny} value={pending.id}>Deny</Button>
+                    <Button variant="outline-success" onClick={handleAccept} value={pending.user_one}>Accept</Button>
+                    <Button variant="outline-danger" onClick={handleDeny} value={pending.user_one}>Deny</Button>
                   </ButtonGroup>
                 </div>
               </div>
