@@ -4,13 +4,22 @@ import Conversations from './Conversations';
 import NoChat from './NoChat';
 import Chat from './Chat';
 import './style.css'
+// import {ReconnectingWebSocket} from './reconnectWebsocket';
 
 
 export default function MessagingTest(props) {
     const [loading, setLoading] = useState(true);
+    const [connected, setConnected] = useState(false);
     const [selectedConversation, setSelectedConversation] = useState(0)
     const [messages, setMessages] = useState([])
     const [conversations, setConversations] = useState([]);
+    // const [usersLastMessage, setUsersLastMessage] = useState("");
+
+    const connect = () => {
+        if (loading && !connected) {
+            return;
+        }
+    }
 
     useEffect(() => { 
 
@@ -19,18 +28,34 @@ export default function MessagingTest(props) {
             if (response.ok) {
                 const data = await response.json()
                 setMessages(data)
-                console.log(messages); //empty?
+                console.log(messages);
             }
 
-            // const ws = new WebSocket(`ws://localhost:8200/api/messages/${selectedConversation}`)
-            // ws.addEventListener('open', () => {
+            // ws.addEventListener('open', (e) => {
+            //     console.log(e)
             //     setConnected(true);
             //     setLoading(false);
+            //     console.log('*********','opened')
             // });
 
-            // ws.addEventListener('close', () => {
+            // ws.addEventListener('close', (e) => {
+            //     console.log(e)
             //     setConnected(false);
             //     setLoading(false);
+            //     setTimeout(() => connect(), 1000);
+            // });
+
+            // ws.addEventListener('error', (e) => {
+            //     console.log(e)
+            //     setConnected(false);
+            //     setLoading(false);
+            //     setTimeout(() => connect(), 1000);
+            // });
+
+            // ws.addEventListener('message', message => {
+            //     console.log(message)
+            //     //Retains old messages while adding new message data to state
+            //     setMessages(messages => [...messages, JSON.parse(message.data)]);
             // });
   
         }
@@ -42,9 +67,7 @@ export default function MessagingTest(props) {
             const response = await fetch('http://localhost:8200/api/conversations')
             if (response.ok) {
                 const data = await response.json()
-                console.log(data)
                 setConversations(data)
-                // console.log(conversations)
             }
         }
         fetchConversations();
@@ -58,11 +81,12 @@ export default function MessagingTest(props) {
                 setSelectedConversation={setSelectedConversation}
                 />
             </div>
-            <div>
+            <div className="chat-container">
                 {!selectedConversation
                 ? <NoChat />
                 : <Chat 
-                    conversation_id={selectedConversation}
+                    // setUsersLastMessage={setUsersLastMessage}
+                    selectedConversation={selectedConversation}
                     messages={messages}
                   />
                 }

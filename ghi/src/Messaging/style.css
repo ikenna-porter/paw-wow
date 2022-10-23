@@ -1,3 +1,8 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
 .messaging-container {
     display: flex;
@@ -22,8 +27,9 @@
 .conversation-card {
     display: flex;
     padding: 5px;
-    height: 10vh;
+    height: 8vh;
     border: black;
+    box-sizing: border-box;
 }
 
 .conversation-card:hover {
@@ -35,11 +41,46 @@
 }
 
 .conversation-card-image {
-    border-radius: 100%;
-    max-width:100%;
-    max-height:100%;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
 }
 
 .conversation-card-main-content {
     flex-grow: 3;
+    height: 100%;
+}
+
+.conversation-card-name {
+    margin-bottom: .25em;
+}
+
+.conversation-card-text {
+    margin-bottom: .25em;
+}
+
+.chat-container {
+    display: flex;
+}
+
+/* "no-chat-container" falls under chat-container */
+#no-chat-container {
+    justify-content: center;
+    align-items: center;
+    display: block;
+    margin: auto;
+    flex: 1;
+}
+
+#no-chat-image {
+    display: block;
+    margin: auto;
+    max-width: 45%;
+}
+
+#no-chat-text {
+    font-size: 3rem;
+    font-weight: bold;
+    color: rgba(142, 121, 115, 1);
+    text-align: center;
 }
