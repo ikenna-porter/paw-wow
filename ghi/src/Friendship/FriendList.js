@@ -4,8 +4,7 @@ import Button from 'react-bootstrap/Button';
 
 export default function ListFriends(props) {
     const [friends, setFriends] = useState([]);
-    const id = 29
-    // fix hard coding id
+    const id = localStorage.getItem('profileId')
 
     useEffect(() => {
         async function getFriendList() {
