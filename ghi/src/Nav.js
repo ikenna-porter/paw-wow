@@ -4,7 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Notification from './Images/Notification.svg'
 import Messages from "./Images/Messages.svg"
 import "./Nav.css"
-import MagicBell, { FloatingNotificationInbox } from '@magicbell/magicbell-react';
+// import MagicBell, { FloatingNotificationInbox } from '@magicbell/magicbell-react';
 
 
 export default function Nav() {
@@ -18,9 +18,9 @@ export default function Nav() {
                 <div className='d-flex'>
                 <div className="d-flex flex-row align-items-md-center icons">
                     <div className="p-2 icon">
-                        <MagicBell apiKey="96c11587b6ac4027795611e453cdcc6fa19afa23" userExternalId="u001">
+                        {/* <MagicBell apiKey="96c11587b6ac4027795611e453cdcc6fa19afa23" userExternalId="u001">
                         {(props) => <FloatingNotificationInbox height={500} {...props} />}
-                        </MagicBell>
+                        </MagicBell> */}
                     </div>
                     </div>
                     <div className="d-flex flex-row align-items-md-center icons">
