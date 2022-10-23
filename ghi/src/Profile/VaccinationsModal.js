@@ -10,7 +10,7 @@ export default function VacctinationsModal(props) {
     const [ checkAdeno, setCheckAdeno ] = useState(props.vaccines.adeno);
     const [ checkRabies, setCheckRabies ] = useState(props.vaccines.rabies);
     const [ other, setOther ] = useState(props.vaccines.other);
-    const profileId = props.profileId;
+    const profileId = localStorage.getItem('profileId')
 
     const handleSubmit = async (e) => {
         e.preventDefault();

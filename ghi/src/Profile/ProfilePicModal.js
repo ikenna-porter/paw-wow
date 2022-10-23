@@ -7,6 +7,7 @@ export default function ProfilePicModal(props) {
     const handleClose = props.handleClose;
     const [ image, setImage ] = useState(null);
     const [ imagePath, setImagePath ] = useState('');
+    const profileId = localStorage.getItem('profileId')
 
     const sendProfilePic = async (profileId, dataURI) => {
         const url = `http://localhost:8100/api/profile-pic/${profileId}`;
@@ -33,7 +34,7 @@ export default function ProfilePicModal(props) {
             };
             const postResponse = await fetch(url, postFetchConfig);
             if (postResponse.ok) {
-                props.getProfilePic(props.profileId);
+                props.getProfilePic(profileId);
             }
         }         
     }
@@ -59,7 +60,7 @@ export default function ProfilePicModal(props) {
         convertImgToURI(image)
             .then(dataURI => {
                 // console.log(dataURI);
-                sendProfilePic(props.profileId, dataURI);
+                sendProfilePic(profileId, dataURI);
             })
             .catch((e) => {
                 console.log('Could not upload image: ', e);

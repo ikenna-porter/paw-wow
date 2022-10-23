@@ -15,7 +15,6 @@ import ListFriends from './Friendship/FriendList'
 import PendingList from './Friendship/PendingList'
 
 export default function App() {
-  const [currentUser, setCurrentUser] = useState('');
   //const client = new WebSocket('ws://localhost:8300/api/notifications');
   
     // useEffect(() =>{
@@ -34,12 +33,12 @@ export default function App() {
     <BrowserRouter>
       <Nav/>
       <Routes>
-        <Route path="/" element={<AuthenticateUser setCurrentUser={setCurrentUser}/>} 
+        <Route path="/" element={<AuthenticateUser />} 
         />
         <Route path="create-profile" element={<CreateProfile />} 
         />
         <Route path="profile">
-          <Route index element={<Profile currentUser={currentUser} />} />
+          <Route index element={<Profile />} />
           <Route path="edit-profile" element={<EditProfileModal />} />
           <Route path="vaccinations" element={<Vaccinations />} />
           <Route path="create-vaccinations" element={<VaccinationsModal />} />

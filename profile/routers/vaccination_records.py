@@ -36,6 +36,7 @@ def delete_vaccination_record(
 @router.get("/api/vaccinations/{profile_id}", response_model = VaccinationRecordOut)
 def get_one_vaccination_record(
     profile_id: int,
+    response: Response,
     account_data: dict = Depends(authenticator.get_current_account_data),
     repo: VaccinationRecordRepository = Depends()
 ) -> VaccinationRecordOut:
@@ -43,6 +44,7 @@ def get_one_vaccination_record(
 
     if vaccination_record is None:
         print('NEW TEST')
-        return {"message": "Could not retrieve vaccination records for this profile"}
+        # return {"message": "Could not retrieve vaccination records for this profile"}
+        return response
     
     return vaccination_record

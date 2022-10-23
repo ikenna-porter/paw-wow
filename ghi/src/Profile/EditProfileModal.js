@@ -7,14 +7,15 @@ export default function EditProfileModal(props) {
     const show = props.show;
     const handleClose = props.handleClose;
     const statesOptions = stateList; 
-    const profile = props.profile;
+    const profile = localStorage.getItem('profileId')
+    const username = localStorage.getItem('currentUser')
     const [ editProfile, setEditProfile ] = useState(profile);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         
         const data = {...editProfile}
-        const response = await fetch(`http://localhost:8100/api/profiles/${props.username}`, {
+        const response = await fetch(`http://localhost:8100/api/profiles/${username}`, {
             method:'PUT',
             body: JSON.stringify(data),
             credentials: 'include',
@@ -22,7 +23,6 @@ export default function EditProfileModal(props) {
         }) 
         console.log("response", response)
         if (response.ok) {
-            console.log("response went through", response)
             props.getProfile();
         }
     }

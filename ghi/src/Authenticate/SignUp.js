@@ -27,16 +27,11 @@ export default function SignUp(props) {
 
     const accountResponse = await fetch(url, fetchConfig);
     if (accountResponse.ok) {
-      const accountData = await accountResponse.json();
-      console.log("accountData", accountData)
-      // accountData has access_token, account{id, username}
-      console.log(document.cookie)
-      props.setCurrentUser(accountData.account.username)
+      localStorage.setItem('currentUser', `${username}`)
       navigate("/create-profile");
     }
 
     const tokenUrl = await fetch('http://localhost:8100/token', {credentials: 'include'});
-    console.log("token response", tokenUrl)
 
   }
 

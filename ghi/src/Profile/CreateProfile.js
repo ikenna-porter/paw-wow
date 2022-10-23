@@ -34,7 +34,6 @@ export default function CreateProfile(props) {
         const response = await fetch(url, fetchConfig);
         if (response.ok) {
             const responseData = await response.json()
-            console.log("response in create profile", responseData)
             setCity('');
             setState('');
             setDogName('');

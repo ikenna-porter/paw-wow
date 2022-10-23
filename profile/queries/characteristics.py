@@ -93,7 +93,7 @@ class CharacteristicsRepository:
                     """,
                     [profile_id]
                 )
-                char_id = target_char.fetchone()
+                char_id = target_char.fetchone()[0]
                 
                 db.execute(
                     """
@@ -123,11 +123,11 @@ class CharacteristicsRepository:
                         characteristic.size,
                         characteristic.gender,
                         characteristic.dog_bio,
-                        characteristic.profile_id,
+                        profile_id,
                         profile_id
                     ]
                 )
-                return self.characteristic_in_to_out(char_id[0], profile_id, characteristic)
+                return self.characteristic_in_to_out(char_id, profile_id, characteristic)
 
 
     def delete(self, profile_id: int) -> bool:

@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import VacctinationsModal from './VaccinationsModal';
 
 export default function Vaccinations(props) {
-    const profileId = props.profileId
+    const profileId = localStorage.getItem('profileId')
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -43,7 +43,6 @@ export default function Vaccinations(props) {
                 <VacctinationsModal
                     show={show} 
                     handleClose={handleClose} 
-                    profileId={profileId} 
                     getVaccines={getVaccines}
                     hasVaccines={hasVaccines}
                     vaccines={vaccines}

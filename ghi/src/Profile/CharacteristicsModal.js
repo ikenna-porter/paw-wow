@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
 
 export default function CharsModal(props) {
+    const profileId = localStorage.getItem('profileId')
     const show = props.show;
     const handleClose = props.handleClose;
     const chars = props.chars;
@@ -39,7 +40,7 @@ export default function CharsModal(props) {
         };
         
         if (props.hasChars) {
-            const putUrl = `http://localhost:8100/api/characteristics/${props.profileId}`;
+            const putUrl = `http://localhost:8100/api/characteristics/${profileId}`;
             const putFetchConfig = {
                 method: 'PUT',
                 body: JSON.stringify(data),
@@ -50,7 +51,7 @@ export default function CharsModal(props) {
             }
             const putResponse = await fetch(putUrl, putFetchConfig);
             if (putResponse.ok) {
-                props.getChars()
+                props.getChars(profileId)
             }
         } else {
             const postUrl = `http://localhost:8100/api/characteristics`
@@ -64,7 +65,7 @@ export default function CharsModal(props) {
             }
             const postResponse = await fetch(postUrl, postFetchConfig);
             if (postResponse.ok) {
-                props.getChars(props.profileId)
+                props.getChars(profileId)
             }
         }
     }

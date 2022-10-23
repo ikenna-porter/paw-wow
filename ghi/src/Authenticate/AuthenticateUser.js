@@ -7,18 +7,11 @@ export default function AuthenticateUser(props) {
 
     if (showSignUp) {
         return (
-            <SignUp 
-                setShowSignUp={setShowSignUp} 
-                setAccountId={props.setAccountId}
-                setCurrentUser={props.setCurrentUser} 
-            />
+            <SignUp setShowSignUp={setShowSignUp} />
         )
     } else {
         return (
-            <Login
-                setShowSignUp={setShowSignUp}
-                setCurrentUser={props.setCurrentUser}
-            />
+            <Login setShowSignUp={setShowSignUp} />
         )
     }
 }

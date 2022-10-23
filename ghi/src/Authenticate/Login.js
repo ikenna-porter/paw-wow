@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 export default function Login(props) {
     const [ username, setUsername ] = useState('');
     const [ password, setPassword ] = useState('');
-    const [ token, setToken ] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -24,19 +23,13 @@ export default function Login(props) {
         const response = await fetch(url, fetchConfig);
         if (response.ok) {
             const responseData = await response.json();
-            console.log("login response", responseData);
-            setToken(responseData.access_token)
+            localStorage.setItem('currentUser', `${username}`)
             setUsername('');
             setPassword('');
             navigate('/profile');
         }
 
         const getToken = await fetch('http://localhost:8100/token', {credentials: 'include'});
-        if (getToken.ok) {
-            const tokenData = await getToken.json();
-            console.log("token data", tokenData)
-            props.setCurrentUser(tokenData.account.username);
-        }
     }    
 
     return (

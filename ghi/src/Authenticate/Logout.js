@@ -20,6 +20,8 @@ export default function Logout(props) {
             }
         )
         if (logout.ok) {
+            localStorage.removeItem('currentUser')
+            localStorage.removeItem('profileId')
             navigate("/")
         }
     }

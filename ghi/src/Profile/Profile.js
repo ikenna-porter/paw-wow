@@ -57,8 +57,8 @@ export default function Profile(props) {
     const navigate = useNavigate();
     // This id is hard coded until I put this in local storage
     // If you want to try this out create an account and profile and insert that profile's id and username here
-    const [profileId, setProfileId] = useState(null);
-    const username = props.currentUser
+    const profileId = localStorage.getItem('profileId')
+    const username = localStorage.getItem('currentUser')
 
     function calculateAge(DOB) {
         if (DOB) {
@@ -115,9 +115,10 @@ export default function Profile(props) {
         if (profileResponse.ok) {
             const data = await profileResponse.json();
             setProfile({...data});
-            setProfileId(data.id)
-            getChars(data.id);
-            getProfilePic(data.id);
+            localStorage.setItem('profileId', `${data.id}`)
+            // setProfileId(data.id)
+            getChars(profileId);
+            getProfilePic(profileId);
         }
     }
 
@@ -192,7 +193,6 @@ export default function Profile(props) {
                     <div className="card-header bg-transparent text-center">
                         <ProfilePicModal
                             hasPic={hasPic}
-                            profileId={profileId} 
                             handleClose={handleClosePic}
                             show={showPic}
                             getProfilePic={getProfilePic}
@@ -243,7 +243,6 @@ export default function Profile(props) {
                     <CharsModal
                         show={showChars} 
                         handleClose={handleCloseChars} 
-                        profileId={profileId} 
                         dogName={profile.dog_name}
                         chars={chars}
                         dogDetails={dogDetails}
@@ -253,7 +252,6 @@ export default function Profile(props) {
                     <EditProfileModal
                         show={showProfile}
                         handleClose={handleCloseProf}
-                        profileId={profileId}
                         dogName={profile.dog_name}
                         getProfile={getProfile}
                         profile={profile}
@@ -272,7 +270,7 @@ export default function Profile(props) {
                     </div>
                     <div>
                         <div className="col-lg-8">
-                                <Vaccinations dogName ={profile.dog_name} profileId={profileId} />
+                                <Vaccinations dogName ={profile.dog_name} />
                         </div>
                     </div>    
                 </div>      

@@ -136,5 +136,5 @@ class VaccinationRecordRepository:
                         profile_id = record[6]
                     )
         except Exception as e:
-            print("error", e)
+            print(e)
             return {"message": "Could not find this vaccination record"}
