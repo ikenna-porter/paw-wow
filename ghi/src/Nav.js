@@ -4,7 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Notification from './Images/Notification.svg'
 import Messages from "./Images/Messages.svg"
 import "./Nav.css"
-import Notifications from "react-notifications-menu";
+// import Notifications from "react-notifications-menu";
 import Button from 'react-bootstrap/Button';
 import Logout from './Authenticate/Logout';
 // import MagicBell, { FloatingNotificationInbox } from '@magicbell/magicbell-react';
