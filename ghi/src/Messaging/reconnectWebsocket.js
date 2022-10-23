@@ -61,4 +61,5 @@ export class ReconnectingWebSocket {
     );
     this._retry = setTimeout(this.connect, this._timeout);
   }
+
 }
