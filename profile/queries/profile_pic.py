@@ -32,6 +32,10 @@ class ProfilePicRepository:
                     [profile_id]
                 )
                 record = result.fetchone()
+
+                if record == None:
+                    return None
+                    
                 return({
                     'id': record[0],
                     'URI': record[2],

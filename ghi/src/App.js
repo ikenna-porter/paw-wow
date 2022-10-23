@@ -15,10 +15,7 @@ import ListFriends from './Friendship/FriendList'
 import PendingList from './Friendship/PendingList'
 
 export default function App() {
-  const [accountId, setAccountId] = useState('');
-  const [username, setUsername] = useState('');
-  const [profileId, setProfileId] = useState('');
-  // const client = new WebSocket('ws://localhost:8300/api/notifications');
+  //const client = new WebSocket('ws://localhost:8300/api/notifications');
   
     // useEffect(() =>{
     //   client.onopen = () => {
@@ -36,28 +33,21 @@ export default function App() {
     <BrowserRouter>
       <Nav/>
       <Routes>
-        <Route path="/" element={<AuthenticateUser 
-                                  setAccountId={setAccountId} 
-                                  setUsername={setUsername}
-                                />} />
-        {/* <Route path="create-profile" element={<CreateProfile token={token} accountId={accountId} />} />
-        <Route path="profile" element={<Profile />} /> */}
-        <Route path="create-profile" element={<CreateProfile 
-                                                accountId={accountId} 
-                                                setProfileId={setProfileId}
-                                              />} 
+        <Route path="/" element={<AuthenticateUser />} 
+        />
+        <Route path="create-profile" element={<CreateProfile />} 
         />
         <Route path="profile">
-          <Route index element={<Profile profileId={profileId} />} />
+          <Route index element={<Profile />} />
           <Route path="edit-profile" element={<EditProfileModal />} />
           <Route path="vaccinations" element={<Vaccinations />} />
-          <Route path="create-vaccinations" element={<VaccinationsModal profileId={profileId} />} />
-          <Route path="edit-vaccinations" element={<VaccinationsModal profileId={profileId} />} />
+          <Route path="create-vaccinations" element={<VaccinationsModal />} />
+          <Route path="edit-vaccinations" element={<VaccinationsModal />} />
           <Route path="characteristics" element={<Characteristics />} />
-          <Route path="create-characteristics" element={<CharsModal profileId={profileId} />} />
-          <Route path="edit-characteristics" element={<CharsModal profileId={profileId} />} />
+          <Route path="create-characteristics" element={<CharsModal />} />
+          <Route path="edit-characteristics" element={<CharsModal />} />
           <Route path='friends' element={<ListFriends />} />
-          <Route path="pending" element={<PendingList userTwo={profileId} />} />
+          <Route path="pending" element={<PendingList />} />
         </Route>  
       </Routes>
     </BrowserRouter>
