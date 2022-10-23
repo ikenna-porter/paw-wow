@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import Vaccinations from './Vaccinations';
 import Characteristics from './Characteristics';
 import CharsModal from './CharacteristicsModal';
 import Button from 'react-bootstrap/Button';
 import EditProfileModal from './EditProfileModal';
 import ProfilePicModal from './ProfilePicModal';
-import ListFriends from '../Friendship/FriendList';
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 export default function Profile(props) {
     const [ hasChars, setHasChars ] = useState(false);
@@ -168,7 +168,7 @@ export default function Profile(props) {
                                 ?
                                 <Button size='md' onClick={handleAdd} value={profile.id}> ADD ME </Button>
                                 :
-                                <Button size='md'> Friends List </Button>
+                                <Link to='/profile/friends'><Button size='md'> Friends List </Button> </Link>
                             }
                     </div>
                     <div className="card shadow-sm">

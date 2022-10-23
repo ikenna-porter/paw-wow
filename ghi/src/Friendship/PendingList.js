@@ -1,12 +1,12 @@
 import React from 'react';
-import { useState, useEffect, newState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 function PendingList(props) {
     const [pending_friends, setPending] = useState([]);
     const [error, setError] = useState('');
-    const user_two = 4
+    const user_two = localStorage.getItem('profileId')
     // handle hard coded user id
 
     useEffect(() => {
