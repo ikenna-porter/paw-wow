@@ -160,106 +160,106 @@ export default function Profile(props) {
 
 
   return(
-    <Container className="dog-container dog-profile py-4">
-        <Row className="profile-div row">
-          <Col className='dog-profile-img'>
-            <div className='profile-div'>
-              {
-                  profile.id != profileId
-                  ?
-                  <button className="profile-btn" onClick={handleAdd} value={profile.id}> Add Me </button>
-                  :
-                  <Link to='/profile/friends'><button className="profile-btn"> Friends List </button>
-                  </Link>
-              }
-              </div>
-                <ProfilePicModal
-                    hasPic={hasPic}
-                    handleClose={handleClosePic}
-                    show={showPic}
-                    getProfilePic={getProfilePic}
-                />
-                <img
-                    className="profile-pic" 
-                    src={profilePic}
-                    alt='Standard Dog Image'
-                />
-                <h2 className='name'>{profile.dog_name}</h2>
-                { hasPic
-                    ?
-                      <button className="profile-btn" onClick={handleShowPic}>
-                          Update Picture 
-                      </button> 
-                    : 
-                      <button className="profile-btn" onClick={handleShowPic}>
-                        Upload Picture
-                    </button>
-                }
-              </Col>
-              <Col className='bio'>
-              <div className="bio">
-                <h4 className='title'>{profile.dog_name}'s Bio</h4>
-                <p className="mb-0"><strong className="pr-1">I am a: </strong>{dogDetails.size} {dogDetails.breed}</p>
-                <p className="mb-0"><strong className="pr-1">My gender: </strong>{dogDetails.gender}</p>
-                <p className="mb-0"><strong className="pr-1">My age: </strong>{calculateAge(dogDetails.DOB)}</p>
-                { dogDetails.fixed
-                    ? <p className="mb-0"><strong className="pr-1">I am fixed</strong></p>
-                    : <p className="mb-0"><strong className="pr-1">I am not fixed</strong></p>
-                }
-                <p className="mb-0"><strong className="pr-1">More about me: </strong>{dogDetails.dog_bio}</p>
-              </div>  
-              <div className="chars">
-                <h4 className="title">Characteristics</h4> 
-                { hasChars
-                    ? 
-                    <div className='chars'>
-                        <Characteristics chars={chars} />
-                        <button className="profile-btn" onClick={handleShowChars}>
-                            Update {profile.dog_name}'s Info'
-                        </button> 
-                    </div>
-                    : <button className="profile-btn" onClick={handleShowChars}>
-                        Add info for {profile.dog_name}
-                    </button>
-                }    
-              </div>  
-              <CharsModal
-                  show={showChars} 
-                  handleClose={handleCloseChars} 
-                  dogName={profile.dog_name}
-                  chars={chars}
-                  dogDetails={dogDetails}
-                  getChars={getChars}
-                  hasChars={hasChars}
-              />
-              <EditProfileModal
-                  show={showProfile}
-                  handleClose={handleCloseProf}
-                  dogName={profile.dog_name}
-                  getProfile={getProfile}
-                  profile={profile}
-                  username={username}
-              />
-              </Col>
-              </Row>
-              <Row className='profile-div row'>
-              <Col className='secondary-bio'>
-                <Vaccinations dogName ={profile.dog_name} />
-              </Col> 
-              </Row>
-              <Row className='profile-div row'>
-                <Col className="secondary-bio">   
-                  <div className="card-body">
-                    <h4 className='title'>{profile.owner_name}'s Bio</h4>
-                    <button className="profile-btn" onClick={handleShowProf}>
-                        Edit Profile
-                    </button>
-                    <p className="mb-0"><strong className="pr-1">My human is: </strong>{profile.owner_name}</p>
-                    <p className="mb-0"><strong className="pr-1">{profile.owner_name} and I live in: </strong>{profile.city}, {profile.state}</p>
-                    <p className="mb-0"><strong className="pr-1">More about my human: </strong>{profile.owner_description}</p>
-                  </div>
-                </Col>    
-            </Row>
+  <Container className="dog-container dog-profile py-4">
+    <Row className="profile-div row">
+      <Col className='dog-profile-img'>
+        <div className='profile-div'>
+          {
+            profile.id != profileId
+            ?
+            <button className="profile-btn" onClick={handleAdd} value={profile.id}> Add Me </button>
+            :
+            <Link to='/profile/friends'><button className="profile-btn"> Friends List </button>
+            </Link>
+          }
+        </div>
+          <ProfilePicModal
+              hasPic={hasPic}
+              handleClose={handleClosePic}
+              show={showPic}
+              getProfilePic={getProfilePic}
+          />
+          <img
+              className="profile-pic" 
+              src={profilePic}
+              alt='Standard Dog Image'
+          />
+          <h2 className='name'>{profile.dog_name}</h2>
+          { hasPic
+              ?
+                <button className="profile-btn" onClick={handleShowPic}>
+                    Update Picture 
+                </button> 
+              : 
+                <button className="profile-btn" onClick={handleShowPic}>
+                  Upload Picture
+              </button>
+          }
+      </Col>
+      <Col className='bio'>
+      <div className="bio">
+        <h4 className='title'>{profile.dog_name}'s Bio</h4>
+        <p className="mb-0"><strong className="pr-1">I am a: </strong>{dogDetails.size} {dogDetails.breed}</p>
+        <p className="mb-0"><strong className="pr-1">My gender: </strong>{dogDetails.gender}</p>
+        <p className="mb-0"><strong className="pr-1">My age: </strong>{calculateAge(dogDetails.DOB)}</p>
+        { dogDetails.fixed
+            ? <p className="mb-0"><strong className="pr-1">I am fixed</strong></p>
+            : <p className="mb-0"><strong className="pr-1">I am not fixed</strong></p>
+        }
+        <p className="mb-0"><strong className="pr-1">More about me: </strong>{dogDetails.dog_bio}</p>
+      </div>  
+      <div className="chars">
+        <h4 className="title">Characteristics</h4> 
+        { hasChars
+          ? 
+          <div className='chars'>
+            <Characteristics chars={chars} />
+            <button className="profile-btn" onClick={handleShowChars}>
+                Update {profile.dog_name}'s Info'
+            </button> 
+          </div>
+          : <button className="profile-btn" onClick={handleShowChars}>
+            Add info for {profile.dog_name}
+          </button>
+        }    
+      </div>  
+        <CharsModal
+            show={showChars} 
+            handleClose={handleCloseChars} 
+            dogName={profile.dog_name}
+            chars={chars}
+            dogDetails={dogDetails}
+            getChars={getChars}
+            hasChars={hasChars}
+        />
+        <EditProfileModal
+            show={showProfile}
+            handleClose={handleCloseProf}
+            dogName={profile.dog_name}
+            getProfile={getProfile}
+            profile={profile}
+            username={username}
+        />
+        </Col>
+        </Row>
+        <Row className='profile-div row'>
+        <Col className='secondary-bio'>
+          <Vaccinations dogName ={profile.dog_name} />
+        </Col> 
+        </Row>
+        <Row className='profile-div row'>
+          <Col className="secondary-bio">   
+            <div className="card-body">
+              <h4 className='title'>{profile.owner_name}'s Bio</h4>
+              <button className="profile-btn" onClick={handleShowProf}>
+                  Edit Profile
+              </button>
+              <p className="mb-0"><strong className="pr-1">My human is: </strong>{profile.owner_name}</p>
+              <p className="mb-0"><strong className="pr-1">{profile.owner_name} and I live in: </strong>{profile.city}, {profile.state}</p>
+              <p className="mb-0"><strong className="pr-1">More about my human: </strong>{profile.owner_description}</p>
+            </div>
+          </Col>    
+      </Row>
   </Container>
   )
 }
