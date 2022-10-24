@@ -1,17 +1,37 @@
-.dog-profile .card .card-header .dog_img {
-    width: 180px;
-    height: 180px;
-    object-fit: cover;
+.dog-profile-img {
+    width: 30%;
+    height: 100%;
     margin: 10px auto;
-    border: 8px solid #ccc;
-    border-radius: 50%;
 }
-  
-.card {
-    margin-bottom: 20px;
+
+.bio {
+    width: 70%;
+    height: 100%;
+    padding-top: 30px;
+    text-align: center;
+}
+
+.chars {
+    text-align: center;
+    width: 70%;
+    height: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .profile-div {
     justify-content: center;
+    text-align: center;
+    padding-bottom: 10px;
 }
 
+.dog-container {
+    width:80%
+}
+
+.profile-pic {
+    width: 150px;
+    height: 175px;
+    border-radius: 50%;
+    border: 8px solid #ccc;
+}

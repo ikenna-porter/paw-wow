@@ -7,6 +7,9 @@ import EditProfileModal from './EditProfileModal';
 import ProfilePicModal from './ProfilePicModal';
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export default function Profile(props) {
     const [ hasChars, setHasChars ] = useState(false);
@@ -158,21 +161,19 @@ export default function Profile(props) {
 
 
   return(
-    <div className="container">
-      <div className="dog-profile py-4">
-        <div className="profile-div row">
-          <div className="col-lg-4">
-            <div className='container p-3'>
+    <Container className="dog-container dog-profile py-4">
+        <Row className="profile-div row">
+          <Col className='dog-profile-img'>
+            <div className='profile-div'>
               {
                   profile.id != profileId
                   ?
                   <Button size='md' onClick={handleAdd} value={profile.id}> ADD ME </Button>
                   :
-                  <Link to='/profile/friends'><Button size='md'> Friends List </Button> </Link>
+                  <Link to='/profile/friends'><Button size='md'> Friends List </Button>
+                  </Link>
               }
-            </div>
-            <div className="card shadow-sm">
-              <div className="card-header bg-transparent text-center">
+              </div>
                 <ProfilePicModal
                     hasPic={hasPic}
                     handleClose={handleClosePic}
@@ -180,23 +181,24 @@ export default function Profile(props) {
                     getProfilePic={getProfilePic}
                 />
                 <img
-                    className="dog_img" 
+                    className="profile-pic" 
                     src={profilePic}
                     alt='Standard Dog Image'
                 />
                 <h2>{profile.dog_name}</h2>
                 { hasPic
-                    ? <div>
-                        <Button className="btn btn-info btn-sm" onClick={handleShowPic}>
-                            Edit Profile Picture for {profile.dog_name}
-                        </Button> 
-                    </div>
-                    : <Button className="btn btn-info btn-sm" onClick={handleShowPic}>
+                    ?
+                      <Button className="btn btn-info btn-sm" onClick={handleShowPic}>
+                          Edit Profile Picture for {profile.dog_name}
+                      </Button> 
+                    : 
+                      <Button className="btn btn-info btn-sm" onClick={handleShowPic}>
                         Add Profile Picture for {profile.dog_name}
                     </Button>
                 }
-              </div>
-              <div className="card-header bg-transparent card-body">
+              </Col>
+              <Col className='bio'>
+              <div className="bio">
                 <h5>{profile.dog_name}'s Bio</h5>
                 <p className="mb-0"><strong className="pr-1">I am a: </strong>{dogDetails.size} {dogDetails.breed}</p>
                 <p className="mb-0"><strong className="pr-1">My gender: </strong>{dogDetails.gender}</p>
@@ -207,7 +209,7 @@ export default function Profile(props) {
                 }
                 <p className="mb-0"><strong className="pr-1">More about me: </strong>{dogDetails.dog_bio}</p>
               </div>  
-              <div className="card-body">
+              <div className="chars">
                 <h5 className="card-title">Characteristics</h5> 
                 { hasChars
                     ? <div>
@@ -220,8 +222,7 @@ export default function Profile(props) {
                         Add more information for {profile.dog_name}
                     </Button>
                 }    
-              </div>
-            </div>    
+              </div>  
               <CharsModal
                   show={showChars} 
                   handleClose={handleCloseChars} 
@@ -239,6 +240,9 @@ export default function Profile(props) {
                   profile={profile}
                   username={username}
               />
+              </Col>
+              </Row>
+              <Row>
                 <div className="card">   
                   <div className="card-body">
                     <h5>{profile.owner_name}'s Bio</h5>
@@ -254,10 +258,8 @@ export default function Profile(props) {
                   <div className="col-lg-8">
                     <Vaccinations dogName ={profile.dog_name} />
                   </div>
-              </div>    
-            </div>      
-          </div>
-        </div>
-      </div>
+              </div>      
+            </Row>
+  </Container>
   )
 }
