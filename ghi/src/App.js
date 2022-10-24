@@ -4,7 +4,7 @@ import Nav from './Nav'
 import AuthenticateUser from './Authenticate/AuthenticateUser'
 import CreateProfile from './Profile/CreateProfile'
 import Profile from './Profile/Profile'
-// import MessagingTest from './Messaging/MessagingTest'
+import MessagingTest from './Messaging/MessagingTest'
 import Conversations from './Messaging/Conversations'
 import Vaccinations from './Profile/Vaccinations'
 import VaccinationsModal from './Profile/VaccinationsModal'
@@ -33,11 +33,10 @@ export default function App() {
     <BrowserRouter>
       <Nav/>
       <Routes>
-        <Route path="/" element={<AuthenticateUser />} 
-        />
-        <Route path="create-profile" element={<CreateProfile />} 
-        />
-        <Route path="profile">
+        <Route path="/" element={<AuthenticateUser />} />
+        <Route path="create-profile" element={<CreateProfile />} />
+        <Route path="messaging" element={<MessagingTest />} />
+        <Route  path="profile">
           <Route index element={<Profile />} />
           <Route path="edit-profile" element={<EditProfileModal />} />
           <Route path="vaccinations" element={<Vaccinations />} />

@@ -4,13 +4,12 @@ import Characteristics from './Characteristics';
 import CharsModal from './CharacteristicsModal';
 import EditProfileModal from './EditProfileModal';
 import ProfilePicModal from './ProfilePicModal';
-import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-export default function Profile(props) {
+export default function Profile() {
     const [ hasChars, setHasChars ] = useState(false);
     const [ hasPic, setHasPic ] = useState(false);
     const [ showChars, setShowChars ] = useState(false);
@@ -45,9 +44,6 @@ export default function Profile(props) {
         gender: '',
         dog_bio: ''
     })
-    const navigate = useNavigate();
-    // This id is hard coded until I put this in local storage
-    // If you want to try this out create an account and profile and insert that profile's id and username here
     const profileId = localStorage.getItem('profileId')
     const username = localStorage.getItem('currentUser')
 
@@ -76,6 +72,7 @@ export default function Profile(props) {
                 `http://localhost:8100/api/characteristics/${profileId}`,
                 {credentials: 'include'}
             )
+
             if (charsResponse.ok) {
                 const charsData = await charsResponse.json();
                 if (Object.keys(charsData).length > 1) {
@@ -107,7 +104,6 @@ export default function Profile(props) {
             const data = await profileResponse.json();
             setProfile({...data});
             localStorage.setItem('profileId', `${data.id}`)
-            // setProfileId(data.id)
             getChars(profileId);
             getProfilePic(profileId);
         }

@@ -133,7 +133,7 @@ class VaccinationRecordRepository:
                         adeno=record[3],
                         rabies=record[4],
                         other=record[5],
-                        profile_id = record[6]
+                        profile_id = record[6],
                     )
         except Exception as e:
             print(e)
