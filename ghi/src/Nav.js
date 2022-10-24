@@ -7,22 +7,13 @@ import "./Nav.css"
 import Notifications from "react-notifications-menu";
 import Button from 'react-bootstrap/Button';
 import Logout from './Authenticate/Logout';
-// import MagicBell, { FloatingNotificationInbox } from '@magicbell/magicbell-react';
-
-const DEFAULT_NOTIFICATION = {
-    image:
-      "https://cutshort-data.s3.amazonaws.com/cloudfront/public/companies/5809d1d8af3059ed5b346ed1/logo-1615367026425-logo-v6.png",
-    message: "Notification one.",
-    detailPage: "/",
-    receivedTime: "12h ago"
-  };
-
-
+import MagicBell, { FloatingNotificationInbox } from '@magicbell/magicbell-react';
 
 export default function Nav() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const username = localStorage.getItem('currentUser')
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark text-white bg-success">
@@ -33,9 +24,9 @@ export default function Nav() {
                 <div className='d-flex'>
                 <div className="d-flex flex-row align-items-md-center icons">
                     <div className="p-2 icon">
-                        {/* <MagicBell apiKey="96c11587b6ac4027795611e453cdcc6fa19afa23" userExternalId="u001">
+                        <MagicBell apiKey="96c11587b6ac4027795611e453cdcc6fa19afa23" userExternalId={username}>
                         {(props) => <FloatingNotificationInbox height={500} {...props} />}
-                        </MagicBell> */}
+                        </MagicBell>
                     </div>
                     </div>
                     <div className="d-flex flex-row align-items-md-center icons">
