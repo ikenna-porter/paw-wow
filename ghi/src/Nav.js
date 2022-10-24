@@ -29,7 +29,7 @@ export default function Nav() {
     <div className='wrapper'>
       <div className='sidebar'>
         <div className='paw-logo'>
-          <img src={require('./Images/pawow.png')}/>
+          <Link to='/'><img src={require('./Images/pawow.png')}/></Link>
         </div>
         <div className='link-btn'>
           <Link to="/profile">
