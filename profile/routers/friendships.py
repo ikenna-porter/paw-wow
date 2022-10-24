@@ -17,7 +17,7 @@ def create_friendship(
 ):
     return repo.create(friendship)
 
-@router.get("/api/friendships/{id}", response_model = List)
+@router.get("/api/friendships/{id}", response_model = List[FriendsOut])
 def get_list_friends(
     id: int,
     repo: FriendshipRepository = Depends()
@@ -33,22 +33,22 @@ def get_pending(
 ):
     return repo.get_pending_requests(user_two)
 
-@router.put("/api/friendships/{id}/pending")
+@router.put("/api/friendships/{user_one}/pending")
 def update_request(
     # user_one: int,
     # user_two: int,
-    id,
+    user_one,
     repo: FriendshipRepository = Depends()
 
 ):
-    return repo.approve_request(id)
+    return repo.approve_request(user_one)
 
-@router.delete("/api/friendships/{id}/pending")
+@router.delete("/api/friendships/{user_one}/pending")
 def update_deny_request(
     # user_one: int,
     # user_two: int,
-    id,
+    user_one,
     repo: FriendshipRepository = Depends()
 
 ):
-    return repo.deny_request(id)
+    return repo.deny_request(user_one)

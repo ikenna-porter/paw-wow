@@ -1,0 +1,77 @@
+.dog-profile-img {
+    width: 30%;
+    height: 100%;
+    margin: 10px auto;
+}
+
+.bio {
+    width: 100%;
+    height: 100%;
+    padding-top: 30px;
+    text-align: center;
+    justify-items: start;
+}
+
+.chars {
+    text-align: center;
+    justify-items: start;
+    width: 100%;
+    height: 100%;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.secondary-bio {
+    text-align: center;
+    justify-items: center;
+    width: 100%;
+    height: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.profile-div {
+    justify-content: center;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.dog-container {
+    width:80%
+}
+
+.profile-pic {
+    width: 150px;
+    height: 175px;
+    border-radius: 50%;
+    border: 8px solid #ccc;
+}
+
+.name {
+    color: #000000;
+    text-shadow: 2px 2px #c0dece;
+    font-family: 'PT Sans Narrow'
+}
+
+.title {
+    font-style: bold;
+    text-shadow: 2px 2px #c0dece;
+    font-family: 'PT Sans Narrow'
+}
+
+.profile-btn {
+    margin-left: 4px;
+    justify-content: center;
+    background-color: #c0dece;
+    font-size: 20px;
+    border-radius: 12px;
+    width: 30%;
+    padding: 5px;
+    text-align: center;
+    transition-duration: 0.4s;
+}
+
+.profile-btn:hover {
+    background-color: #aa9d8c;
+    color: white;
+}

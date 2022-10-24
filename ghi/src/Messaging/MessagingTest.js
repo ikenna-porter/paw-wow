@@ -24,11 +24,10 @@ export default function MessagingTest(props) {
     useEffect(() => { 
 
         const fetchMessages = async () => {
-            const response = await fetch(`http://localhost:8200/api/messages/${selectedConversation}`)
+            const response = await fetch(`http://localhost:8100/api/messages/${selectedConversation}`)
             if (response.ok) {
                 const data = await response.json()
                 setMessages(data)
-                console.log(messages);
             }
 
             // ws.addEventListener('open', (e) => {
@@ -64,7 +63,7 @@ export default function MessagingTest(props) {
 
     useEffect(() => {
         const fetchConversations = async () => {
-            const response = await fetch('http://localhost:8200/api/conversations')
+            const response = await fetch('http://localhost:8100/api/conversations')
             if (response.ok) {
                 const data = await response.json()
                 setConversations(data)
@@ -74,22 +73,27 @@ export default function MessagingTest(props) {
     }, [])
 
     return (
-        <div className="messaging-container">
-            <div className="conversations-container">
-                <Conversations 
-                conversations={conversations}
-                setSelectedConversation={setSelectedConversation}
-                />
-            </div>
-            <div className="chat-container">
-                {!selectedConversation
-                ? <NoChat />
-                : <Chat 
-                    // setUsersLastMessage={setUsersLastMessage}
-                    selectedConversation={selectedConversation}
-                    messages={messages}
-                  />
-                }
+        <div className="outer-messaging-container">
+            <div className="messaging-container">
+                <div className="conversations-container">
+                    <div id="messages-header-container">
+                        <h4>Messages</h4>
+                    </div>
+                    <Conversations
+                    conversations={conversations}
+                    setSelectedConversation={setSelectedConversation}
+                    />
+                </div>
+                <div className="chat-container">
+                    {!selectedConversation
+                    ? <NoChat />
+                    : <Chat
+                        // setUsersLastMessage={setUsersLastMessage}
+                        selectedConversation={selectedConversation}
+                        messages={messages}
+                      />
+                    }
+                </div>
             </div>
         </div>
     )

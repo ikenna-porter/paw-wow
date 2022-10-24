@@ -4,8 +4,7 @@ import Button from 'react-bootstrap/Button';
 
 export default function ListFriends(props) {
     const [friends, setFriends] = useState([]);
-    const id = 29
-    // fix hard coding id
+    const id = localStorage.getItem('profileId')
 
     useEffect(() => {
         async function getFriendList() {
@@ -26,19 +25,25 @@ return(
     <div className='container my-5'>
     <h2>Your Paw Pals</h2>
     <div className='text-center'>
-        {friends.map((friend, idx) => {
-            return (
-                <div key={idx} className='container'>
-                <div className='row col-lg-4 text-center'>
-                    <div className='card shadow-sm text-center'>
-                        <div className='card-header bg-transparent text-center'>
-                            {friend}
+        {friends.length > 0 ?
+            friends.map((friend, idx) => {
+                return (
+                    <div key={idx} className='container'>
+                    <div className='row col-lg-4 text-center'>
+                        <div className='card shadow-sm text-center'>
+                            <div className='card-header bg-transparent text-center'>
+                                <h4>{friend.dog_name}</h4>
+                                <img className='profile-pic' src={friend.image}/>
+                                <p>{friend.city}, {friend.state}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                </div>
-            )
-        })}
+                    </div>
+                )
+            })
+            :
+            <p>You have no friends.</p>
+        }
     </div>
     <div>
     <Button variant='outline-primary' href='http://localhost:3000/profile/pending'> Pending Requests </Button>

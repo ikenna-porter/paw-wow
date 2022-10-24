@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import './CSS/index.css';
+import './CSS/App.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import './profile.css';
-import './Nav.css';
+import './CSS/profile.css';
+import './CSS/Nav.css';
+// import 'react-bootstrap-icons'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

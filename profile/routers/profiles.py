@@ -13,7 +13,6 @@ router = APIRouter()
 @router.get("/api/profiles/{username}", response_model = Optional[ProfileOut])
 def get_one_profile(
     username: str, 
-    response: Response,
     account_data: dict = Depends(authenticator.get_current_account_data),
     repo: ProfileRepository = Depends()
 ) -> ProfileOut:
