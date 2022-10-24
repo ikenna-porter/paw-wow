@@ -33,10 +33,9 @@ export default function App() {
     <BrowserRouter>
       <Nav/>
       <Routes>
-        <Route path="/" element={<AuthenticateUser />} 
-        />
-        <Route path="create-profile" element={<CreateProfile />} 
-        />
+        <Route path="/" element={<AuthenticateUser />} />
+        <Route path="create-profile" element={<CreateProfile />} />
+        <Route path="messaging" element={<MessagingTest />} />
         <Route  path="profile">
           <Route index element={<Profile />} />
           <Route path="edit-profile" element={<EditProfileModal />} />
