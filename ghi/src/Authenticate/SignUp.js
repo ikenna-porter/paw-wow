@@ -72,7 +72,7 @@ export default function SignUp(props) {
 
                     </form>
 
-                    <p className="text-center">Not a member? <a data-toggle="tab" href="#signup" onClick={() => props.setShowSignUp(false)}>Sign Up</a></p>
+                    <p className="text-center">Already a member? <a data-toggle="tab" href="#signup" onClick={() => props.setShowSignUp(false)}>Log In!</a></p>
                   </div>
                 </div>
               </div>
