@@ -5,7 +5,6 @@ import CharsModal from './CharacteristicsModal';
 import Button from 'react-bootstrap/Button';
 import EditProfileModal from './EditProfileModal';
 import ProfilePicModal from './ProfilePicModal';
-import { Link } from 'react-router-dom';
 
 export default function Profile() {
     const [ hasChars, setHasChars ] = useState(false);
@@ -144,7 +143,7 @@ export default function Profile() {
 
     useEffect(() => {
         getProfile();
-    }, [profile.dog_name])
+    }, [])
     
     if (!profile.dog_name) {
         return(
@@ -159,13 +158,6 @@ export default function Profile() {
         <div className="profile-div row">
           <div className="col-lg-4">
             <div className='container p-3'>
-              {
-                  profile.id != profileId
-                  ?
-                  <Button size='md' onClick={handleAdd} value={profile.id}> ADD ME </Button>
-                  :
-                  <Link to='/profile/friends'><Button size='md'> Friends List </Button> </Link>
-              }
             </div>
             <div className="card shadow-sm">
               <div className="card-header bg-transparent text-center">
