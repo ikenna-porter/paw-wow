@@ -36,7 +36,7 @@ export default function Nav() {
                 <button className='home-btn'>Home</button>
           </Link>
           <Link to="profile/friends">
-                <button className='home-btn'>Friends</button>
+                <button className='friends-btn'>Friends</button>
           </Link>
           <Logout show={show} handleClose={handleClose} />
             <button className="logout-btn" onClick={handleShow}>Logout</button>
