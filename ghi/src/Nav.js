@@ -35,6 +35,9 @@ export default function Nav() {
           <Link to="profile/friends">
                 <button className='friends-btn'>Friends</button>
           </Link>
+          <Link to="search">
+              <button>Search</button>
+          </Link>
           <Logout show={show} handleClose={handleClose} />
             <button className="logout-btn" onClick={handleShow}>Logout</button>
         </div>
