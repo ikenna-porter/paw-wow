@@ -82,7 +82,7 @@
 .home-btn {
   margin-left: 4px;
   justify-content: center;
-  background-color: aliceblue;
+  background-color: rgb(255, 255, 255);
   font-size: 20px;
   border-radius: 12px;
   width: 80%;
@@ -99,7 +99,7 @@
 .friends-btn {
   margin-left: 4px;
   justify-content: center;
-  background-color: aliceblue;
+  background-color: rgb(255, 255, 255);
   font-size: 20px;
   border-radius: 12px;
   width: 80%;
@@ -116,7 +116,7 @@
 .logout-btn {
   margin-left: 4px;
   justify-content: center;
-  background-color: aliceblue;
+  background-color: rgb(255, 255, 255);
   font-size: 20px;
   border-radius: 12px;
   width: 80%;

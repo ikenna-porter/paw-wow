@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import Button from 'react-bootstrap/Button';
 import VacctinationsModal from './VaccinationsModal';
 
 export default function Vaccinations(props) {
@@ -37,52 +36,50 @@ export default function Vaccinations(props) {
     }, []);
 
     return(
-        <div className="card">
-            <div className="card-body">
-                <h5 className="card-title">Vaccination Records</h5>
-                <VacctinationsModal
-                    show={show} 
-                    handleClose={handleClose} 
-                    getVaccines={getVaccines}
-                    hasVaccines={hasVaccines}
-                    vaccines={vaccines}
-                    setVaccines={setVaccines}
-                />
-                { hasVaccines
-                    ?
-                    <div>
-                        <Button className="btn btn-info btn-sm" onClick={handleShow}>
-                            Edit Vaccination Records for {props.dogName}
-                        </Button>
-                        <table className="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Distemper</th>
-                                    <th>Parvo</th>
-                                    <th>Adeno</th>
-                                    <th>Rabies</th>
-                                    <th>Other</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{String(vaccines.distemper)}</td>
-                                    <td>{String(vaccines.parvo)}</td>
-                                    <td>{String(vaccines.adeno)}</td>
-                                    <td>{String(vaccines.rabies)}</td>
-                                    <td>{String(vaccines.other)}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    : 
-                    <div>
-                        <Button className="btn btn-info btn-sm" onClick={handleShow}>
-                            Add Vaccination records for {props.dogName}
-                        </Button>
-                    </div>
-                }
-            </div>
-        </div>    
-    )
+    <>
+      <h4 className="title">Vaccination Records</h4>
+      <VacctinationsModal
+        show={show} 
+        handleClose={handleClose} 
+        getVaccines={getVaccines}
+        hasVaccines={hasVaccines}
+        vaccines={vaccines}
+        setVaccines={setVaccines}
+      />
+      { hasVaccines
+        ?
+          <div>
+            <button className="profile-btn" onClick={handleShow}>
+              Update {props.dogName}'s Vaccinations'
+            </button>
+              <table className="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Distemper</th>
+                    <th>Parvo</th>
+                    <th>Adeno</th>
+                    <th>Rabies</th>
+                    <th>Other</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{String(vaccines.distemper)}</td>
+                    <td>{String(vaccines.parvo)}</td>
+                    <td>{String(vaccines.adeno)}</td>
+                    <td>{String(vaccines.rabies)}</td>
+                    <td>{String(vaccines.other)}</td>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+          : 
+          <div>
+            <button className="profile-btn" onClick={handleShow}>
+              Add {props.dogName}'s Vaccinations
+            </button>
+          </div>
+      }  
+    </>
+  )
 }

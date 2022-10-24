@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import Vaccinations from './Vaccinations';
 import Characteristics from './Characteristics';
 import CharsModal from './CharacteristicsModal';
-import Button from 'react-bootstrap/Button';
 import EditProfileModal from './EditProfileModal';
 import ProfilePicModal from './ProfilePicModal';
 import { useNavigate } from "react-router-dom";
@@ -168,9 +167,9 @@ export default function Profile(props) {
               {
                   profile.id != profileId
                   ?
-                  <Button size='md' onClick={handleAdd} value={profile.id}> ADD ME </Button>
+                  <button className="profile-btn" onClick={handleAdd} value={profile.id}> Add Me </button>
                   :
-                  <Link to='/profile/friends'><Button size='md'> Friends List </Button>
+                  <Link to='/profile/friends'><button className="profile-btn"> Friends List </button>
                   </Link>
               }
               </div>
@@ -185,21 +184,21 @@ export default function Profile(props) {
                     src={profilePic}
                     alt='Standard Dog Image'
                 />
-                <h2>{profile.dog_name}</h2>
+                <h2 className='name'>{profile.dog_name}</h2>
                 { hasPic
                     ?
-                      <Button className="btn btn-info btn-sm" onClick={handleShowPic}>
-                          Edit Profile Picture for {profile.dog_name}
-                      </Button> 
+                      <button className="profile-btn" onClick={handleShowPic}>
+                          Update Picture 
+                      </button> 
                     : 
-                      <Button className="btn btn-info btn-sm" onClick={handleShowPic}>
-                        Add Profile Picture for {profile.dog_name}
-                    </Button>
+                      <button className="profile-btn" onClick={handleShowPic}>
+                        Upload Picture
+                    </button>
                 }
               </Col>
               <Col className='bio'>
               <div className="bio">
-                <h5>{profile.dog_name}'s Bio</h5>
+                <h4 className='title'>{profile.dog_name}'s Bio</h4>
                 <p className="mb-0"><strong className="pr-1">I am a: </strong>{dogDetails.size} {dogDetails.breed}</p>
                 <p className="mb-0"><strong className="pr-1">My gender: </strong>{dogDetails.gender}</p>
                 <p className="mb-0"><strong className="pr-1">My age: </strong>{calculateAge(dogDetails.DOB)}</p>
@@ -210,17 +209,18 @@ export default function Profile(props) {
                 <p className="mb-0"><strong className="pr-1">More about me: </strong>{dogDetails.dog_bio}</p>
               </div>  
               <div className="chars">
-                <h5 className="card-title">Characteristics</h5> 
+                <h4 className="title">Characteristics</h4> 
                 { hasChars
-                    ? <div>
+                    ? 
+                    <div className='chars'>
                         <Characteristics chars={chars} />
-                        <Button className="btn btn-info btn-sm" onClick={handleShowChars}>
-                            Edit Characteristics for {profile.dog_name}
-                        </Button> 
+                        <button className="profile-btn" onClick={handleShowChars}>
+                            Update {profile.dog_name}'s Info'
+                        </button> 
                     </div>
-                    : <Button className="btn btn-info btn-sm" onClick={handleShowChars}>
-                        Add more information for {profile.dog_name}
-                    </Button>
+                    : <button className="profile-btn" onClick={handleShowChars}>
+                        Add info for {profile.dog_name}
+                    </button>
                 }    
               </div>  
               <CharsModal
@@ -242,23 +242,23 @@ export default function Profile(props) {
               />
               </Col>
               </Row>
-              <Row>
-                <div className="card">   
+              <Row className='profile-div row'>
+              <Col className='secondary-bio'>
+                <Vaccinations dogName ={profile.dog_name} />
+              </Col> 
+              </Row>
+              <Row className='profile-div row'>
+                <Col className="secondary-bio">   
                   <div className="card-body">
-                    <h5>{profile.owner_name}'s Bio</h5>
-                    <Button className="btn btn-info btn-sm mb-2" onClick={handleShowProf}>
+                    <h4 className='title'>{profile.owner_name}'s Bio</h4>
+                    <button className="profile-btn" onClick={handleShowProf}>
                         Edit Profile
-                    </Button>
+                    </button>
                     <p className="mb-0"><strong className="pr-1">My human is: </strong>{profile.owner_name}</p>
                     <p className="mb-0"><strong className="pr-1">{profile.owner_name} and I live in: </strong>{profile.city}, {profile.state}</p>
                     <p className="mb-0"><strong className="pr-1">More about my human: </strong>{profile.owner_description}</p>
                   </div>
-                </div>
-                <div>
-                  <div className="col-lg-8">
-                    <Vaccinations dogName ={profile.dog_name} />
-                  </div>
-              </div>      
+                </Col>    
             </Row>
   </Container>
   )
