@@ -11,15 +11,42 @@ export default function Chat(props) {
     // const setUsersLastMessage = props.setUsersLastMessage;
     
     ws.addEventListener('message', event => {
-        const previousMessages = document.getElementById('messages')
-        const recentMessage = document.createElement('li')
-        const message_data = JSON.parse(event.data).content;
-        const message_text = JSON.parse(message_data).content;
-        const content = document.createTextNode(message_text)
-        recentMessage.appendChild(content)
-        previousMessages.appendChild(recentMessage)
-    });
+        console.log('received message');
 
+        //retrieves list of messages
+        const previousMessages = document.getElementById('messages');
+
+        //creates outer-most div and adds appropriate class to it
+        const recentMessage = document.createElement('div');
+        recentMessage.classList.add("message-container");
+
+        //Takes in message data and extracts out text and dates
+        const messageData = JSON.parse(event.data).content;
+        const messageText = JSON.parse(messageData).content;
+        const messageDate = JSON.parse(messageData).timestamp;
+        
+        // const content = document.createTextNode(messageText)
+        const textDiv = document.createElement("div");
+        const dateDiv = document.createElement("div");
+
+        //creates text nodes, appends them to corresponding divs and adds corresponding classes
+        const textTextContent = document.createTextNode(messageText);
+        const dateTextContent = document.createTextNode(messageDate); //NEED TO CHANGE THE FORMAT OF DATE
+        textDiv.append(textTextContent);
+        dateDiv.append(dateTextContent);
+        textDiv.classList.add("message-text");
+        dateDiv.classList.add("message-timestamp");
+
+        //appends text and date divs to message-container
+        recentMessage.appendChild(textDiv);
+        recentMessage.appendChild(dateDiv);
+
+        // recentMessage.appendChild(messageText);
+        previousMessages.appendChild(recentMessage);
+
+        updateScroll();
+    });
+    
     ws.addEventListener('close', () => {
         console.log('Websocket closed')
     });
@@ -47,13 +74,17 @@ export default function Chat(props) {
     //         setFormSubmitted('false');
     // }, [selectedConversation, formSubmitted]);
 
+    useEffect(() => {
+        updateScroll();
+    })
+
     const handleSubmission = (e) => {
         e.preventDefault();
         // setUsersLastMessage(message_content);
         const message = document.querySelector("#chat-input");
         const input = {
-            sender: 1,
-            recipient: 2,
+            sender: 2,
+            recipient: 1,
             timestamp: Date.now(),
             content: message.value,
             read: false,
@@ -61,34 +92,41 @@ export default function Chat(props) {
         }
 
         ws.send(JSON.stringify(input));
+        updateScroll();
         // setCurrentMessage('');
         // setFormSubmitted('true');
     }
 
+    //Keeps chat scrolled at the bottom
+    const updateScroll = () => {
+        const element = document.querySelector("#messages-container");
+        element.scrollTop = element.scrollHeight;
+    }
+
     return(
-        <div>
-            <ul id='messages'>
-                {messages.map(message => {
-                    return <Message
-                        key={message.id}
-                        message={message}
-                    />
-                })}
-            </ul>
-            <form 
-                className="m-5" 
-                onSubmit={e => handleSubmission(e)}
-            >
+        <div id="messages-form-container">
+            <div id="messages-container">
+                <ul id="messages">
+                    {messages.map(message => {
+                        return <Message
+                            key={message.id}
+                            message={message}
+                        />
+                    })}
+                </ul>
+            </div>
+            <form onSubmit={e => handleSubmission(e)} id="form-container">
                 <input
-                    id="chat-input" 
-                    type="text" 
-                    required 
-                    // onChange={e => setCurrentMessage(e.target.value)}
-                    // value={currentMessage}
+                    id="chat-input"
+                    type="text"
+                    placeholder="Message..."
+                    autoComplete="off"
+                    required
                 />
-                <button className='p-1'>Submit</button>
+                <div id="button-container">
+                    <button type="submit" className="btn btn-success" id="btn">Send</button>
+                </div>
             </form>
-            
         </div>
         
     )

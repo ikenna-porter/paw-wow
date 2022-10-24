@@ -4,16 +4,32 @@
     padding: 0;
 }
 
+.outer-messaging-container {
+    width: 100vw;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(250, 250, 250, 1);
+}
+
+/* Change in the future so that smaller screens have messaging-container class occupy all of its parents width/height */
 .messaging-container {
     display: flex;
+    width: 70%;
+    height: 95%;
+    border: solid gray 1px;
+    border-radius: 5px;
+    background-color: white;
 }
 
 .conversations-container {
     display: flex;
-    width: 25vw;
-    height: 100vh;
+    min-width: 33%;
+    min-height: 100%;
     flex-direction: column;
-    border: solid black 2px;
+    border-right: solid gray 1px;
+    overflow: scroll;
 }
 
 .conversations-list {
@@ -33,7 +49,7 @@
 }
 
 .conversation-card:hover {
-    background-color: rgb(221, 221, 221);
+    background-color: rgba(239, 239, 239, 1);
 }
 
 .conversation-card-image-container {
@@ -61,6 +77,8 @@
 
 .chat-container {
     display: flex;
+    min-width: 67%;
+    min-height: 100%;
 }
 
 /* "no-chat-container" falls under chat-container */
@@ -75,12 +93,92 @@
 #no-chat-image {
     display: block;
     margin: auto;
-    max-width: 45%;
+    max-width: 30%;
+
 }
 
 #no-chat-text {
-    font-size: 3rem;
+    font-size: 2vw;
     font-weight: bold;
     color: rgba(142, 121, 115, 1);
     text-align: center;
+}
+
+#messages {
+    padding: 0 10px;
+}
+
+#messages-header-container {
+    border-bottom: solid gray 1px;
+}
+
+#messages-header-container > h4 {
+    font-size: 20px;
+    font-weight: 400;
+    margin: 5px 25px;
+}
+
+#messages-form-container {
+    width: 100%;
+    height: 100%;
+}
+
+#messages-container {
+    width: 100%;
+    height: 94%;
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+}
+
+#form-container {
+    width: 100%;
+    height: 6%;
+    border-top: solid gray 1px;
+    display: flex;
+    justify-content: space-between;
+    /* pushes form to bottom: */
+    margin-top: auto; 
+}
+
+input {
+    width: 85%;
+    padding: 10px;
+    border: none;
+    outline: none;
+}
+
+#button-container {
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#btn {
+    background-color: rgb(172, 219, 193);
+    color: black;
+    width: 85%;
+    border: none;
+}
+
+#btn:hover,
+#btn:focus {
+  background-color: rgb(151, 194, 170);
+}
+
+.message-container {
+    padding: 15px;
+    margin: 15px;
+    background: rgb(172, 219, 193);
+    border-radius: 5px;
+}
+
+.message-text {
+    color: black;
+}
+
+.message-timestamp {
+    font-size: 12px;
+    color: rgb(130, 129, 129);
 }
