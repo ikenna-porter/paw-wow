@@ -16,13 +16,15 @@ class FriendshipOut(BaseModel):
 
 class FriendListOut(BaseModel):
     dog_name: str
+    city: str
+    state: str
     user_one: int
-    user_two: int
-    status: int
-    id: int
 
 class FriendsOut(BaseModel):
     dog_name: str
+    city: str
+    state: str
+
 
 
 class FriendshipRepository:
@@ -47,13 +49,13 @@ class FriendshipRepository:
                 incoming_data = friendship.dict()
                 return FriendshipOut(id=id, **incoming_data)
 
-    def get_friend_list(self, id) -> List:
+    def get_friend_list(self, id) -> List[FriendsOut]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        SELECT profiles.id, profiles.dog_name, friendships.user_one, friendships.user_two, friendships.status
+                        SELECT profiles.id, profiles.dog_name, profiles.city, profiles.state, friendships.user_one, friendships.user_two, friendships.status
                         FROM profiles
                         INNER JOIN friendships ON profiles.id=friendships.user_one OR profiles.id=friendships.user_two
                         WHERE status=1
@@ -63,10 +65,12 @@ class FriendshipRepository:
                         """,
                         {"user_one": id}
                     )
-                    result = []
-                    for record in db:
-                        result.append(record[1])
-                    print(result)
+                    result = [FriendsOut(
+                        dog_name = record[1],
+                        city = record[2],
+                        state = record[3]
+                    )
+                    for record in db]
                     return result
         except Exception as e:
             print(e)
@@ -78,7 +82,7 @@ class FriendshipRepository:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        SELECT profiles.dog_name, friendships.user_one, friendships.user_two, friendships.status, friendships.id 
+                        SELECT profiles.dog_name, profiles.city, profiles.state, friendships.user_one
                         FROM profiles
                         INNER JOIN friendships ON profiles.id=friendships.user_one
                         WHERE user_two = %s
@@ -88,10 +92,9 @@ class FriendshipRepository:
                     )
                     return_list = [FriendListOut(
                         dog_name = record[0],
-                        user_one = record[1],
-                        user_two = record[2],
-                        status= record[3],
-                        id = record[4]
+                        city = record[1],
+                        state = record[2],
+                        user_one = record[3]
                     )
                     for record in db]
                     print("TESTING", return_list)
@@ -100,7 +103,7 @@ class FriendshipRepository:
             print(e)
             return {"Message": "You have no pending requests"}
 
-    def approve_request(self, id):
+    def approve_request(self, user_one):
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -108,9 +111,9 @@ class FriendshipRepository:
                         """
                         UPDATE friendships
                         SET status = 1
-                        WHERE id = %s
+                        WHERE user_one = %s
                         """,
-                        [id]
+                        [user_one]
                     )
                     if result:
                         return True
@@ -119,16 +122,16 @@ class FriendshipRepository:
             print(e)
             return {"Message": "This request does not exist."}
 
-    def deny_request(self, id):
+    def deny_request(self, user_one):
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     result = db.execute(
                         """
                         DELETE FROM friendships
-                        WHERE id = %s;
+                        WHERE user_one = %s;
                         """,
-                        [id]
+                        [user_one]
                         # """
                         # DELETE FROM friendships
                         # WHERE user_one = %s

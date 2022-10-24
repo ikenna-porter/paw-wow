@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import Vaccinations from './Vaccinations';
 import Characteristics from './Characteristics';
 import CharsModal from './CharacteristicsModal';
 import Button from 'react-bootstrap/Button';
 import EditProfileModal from './EditProfileModal';
 import ProfilePicModal from './ProfilePicModal';
-import ListFriends from '../Friendship/FriendList';
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 export default function Profile(props) {
     const [ hasChars, setHasChars ] = useState(false);
@@ -157,107 +157,107 @@ export default function Profile(props) {
     }
 
 
-    return(
-        <div className="dog-profile py-4">
-            <div className="container">
-                <div className="row">
-                <div className="col-lg-4">
-                    <div className='container p-3'>
-                            {
-                                profile.id != profileId
-                                ?
-                                <Button size='md' onClick={handleAdd} value={profile.id}> ADD ME </Button>
-                                :
-                                <Button size='md'> Friends List </Button>
-                            }
-                    </div>
-                    <div className="card shadow-sm">
-                    <div className="card-header bg-transparent text-center">
-                        <ProfilePicModal
-                            hasPic={hasPic}
-                            handleClose={handleClosePic}
-                            show={showPic}
-                            getProfilePic={getProfilePic}
-                        />
-                        <img
-                            className="dog_img" 
-                            src={profilePic}
-                            alt='Standard Dog Image'
-                        />
-                        <h2>{profile.dog_name}</h2>
-                        { hasPic
-                            ? <div>
-                                <Button className="btn btn-info btn-sm" onClick={handleShowPic}>
-                                    Edit Profile Picture for {profile.dog_name}
-                                </Button> 
-                            </div>
-                            : <Button className="btn btn-info btn-sm" onClick={handleShowPic}>
-                                Add Profile Picture for {profile.dog_name}
-                            </Button>
-                        }
-                    </div>
-                    <div className="card-header bg-transparent card-body">
-                        <h5>{profile.dog_name}'s Bio</h5>
-                        <p className="mb-0"><strong className="pr-1">I am a: </strong>{dogDetails.size} {dogDetails.breed}</p>
-                        <p className="mb-0"><strong className="pr-1">My gender: </strong>{dogDetails.gender}</p>
-                        <p className="mb-0"><strong className="pr-1">My age: </strong>{calculateAge(dogDetails.DOB)}</p>
-                        { dogDetails.fixed
-                            ? <p className="mb-0"><strong className="pr-1">I am fixed</strong></p>
-                            : <p className="mb-0"><strong className="pr-1">I am not fixed</strong></p>
-                        }
-                        <p className="mb-0"><strong className="pr-1">More about me: </strong>{dogDetails.dog_bio}</p>
-                    </div>  
-                    <div className="card-body">
-                        <h5 className="card-title">Characteristics</h5> 
-                        { hasChars
-                            ? <div>
-                                <Characteristics chars={chars} />
-                                <Button className="btn btn-info btn-sm" onClick={handleShowChars}>
-                                    Edit Characteristics for {profile.dog_name}
-                                </Button> 
-                            </div>
-                            : <Button className="btn btn-info btn-sm" onClick={handleShowChars}>
-                                Add more information for {profile.dog_name}
-                            </Button>
-                        }    
-                    </div>
-                </div>    
-                    <CharsModal
-                        show={showChars} 
-                        handleClose={handleCloseChars} 
-                        dogName={profile.dog_name}
-                        chars={chars}
-                        dogDetails={dogDetails}
-                        getChars={getChars}
-                        hasChars={hasChars}
-                    />
-                    <EditProfileModal
-                        show={showProfile}
-                        handleClose={handleCloseProf}
-                        dogName={profile.dog_name}
-                        getProfile={getProfile}
-                        profile={profile}
-                        username={username}
-                    />
-                    <div className="card">   
-                        <div className="card-body">
-                            <h5>{profile.owner_name}'s Bio</h5>
-                            <Button className="btn btn-info btn-sm mb-2" onClick={handleShowProf}>
-                                Edit Profile
-                            </Button>
-                            <p className="mb-0"><strong className="pr-1">My human is: </strong>{profile.owner_name}</p>
-                            <p className="mb-0"><strong className="pr-1">{profile.owner_name} and I live in: </strong>{profile.city}, {profile.state}</p>
-                            <p className="mb-0"><strong className="pr-1">More about my human: </strong>{profile.owner_description}</p>
-                        </div>
-                    </div>
-                    <div>
-                        <div className="col-lg-8">
-                                <Vaccinations dogName ={profile.dog_name} />
-                        </div>
-                    </div>    
-                </div>      
-                </div>
+  return(
+    <div className="container">
+      <div className="dog-profile py-4">
+        <div className="profile-div row">
+          <div className="col-lg-4">
+            <div className='container p-3'>
+              {
+                  profile.id != profileId
+                  ?
+                  <Button size='md' onClick={handleAdd} value={profile.id}> ADD ME </Button>
+                  :
+                  <Link to='/profile/friends'><Button size='md'> Friends List </Button> </Link>
+              }
             </div>
+            <div className="card shadow-sm">
+              <div className="card-header bg-transparent text-center">
+                <ProfilePicModal
+                    hasPic={hasPic}
+                    handleClose={handleClosePic}
+                    show={showPic}
+                    getProfilePic={getProfilePic}
+                />
+                <img
+                    className="dog_img" 
+                    src={profilePic}
+                    alt='Standard Dog Image'
+                />
+                <h2>{profile.dog_name}</h2>
+                { hasPic
+                    ? <div>
+                        <Button className="btn btn-info btn-sm" onClick={handleShowPic}>
+                            Edit Profile Picture for {profile.dog_name}
+                        </Button> 
+                    </div>
+                    : <Button className="btn btn-info btn-sm" onClick={handleShowPic}>
+                        Add Profile Picture for {profile.dog_name}
+                    </Button>
+                }
+              </div>
+              <div className="card-header bg-transparent card-body">
+                <h5>{profile.dog_name}'s Bio</h5>
+                <p className="mb-0"><strong className="pr-1">I am a: </strong>{dogDetails.size} {dogDetails.breed}</p>
+                <p className="mb-0"><strong className="pr-1">My gender: </strong>{dogDetails.gender}</p>
+                <p className="mb-0"><strong className="pr-1">My age: </strong>{calculateAge(dogDetails.DOB)}</p>
+                { dogDetails.fixed
+                    ? <p className="mb-0"><strong className="pr-1">I am fixed</strong></p>
+                    : <p className="mb-0"><strong className="pr-1">I am not fixed</strong></p>
+                }
+                <p className="mb-0"><strong className="pr-1">More about me: </strong>{dogDetails.dog_bio}</p>
+              </div>  
+              <div className="card-body">
+                <h5 className="card-title">Characteristics</h5> 
+                { hasChars
+                    ? <div>
+                        <Characteristics chars={chars} />
+                        <Button className="btn btn-info btn-sm" onClick={handleShowChars}>
+                            Edit Characteristics for {profile.dog_name}
+                        </Button> 
+                    </div>
+                    : <Button className="btn btn-info btn-sm" onClick={handleShowChars}>
+                        Add more information for {profile.dog_name}
+                    </Button>
+                }    
+              </div>
+            </div>    
+              <CharsModal
+                  show={showChars} 
+                  handleClose={handleCloseChars} 
+                  dogName={profile.dog_name}
+                  chars={chars}
+                  dogDetails={dogDetails}
+                  getChars={getChars}
+                  hasChars={hasChars}
+              />
+              <EditProfileModal
+                  show={showProfile}
+                  handleClose={handleCloseProf}
+                  dogName={profile.dog_name}
+                  getProfile={getProfile}
+                  profile={profile}
+                  username={username}
+              />
+                <div className="card">   
+                  <div className="card-body">
+                    <h5>{profile.owner_name}'s Bio</h5>
+                    <Button className="btn btn-info btn-sm mb-2" onClick={handleShowProf}>
+                        Edit Profile
+                    </Button>
+                    <p className="mb-0"><strong className="pr-1">My human is: </strong>{profile.owner_name}</p>
+                    <p className="mb-0"><strong className="pr-1">{profile.owner_name} and I live in: </strong>{profile.city}, {profile.state}</p>
+                    <p className="mb-0"><strong className="pr-1">More about my human: </strong>{profile.owner_description}</p>
+                  </div>
+                </div>
+                <div>
+                  <div className="col-lg-8">
+                    <Vaccinations dogName ={profile.dog_name} />
+                  </div>
+              </div>    
+            </div>      
+          </div>
         </div>
-    )
+      </div>
+  )
 }

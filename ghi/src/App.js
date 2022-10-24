@@ -49,7 +49,6 @@ export default function App() {
           <Route path='friends' element={<ListFriends />} />
           <Route path="pending" element={<PendingList />} />
         </Route>
-        <Route path="messaging" element={<MessagingTest />}/>
       </Routes>
     </BrowserRouter>
   )
