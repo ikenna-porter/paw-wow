@@ -17,6 +17,8 @@ export default function Vaccinations(props) {
     });
 
     async function getVaccines() {
+        console.log("this function is getting called")
+        console.log("profile id", profileId)
         const response = await fetch(
             `http://localhost:8100/api/vaccinations/${profileId}`,
             {credentials: 'include'}
@@ -33,6 +35,7 @@ export default function Vaccinations(props) {
     } 
 
     useEffect(() => {
+        console.log("we are here")
         getVaccines();
     }, []);
 
