@@ -28,7 +28,6 @@ export default function MessagingTest(props) {
             if (response.ok) {
                 const data = await response.json()
                 setMessages(data)
-                console.log(messages);
             }
 
             // ws.addEventListener('open', (e) => {
