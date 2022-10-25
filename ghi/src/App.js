@@ -17,10 +17,6 @@ import SearchBar from './SearchBar/SearchBar'
 import OtherProfile from './OtherProfile/OtherProfile'
 
 export default function App() {
-<<<<<<< HEAD
-
-=======
->>>>>>> 18fff13aadd17f74c1c1dd2cd21d721b974f8f7e
     const [resize, setResize] = useState(false)
   
     return (
