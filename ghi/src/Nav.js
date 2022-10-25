@@ -35,6 +35,8 @@ const Nav = (props) => {
         <CDBSidebarMenu>
           <NavLink to="/profile" >
             <CDBSidebarMenuItem className={"pb-2"} icon="user">Profile</CDBSidebarMenuItem>
+            </NavLink>
+            <NavLink to="messages">
             <CDBSidebarMenuItem className={"pb-2"} icon="fa fa-comments">
               Messages
             </CDBSidebarMenuItem>
