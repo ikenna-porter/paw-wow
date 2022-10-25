@@ -100,7 +100,7 @@ export default function OtherProfile() {
             <div className='container p-3'>
             </div>
             <div className="pb-3">
-            <Button className="btn btn-info btn-sm" value={profile.id} onClick={handleAdd}>
+                <Button className="btn btn-info btn-sm" value={profile.id} onClick={handleAdd}>
                     Add {profile.dog_name}
                 </Button>
             </div>

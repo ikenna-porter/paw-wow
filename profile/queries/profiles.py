@@ -20,12 +20,12 @@ class CompleteProfile(BaseModel):
     city: str
     state: str
     owner_name: str
-    img: str
-    DOB: date
-    fixed: bool
-    size: str
-    gender: str 
-    dog_bio: str
+    img: str | None
+    DOB: date | None
+    fixed: bool | None
+    size: str | None
+    gender: str | None
+    dog_bio: str | None
 
 
 class ProfileOut(BaseModel):

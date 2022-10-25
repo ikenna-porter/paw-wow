@@ -1,7 +1,3 @@
-import { useState, useEffect } from 'react';
-import CharsModal from './CharacteristicsModal';
-import Button from 'react-bootstrap/Button';
-
 export default function Characteristics(props) {
     const rateForEnergy = {
         1: "I am a couch potato",

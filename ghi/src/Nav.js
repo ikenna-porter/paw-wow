@@ -33,22 +33,22 @@ const Nav = (props) => {
       </CDBSidebarHeader>
       <CDBSidebarContent className="sidebar-content">
         <CDBSidebarMenu>
-          <NavLink exact to="/profile" >
+          <NavLink to="/profile" >
             <CDBSidebarMenuItem className={"pb-2"} icon="user">Profile</CDBSidebarMenuItem>
             <CDBSidebarMenuItem className={"pb-2"} icon="fa fa-comments">
               Messages
             </CDBSidebarMenuItem>
           </NavLink>  
-          <NavLink exact to="profile/friends">
+          <NavLink to="profile/friends">
             <CDBSidebarMenuItem className={"pb-2"} icon="dog">Friends</CDBSidebarMenuItem>
           </NavLink>
-          <NavLink exact to="search">
+          <NavLink to="search">
             <CDBSidebarMenuItem className={"pb-2"} icon="search">Search</CDBSidebarMenuItem>
           </NavLink>
         </CDBSidebarMenu>
       </CDBSidebarContent>
       <CDBSidebarFooter style={{ textAlign: 'center' }}>
-        <NavLink exact to="/">
+        <NavLink to="/">
           <CDBSidebarMenuItem  className="footer pb-1 pt-1" icon="fa fa-arrow-left">Logout</CDBSidebarMenuItem>
         </NavLink>
       </CDBSidebarFooter>
