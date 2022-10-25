@@ -76,7 +76,7 @@ return(
         }
     </div>
     <div>
-    <Button variant='outline-primary' href='http://localhost:3000/profile/pending'> Pending Requests </Button>
+    <Button className="btn-light close-btn" href='http://localhost:3000/profile/pending'> Pending Requests </Button>
     </div>
     </div>
 );

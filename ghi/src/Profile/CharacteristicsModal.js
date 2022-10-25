@@ -186,10 +186,10 @@ export default function CharsModal(props) {
                             })}
                     </div>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
+                        <Button className="btn-light close-btn" onClick={handleClose}>
                             Close
                         </Button>
-                        <Button variant="info" type="submit" onClick={handleClose}>
+                        <Button className="btn-light form-btn" type="submit" onClick={handleClose}>
                             Save Changes
                         </Button>
                     </Modal.Footer> 

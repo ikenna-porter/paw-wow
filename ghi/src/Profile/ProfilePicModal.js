@@ -6,7 +6,6 @@ export default function ProfilePicModal(props) {
     const show = props.show;
     const handleClose = props.handleClose;
     const [ image, setImage ] = useState(null);
-    const [ imagePath, setImagePath ] = useState('');
     const profileId = localStorage.getItem('profileId')
 
     const sendProfilePic = async (profileId, dataURI) => {
@@ -23,7 +22,7 @@ export default function ProfilePicModal(props) {
             }
             const putResponse = await fetch(url, putFetchConfig);
             if (putResponse.ok) {
-                props.getProfilePic();
+                props.getProfilePic(profileId);
             }
         } else {
             const postFetchConfig = {
@@ -78,20 +77,18 @@ export default function ProfilePicModal(props) {
             <Modal.Body>
                 <form onSubmit={handleSubmit}>
                     <input
-                        value={imagePath}
                         className="form-control" 
                         type="file" 
                         id="formFile"
                         onChange={e => {
-                            setImagePath(e.target.value);
                             setImage(e.target.files[0]);
                         }}
                     />
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={handleClose}>
+                        <Button className="btn-light close-btn" onClick={handleClose}>
                             Close
                         </Button>
-                        <Button variant="primary" type="submit" onClick={handleClose}>
+                        <Button className="btn-light form-btn" type="submit" onClick={handleClose}>
                             Save Changes
                         </Button>
                     </Modal.Footer>        
