@@ -4,11 +4,8 @@ import Notification from './Images/Notification.svg'
 import Messages from "./Images/Messages.svg"
 import dogMessage from "./Images/dogMessage.svg"
 import paw from "./Images/paw.svg"
-// import Notifications from "react-notifications-menu";
 import Logout from './Authenticate/Logout';
-// import MagicBell, { FloatingNotificationInbox } from '@magicbell/magicbell-react';
 
-// Jason's Magic Sidebar!
 import {CDBSidebar,
   CDBSidebarContent,
   CDBSidebarFooter,
