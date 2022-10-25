@@ -106,6 +106,20 @@ export default function Profile() {
         }
     }
 
+    async function getOtherProfile(user) {
+        const profileResponse = await fetch(
+            `http://localhost:8100/api/profiles/${user}`,
+            {credentials: 'include'}
+        )
+        if (profileResponse.ok) {
+            const data = await profileResponse.json();
+            setProfile({...data});
+            localStorage.setItem('profileId', `${data.id}`)
+            getChars(profileId);
+            getProfilePic(profileId);
+        }
+    }
+
     async function getProfilePic(profileId) {
         const url = `http://localhost:8100/api/profile-pic/${profileId}`;
         const response = await fetch(url, {credentials: 'include'});
@@ -131,7 +145,7 @@ export default function Profile() {
             body:JSON.stringify( {
                 'status': 0,
                 'user_one': Number(id),
-                'user_two': 4
+                'user_two': Number(profileId)
             })
         };
         const reqResponse = await fetch(requestUrl, fetchConfig);
