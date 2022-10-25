@@ -17,9 +17,13 @@ import SearchBar from './SearchBar/SearchBar'
 import OtherProfile from './OtherProfile/OtherProfile'
 
 export default function App() {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 18fff13aadd17f74c1c1dd2cd21d721b974f8f7e
     const [resize, setResize] = useState(false)
-  return (
+  
+    return (
     <BrowserRouter>
     <div id="static">
       <Nav resize={resize} setResize={setResize}/>
@@ -28,7 +32,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<AuthenticateUser />} />
         <Route path="create-profile" element={<CreateProfile />} />
-        <Route path="messaging" element={<MessagingTest />} />
+        <Route path="messages" element={<MessagingTest />} />
         <Route  path="profile">
           <Route index element={<Profile />} />
           <Route path="edit-profile" element={<EditProfileModal />} />
