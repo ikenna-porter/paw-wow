@@ -74,8 +74,8 @@ export default function OtherProfile() {
             },
             body:JSON.stringify( {
                 'status': 0,
-                'user_one': Number(id),
-                'user_two': Number(profileId)
+                'user_one': Number(profileId),
+                'user_two': Number(id)
             })
         };
         const reqResponse = await fetch(requestUrl, fetchConfig);
@@ -100,7 +100,7 @@ export default function OtherProfile() {
             <div className='container p-3'>
             </div>
             <div className="pb-3">
-            <Button className="btn btn-info btn-sm" onClick={handleAdd}>
+            <Button className="btn btn-info btn-sm" value={profile.id} onClick={handleAdd}>
                     Add {profile.dog_name}
                 </Button>
             </div>
