@@ -27,6 +27,23 @@ export default function ListFriends(props) {
             navigate(`/profile/${e.target.value}`)
         }
 
+        const handleDelete = async (e) => {
+            const user_one = e.target.value;
+            const pendingUrl = `http://localhost:8100/api/friendships/${user_one}/pending`;
+            const fetchConfig = {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+            const pendingResponse = await fetch(pendingUrl, fetchConfig);
+            if (pendingResponse.ok) {
+                setFriends(
+                    friends.filter(friend => friend.id != user_one)
+                )
+            }
+        }
+
 return(
     <div className='container pt-5'>
     <h2>Your Paw Pals</h2>
@@ -41,7 +58,7 @@ return(
                                 <h4>{friend.dog_name}</h4>
                                 <img className='profile-pic' src={friend.image}/>
                                 <p>{friend.city}, {friend.state}</p>
-                                <Button value={friend.id} onClick={handleView}>View Profile</Button>
+                                <Button value={friend.id} onClick={handleView}>View Profile</Button> <Button value={friend.id} onClick={handleDelete}>Remove Friend</Button>
                             </div>
                         </div>
                     </div>
