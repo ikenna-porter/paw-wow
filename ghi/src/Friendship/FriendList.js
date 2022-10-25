@@ -1,10 +1,12 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
+import { useNavigate } from 'react-router-dom';
 
 export default function ListFriends(props) {
     const [friends, setFriends] = useState([]);
     const id = localStorage.getItem('profileId')
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function getFriendList() {
@@ -20,6 +22,10 @@ export default function ListFriends(props) {
             } getFriendList()
         }, [setFriends, id])
 
+        const handleView = (e) => {
+            e.preventDefault();
+            navigate(`/profile/${e.target.value}`)
+        }
 
 return(
     <div className='container pt-5'>
@@ -35,6 +41,7 @@ return(
                                 <h4>{friend.dog_name}</h4>
                                 <img className='profile-pic' src={friend.image}/>
                                 <p>{friend.city}, {friend.state}</p>
+                                <Button value={friend.id} onClick={handleView}>View Profile</Button>
                             </div>
                         </div>
                     </div>

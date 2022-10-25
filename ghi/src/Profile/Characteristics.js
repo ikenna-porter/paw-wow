@@ -1,7 +1,7 @@
 export default function Characteristics(props) {
     const rateForEnergy = {
         1: "I am a couch potato",
-        2: "I am pretry chill",
+        2: "I am pretty chill",
         3: "I can go for some play",
         4: "I love to run and play",
         5: "I have infinite energy!"

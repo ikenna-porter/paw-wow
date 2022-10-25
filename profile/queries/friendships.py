@@ -26,6 +26,7 @@ class FriendsOut(BaseModel):
     dog_name: str
     city: str
     state: str
+    id: int
 
 
 
@@ -58,7 +59,7 @@ class FriendshipRepository:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        SELECT profile_pictures.image, profiles.dog_name, profiles.city, profiles.state, friendships.user_one, friendships.user_two, friendships.status
+                        SELECT profile_pictures.image, profiles.dog_name, profiles.city, profiles.state, profiles.id
                         FROM profiles
                         LEFT JOIN profile_pictures ON profiles.id=profile_pictures.profile_id
                         INNER JOIN friendships ON profiles.id=friendships.user_one OR profiles.id=friendships.user_two
@@ -73,7 +74,8 @@ class FriendshipRepository:
                         image = record[0],
                         dog_name = record[1],
                         city = record[2],
-                        state = record[3]
+                        state = record[3],
+                        id = record[4]
                     )
                     for record in db]
                     return result
