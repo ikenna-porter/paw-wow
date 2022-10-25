@@ -3,6 +3,32 @@
     height: 40px;
 }
 
+.menuLogo{
+  width: 60%;
+  height: 60%;
+  justify-content:left;
+  position: inherit;
+}
+
+a:active {
+  text-decoration: none;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+.footer {
+  display: flex;
+  text-decoration: none;
+  color:rgb(241, 237, 237);
+  justify-content: left;
+}
+
 .icons {
     margin-left: 10px;
     display: flex;

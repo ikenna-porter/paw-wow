@@ -5,7 +5,7 @@ steps = [
         CREATE TABLE conversations (
             id SERIAL PRIMARY KEY NOT NULL,
             primary_user INTEGER REFERENCES profiles,
-            other_user INTEGER REFERENCES profiles,
+            other_user INTEGER REFERENCES profiles
         );
         """,
 

@@ -13,6 +13,7 @@ import CharsModal from './Profile/CharacteristicsModal'
 import EditProfileModal from './Profile/EditProfileModal'
 import ListFriends from './Friendship/FriendList'
 import PendingList from './Friendship/PendingList'
+import SearchBar from './SearchBar/SearchBar'
 
 export default function App() {
   //const client = new WebSocket('ws://localhost:8300/api/notifications');
@@ -29,9 +30,13 @@ export default function App() {
     //   }
     // },[client]);
 
+    const [resize, setResize] = useState(false)
   return (
     <BrowserRouter>
-      <Nav/>
+    <div id="static">
+      <Nav resize={resize} setResize={setResize}/>
+      </div>
+      <div id="content" style={{paddingLeft:resize ? "0px": "270px"}}>
       <Routes>
         <Route path="/" element={<AuthenticateUser />} />
         <Route path="create-profile" element={<CreateProfile />} />
@@ -48,7 +53,9 @@ export default function App() {
           <Route path='friends' element={<ListFriends />} />
           <Route path="pending" element={<PendingList />} />
         </Route>
+        <Route path="search" element={<SearchBar />} />
       </Routes>
+      </div>
     </BrowserRouter>
   )
         }
