@@ -12,7 +12,6 @@ import {CDBSidebar,
   CDBSidebarHeader,
   CDBSidebarMenu,
   CDBSidebarMenuItem,
-  CDBBadge,
 } from 'cdbreact';
 
 import { NavLink } from 'react-router-dom';
@@ -32,27 +31,25 @@ const Nav = (props) => {
           />
         </div>
       </CDBSidebarHeader>
-
       <CDBSidebarContent className="sidebar-content">
         <CDBSidebarMenu>
-          <NavLink exact to="/profile">
-            <CDBSidebarMenuItem icon="user">Profile</CDBSidebarMenuItem>
-            <CDBSidebarMenuItem icon="fa fa-comments" suffix={<CDBBadge></CDBBadge>}>
+          <NavLink exact to="/profile" >
+            <CDBSidebarMenuItem className={"pb-2"} icon="user">Profile</CDBSidebarMenuItem>
+            <CDBSidebarMenuItem className={"pb-2"} icon="fa fa-comments">
               Messages
             </CDBSidebarMenuItem>
           </NavLink>  
-          <NavLink exact to="profile/friends" className="activeClicked" >
-            <CDBSidebarMenuItem icon="dog" suffix={<CDBBadge color="success"></CDBBadge>}>Friends</CDBSidebarMenuItem>
+          <NavLink exact to="profile/friends">
+            <CDBSidebarMenuItem className={"pb-2"} icon="dog">Friends</CDBSidebarMenuItem>
           </NavLink>
-          <NavLink exact to="search" className="activeClicked" >
-            <CDBSidebarMenuItem icon="" suffix={<CDBBadge color="success"></CDBBadge>}>Search</CDBSidebarMenuItem>
+          <NavLink exact to="search">
+            <CDBSidebarMenuItem className={"pb-2"} icon="search">Search</CDBSidebarMenuItem>
           </NavLink>
         </CDBSidebarMenu>
       </CDBSidebarContent>
-
       <CDBSidebarFooter style={{ textAlign: 'center' }}>
-        <NavLink exact to="/" className="activeClicked">
-          <CDBSidebarMenuItem className="footer" icon="fa fa-arrow-left">Logout</CDBSidebarMenuItem>
+        <NavLink exact to="/">
+          <CDBSidebarMenuItem  className="footer pb-1 pt-1" icon="fa fa-arrow-left">Logout</CDBSidebarMenuItem>
         </NavLink>
       </CDBSidebarFooter>
     </CDBSidebar>
