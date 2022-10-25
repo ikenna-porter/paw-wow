@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+import { useNavigate } from "react-router-dom";
 
 export default function SearchBar() {
     const [ users, setUsers ] = useState([]);
     const [ filteredUsers, setFilteredUsers ] = useState([]);
+    const [ standardResults, setStandardResults ] = useState([]);
     const userCity = localStorage.getItem('userCity');
     const userState = localStorage.getItem('userState');
     const currentUser = localStorage.getItem('profileId');
-    console.log(currentUser)
-    console.log("users", users)
-    console.log("filtered users", filteredUsers)
+    const navigate = useNavigate();
 
     function calculateAge(DOB) {
         if (DOB) {
@@ -38,7 +38,8 @@ export default function SearchBar() {
                 const data = await response.json();
                 console.log(data)
                 setUsers(data.filter(user => user.profile_id !== currentUser));
-                setFilteredUsers(data.filter(user => user.city === userCity && user.state === userState && user.profile_id !== currentUser));
+                setStandardResults(data.filter(user => user.city === userCity && user.state === userState));
+                setFilteredUsers(data.filter(user => user.city === userCity && user.state === userState));
             }
         }
         if (users.length === 0) {
@@ -48,13 +49,24 @@ export default function SearchBar() {
 
     const handleSearch = (event) => {
         let searchInput = event.target.value
-        let filteredResults = []
-        users.forEach( user => {
-            if (user.dog_name.includes(searchInput)) {
-                filteredResults.push(user)
-            }
-        })
-        setFilteredUsers(filteredResults)
+        if (searchInput.length === 0) {
+            setFilteredUsers(standardResults)
+        } else {
+            let filteredResults = []
+            users.forEach( user => {
+                if (user.dog_name.includes(searchInput)) {
+                    filteredResults.push(user)
+                }
+            })
+            setFilteredUsers(filteredResults)
+        }
+    }
+
+    const handleConnect = (event) => {
+        event.preventDefault();
+
+        // localStorage.setItem('otherProfileId', `${event.target.value}`);
+        navigate(`/profile/${event.target.value}`)
     }
 
     if (filteredUsers.length === 0) {
@@ -108,7 +120,10 @@ export default function SearchBar() {
                                     <li className="list-group-item">Owner: {user.owner_name}</li>
                                     <li className="list-group-item">{user.city} {user.state}</li>
                                 </ul>
-                                <Link to="#" className="btn btn-primary">Connect</Link>
+                                {String(user.profile_id) !== currentUser
+                                    ? <Button onClick={handleConnect} value={user.profile_id} className="btn btn-info btn-sm">See more info</Button>
+                                    : null 
+                                }
                             </div>   
                         </div>      
                     )

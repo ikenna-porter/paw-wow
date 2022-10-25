@@ -120,28 +120,6 @@ export default function Profile() {
         }
     }
 
-    const handleAdd = async (e) => {
-        e.preventDefault();
-        const id = e.target.value;
-        console.log(e.target)
-        const requestUrl = `http://localhost:8100/api/friendships/${id}`;
-        const fetchConfig = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body:JSON.stringify( {
-                'status': 0,
-                'user_one': Number(id),
-                'user_two': Number(profileId)
-            })
-        };
-        const reqResponse = await fetch(requestUrl, fetchConfig);
-        if (reqResponse.ok) {
-            console.log(reqResponse);
-        }
-    }
-
     useEffect(() => {
         getProfile();
     }, [])
