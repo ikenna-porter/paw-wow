@@ -83,9 +83,9 @@ class ProfileRepository:
                             c.gender, 
                             c.dog_bio
                         FROM profiles AS p
-                        INNER JOIN characteristics AS c
+                        LEFT OUTER JOIN characteristics AS c
                         ON p.id = c.profile_id
-                        INNER JOIN profile_pictures AS pp
+                        LEFT OUTER JOIN profile_pictures AS pp
                         ON p.id = pp.profile_id
                         """
                     )

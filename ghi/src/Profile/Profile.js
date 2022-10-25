@@ -101,6 +101,8 @@ export default function Profile() {
             const data = await profileResponse.json();
             setProfile({...data});
             localStorage.setItem('profileId', `${data.id}`)
+            localStorage.setItem('userCity', data.city)
+            localStorage.setItem('userState', data.state)
             getChars(profileId);
             getProfilePic(profileId);
         }
