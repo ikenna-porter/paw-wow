@@ -22,7 +22,7 @@ export default function ListFriends(props) {
 
 
 return(
-    <div className='container my-5'>
+    <div className='container pt-5'>
     <h2>Your Paw Pals</h2>
     <div className='text-center'>
         {friends.map((friend, idx) => {

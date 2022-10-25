@@ -12,6 +12,16 @@ At least one ah-ha! moment that you had during your coding, however small
 
 ----
 - ---
+
+## October 24, 2022 
+
+Today I worked on:
+
+Creating a responsive navbar with bootstrap and cbdreact
+
+the past design was unresponsive so I was tasked with prettifying it
+
+
 ## October 14, 2022 
 
 Today I worked on:

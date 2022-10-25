@@ -3,6 +3,13 @@
     height: 40px;
 }
 
+.menuLogo{
+  width: 60%;
+  height: 60%;
+  justify-content:left;
+  position: inherit;
+}
+
 .icons {
     margin-left: 10px;
     display: flex;
