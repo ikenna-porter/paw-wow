@@ -51,19 +51,16 @@ const Nav = (props) => {
       </CDBSidebarContent>
 
       <CDBSidebarFooter style={{ textAlign: 'center' }}>
-        <div
-          style={{
-            padding: '20px 5px',
-          }}
-        >
-          Paw-Wow!
-        </div>
+      <NavLink exact to="/" activeClassName="activeClicked">
+            <CDBSidebarMenuItem className="footer" icon="fa fa-arrow-left">Logout</CDBSidebarMenuItem>
+          </NavLink>
       </CDBSidebarFooter>
     </CDBSidebar>
   </div>
   </div>
 );
 };
+
 
 export default Nav;
 
