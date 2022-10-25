@@ -16,22 +16,9 @@ import PendingList from './Friendship/PendingList'
 import SearchBar from './SearchBar/SearchBar'
 
 export default function App() {
-  //const client = new WebSocket('ws://localhost:8300/api/notifications');
-  
-    // useEffect(() =>{
-    //   client.onopen = () => {
-    //     console.log('WebSocket Client Connected');
-    //   };
-    //   client.onmessage = (message) => {
-    //     console.log(message);
-    //   }
-    //   client.onclose = () => {
-    //     console.log("cat")
-    //   }
-    // },[client]);
-
     const [resize, setResize] = useState(false)
-  return (
+  
+    return (
     <BrowserRouter>
     <div id="static">
       <Nav resize={resize} setResize={setResize}/>
@@ -40,7 +27,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<AuthenticateUser />} />
         <Route path="create-profile" element={<CreateProfile />} />
-        <Route path="messaging" element={<MessagingTest />} />
+        <Route path="messages" element={<MessagingTest />} />
         <Route  path="profile">
           <Route index element={<Profile />} />
           <Route path="edit-profile" element={<EditProfileModal />} />

@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from datetime import date
 from typing import Optional, List, Union
 from queries.pool import pool
 
@@ -12,6 +13,19 @@ class ProfileIn(BaseModel):
     state: str
     owner_name: Optional[str]
     owner_description: Optional[str]
+
+class CompleteProfile(BaseModel):
+    profile_id: int
+    dog_name: str
+    city: str
+    state: str
+    owner_name: str
+    img: str
+    DOB: date
+    fixed: bool
+    size: str
+    gender: str 
+    dog_bio: str
 
 
 class ProfileOut(BaseModel):
@@ -50,24 +64,43 @@ class ProfileRepository:
                 return ProfileOut(id=profile_id, account_id=account_data['id'], **old_data)
          
 
-    def get_all(self) -> Union[Error, List[ProfileOut]]:
+    def get_all(self) -> Union[Error, List[CompleteProfile]]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        SELECT *
-                        FROM profiles;
+                        SELECT 
+                            p.id, 
+                            p.dog_name, 
+                            p.city, 
+                            p.state, 
+                            p.owner_name, 
+                            pp.image, 
+                            c.dob, 
+                            c.fixed, 
+                            c.size, 
+                            c.gender, 
+                            c.dog_bio
+                        FROM profiles AS p
+                        LEFT OUTER JOIN characteristics AS c
+                        ON p.id = c.profile_id
+                        LEFT OUTER JOIN profile_pictures AS pp
+                        ON p.id = pp.profile_id
                         """
                     )
-                    return [ProfileOut(
-                        id = record[0],
+                    return [CompleteProfile(
+                        profile_id = record[0],
                         dog_name = record[1],
                         city = record[2],
                         state = record[3],
                         owner_name = record[4],
-                        owner_description = record[5],
-                        account_id = record[6]
+                        img = record[5],
+                        DOB = record[6],
+                        fixed = record[7],
+                        size = record[8],
+                        gender = record[9],
+                        dog_bio = record[10]
                     )
                     for record in db 
                     ]
