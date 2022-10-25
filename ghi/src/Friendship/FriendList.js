@@ -56,9 +56,15 @@ return(
                         <div className='card shadow-sm text-center'>
                             <div className='card-header bg-transparent text-center'>
                                 <h4>{friend.dog_name}</h4>
-                                <img className='profile-pic' src={friend.image}/>
+                                {
+                                    friend.image ?
+                                    <img className='profile-pic' src={friend.image}/>
+                                    :
+                                    <img className='profile-pic' src={require('../Images/dogoutline.jpg')}/>
+                                }
                                 <p>{friend.city}, {friend.state}</p>
-                                <Button value={friend.id} onClick={handleView}>View Profile</Button> <Button value={friend.id} onClick={handleDelete}>Remove Friend</Button>
+                                <Button value={friend.id} onClick={handleView}>View Profile</Button> 
+                                <Button value={friend.id} onClick={handleDelete}>Remove Friend</Button>
                             </div>
                         </div>
                     </div>

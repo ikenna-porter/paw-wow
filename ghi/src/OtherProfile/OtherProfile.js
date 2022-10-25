@@ -80,6 +80,14 @@ export default function OtherProfile() {
       } return false;
     }
 
+    function checkPending(otherProfileId) {
+      for (let friend of friends) {
+        if (String(friend.id) === otherProfileId) {
+          return true;
+        }
+      } return false;
+    }
+
     const handleAdd = async (e) => {
         e.preventDefault();
         const id = e.target.value;
@@ -118,7 +126,7 @@ export default function OtherProfile() {
             </div>
             <div className="pb-3">
               {
-                requested ?
+                checkPending ?
                 <Button className='disabled'>Pending</Button>
                 :
                 checkFriends(id) ?
@@ -131,11 +139,12 @@ export default function OtherProfile() {
             </div>
             <div className="card shadow-sm">
               <div className="card-header bg-transparent text-center">
-                <img
-                    className="dog_img" 
-                    src={profile.image}
-                    alt='Standard Dog Image'
-                />
+                {
+                  profile.image ?
+                  <img className="dog_img" src={profile.image} alt='Standard Dog Image'/>
+                  :
+                  <img className='profile-pic' src={require('../Images/dogoutline.jpg')}/>
+                }
                 <h2>{profile.dog_name}</h2>
               </div>
               <div className="card-header bg-transparent card-body">

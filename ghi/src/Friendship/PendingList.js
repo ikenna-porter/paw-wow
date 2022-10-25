@@ -76,7 +76,12 @@ function PendingList(props) {
               </div>
               <Button value={pending.user_one} onClick={handleConnect}>View Profile</Button>
               <div className='text-center p-2'>
-              <img className='profile-pic' src={pending.image}/>
+                {
+                  pending.image ?
+                  <img className='profile-pic' src={pending.image}/>
+                  :
+                  <img className='profile-pic' src={require('../Images/dogoutline.jpg')}/>
+                }
                 <div>
                 <p>{pending.city}, {pending.state}</p>
                 </div>
