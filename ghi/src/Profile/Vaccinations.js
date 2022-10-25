@@ -17,16 +17,12 @@ export default function Vaccinations(props) {
     });
 
     async function getVaccines() {
-        console.log("this function is getting called")
-        console.log("profile id", profileId)
         const response = await fetch(
             `http://localhost:8100/api/vaccinations/${profileId}`,
             {credentials: 'include'}
         )
-        console.log("vax response", response)
         if (response.ok) {
             const data = await response.json();
-            console.log("vax data", data)
             if (Object.keys(data).length > 1) {
                 setHasVaccines(true);
                 setVaccines(data);
@@ -35,9 +31,8 @@ export default function Vaccinations(props) {
     } 
 
     useEffect(() => {
-        console.log("we are here")
         getVaccines();
-    }, []);
+    }, [profileId]);
 
     return(
       <div className="card">
@@ -54,7 +49,7 @@ export default function Vaccinations(props) {
                 { hasVaccines
                     ?
                     <div>
-                        <Button className="btn btn-info btn-sm" onClick={handleShow}>
+                        <Button className="btn btn-light form-btn btn-sm" onClick={handleShow}>
                             Edit Vaccination Records for {props.dogName}
                         </Button>
                         <table className="table table-striped">
@@ -80,7 +75,7 @@ export default function Vaccinations(props) {
                     </div>
                     : 
                     <div>
-                        <Button className="btn btn-info btn-sm" onClick={handleShow}>
+                        <Button className="btn btn-light form-btn btn-sm" onClick={handleShow}>
                             Add Vaccination records for {props.dogName}
                         </Button>
                     </div>

@@ -45,7 +45,7 @@ export default function SearchBar() {
         if (users.length === 0) {
             getUsers();
         }
-    }, [])
+    }, [currentUser])
 
     const handleSearch = (event) => {
         let searchInput = event.target.value
@@ -64,8 +64,6 @@ export default function SearchBar() {
 
     const handleConnect = (event) => {
         event.preventDefault();
-
-        // localStorage.setItem('otherProfileId', `${event.target.value}`);
         navigate(`/profile/${event.target.value}`)
     }
 

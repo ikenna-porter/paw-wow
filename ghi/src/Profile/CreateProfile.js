@@ -53,8 +53,9 @@ export default function CreateProfile(props) {
                     <div className="mb-3">
                         <label htmlFor="dog name" className="form-label">Dog Name</label>
                         <input
-                            placeholder="Dog Name" 
-                            required type="text"  
+                            className="form-control"
+                            required 
+                            type="text"  
                             onChange={e => setDogName(e.target.value)} 
                             value={dogName}
                         />
@@ -62,8 +63,9 @@ export default function CreateProfile(props) {
                     <div className="mb-3">
                         <label htmlFor="city" className="form-label">City</label>
                         <input
-                            placeholder="City" 
-                            required type="text" 
+                            required 
+                            type="text" 
+                            className="form-control"
                             onChange={e => setCity(e.target.value)} 
                             value={city}
                         />
@@ -88,8 +90,9 @@ export default function CreateProfile(props) {
                     <div className="mb-3">
                         <label htmlFor="owner name" className="form-label">Owner Name</label>
                         <input
-                            placeholder="Owner Name" 
-                            required type="text"  
+                            required 
+                            type="text" 
+                            className="form-control" 
                             onChange={e => setOwnerName(e.target.value)} 
                             value={ownerName}
                         />
@@ -102,14 +105,15 @@ export default function CreateProfile(props) {
                             Owner Description
                         </label>
                         <textarea
-                        placeholder="About my owner"
                         required 
                         type="text"  
+                        className="form-control"
+                        rows="4"
                         onChange={e => setOwnerDescription(e.target.value)} 
                         value={ownerDescription}
                         />
                     </div>
-                    <button type="submit" className="btn btn-primary mb-2">Sign Up</button>
+                    <button type="submit" className="btn btn-light form-btn mb-2">Sign Up</button>
                 </form>
                 </div>
             </div>

@@ -41,7 +41,7 @@ return(
                                 <h4>{friend.dog_name}</h4>
                                 <img className='profile-pic' src={friend.image}/>
                                 <p>{friend.city}, {friend.state}</p>
-                                <Button value={friend.id} onClick={handleView}>View Profile</Button>
+                                <Button className="btn-light form-btn" value={friend.id} onClick={handleView}>View Profile</Button>
                             </div>
                         </div>
                     </div>
@@ -53,7 +53,7 @@ return(
         }
     </div>
     <div>
-    <Button variant='outline-primary' href='http://localhost:3000/profile/pending'> Pending Requests </Button>
+    <Button className="btn-light close-btn" href='http://localhost:3000/profile/pending'> Pending Requests </Button>
     </div>
     </div>
 );
