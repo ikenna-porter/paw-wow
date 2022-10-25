@@ -152,7 +152,6 @@ export default function Profile() {
         if (reqResponse.ok) {
             console.log(reqResponse);
         }
-        console.log("THE BUTTON WAS PRESSED")
     }
 
     useEffect(() => {
