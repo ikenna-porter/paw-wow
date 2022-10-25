@@ -60,7 +60,7 @@ return(
                                     friend.image ?
                                     <img className='profile-pic' src={friend.image}/>
                                     :
-                                    <img className='profile-pic' src={require('../Images/dogoutline.jpg')}/>
+                                    <img className='profile-pic' src={require('../Images/dogoutline.png')}/>
                                 }
                                 <p>{friend.city}, {friend.state}</p>
                                 <Button value={friend.id} onClick={handleView}>View Profile</Button> 

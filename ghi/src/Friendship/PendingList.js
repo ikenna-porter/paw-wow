@@ -80,7 +80,7 @@ function PendingList(props) {
                   pending.image ?
                   <img className='profile-pic' src={pending.image}/>
                   :
-                  <img className='profile-pic' src={require('../Images/dogoutline.jpg')}/>
+                  <img className='profile-pic' src={require('../Images/dogoutline.png')}/>
                 }
                 <div>
                 <p>{pending.city}, {pending.state}</p>
