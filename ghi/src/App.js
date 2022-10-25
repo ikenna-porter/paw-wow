@@ -14,8 +14,13 @@ import EditProfileModal from './Profile/EditProfileModal'
 import ListFriends from './Friendship/FriendList'
 import PendingList from './Friendship/PendingList'
 import SearchBar from './SearchBar/SearchBar'
+import OtherProfile from './OtherProfile/OtherProfile'
 
 export default function App() {
+<<<<<<< HEAD
+
+=======
+>>>>>>> 18fff13aadd17f74c1c1dd2cd21d721b974f8f7e
     const [resize, setResize] = useState(false)
   
     return (
@@ -39,8 +44,10 @@ export default function App() {
           <Route path="edit-characteristics" element={<CharsModal />} />
           <Route path='friends' element={<ListFriends />} />
           <Route path="pending" element={<PendingList />} />
+          <Route path=":id" element={<OtherProfile />} />
         </Route>
         <Route path="search" element={<SearchBar />} />
+
       </Routes>
       </div>
     </BrowserRouter>

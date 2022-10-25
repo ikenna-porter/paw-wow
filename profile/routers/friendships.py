@@ -15,6 +15,7 @@ def create_friendship(
     friendship: FriendshipIn,
     repo: FriendshipRepository = Depends()
 ):
+
     return repo.create(friendship)
 
 @router.get("/api/friendships/{id}", response_model = List[FriendsOut])
