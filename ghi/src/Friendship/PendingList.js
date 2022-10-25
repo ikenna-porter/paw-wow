@@ -2,11 +2,13 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import { useNavigate } from 'react-router-dom'
 
 function PendingList(props) {
   const [pending_friends, setPending] = useState([]);
   const [error, setError] = useState('');
   const user_two = localStorage.getItem('profileId')
+  const navigate = useNavigate();
 
   useEffect(() => {
       async function getPendingData() {
@@ -56,6 +58,11 @@ function PendingList(props) {
       }
   }
 
+  const handleConnect = (e) => {
+    e.preventDefault();
+    navigate(`/profile/${e.target.value}`)
+  }
+
   console.log('PENDING', pending_friends)
   return (
   <>
@@ -67,8 +74,14 @@ function PendingList(props) {
               <div className='card-header bg-transparent text-center'>
                 <h4>{pending.dog_name}<small className='text-muted'> wants to be your furiend!</small></h4>
               </div>
+              <Button value={pending.user_one} onClick={handleConnect}>View Profile</Button>
               <div className='text-center p-2'>
-              <img className='profile-pic' src={pending.image}/>
+                {
+                  pending.image ?
+                  <img className='profile-pic' src={pending.image}/>
+                  :
+                  <img className='profile-pic' src={require('../Images/dogoutline.jpg')}/>
+                }
                 <div>
                 <p>{pending.city}, {pending.state}</p>
                 </div>

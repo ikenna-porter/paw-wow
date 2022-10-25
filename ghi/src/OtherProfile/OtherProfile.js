@@ -3,9 +3,11 @@ import Button from 'react-bootstrap/Button';
 import { useParams } from 'react-router-dom';
 
 export default function OtherProfile() {
-    const [profile, setProfile] = useState({})
-    const profileId = localStorage.getItem('profileId')
-    const {id} = useParams()
+    const [profile, setProfile] = useState({});
+    const currentUser = localStorage.getItem('profileId');
+    const {id} = useParams();
+    const [ requested, setRequested ] = useState(false);
+    const [ friends, setFriends ] = useState([])
 
 
     function charEnergy(charE) {
@@ -59,8 +61,32 @@ export default function OtherProfile() {
                 setProfile(data);
                 };
         } getProfile()
+        async function getFriendship() {
+          const url = `http://localhost:8100/api/friendships/${currentUser}`;
+          const friendResponse = await fetch(url);
+          if(friendResponse.ok) {
+            const friendData = await friendResponse.json();
+            setFriends(friendData)
+          }
+        } getFriendship();
     }, [setProfile, id])
 
+
+    function checkFriends(otherProfileId) {
+      for (let friend of friends) {
+        if (String(friend.id) === otherProfileId) {
+          return true;
+        }
+      } return false;
+    }
+
+    function checkPending(otherProfileId) {
+      for (let friend of friends) {
+        if (String(friend.id) === otherProfileId) {
+          return true;
+        }
+      } return false;
+    }
 
     const handleAdd = async (e) => {
         e.preventDefault();
@@ -74,15 +100,14 @@ export default function OtherProfile() {
             },
             body:JSON.stringify( {
                 'status': 0,
-                'user_one': Number(profileId),
+                'user_one': Number(currentUser),
                 'user_two': Number(id)
             })
         };
         const reqResponse = await fetch(requestUrl, fetchConfig);
         if (reqResponse.ok) {
-            console.log(reqResponse);
+            setRequested(true);
         }
-        console.log("THE BUTTON WAS PRESSED")
     }
 
     if (!profile.dog_name) {
@@ -100,17 +125,26 @@ export default function OtherProfile() {
             <div className='container p-3'>
             </div>
             <div className="pb-3">
+              {
+                checkPending ?
+                <Button className='disabled'>Pending</Button>
+                :
+                checkFriends(id) ?
+                <Button className='disabled'>Friends</Button>
+                :
                 <Button className="btn btn-info btn-sm" value={profile.id} onClick={handleAdd}>
                     Add {profile.dog_name}
                 </Button>
+              }
             </div>
             <div className="card shadow-sm">
               <div className="card-header bg-transparent text-center">
-                <img
-                    className="dog_img" 
-                    src={profile.image}
-                    alt='Standard Dog Image'
-                />
+                {
+                  profile.image ?
+                  <img className="dog_img" src={profile.image} alt='Standard Dog Image'/>
+                  :
+                  <img className='profile-pic' src={require('../Images/dogoutline.jpg')}/>
+                }
                 <h2>{profile.dog_name}</h2>
               </div>
               <div className="card-header bg-transparent card-body">

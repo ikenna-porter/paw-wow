@@ -70,3 +70,8 @@ have a better understanding of FastAPI and I might ask an instructor for help bu
 also going to read the documentation tonight and I think that would help with integration.
 I also need to test the getOtherProfile function that I added to the front-end. The only issue I can think of is that function overriding anything on the app that has to do with your user but we don't have anything like that currently.
 
+# October 25, 2022
+
+Sorena helped me with being able to view other profiles today. The issue was different
+from how I understood it. Profiles are attached to usernames and we didn't want to be
+able to view another person's username so having the router go to the username didn't make sense. We ended up using profile IDs and making a new query and router for displaying other profiles. So we spent the morning working on the backend and most of the late morning/afternoon on the frontend portion of displaying another person's profile. We had to join 4 tables so writing out all the column names out multiple times was really fun.
