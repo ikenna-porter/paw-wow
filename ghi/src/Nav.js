@@ -45,13 +45,11 @@ const Nav = (props) => {
           <NavLink to="search">
             <CDBSidebarMenuItem className={"pb-2"} icon="search">Search</CDBSidebarMenuItem>
           </NavLink>
+          <NavLink to="/">
+          <CDBSidebarMenuItem   className={"pb-2"} icon="fa fa-arrow-left">Logout</CDBSidebarMenuItem>
+        </NavLink>
         </CDBSidebarMenu>
       </CDBSidebarContent>
-      <CDBSidebarFooter style={{ textAlign: 'center' }}>
-        <NavLink to="/">
-          <CDBSidebarMenuItem  className="footer pb-1 pt-1" icon="fa fa-arrow-left">Logout</CDBSidebarMenuItem>
-        </NavLink>
-      </CDBSidebarFooter>
     </CDBSidebar>
   </div>
   </div>
