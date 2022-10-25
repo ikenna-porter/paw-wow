@@ -38,15 +38,10 @@ client = TestClient(app)
 
 app.dependency_overrides[get_list_friends] = FriendshipRepository
 
-def test_get_all_friends():
+def test_get_all_friends_when_empty():
     # Act
-    response = client.get("/api/friendships/0")
+    response = client.get("/api/friendships/100")
 
     # Assert
     assert response.status_code == 200
-    assert response.json() == {
-    "city": "string",
-    "dog_name": "string",
-    "image": None,
-    "state": "KY"
-}
+    assert response.json() == []
