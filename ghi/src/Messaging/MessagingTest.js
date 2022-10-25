@@ -24,7 +24,7 @@ export default function MessagingTest(props) {
     useEffect(() => { 
 
         const fetchMessages = async () => {
-            const response = await fetch(`http://localhost:8200/api/messages/${selectedConversation}`)
+            const response = await fetch(`http://localhost:8100/api/messages/${selectedConversation}`)
             if (response.ok) {
                 const data = await response.json()
                 setMessages(data)
@@ -63,7 +63,7 @@ export default function MessagingTest(props) {
 
     useEffect(() => {
         const fetchConversations = async () => {
-            const response = await fetch('http://localhost:8200/api/conversations')
+            const response = await fetch('http://localhost:8100/api/conversations')
             if (response.ok) {
                 const data = await response.json()
                 setConversations(data)

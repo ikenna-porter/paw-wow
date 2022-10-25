@@ -19,8 +19,10 @@ class FriendListOut(BaseModel):
     city: str
     state: str
     user_one: int
+    image: str | None
 
 class FriendsOut(BaseModel):
+    image: str | None
     dog_name: str
     city: str
     state: str
@@ -55,8 +57,9 @@ class FriendshipRepository:
                 with conn.cursor() as db:
                     db.execute(
                         """
-                        SELECT profiles.id, profiles.dog_name, profiles.city, profiles.state, friendships.user_one, friendships.user_two, friendships.status
+                        SELECT profile_pictures.image, profiles.dog_name, profiles.city, profiles.state, friendships.user_one, friendships.user_two, friendships.status
                         FROM profiles
+                        LEFT JOIN profile_pictures ON profiles.id=profile_pictures.profile_id
                         INNER JOIN friendships ON profiles.id=friendships.user_one OR profiles.id=friendships.user_two
                         WHERE status=1
                         AND (user_one = %(user_one)s
@@ -66,6 +69,7 @@ class FriendshipRepository:
                         {"user_one": id}
                     )
                     result = [FriendsOut(
+                        image = record[0],
                         dog_name = record[1],
                         city = record[2],
                         state = record[3]
@@ -76,28 +80,31 @@ class FriendshipRepository:
             print(e)
             return {"Message": "You have no Paw Pals yet"}
 
-    def get_pending_requests(self, user_two) -> List[FriendshipOut]:
+    def get_pending_requests(self, user_two) -> List[FriendListOut]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
-                    db.execute(
+                    data_back = db.execute(
                         """
-                        SELECT profiles.dog_name, profiles.city, profiles.state, friendships.user_one
+                        SELECT profiles.dog_name, profiles.city, profiles.state, friendships.user_one, profile_pictures.image
                         FROM profiles
+                        LEFT OUTER JOIN profile_pictures ON profile_pictures.profile_id=profiles.id
                         INNER JOIN friendships ON profiles.id=friendships.user_one
                         WHERE user_two = %s
                         AND status = 0;
                         """,
                         [user_two]
                     )
+                    real_result = data_back.fetchall()
                     return_list = [FriendListOut(
                         dog_name = record[0],
                         city = record[1],
                         state = record[2],
-                        user_one = record[3]
+                        user_one = record[3],
+                        image = record[4]
                     )
-                    for record in db]
-                    print("TESTING", return_list)
+                    for record in real_result]
+                    print("LOOK HERE", return_list)
                     return return_list
         except Exception as e:
             print(e)

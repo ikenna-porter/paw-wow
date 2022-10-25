@@ -43,7 +43,6 @@ class ConnectionManager:
         await websocket.accept()
         self.active_connections.append(websocket)
 
-        #what does this do?
     #     await self.send_personal_message(
     #         "Welcome!",
     #         conversation_id,

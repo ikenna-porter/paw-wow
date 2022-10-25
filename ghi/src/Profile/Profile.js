@@ -5,10 +5,8 @@ import CharsModal from './CharacteristicsModal';
 import Button from 'react-bootstrap/Button';
 import EditProfileModal from './EditProfileModal';
 import ProfilePicModal from './ProfilePicModal';
-import { useNavigate } from "react-router-dom";
-import { Link } from 'react-router-dom';
 
-export default function Profile(props) {
+export default function Profile() {
     const [ hasChars, setHasChars ] = useState(false);
     const [ hasPic, setHasPic ] = useState(false);
     const [ showChars, setShowChars ] = useState(false);
@@ -43,9 +41,6 @@ export default function Profile(props) {
         gender: '',
         dog_bio: ''
     })
-    const navigate = useNavigate();
-    // This id is hard coded until I put this in local storage
-    // If you want to try this out create an account and profile and insert that profile's id and username here
     const profileId = localStorage.getItem('profileId')
     const username = localStorage.getItem('currentUser')
 
@@ -74,6 +69,7 @@ export default function Profile(props) {
                 `http://localhost:8100/api/characteristics/${profileId}`,
                 {credentials: 'include'}
             )
+
             if (charsResponse.ok) {
                 const charsData = await charsResponse.json();
                 if (Object.keys(charsData).length > 1) {
@@ -105,7 +101,6 @@ export default function Profile(props) {
             const data = await profileResponse.json();
             setProfile({...data});
             localStorage.setItem('profileId', `${data.id}`)
-            // setProfileId(data.id)
             getChars(profileId);
             getProfilePic(profileId);
         }
@@ -148,7 +143,7 @@ export default function Profile(props) {
 
     useEffect(() => {
         getProfile();
-    }, [profile.dog_name])
+    }, [])
     
     if (!profile.dog_name) {
         return(
@@ -163,13 +158,6 @@ export default function Profile(props) {
         <div className="profile-div row">
           <div className="col-lg-4">
             <div className='container p-3'>
-              {
-                  profile.id != profileId
-                  ?
-                  <Button size='md' onClick={handleAdd} value={profile.id}> ADD ME </Button>
-                  :
-                  <Link to='/profile/friends'><Button size='md'> Friends List </Button> </Link>
-              }
             </div>
             <div className="card shadow-sm">
               <div className="card-header bg-transparent text-center">

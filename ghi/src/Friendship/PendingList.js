@@ -7,7 +7,6 @@ function PendingList(props) {
   const [pending_friends, setPending] = useState([]);
   const [error, setError] = useState('');
   const user_two = localStorage.getItem('profileId')
-  // handle hard coded user id
 
   useEffect(() => {
       async function getPendingData() {
@@ -69,6 +68,7 @@ function PendingList(props) {
                 <h4>{pending.dog_name}<small className='text-muted'> wants to be your furiend!</small></h4>
               </div>
               <div className='text-center p-2'>
+              <img className='profile-pic' src={pending.image}/>
                 <div>
                 <p>{pending.city}, {pending.state}</p>
                 </div>
