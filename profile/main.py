@@ -7,7 +7,8 @@ from routers import (
     friendships, 
     profile_pic,
     messages,
-    conversations
+    conversations,
+    otherprofile
 )
 from authenticator import authenticator
 from fastapi.middleware.cors import CORSMiddleware
@@ -28,6 +29,7 @@ app.include_router(friendships.router)
 app.include_router(profile_pic.router)
 app.include_router(messages.router)
 app.include_router(conversations.router)
+app.include_router(otherprofile.router)
 
 origins = ['*']    
 

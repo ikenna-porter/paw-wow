@@ -31,6 +31,7 @@ class FriendsOut(BaseModel):
 
 class FriendshipRepository:
     def create(self, friendship: FriendshipIn) -> FriendshipOut:
+
         with pool.connection() as conn:
             with conn.cursor() as db:
                 result = db.execute(

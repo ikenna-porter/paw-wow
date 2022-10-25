@@ -14,21 +14,9 @@ import EditProfileModal from './Profile/EditProfileModal'
 import ListFriends from './Friendship/FriendList'
 import PendingList from './Friendship/PendingList'
 import SearchBar from './SearchBar/SearchBar'
+import OtherProfile from './OtherProfile/OtherProfile'
 
 export default function App() {
-  //const client = new WebSocket('ws://localhost:8300/api/notifications');
-  
-    // useEffect(() =>{
-    //   client.onopen = () => {
-    //     console.log('WebSocket Client Connected');
-    //   };
-    //   client.onmessage = (message) => {
-    //     console.log(message);
-    //   }
-    //   client.onclose = () => {
-    //     console.log("cat")
-    //   }
-    // },[client]);
 
     const [resize, setResize] = useState(false)
   return (
@@ -52,8 +40,10 @@ export default function App() {
           <Route path="edit-characteristics" element={<CharsModal />} />
           <Route path='friends' element={<ListFriends />} />
           <Route path="pending" element={<PendingList />} />
+          <Route path=":id" element={<OtherProfile />} />
         </Route>
         <Route path="search" element={<SearchBar />} />
+
       </Routes>
       </div>
     </BrowserRouter>
