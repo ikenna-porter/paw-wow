@@ -146,11 +146,16 @@ export default function Profile() {
                     show={showPic}
                     getProfilePic={getProfilePic}
                 />
+                {
+                    profilePic ?
                 <img
                     className="dog_img" 
                     src={profilePic}
                     alt='Standard Dog Image'
                 />
+                :
+                <img className='profile-pic' src={require('../Images/dogoutline.jpg')}/>
+                }
                 <h2>{profile.dog_name}</h2>
                 { hasPic
                     ? <div>
