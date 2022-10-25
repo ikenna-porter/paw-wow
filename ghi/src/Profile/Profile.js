@@ -134,7 +134,7 @@ export default function Profile() {
             body:JSON.stringify( {
                 'status': 0,
                 'user_one': Number(id),
-                'user_two': 4
+                'user_two': Number(profileId)
             })
         };
         const reqResponse = await fetch(requestUrl, fetchConfig);
