@@ -74,6 +74,7 @@
   padding: 7em 0; }
 
 .flex-img {
+  display: flex;
   background-size: 100% auto;
   max-width: 100%;
   background-repeat: no-repeat;
@@ -191,4 +192,8 @@
 @media (min-width: 768px) {
   .p-md-5 {
     padding: 3rem !important; }
+  }
+
+  #static {
+    position:absolute;
   }
