@@ -61,44 +61,18 @@ class ConnectionManager:
         self.active_connections.append(websocket)
         print(self.active_connections)
 
-        # await self.send_personal_message(
-        #     "Welcome!",
-        #     conversation_id,
-        #     websocket,
-        # )
 
     def disconnect(self, websocket: WebSocket):
         self.active_connections.remove(websocket)
 
-    # async def send_personal_message(
-    #     self,
-    #     message: str,
-    #     conversation_id: int,
-    #     websocket: WebSocket,
-    # ):
-    #     payload = json.dumps({
-    #         "conversation_id": conversation_id,
-    #         "content": message,
-    #         "timestamp": timestamp(),
-    #         #message id:
-    #         "message_id": self.next_message_id(), 
-    #     })
-    #     await websocket.send_text(payload)
-
-    async def broadcast(self, message: str, conversation_id: int):
+    async def broadcast(self, websocket: WebSocket, message: str, conversation_id: int):
         payload = json.dumps({
             "conversation_id": conversation_id,
             "content": message,
             "timestamp": timestamp(),
-            # "message_id": self.next_message_id(),
         })
         print('active connections:', len(self.active_connections))
-        for connection in self.active_connections:
-            await connection.send_text(payload)
-
-    # def next_message_id(self):
-    #     self.current_message_id += 1
-    #     return self.current_message_id
+        await websocket.send_text(payload)
 
 
 manager = ConnectionManager()
@@ -112,7 +86,7 @@ async def websocket_endpoint(
     try:
         while True:
             message = await websocket.receive_text()
-            await manager.broadcast(message, conversation_id)
+            await manager.broadcast(websocket, message, conversation_id)
 
             #save message into DB with corresponding conversation_id
             message_dict = json.loads(message)

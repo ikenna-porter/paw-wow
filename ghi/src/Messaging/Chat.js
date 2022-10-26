@@ -11,11 +11,8 @@ export default function Chat(props) {
     const [formSubmitted, setFormSubmitted] = useState('false');
     
     let ws = new WebSocket(`ws://localhost:8100/ws/conversations/${selectedConversation}`);
-    console.log(ws.readyState)
     
     ws.addEventListener('message', event => {
-        console.log('received message');
-
         //retrieves list of messages
         const previousMessages = document.getElementById('messages');
 
@@ -48,14 +45,8 @@ export default function Chat(props) {
         previousMessages.appendChild(recentMessage);
 
         updateScroll();
-    });
+    },[]);
     
-
-    //closes WebSocket when a new conversation is selected
-    useEffect(() => {
-        ws.close();
-        console.log('websocket closed')
-    }, [selectedConversation]);
 
     useEffect(() => {
         updateScroll();
