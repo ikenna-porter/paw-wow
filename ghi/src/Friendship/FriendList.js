@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 
-export default function ListFriends(props) {
-    const [friends, setFriends] = useState([]);
-    const id = localStorage.getItem('profileId')
+export default function ListFriends() {
+    const [ friends, setFriends ] = useState([]);
+    const id = localStorage.getItem('profileId');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -18,12 +18,12 @@ export default function ListFriends(props) {
             } else {
                 console.log("Could not get friends list.");
             }
-            } getFriendList()
+            } getFriendList();
         }, [setFriends, id])
 
         const handleView = (e) => {
             e.preventDefault();
-            navigate(`/profile/${e.target.value}`)
+            navigate(`/profile/${e.target.value}`);
         }
 
         const handleDelete = async (e) => {
@@ -39,7 +39,7 @@ export default function ListFriends(props) {
             if (pendingResponse.ok) {
                 setFriends(
                     friends.filter(friend => friend.id != user_one)
-                )
+                );
             }
         }
 

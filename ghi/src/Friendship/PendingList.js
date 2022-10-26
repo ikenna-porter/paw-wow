@@ -2,11 +2,11 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
-function PendingList(props) {
-  const [pending_friends, setPending] = useState([]);
-  const user_two = localStorage.getItem('profileId')
+function PendingList() {
+  const [ pending_friends, setPending ] = useState([]);
+  const user_two = localStorage.getItem('profileId');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,7 +19,7 @@ function PendingList(props) {
           } else {
               console.log('Could not get pending friend requests.');
           }
-      } getPendingData()
+      } getPendingData();
   }, [user_two])
 
   const handleAccept = async (e) => {
@@ -35,7 +35,7 @@ function PendingList(props) {
       if (acceptResponse.ok) {
           setPending(
               pending_friends.filter(pending => pending.user_one != user_one)
-          )
+          );
       }
   }
 
@@ -52,16 +52,16 @@ function PendingList(props) {
       if (pendingResponse.ok) {
           setPending(
               pending_friends.filter(pending => pending.user_one != user_one)
-          )
+          );
       }
   }
 
   const handleConnect = (e) => {
     e.preventDefault();
-    navigate(`/profile/${e.target.value}`)
+    navigate(`/profile/${e.target.value}`);
   }
 
-  
+
   return (
   <>
   <div className='container pt-5 text-center'>

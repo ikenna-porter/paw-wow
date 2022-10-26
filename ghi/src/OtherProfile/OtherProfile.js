@@ -3,9 +3,9 @@ import Button from 'react-bootstrap/Button';
 import { useParams } from 'react-router-dom';
 
 export default function OtherProfile() {
-    const [profile, setProfile] = useState({});
+    const [ profile, setProfile ] = useState({});
     const currentUser = localStorage.getItem('profileId');
-    const {id} = useParams();
+    const { id } = useParams();
     const [ friends, setFriends ] = useState([]);
     const [ pendingFriends, setPendingFriends ] = useState([]);
 
@@ -18,7 +18,7 @@ export default function OtherProfile() {
             4: "I love to run and play",
             5: "I have infinite energy!"
         }
-        return rateForEnergy[charE]
+        return rateForEnergy[charE];
     }
 
     function charOthers(charO) {
@@ -29,25 +29,25 @@ export default function OtherProfile() {
             4: "I like them!",
             5: "I LOVE them!"
         }
-        return rateForOthers[charO]
+        return rateForOthers[charO];
     }
 
     function calculateAge(DOB) {
         if (DOB) {
-            let arr = DOB.split('-')
-            let newDOB = arr.map(num => parseInt(num))
-            let y = newDOB[0]
-            let m = newDOB[1]
-            const date = new Date()
-            let ageY = date.getFullYear() - y
-            let ageM = (date.getMonth() + 1) - m
+            let arr = DOB.split('-');
+            let newDOB = arr.map(num => parseInt(num));
+            let y = newDOB[0];
+            let m = newDOB[1];
+            const date = new Date();
+            let ageY = date.getFullYear() - y;
+            let ageM = (date.getMonth() + 1) - m;
 
             if (ageM === 0) {
-                return `${ageY} years`
+                return `${ageY} years`;
             } else if (ageM < 0) {
-                return `${ageY - 1} years, ${12+ageM} months`
+                return `${ageY - 1} years, ${12+ageM} months`;
             } else if (ageM > 0) {
-                return `${ageY} years, ${ageM} months`
+                return `${ageY} years, ${ageM} months`;
             }
         }
     }
@@ -57,13 +57,13 @@ export default function OtherProfile() {
       const pendingResponse = await fetch(url);
       if(pendingResponse.ok) {
         const pendingData = await pendingResponse.json();
-        setPendingFriends(pendingData)
-      }
+        setPendingFriends(pendingData);
+      };
     }  
     useEffect(() => {
         async function getProfile() {
             const url = `http://localhost:8100/api/profile/${id}`;
-            const response = await fetch(url)
+            const response = await fetch(url);
             if(response.ok) {
                 const data = await response.json();
                 setProfile(data);
@@ -74,12 +74,11 @@ export default function OtherProfile() {
           const friendResponse = await fetch(url);
           if(friendResponse.ok) {
             const friendData = await friendResponse.json();
-            setFriends(friendData)
+            setFriends(friendData);
           }
         } getFriendship();
         getPending();
     }, [id])
-
 
     function checkFriends(otherProfileId) {
       for (let friend of friends) {
