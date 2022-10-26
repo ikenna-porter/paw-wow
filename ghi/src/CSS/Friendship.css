@@ -1,16 +1,13 @@
 .parent {
-    display: flex;
-    position: relative;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
 }
 
-.child-div {
+/* .child-div {
     display: flex;
     margin: auto;
     text-align: center;
     justify-content: center;
     align-items: center;
     width: 50%;
-}
+}  */
