@@ -74,7 +74,7 @@ function PendingList(props) {
               <div className='card-header bg-transparent text-center'>
                 <h4>{pending.dog_name}<small className='text-muted'> wants to be your furiend!</small></h4>
               </div>
-              <Button value={pending.user_one} onClick={handleConnect}>View Profile</Button>
+              <Button className="btn-light form-btn" value={pending.user_one} onClick={handleConnect}>View Profile</Button>
               <div className='text-center p-2'>
                 {
                   pending.image ?
