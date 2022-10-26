@@ -55,6 +55,8 @@
 | other | Str | False | No |
 | profile_id | Int | True | No |
 
+----
+
 *For Friendships*
 
 ### Friendships
@@ -64,6 +66,8 @@
 | status | Int | True | No |
 | user_one | Int | True | No |
 | user_two | Int | True | No |
+
+----
 
 *For Messaging*
 
