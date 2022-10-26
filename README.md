@@ -9,18 +9,17 @@
 
 *Paw Wow* - a place for dog lovers to find new friends and socialize their dog, wherever they go!
 
+
 ## Design
 
-- API Design (Create this MD file and link here)
-- Data Model (Create this MD file and link here)
-- GHI (Create this MD file and link here)
-
+- [API Design](C:\Users\soren\projects\assessment-project\mod-3\paw-wow\docs\APIDesign.md)
+- [Data Model](C:\Users\soren\projects\assessment-project\mod-3\paw-wow\docs\DataModel.md)
+- [GHI](C:\Users\soren\projects\assessment-project\mod-3\paw-wow\docs\GHI.md)
 
 
 ## Intended Market
 
 Paw Wow has been created for dog-owners who want to socialize their companion. Whether they stay local or travel to another city, they'll easily be able to find other dogs nearby and make arrangements for a doggy-play-date! 
-
 
 
 ## Functionality
@@ -44,7 +43,6 @@ Paw Wow has been created for dog-owners who want to socialize their companion. W
         - there is the ability to view the friends profile as well as removing them from the friends list 
     - the friends list page holds the navigation to the user's incoming, pending friend requests 
         - here, a user will be able to view the profile of the other user and be able to approve or deny the request
-
 
 
 ## Installation
