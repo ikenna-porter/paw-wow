@@ -21,7 +21,6 @@ def create_friendship(
 def get_list_friends(
     id: int,
     repo: FriendshipRepository = Depends()
-
 ):
     return repo.get_friend_list(id)
 
@@ -29,26 +28,19 @@ def get_list_friends(
 def get_pending(
     user_two: int,
     repo: FriendshipRepository = Depends()
-
 ):
     return repo.get_pending_requests(user_two)
 
 @router.put("/api/friendships/{user_one}/pending")
 def update_request(
-    # user_one: int,
-    # user_two: int,
     user_one,
     repo: FriendshipRepository = Depends()
-
 ):
     return repo.approve_request(user_one)
 
 @router.delete("/api/friendships/{user_one}/pending")
 def update_deny_request(
-    # user_one: int,
-    # user_two: int,
     user_one,
     repo: FriendshipRepository = Depends()
-
 ):
     return repo.deny_request(user_one)

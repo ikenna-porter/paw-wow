@@ -12,6 +12,30 @@ At least one ah-ha! moment that you had during your coding, however small
 
 ----
 
+## October 25, 2022
+
+Today I worked on:
+
+*Handling edge-cases for Friendship Feature*
+
+The first half of the day, I assisted Henry with creating a new component and back end that allows a user to view another user's profile. Afterwards, I worked on edge-cases for the friendship feature. This included not being able to send a request to someone once it is pending as well as if they accepted the request. As well as the ability to click to a user's profile through your friends list. I also implemented a standard photo to take place if the user has not uploaded their own photo yet. 
+
+Creating the new profile view for other profiles was a lot easier once the idea of doing one very large SQL query was mentioned. It meant not having to do multiple fetch requests. Which I might use to make a new pydantic model to use to check if users are friends for the add-button feature.
+
+## October 24, 2022
+
+Today I worked on:
+
+*Including an image in Friend List and Pending Requests*
+
+I went back to the SQL queries and made a left outer join to include the profile pictures table so that I could have access to the images from a profile. I updated the pydantic model to reflect the change it output. Then included the image on the front end of both the friends list and pending requests. 
+
+We had a conversation about the design of the profile page, the work I did over the weekend with css will be reverted to the previous design. 
+
+SQL is not as scary as it seems and is much easier to approach than trying to create a react hook on the front end which requires much more work. You can use a left outer join as well as an inner join to join two tables. Also, if it is possible for a column to have no value, including that in the pydantic model is also important.
+
+----
+
 ## October 20, 2022
 
 Today I worked on:

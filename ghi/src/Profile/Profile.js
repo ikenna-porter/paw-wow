@@ -5,10 +5,8 @@ import CharsModal from './CharacteristicsModal';
 import Button from 'react-bootstrap/Button';
 import EditProfileModal from './EditProfileModal';
 import ProfilePicModal from './ProfilePicModal';
-import { useNavigate } from "react-router-dom";
-import { Link } from 'react-router-dom';
 
-export default function Profile(props) {
+export default function Profile() {
     const [ hasChars, setHasChars ] = useState(false);
     const [ hasPic, setHasPic ] = useState(false);
     const [ showChars, setShowChars ] = useState(false);
@@ -43,9 +41,6 @@ export default function Profile(props) {
         gender: '',
         dog_bio: ''
     })
-    const navigate = useNavigate();
-    // This id is hard coded until I put this in local storage
-    // If you want to try this out create an account and profile and insert that profile's id and username here
     const profileId = localStorage.getItem('profileId')
     const username = localStorage.getItem('currentUser')
 
@@ -74,6 +69,7 @@ export default function Profile(props) {
                 `http://localhost:8100/api/characteristics/${profileId}`,
                 {credentials: 'include'}
             )
+
             if (charsResponse.ok) {
                 const charsData = await charsResponse.json();
                 if (Object.keys(charsData).length > 1) {
@@ -105,7 +101,8 @@ export default function Profile(props) {
             const data = await profileResponse.json();
             setProfile({...data});
             localStorage.setItem('profileId', `${data.id}`)
-            // setProfileId(data.id)
+            localStorage.setItem('userCity', data.city)
+            localStorage.setItem('userState', data.state)
             getChars(profileId);
             getProfilePic(profileId);
         }
@@ -123,32 +120,9 @@ export default function Profile(props) {
         }
     }
 
-    const handleAdd = async (e) => {
-        e.preventDefault();
-        const id = e.target.value;
-        console.log(e.target)
-        const requestUrl = `http://localhost:8100/api/friendships/${id}`;
-        const fetchConfig = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body:JSON.stringify( {
-                'status': 0,
-                'user_one': Number(id),
-                'user_two': 4
-            })
-        };
-        const reqResponse = await fetch(requestUrl, fetchConfig);
-        if (reqResponse.ok) {
-            console.log(reqResponse);
-        }
-        console.log("THE BUTTON WAS PRESSED")
-    }
-
     useEffect(() => {
         getProfile();
-    }, [profile.dog_name])
+    }, [profileId])
     
     if (!profile.dog_name) {
         return(
@@ -163,25 +137,6 @@ export default function Profile(props) {
         <div className="profile-div row">
           <div className="col-lg-4">
             <div className='container p-3'>
-              {
-                profile.id != profileId
-                ?
-                <Fragment>
-                        <Button size='md' onClick={handleAdd} value={profile.id}> ADD ME </Button>
-                        {/* <Link to='/messages' state={{profileId: profile.id}}>
-                            <Button size='md'> Message </Button>
-                        </Link> */}
-                </Fragment>
-                :
-                <Fragment>
-                    <Link to='/profile/friends'>
-                        <Button size='md'> Friends List </Button>
-                    </Link>
-                    <Link to='/messages' state={{othersId: profile.id}}>
-                        <Button size='md'> Message </Button>
-                    </Link>
-                </Fragment>
-              }
             </div>
             <div className="card shadow-sm">
               <div className="card-header bg-transparent text-center">
@@ -191,19 +146,24 @@ export default function Profile(props) {
                     show={showPic}
                     getProfilePic={getProfilePic}
                 />
+                {
+                    profilePic ?
                 <img
                     className="dog_img" 
                     src={profilePic}
                     alt='Standard Dog Image'
                 />
+                :
+                <img className='profile-pic' src={require('../Images/dogoutline.png')}/>
+                }
                 <h2>{profile.dog_name}</h2>
                 { hasPic
                     ? <div>
-                        <Button className="btn btn-info btn-sm" onClick={handleShowPic}>
+                        <Button className="btn btn-light form-btn btn-sm" onClick={handleShowPic}>
                             Edit Profile Picture for {profile.dog_name}
                         </Button> 
                     </div>
-                    : <Button className="btn btn-info btn-sm" onClick={handleShowPic}>
+                    : <Button className="btn btn-light form-btn btn-sm" onClick={handleShowPic}>
                         Add Profile Picture for {profile.dog_name}
                     </Button>
                 }
@@ -224,11 +184,11 @@ export default function Profile(props) {
                 { hasChars
                     ? <div>
                         <Characteristics chars={chars} />
-                        <Button className="btn btn-info btn-sm" onClick={handleShowChars}>
+                        <Button className="btn btn-light form-btn btn-sm" onClick={handleShowChars}>
                             Edit Characteristics for {profile.dog_name}
                         </Button> 
                     </div>
-                    : <Button className="btn btn-info btn-sm" onClick={handleShowChars}>
+                    : <Button className="btn btn-light form-btn btn-sm" onClick={handleShowChars}>
                         Add more information for {profile.dog_name}
                     </Button>
                 }    
@@ -254,7 +214,7 @@ export default function Profile(props) {
                 <div className="card">   
                   <div className="card-body">
                     <h5>{profile.owner_name}'s Bio</h5>
-                    <Button className="btn btn-info btn-sm mb-2" onClick={handleShowProf}>
+                    <Button className="btn btn-light form-btn btn-sm mb-2" onClick={handleShowProf}>
                         Edit Profile
                     </Button>
                     <p className="mb-0"><strong className="pr-1">My human is: </strong>{profile.owner_name}</p>

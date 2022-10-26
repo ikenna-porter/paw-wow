@@ -21,10 +21,8 @@ export default function Vaccinations(props) {
             `http://localhost:8100/api/vaccinations/${profileId}`,
             {credentials: 'include'}
         )
-        console.log("vax response", response)
         if (response.ok) {
             const data = await response.json();
-            console.log("vax data", data)
             if (Object.keys(data).length > 1) {
                 setHasVaccines(true);
                 setVaccines(data);
@@ -34,10 +32,10 @@ export default function Vaccinations(props) {
 
     useEffect(() => {
         getVaccines();
-    }, []);
+    }, [profileId]);
 
     return(
-        <div className="card">
+      <div className="card">
             <div className="card-body">
                 <h5 className="card-title">Vaccination Records</h5>
                 <VacctinationsModal
@@ -51,7 +49,7 @@ export default function Vaccinations(props) {
                 { hasVaccines
                     ?
                     <div>
-                        <Button className="btn btn-info btn-sm" onClick={handleShow}>
+                        <Button className="btn btn-light form-btn btn-sm" onClick={handleShow}>
                             Edit Vaccination Records for {props.dogName}
                         </Button>
                         <table className="table table-striped">
@@ -77,7 +75,7 @@ export default function Vaccinations(props) {
                     </div>
                     : 
                     <div>
-                        <Button className="btn btn-info btn-sm" onClick={handleShow}>
+                        <Button className="btn btn-light form-btn btn-sm" onClick={handleShow}>
                             Add Vaccination records for {props.dogName}
                         </Button>
                     </div>

@@ -4,6 +4,7 @@ from queries.profiles import (
     ProfileIn, 
     ProfileOut,
     ProfileRepository,
+    CompleteProfile,
     Error
 )    
 from authenticator import authenticator
@@ -13,7 +14,6 @@ router = APIRouter()
 @router.get("/api/profiles/{username}", response_model = Optional[ProfileOut])
 def get_one_profile(
     username: str, 
-    response: Response,
     account_data: dict = Depends(authenticator.get_current_account_data),
     repo: ProfileRepository = Depends()
 ) -> ProfileOut:
@@ -24,12 +24,11 @@ def get_one_profile(
 
     return profile
 
-@router.get("/api/profiles", response_model = Union[List[ProfileOut], Error])
+@router.get("/api/profiles", response_model = Union[List[CompleteProfile], Error])
 def get_all_profiles(
     account_data: dict = Depends(authenticator.get_current_account_data),
     repo: ProfileRepository = Depends()
 ):
-    print("account_data", account_data)
     return repo.get_all()
 
 @router.post("/api/profiles", response_model = ProfileOut)

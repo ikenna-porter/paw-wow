@@ -123,10 +123,10 @@ export default function VacctinationsModal(props) {
                             <label htmlFor="floatingInput">Other</label>
                         </div>
                         <Modal.Footer>
-                            <Button variant="secondary" onClick={handleClose}>
+                            <Button className="btn-light close-btn" onClick={handleClose}>
                                 Close
                             </Button>
-                            <Button variant="primary" type="submit" onClick={handleClose}>
+                            <Button className="btn-light form-btn" type="submit" onClick={handleClose}>
                                 Save Changes
                             </Button>
                         </Modal.Footer>

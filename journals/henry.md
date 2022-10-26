@@ -58,5 +58,20 @@ for notifications afterward. The goal for tomorrow is to implement a
 notifications UI that can be interacted with. Right now, everything
 is hardcoded in.
 
-# October 20, 2022
+# October 24, 2022
 
+Today I worked on creating a function that would get other profiles. At 
+first I thought it would have to do with the authenticator and allowing you 
+to GET but not POST for whoever you want but I think the solution just required
+a front-end solution. I ran into a couple issues, the initial one I wasn't able 
+to fix but the issue about missing packages after were fixed by running "npm install --force" and the other one was an issue with a migration table. Tomorrow, I think 
+I would be able to implement notifications with a third party API. I still need to
+have a better understanding of FastAPI and I might ask an instructor for help but I'm
+also going to read the documentation tonight and I think that would help with integration.
+I also need to test the getOtherProfile function that I added to the front-end. The only issue I can think of is that function overriding anything on the app that has to do with your user but we don't have anything like that currently.
+
+# October 25, 2022
+
+Sorena helped me with being able to view other profiles today. The issue was different
+from how I understood it. Profiles are attached to usernames and we didn't want to be
+able to view another person's username so having the router go to the username didn't make sense. We ended up using profile IDs and making a new query and router for displaying other profiles. So we spent the morning working on the backend and most of the late morning/afternoon on the frontend portion of displaying another person's profile. We had to join 4 tables so writing out all the column names out multiple times was really fun.
