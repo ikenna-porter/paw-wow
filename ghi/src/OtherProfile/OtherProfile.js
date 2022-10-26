@@ -154,6 +154,13 @@ export default function OtherProfile() {
                           Add {profile.dog_name}
                       </Button>
                     }
+                     {
+                      <Fragment>
+                              <Link to='/messages' state={{profileId: profile.id}}>
+                                  <Button size='md'> Message </Button>
+                              </Link>
+                      </Fragment>
+                    }
                   </div>
               </div>
               <div className="card-header bg-transparent card-body">
