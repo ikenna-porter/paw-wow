@@ -12,19 +12,6 @@ export default function Chat(props) {
     
     let ws = new WebSocket(`ws://localhost:8100/ws/conversations/${selectedConversation}`);
     console.log(ws.readyState)
-    // const setUsersLastMessage = props.setUsersLastMessage;
-
-    ws.addEventListener('error', (event) => { 
-        console.log(event, 'error')
-    })
-
-    // ws.onopen = (event) => {
-    //     console.log(event)
-    // };
-
-    // ws.addEventListener('open', () => {
-    //     console.log('Websocket open')
-    // });
     
     ws.addEventListener('message', event => {
         console.log('received message');
@@ -32,7 +19,7 @@ export default function Chat(props) {
         //retrieves list of messages
         const previousMessages = document.getElementById('messages');
 
-        //creates outer-most div and adds appropriate class to it
+        //creates outer-most message container div and adds appropriate class to it
         const recentMessage = document.createElement('div');
         recentMessage.classList.add("message-container");
 
@@ -41,7 +28,7 @@ export default function Chat(props) {
         const messageText = JSON.parse(messageData).content;
         const messageDate = JSON.parse(messageData).timestamp;
         
-        // const content = document.createTextNode(messageText)
+        //creates text/date divs to go inside of recentMessage
         const textDiv = document.createElement("div");
         const dateDiv = document.createElement("div");
 
@@ -63,32 +50,12 @@ export default function Chat(props) {
         updateScroll();
     });
     
-    ws.addEventListener('close', () => {
-        console.log('Websocket closed')
-    });
 
-
-    // useEffect(() => {
-
-    //     ws.addEventListener('close', (e) => {
-    //         console.log(e)
-    //     });
-    //     const ws = new ReconnectingWebSocket(`ws://localhost:8200/ws/conversations/${selectedConversation}`)
-    //     console.log("connected to conversation#", selectedConversation)
-
-    //     ws.addEventListener('message', event => {
-    //         // console.log(usersLastMessage);
-    //         // console.log(selectedConversation);
-    //         const messages = document.getElementById('messages')
-    //         const message = document.createElement('li')
-    //         const content = document.createTextNode(event.data)
-    //         console.log(content)
-    //         message.appendChild(content)
-    //         messages.appendChild(message)
-    //     });
-
-    //         setFormSubmitted('false');
-    // }, [selectedConversation, formSubmitted]);
+    //closes WebSocket when a new conversation is selected
+    useEffect(() => {
+        ws.close();
+        console.log('websocket closed')
+    }, [selectedConversation]);
 
     useEffect(() => {
         updateScroll();
@@ -108,8 +75,6 @@ export default function Chat(props) {
 
         ws.send(JSON.stringify(input));
         updateScroll();
-        // setCurrentMessage('');
-        // setFormSubmitted('true');
     }
 
     //Keeps chat scrolled at the bottom

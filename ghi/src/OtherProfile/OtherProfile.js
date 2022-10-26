@@ -156,7 +156,7 @@ export default function OtherProfile() {
                     }
                      {
                       <Fragment>
-                              <Link to='/messages' state={{profileId: profile.id}}>
+                              <Link to='/messages' state={{othersId: profile.id}}>
                                   <Button size='md'> Message </Button>
                               </Link>
                       </Fragment>

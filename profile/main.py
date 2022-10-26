@@ -59,6 +59,7 @@ class ConnectionManager:
     ):
         await websocket.accept()
         self.active_connections.append(websocket)
+        print(self.active_connections)
 
         # await self.send_personal_message(
         #     "Welcome!",
@@ -89,15 +90,15 @@ class ConnectionManager:
             "conversation_id": conversation_id,
             "content": message,
             "timestamp": timestamp(),
-            "message_id": self.next_message_id(),
+            # "message_id": self.next_message_id(),
         })
         print('active connections:', len(self.active_connections))
         for connection in self.active_connections:
             await connection.send_text(payload)
 
-    def next_message_id(self):
-        self.current_message_id += 1
-        return self.current_message_id
+    # def next_message_id(self):
+    #     self.current_message_id += 1
+    #     return self.current_message_id
 
 
 manager = ConnectionManager()
@@ -107,7 +108,6 @@ async def websocket_endpoint(
     conversation_id: int,
     repo: MessageRepository = Depends()
 ):
-    print('websocket**********************************')
     await manager.connect(websocket, conversation_id)
     try:
         while True:
