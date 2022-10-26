@@ -125,6 +125,8 @@ export default function MessagingTest(props) {
                     : <Chat
                         selectedConversation={selectedConversation}
                         messages={messages}
+                        primaryUserId={profileId}
+                        otherUserId={otherUserId}
                       />
                     }
                 </div>

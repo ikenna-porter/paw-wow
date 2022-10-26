@@ -4,12 +4,27 @@ import Message from './Message'
 
 export default function Chat(props) {
     const messages = props.messages;
-    const selectedConversation = props.selectedConversation
+    const otherUserId = props.otherUserId;
+    const primaryUserId = props.primaryUserId;
+    const selectedConversation = props.selectedConversation;
     const [currentMessage, setCurrentMessage] = useState('');
     const [formSubmitted, setFormSubmitted] = useState('false');
     
     let ws = new WebSocket(`ws://localhost:8100/ws/conversations/${selectedConversation}`);
+    console.log(ws.readyState)
     // const setUsersLastMessage = props.setUsersLastMessage;
+
+    ws.addEventListener('error', (event) => { 
+        console.log(event, 'error')
+    })
+
+    // ws.onopen = (event) => {
+    //     console.log(event)
+    // };
+
+    // ws.addEventListener('open', () => {
+    //     console.log('Websocket open')
+    // });
     
     ws.addEventListener('message', event => {
         console.log('received message');
@@ -84,11 +99,10 @@ export default function Chat(props) {
         // setUsersLastMessage(message_content);
         const message = document.querySelector("#chat-input");
         const input = {
-            sender: 2,
-            recipient: 1,
+            sender: primaryUserId,
+            recipient: otherUserId,
             timestamp: Date.now(),
             content: message.value,
-            read: false,
             conversation_id: selectedConversation 
         }
 
