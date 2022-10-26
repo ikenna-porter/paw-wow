@@ -21,7 +21,6 @@ export default function EditProfileModal(props) {
             credentials: 'include',
             headers: {'Content-Type': 'application/json'}
         }) 
-        console.log("response", response)
         if (response.ok) {
             props.getProfile();
         }

@@ -59,10 +59,11 @@
 }
 
 .profile-pic {
-    width: 150px;
-    height: 175px;
+    width: 170px;
+    height: 180px;
     border-radius: 50%;
-    border: 8px solid #ccc;
+    object-fit: cover;
+    border: 8px solid #AA9D8C;
 }
 
 .name {
