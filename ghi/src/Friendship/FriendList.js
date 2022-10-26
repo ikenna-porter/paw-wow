@@ -15,9 +15,8 @@ export default function ListFriends(props) {
             if (response.ok) {
                 const data = await response.json();
                 setFriends(data);
-                console.log('PRINTING',data)
             } else {
-                console.log("ERROR!");
+                console.log("Could not get friends list.");
             }
             } getFriendList()
         }, [setFriends, id])

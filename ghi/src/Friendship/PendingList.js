@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom'
 
 function PendingList(props) {
   const [pending_friends, setPending] = useState([]);
-  const [error, setError] = useState('');
   const user_two = localStorage.getItem('profileId')
   const navigate = useNavigate();
 
@@ -17,12 +16,11 @@ function PendingList(props) {
           if (response.ok) {
               const data = await response.json();
               setPending(data);
-              console.log('PRINTING',data)
           } else {
-              setError('Could not get pending friend requests');
+              console.log('Could not get pending friend requests.');
           }
       } getPendingData()
-  }, [setPending, setError, user_two])
+  }, [user_two])
 
   const handleAccept = async (e) => {
       const user_one = e.target.value;
@@ -63,7 +61,7 @@ function PendingList(props) {
     navigate(`/profile/${e.target.value}`)
   }
 
-  console.log('PENDING', pending_friends)
+  
   return (
   <>
   <div className='container pt-5 text-center'>

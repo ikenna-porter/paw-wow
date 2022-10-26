@@ -58,7 +58,6 @@ export default function OtherProfile() {
       if(pendingResponse.ok) {
         const pendingData = await pendingResponse.json();
         setPendingFriends(pendingData)
-        console.log('PENDING HERE', pendingData)
       }
     }  
     useEffect(() => {
@@ -84,7 +83,6 @@ export default function OtherProfile() {
 
     function checkFriends(otherProfileId) {
       for (let friend of friends) {
-        console.log('FRIENDS', friends)
         if (String(friend.id) === otherProfileId) {
           return true;
         }
