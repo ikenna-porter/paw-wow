@@ -6,8 +6,9 @@ export default function OtherProfile() {
     const [profile, setProfile] = useState({});
     const currentUser = localStorage.getItem('profileId');
     const {id} = useParams();
-    const [ requested, setRequested ] = useState(false);
-    const [ friends, setFriends ] = useState([])
+    const [ friends, setFriends ] = useState([]);
+    const [ pending_friends, setPending ] = useState([]);
+    const [ pending, setCurrentPending ]  = useState(false);
 
 
     function charEnergy(charE) {
@@ -69,20 +70,32 @@ export default function OtherProfile() {
             setFriends(friendData)
           }
         } getFriendship();
-    }, [setProfile, id])
+        async function getPending() {
+          const url = `http://localhost:8100/api/friendships/${id}/pending`;
+          const pendingResponse = await fetch(url);
+          if(pendingResponse.ok) {
+            const pendingData = await pendingResponse.json();
+            setPending(pendingData)
+            console.log('PENDING HERE', pendingData)
+          }
+        } getPending();
+    }, [id])
 
 
     function checkFriends(otherProfileId) {
       for (let friend of friends) {
+        console.log('FRIENDS', friends)
         if (String(friend.id) === otherProfileId) {
           return true;
         }
       } return false;
     }
 
-    function checkPending(otherProfileId) {
-      for (let friend of friends) {
-        if (String(friend.id) === otherProfileId) {
+    function checkPending(currentUser) {
+      console.log('THE ID IS', currentUser)
+      for (let pending of pending_friends) {
+        console.log('LOOK HERE', pending_friends) 
+        if (String(pending.user_one) === currentUser) {
           return true;
         }
       } return false;
@@ -106,7 +119,7 @@ export default function OtherProfile() {
         };
         const reqResponse = await fetch(requestUrl, fetchConfig);
         if (reqResponse.ok) {
-            setRequested(true);
+          setCurrentPending(true);
         }
     }
 
@@ -126,11 +139,14 @@ export default function OtherProfile() {
             </div>
             <div className="pb-3">
               {
-                checkPending ?
-                <Button className='disabled'>Pending</Button>
-                :
                 checkFriends(id) ?
                 <Button className='disabled'>Friends</Button>
+                :
+                pending ?
+                <Button className='disabled'>Pending</Button>
+                :
+                checkPending(currentUser) ?
+                <Button className='disabled'>Pending</Button>
                 :
                 <Button className="btn btn-info btn-sm" value={profile.id} onClick={handleAdd}>
                     Add {profile.dog_name}

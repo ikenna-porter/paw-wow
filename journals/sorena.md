@@ -12,6 +12,16 @@ At least one ah-ha! moment that you had during your coding, however small
 
 ----
 
+## October 25, 2022
+
+Today I worked on:
+
+*Handling edge-cases for Friendship Feature*
+
+The first half of the day, I assisted Henry with creating a new component and back end that allows a user to view another user's profile. Afterwards, I worked on edge-cases for the friendship feature. This included not being able to send a request to someone once it is pending as well as if they accepted the request. As well as the ability to click to a user's profile through your friends list. I also implemented a standard photo to take place if the user has not uploaded their own photo yet. 
+
+Creating the new profile view for other profiles was a lot easier once the idea of doing one very large SQL query was mentioned. It meant not having to do multiple fetch requests. Which I might use to make a new pydantic model to use to check if users are friends for the add-button feature.
+
 ## October 24, 2022
 
 Today I worked on:

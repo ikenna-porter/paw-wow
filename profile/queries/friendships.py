@@ -107,7 +107,6 @@ class FriendshipRepository:
                         image = record[4]
                     )
                     for record in real_result]
-                    print("LOOK HERE", return_list)
                     return return_list
         except Exception as e:
             print(e)
@@ -142,16 +141,6 @@ class FriendshipRepository:
                         WHERE user_one = %s;
                         """,
                         [user_one]
-                        # """
-                        # DELETE FROM friendships
-                        # WHERE user_one = %s
-                        # AND user_two = %s
-                        # """,
-                        # [
-                        #     user_one, 
-                        #     user_two
-                        # ]
-                        # user_one: int, user_two: int
                     )
                     if result:
                         return True

@@ -107,7 +107,12 @@ export default function SearchBar() {
                     return(
                         <div key={user.profile_id} className="col-4">
                             <div className="card" style={{width: "14rem"}}>
-                                <img src={user.img} className="card-img-top" alt="..." />
+                                {
+                                    user.img ?
+                                    <img src={user.img} className="card-img-top" alt="..." />
+                                    :
+                                    <img className='profile-pic' src={require('../Images/dogoutline.png')}/>
+                                }
                                 <div className="card-body">
                                     <h5 className="card-title">{user.dog_name}</h5>
                                     <p className="card-text">{user.dog_bio}</p>
