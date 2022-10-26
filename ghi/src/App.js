@@ -21,10 +21,10 @@ export default function App() {
   
     return (
     <BrowserRouter>
-    <div id="static">
+    <div className='position-relative' id="static">
       <Nav resize={resize} setResize={setResize}/>
       </div>
-      <div id="content" style={{paddingLeft:resize ? "0px": "310px"}}>
+      <div id="content" style={{paddingLeft:resize ? "0px": "260px"}}>
       <Routes>
         <Route path="/" element={<AuthenticateUser />} />
         <Route path="create-profile" element={<CreateProfile />} />

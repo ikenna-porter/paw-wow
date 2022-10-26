@@ -19,8 +19,8 @@ import { NavLink } from 'react-router-dom';
 
 const Nav = (props) => {
   return (
-    <div style={{display: 'flex', flexDirection: 'column'}}>      
-      <div style={{position: 'sticky', top: 0}}>
+    <div className='position-absolute top-0' style={{display: 'flex', flexDirection: 'column'}}>      
+      <div className='v-100' style={{height: '100vh', position: 'sticky', top: 0}}>
         <CDBSidebar className="totalSidebar" textColor="#fff">
           <CDBSidebarHeader prefix={<i className="fa fa-bars fa-2x" onClick={(() => props.setResize(!props.resize))}></i>}>
             <div className="container ">
