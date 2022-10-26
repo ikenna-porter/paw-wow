@@ -1,4 +1,5 @@
 .parent {
+    display: flex;
     position: relative;
     align-items: center;
     justify-content: center;
@@ -6,10 +7,10 @@
 }
 
 .child-div {
+    display: flex;
     margin: auto;
     text-align: center;
     justify-content: center;
     align-items: center;
     width: 50%;
-    position: inherit;
 }
