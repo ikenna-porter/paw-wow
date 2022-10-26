@@ -133,19 +133,6 @@ export default function OtherProfile() {
           <div className="col-lg-4">
             <div className='container p-3'>
             </div>
-            <div className="pb-3">
-              {
-                checkFriends(id) ?
-                <Button className='disabled'>Friends</Button>
-                :
-                checkPending(currentUser) ?
-                <Button className='disabled btn-light'>Pending</Button>
-                :
-                <Button className="btn btn-light form-btn btn-sm" value={profile.id} onClick={handleAdd}>
-                    Add {profile.dog_name}
-                </Button>
-              }
-            </div>
             <div className="card shadow-sm">
               <div className="card-header bg-transparent text-center">
                 {
@@ -155,6 +142,19 @@ export default function OtherProfile() {
                   <img className='profile-pic' src={require('../Images/dogoutline.png')}/>
                 }
                 <h2>{profile.dog_name}</h2>
+                  <div className="pb-3">
+                    {
+                      checkFriends(id) ?
+                      <Button className='disabled'>Friends</Button>
+                      :
+                      checkPending(currentUser) ?
+                      <Button className='disabled btn-light'>Pending</Button>
+                      :
+                      <Button className="btn btn-light form-btn btn-sm" value={profile.id} onClick={handleAdd}>
+                          Add {profile.dog_name}
+                      </Button>
+                    }
+                  </div>
               </div>
               <div className="card-header bg-transparent card-body">
                 <h5>{profile.dog_name}'s Bio</h5>
