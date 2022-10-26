@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import Button from 'react-bootstrap/Button';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 export default function OtherProfile() {
     const [ profile, setProfile ] = useState({});
@@ -153,6 +153,13 @@ export default function OtherProfile() {
                       <Button className="btn btn-light form-btn btn-sm" value={profile.id} onClick={handleAdd}>
                           Add {profile.dog_name}
                       </Button>
+                    }
+                     {
+                      <Fragment>
+                              <Link to='/messages' state={{profileId: profile.id}}>
+                                  <Button size='md'> Message </Button>
+                              </Link>
+                      </Fragment>
                     }
                   </div>
               </div>

@@ -27,9 +27,9 @@ class ConversationRepository:
                             , profiles.dog_name
                             , profile_pictures.image
                         FROM profiles 
-                        LEFT join conversations
-                        ON profiles.id = conversations.primary_user
-                        LEFT join profile_pictures
+                        LEFT JOIN conversations
+                        ON profiles.id = conversations.other_user
+                        LEFT JOIN profile_pictures
                         ON profiles.id = profile_pictures.profile_id
                         WHERE conversations.primary_user = %(primary_user)s
                         OR conversations.other_user = %(primary_user)s;
