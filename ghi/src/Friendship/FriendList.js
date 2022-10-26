@@ -50,7 +50,7 @@ return(
         {friends.length > 0 ?
             friends.map((friend, idx) => {
                 return (
-                    <div key={idx} className='container text-center'>
+                    <div key={idx} className='container  text-center'>
                         <div className='text-center'>
                             <div className='card shadow-sm text-center'>
                                 <div className='card-header bg-transparent text-center'>
