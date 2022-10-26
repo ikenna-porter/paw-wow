@@ -63,8 +63,8 @@ return(
                                     <img className='profile-pic' src={require('../Images/dogoutline.jpg')}/>
                                 }
                                 <p>{friend.city}, {friend.state}</p>
-                                <Button value={friend.id} onClick={handleView}>View Profile</Button> 
-                                <Button value={friend.id} onClick={handleDelete}>Remove Friend</Button>
+                                <Button className="btn-light form-btn" value={friend.id} onClick={handleView}>View Profile</Button> 
+                                <Button className="btn-light close-btn" value={friend.id} onClick={handleDelete}>Remove Friend</Button>
                             </div>
                         </div>
                     </div>

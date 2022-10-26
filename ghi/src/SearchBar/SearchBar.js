@@ -36,7 +36,6 @@ export default function SearchBar() {
             const response = await fetch('http://localhost:8100/api/profiles', {credentials: 'include'});
             if (response.ok) {
                 const data = await response.json();
-                console.log(data)
                 setUsers(data.filter(user => user.profile_id !== currentUser));
                 setStandardResults(data.filter(user => user.city === userCity && user.state === userState));
                 setFilteredUsers(data.filter(user => user.city === userCity && user.state === userState));
@@ -96,7 +95,7 @@ export default function SearchBar() {
                             aria-label="Search"
                             onChange={handleSearch}
                         />
-                        <button className="btn btn-outline-success" type="submit">Search</button>
+                        <button className="btn btn-outline-secondary" type="submit">Search</button>
                     </div>    
                 </form>
                 <h3>Other Pups</h3>
@@ -119,7 +118,7 @@ export default function SearchBar() {
                                     <li className="list-group-item">{user.city} {user.state}</li>
                                 </ul>
                                 {String(user.profile_id) !== currentUser
-                                    ? <Button onClick={handleConnect} value={user.profile_id} className="btn btn-info btn-sm">See more info</Button>
+                                    ? <Button onClick={handleConnect} value={user.profile_id} className="btn btn-light form-btn btn-sm">See more info</Button>
                                     : null 
                                 }
                             </div>   
