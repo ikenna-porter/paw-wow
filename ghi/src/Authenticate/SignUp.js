@@ -67,7 +67,7 @@ export default function SignUp(props) {
                     </div>
 
                     <div className="form-group">
-                    <button type="signup-submit" className="form-control btn btn-primary rounded submit px-3">Sign Up</button>
+                    <button type="signup-submit" className="form-control btn btn-light form-btn rounded submit px-3">Sign Up</button>
                       </div>
 
                     </form>

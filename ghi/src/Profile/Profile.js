@@ -122,7 +122,7 @@ export default function Profile() {
 
     useEffect(() => {
         getProfile();
-    }, [])
+    }, [profileId])
     
     if (!profile.dog_name) {
         return(
@@ -159,11 +159,11 @@ export default function Profile() {
                 <h2>{profile.dog_name}</h2>
                 { hasPic
                     ? <div>
-                        <Button className="btn btn-info btn-sm" onClick={handleShowPic}>
+                        <Button className="btn btn-light form-btn btn-sm" onClick={handleShowPic}>
                             Edit Profile Picture for {profile.dog_name}
                         </Button> 
                     </div>
-                    : <Button className="btn btn-info btn-sm" onClick={handleShowPic}>
+                    : <Button className="btn btn-light form-btn btn-sm" onClick={handleShowPic}>
                         Add Profile Picture for {profile.dog_name}
                     </Button>
                 }
@@ -184,11 +184,11 @@ export default function Profile() {
                 { hasChars
                     ? <div>
                         <Characteristics chars={chars} />
-                        <Button className="btn btn-info btn-sm" onClick={handleShowChars}>
+                        <Button className="btn btn-light form-btn btn-sm" onClick={handleShowChars}>
                             Edit Characteristics for {profile.dog_name}
                         </Button> 
                     </div>
-                    : <Button className="btn btn-info btn-sm" onClick={handleShowChars}>
+                    : <Button className="btn btn-light form-btn btn-sm" onClick={handleShowChars}>
                         Add more information for {profile.dog_name}
                     </Button>
                 }    
@@ -214,7 +214,7 @@ export default function Profile() {
                 <div className="card">   
                   <div className="card-body">
                     <h5>{profile.owner_name}'s Bio</h5>
-                    <Button className="btn btn-info btn-sm mb-2" onClick={handleShowProf}>
+                    <Button className="btn btn-light form-btn btn-sm mb-2" onClick={handleShowProf}>
                         Edit Profile
                     </Button>
                     <p className="mb-0"><strong className="pr-1">My human is: </strong>{profile.owner_name}</p>
