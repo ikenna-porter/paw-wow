@@ -45,39 +45,38 @@ export default function ListFriends() {
 
 return(
     <div className='pt-5 text-center'>
-    <h2 className='pb-3'>Your Paw Pals</h2>
-    <div className='container parent text-center'>
-        {friends.length > 0 ?
-            friends.map((friend, idx) => {
-                return (
-                    <div key={idx} className='container  text-center'>
-                        <div className='text-center'>
-                            <div className='card shadow-sm text-center'>
-                                <div className='card-header bg-transparent text-center'>
-                                    <h4>{friend.dog_name}</h4>
-                                    {
-                                        friend.image ?
-                                        <img className='profile-pic' src={friend.image}/>
-                                        :
-                                        <img className='profile-pic' src={require('../Images/dogoutline.png')}/>
-                                    }
-                                    <p>{friend.city}, {friend.state}</p>
-                                    <Button className="btn-light form-btn" value={friend.id} onClick={handleView}>View Profile</Button> 
-                                    <Button className="btn-light close-btn" value={friend.id} onClick={handleDelete}>Remove Friend</Button>
+        <h2 className='pb-3'>Your Paw Pals</h2>
+            <div className='container row row-cols-1 g-4 text-center'>
+                {friends.length > 0 ?
+                    friends.map((friend, idx) => {
+                        return (
+                            <div key={idx} className='col'>
+                                <div className='text-center'>
+                                    <div className='card shadow-sm text-center'>
+                                        <div className='card-header bg-transparent text-center'>
+                                            <h4>{friend.dog_name}</h4>
+                                            {
+                                                friend.image ?
+                                                <img className='profile-pic' src={friend.image}/>
+                                                :
+                                                <img className='profile-pic' src={require('../Images/dogoutline.png')}/>
+                                            }
+                                            <p>{friend.city}, {friend.state}</p>
+                                            <Button className="btn-light form-btn" value={friend.id} onClick={handleView}>View Profile</Button> 
+                                            <Button className="btn-light close-btn" value={friend.id} onClick={handleDelete}>Remove Friend</Button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                )
-            })
-            :
-            <p>Find a new friend!</p>
-        }
-</div>
-    <div>
-    <Button className="btn-light close-btn" href='http://localhost:3000/profile/pending'> Pending Requests </Button>
-    </div>
+                        )
+                    })
+                    :
+                    <p>Find a new friend!</p>
+                }
+                </div>
+            <div>
+            <Button className="btn-light close-btn" href='http://localhost:3000/profile/pending'> Pending Requests </Button>
+            </div>
     </div>
 );
-
 }

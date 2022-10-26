@@ -65,9 +65,8 @@ function PendingList() {
   <>
   <div className='pt-5 text-center'>
     <h2 className='pb-3'>Your Pending Pals</h2>
-    <div className='container parent text-center'>
+    <div className='container row-cols-1 row-cols-md-3 g-4 text-center'>
     {
-      pending_friends.length > 0 ?
       pending_friends.map((pending, idx) => {
         return ( 
           <div key={idx} className="container text-center">
@@ -101,10 +100,9 @@ function PendingList() {
           </div>
         )
       })
-      :
-      <p>No pending requests yet!</p>
     }
     </div>
+    {pending_friends < 1 ? <p>No pending requests.</p> : null}
     </div>
   </>
   )
