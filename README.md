@@ -12,9 +12,9 @@
 
 ## Design
 
-- [API Design](C:\Users\soren\projects\assessment-project\mod-3\paw-wow\docs\APIDesign.md)
-- [Data Model](C:\Users\soren\projects\assessment-project\mod-3\paw-wow\docs\DataModel.md)
-- [GHI](C:\Users\soren\projects\assessment-project\mod-3\paw-wow\docs\GHI.md)
+- [API Design](docs\APIDesign.md)
+- [Data Model](docs\DataModel.md)
+- [GHI](docs\GHI.md)
 
 
 ## Intended Market
@@ -47,7 +47,7 @@ Paw Wow has been created for dog-owners who want to socialize their companion. W
 
 ## Installation
 
-1. Clone the [repository](https://gitlab.com/amegue97/paw-wow/-/tree/main) down to your local machine
+1. Clone the repository down to your local machine
 
 2. CD into the new project directory
 
