@@ -154,7 +154,7 @@ export default function Profile() {
                     alt='Standard Dog Image'
                 />
                 :
-                <img className='profile-pic' src={require('../Images/dogoutline.png')}/>
+                <img className='profile-pic' src={require('../Images/dogoutline.jpg')}/>
                 }
                 <h2>{profile.dog_name}</h2>
                 { hasPic
