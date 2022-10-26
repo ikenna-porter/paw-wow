@@ -15,13 +15,13 @@
 - Data Model (Create this MD file and link here)
 - GHI (Create this MD file and link here)
 
-----
+
 
 ## Intended Market
 
 Paw Wow has been created for dog-owners who want to socialize their companion. Whether they stay local or travel to another city, they'll easily be able to find other dogs nearby and make arrangements for a doggy-play-date! 
 
-----
+
 
 ## Functionality
 
@@ -45,23 +45,23 @@ Paw Wow has been created for dog-owners who want to socialize their companion. W
     - the friends list page holds the navigation to the user's incoming, pending friend requests 
         - here, a user will be able to view the profile of the other user and be able to approve or deny the request
 
-----
+
 
 ## Installation
 
-1. Clone the repository down to your local machine
+1. Clone the [repository](https://gitlab.com/amegue97/paw-wow/-/tree/main) down to your local machine
 
 2. CD into the new project directory
 
-3. Run docker volume create postgres-data
+3. Run ```docker volume create postgres-data```
 
-4. Run docker compose build
+4. Run ```docker compose build```
 
-5. Run docker compose up
+5. Run ```docker compose up```
 
-6. Run docker exec -it paw-wow-profile-1 bash
+6. Run ```docker exec -it paw-wow-profile-1 bash```
 
-7. Run python -m migrations up
+7. Run ```python -m migrations up```
 
 8. Exit the container's CLI
 
