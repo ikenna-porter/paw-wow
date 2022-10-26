@@ -45,7 +45,7 @@ export default function ListFriends(props) {
         }
 
 return(
-    <div className='container pt-5'>
+    <div className='container pt-5 text-center'>
     <h2>Your Paw Pals</h2>
     <div className='text-center'>
         {friends.length > 0 ?

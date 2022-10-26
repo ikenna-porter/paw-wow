@@ -66,15 +66,20 @@ function PendingList(props) {
   console.log('PENDING', pending_friends)
   return (
   <>
+  <div className='container pt-5 text-center'>
+    <h2 className='pb-3'>Your Pending Pals</h2>
+    <div className='text-center'>
     {pending_friends.map((pending, idx) => {
       return ( 
-        <div key={idx} className="container fluid-sm mt-4">
-          <div className='row col-lg-4'>
-            <div className='card shadow-sm'>
+        <div key={idx} className="container">
+          <div className='row col-lg-4 text-center'>
+            <div className='card shadow-sm text-center'>
               <div className='card-header bg-transparent text-center'>
                 <h4>{pending.dog_name}<small className='text-muted'> wants to be your furiend!</small></h4>
               </div>
-              <Button value={pending.user_one} onClick={handleConnect}>View Profile</Button>
+              <div className='text-center pt-2'>
+                <Button className="btn-light form-btn" value={pending.user_one} onClick={handleConnect}>View Profile</Button>
+              </div>
               <div className='text-center p-2'>
                 {
                   pending.image ?
@@ -97,6 +102,8 @@ function PendingList(props) {
         </div>
       )
     })}
+    </div>
+    </div>
   </>
   )
 }

@@ -140,15 +140,15 @@ export default function OtherProfile() {
             <div className="pb-3">
               {
                 checkFriends(id) ?
-                <Button className='disabled'>Friends</Button>
+                <Button className='disabled btn-light'>Friends</Button>
                 :
                 pending ?
-                <Button className='disabled'>Pending</Button>
+                <Button className='disabled btn-light'>Pending</Button>
                 :
                 checkPending(currentUser) ?
-                <Button className='disabled'>Pending</Button>
+                <Button className='disabled btn-light'>Pending</Button>
                 :
-                <Button className="btn btn-info btn-sm" value={profile.id} onClick={handleAdd}>
+                <Button className="btn btn-light form-btn btn-sm" value={profile.id} onClick={handleAdd}>
                     Add {profile.dog_name}
                 </Button>
               }
