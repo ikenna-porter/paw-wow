@@ -71,7 +71,7 @@ return(
                 )
             })
             :
-            <p>You have no friends.</p>
+            <p>Find a new friend!</p>
         }
 </div>
     <div>
