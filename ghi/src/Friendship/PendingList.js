@@ -65,11 +65,11 @@ function PendingList() {
   <>
   <div className='pt-5 text-center'>
     <h2 className='pb-3'>Your Pending Pals</h2>
-    <div className='container row-cols-1 row-cols-md-3 g-4 text-center'>
+    <div className='container row row-cols-1 g-4 text-center'>
     {
       pending_friends.map((pending, idx) => {
         return ( 
-          <div key={idx} className="container text-center">
+          <div key={idx} className="col">
             <div className='container text-center'>
               <div className='card shadow-sm text-center'>
                 <div className='card-header bg-transparent text-center'>
