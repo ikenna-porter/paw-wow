@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import Button from 'react-bootstrap/Button';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 export default function OtherProfile() {
     const [profile, setProfile] = useState({});
@@ -9,6 +9,7 @@ export default function OtherProfile() {
     const [ friends, setFriends ] = useState([]);
     const [ pending_friends, setPending ] = useState([]);
     const [ pending, setCurrentPending ]  = useState(false);
+    const profileId = localStorage.getItem('profileId')
 
 
     function charEnergy(charE) {
@@ -152,6 +153,18 @@ export default function OtherProfile() {
                     Add {profile.dog_name}
                 </Button>
               }
+              {
+                profile.id != profileId
+                ?
+                <Fragment>
+                    <Link to='/messages' state={{othersId: profile.id}}>
+                        <Button className="btn btn-info btn-sm"> Message {profile.dog_name} </Button>
+                    </Link>
+                </Fragment>
+                :
+                <Fragment />
+              }
+
             </div>
             <div className="card shadow-sm">
               <div className="card-header bg-transparent text-center">
