@@ -12,6 +12,10 @@ export default function Conversations(props) {
         setSelectedConversation(conversation_id)
     }
 
+    if (conversations.length === 0) {
+        return <>Loading Conversations</>
+    }
+
     return (
         <ul className="conversations-list">
             {conversations.map(conversation => {

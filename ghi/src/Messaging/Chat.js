@@ -7,6 +7,7 @@ export default function Chat(props) {
     const selectedConversation = props.selectedConversation
     const [currentMessage, setCurrentMessage] = useState('');
     const [formSubmitted, setFormSubmitted] = useState('false');
+    
     let ws = new WebSocket(`ws://localhost:8100/ws/conversations/${selectedConversation}`);
     // const setUsersLastMessage = props.setUsersLastMessage;
     

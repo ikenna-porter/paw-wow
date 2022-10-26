@@ -17,19 +17,21 @@ def get_conversation(
     return repo.get(conversation_id)
 
 #Get a list of conversations
-@router.get("/api/conversations", response_model = List[ConversationOut])
+@router.get("/api/users_conversations/{primary_user}", response_model = List[ConversationOut])
 def get_all_conversations(
+    primary_user: int,
     repo: ConversationRepository = Depends()
 ) -> List[ConversationOut]:
-    return repo.get_all()
+    return repo.get_all(primary_user)
 
 #Create a conversation
-@router.post("/api/conversations", response_model = ConversationOut)
+@router.post("/api/conversations")
 def create(
     conversation: ConversationIn, 
     repo: ConversationRepository = Depends()
 ) -> ConversationOut:
-    repo.create(conversation)
+    print(conversation)
+    return repo.create(conversation)
 
 #Update a conversation
 @router.put("/api/conversations/{conversation_id}", response_model=ConversationOut)

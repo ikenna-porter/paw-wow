@@ -17,7 +17,7 @@ export default function Login(props) {
     const fetchConfig = {
         method: 'POST',
         body: form,
-        credentials: "include",
+        credentials: "include"
     }
 
     const response = await fetch(url, fetchConfig);

@@ -28,3 +28,7 @@
 ## Oct 18, 2022
 
 * Today I feel like I made a decent amount of progress on messaging. I have a lot of the logic for the front end set up, excluding the websocket. I spent most of my time working on the flow of data through state on the front end, although I did have to fix a bug on the backend that made it impossible for me to retrieve a list of messages from the database. Overall, I feel like I made a decent amount of progress, but today more than ever I realized just how much work has to be done before submitting the project next week. Tomorrow, if I can finish working on the flow of state, it would like to implement the websocket.
+
+## Oct 24, 2022
+
+* Today has been quite challenging. Mainly because I have to take data from the messaging microservice and add it to profile. In the end, we decided not to have separate microservices since we wouldn't have the time to create a poller to facilitate communication. Not only that, but now that I know what the profile table looks like, I also have to change the shape of my data so that it matches that of the rest of the application. Finally, there is currently no way for a user to create a conversation and have that conversation permanently associated with the user and the person they're talking to. So yeah...I have my work cut out for me today. I hope to be done with all of this and with all of the design for the front end on messaging, so that I can dedicate Wed-Friday to making the test cases and to deploying the app. 

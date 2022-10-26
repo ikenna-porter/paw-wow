@@ -9,7 +9,6 @@ class MessageOut(BaseModel):
     recipient: int
     timestamp: datetime
     content: str
-    read: bool
     conversation_id: int
 
 class MessageIn(BaseModel):
@@ -17,12 +16,11 @@ class MessageIn(BaseModel):
     recipient: int
     timestamp: datetime
     content: str
-    read: bool
     conversation_id: int
 
 class MessageRepository:
     def get_all(self, conversation_id: int) -> List[MessageOut]:
-        try:
+        # try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
                     db.execute(
@@ -33,30 +31,28 @@ class MessageRepository:
                         , recipient
                         , timestamp
                         , content
-                        , read
                         , conversation_id
                         FROM messages
                         WHERE conversation_id = %s;
                         """,
                         [conversation_id]
                     )
-
+                    print('*********************************************')
                     result = [ MessageOut (
                         id = record[0],
                         sender = record[1],
                         recipient = record[2],
                         timestamp = record[3],
                         content = record[4],
-                        read = record[5],
-                        conversation_id = record[6]
-                    )
+                        conversation_id = record[5]
+                        )
                     for record in db 
                     ]
-
+                    print(result)
                     return result
-        except Exception as e:
-            print(e)
-            return {"message": "Could not retrieve chat history."}
+        # except Exception as e:
+        #     print(e)
+        #     return {"message": "Could not retrieve chat history."}
 
     def get_one(self, message_id: int)  -> MessageOut:
         # try:
@@ -71,9 +67,6 @@ class MessageRepository:
                         [message_id]
                     )
                     record = message.fetchone()
-
-                    # if record is None:
-                    #     return None
                      
                     result = MessageOut(
                         id = record[0],
@@ -81,7 +74,6 @@ class MessageRepository:
                         recipient = record[2],
                         timestamp = record[3],
                         content = record[4],
-                        read = record[5],
                         conversation_id = record[6]
                     )
                     print("################################", result)
@@ -102,9 +94,8 @@ class MessageRepository:
                     , recipient
                     , timestamp
                     , content
-                    , read
                     , conversation_id
-                ) VALUES (%s, %s, %s, %s, %s, %s)
+                ) VALUES (%s, %s, %s, %s, %s)
                 RETURNING id;
 
                 """,
@@ -113,7 +104,6 @@ class MessageRepository:
                     message.recipient, 
                     message.timestamp, 
                     message.content, 
-                    message.read, 
                     message.conversation_id
                 ]
                 )

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import Vaccinations from './Vaccinations';
 import Characteristics from './Characteristics';
 import CharsModal from './CharacteristicsModal';
