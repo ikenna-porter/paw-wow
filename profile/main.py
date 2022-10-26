@@ -16,9 +16,10 @@ import json
 from datetime import datetime, timezone
 from routers.messages import MessageIn, MessageRepository
 
-router = APIRouter()
 
 app = FastAPI()
+router = APIRouter()
+
 app.include_router(profiles.router)
 app.include_router(accounts.router)
 app.include_router(authenticator.router)
@@ -57,11 +58,11 @@ class ConnectionManager:
         await websocket.accept()
         self.active_connections.append(websocket)
 
-    #     await self.send_personal_message(
-    #         "Welcome!",
-    #         conversation_id,
-    #         websocket,
-    #     )
+        # await self.send_personal_message(
+        #     "Welcome!",
+        #     conversation_id,
+        #     websocket,
+        # )
 
     def disconnect(self, websocket: WebSocket):
         self.active_connections.remove(websocket)
@@ -104,6 +105,7 @@ async def websocket_endpoint(
     conversation_id: int,
     repo: MessageRepository = Depends()
 ):
+    print('websocket**********************************')
     await manager.connect(websocket, conversation_id)
     try:
         while True:

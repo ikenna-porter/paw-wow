@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import Vaccinations from './Vaccinations';
 import Characteristics from './Characteristics';
 import CharsModal from './CharacteristicsModal';
@@ -164,11 +164,23 @@ export default function Profile(props) {
           <div className="col-lg-4">
             <div className='container p-3'>
               {
-                  profile.id != profileId
-                  ?
-                  <Button size='md' onClick={handleAdd} value={profile.id}> ADD ME </Button>
-                  :
-                  <Link to='/profile/friends'><Button size='md'> Friends List </Button> </Link>
+                profile.id != profileId
+                ?
+                <Fragment>
+                        <Button size='md' onClick={handleAdd} value={profile.id}> ADD ME </Button>
+                        {/* <Link to='/messages' state={{profileId: profile.id}}>
+                            <Button size='md'> Message </Button>
+                        </Link> */}
+                </Fragment>
+                :
+                <Fragment>
+                    <Link to='/profile/friends'>
+                        <Button size='md'> Friends List </Button>
+                    </Link>
+                    <Link to='/messages' state={{othersId: profile.id}}>
+                        <Button size='md'> Message </Button>
+                    </Link>
+                </Fragment>
               }
             </div>
             <div className="card shadow-sm">
