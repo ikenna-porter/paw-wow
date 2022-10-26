@@ -12,9 +12,9 @@
 
 ## Design
 
-- [API Design](docs\APIDesign.md)
-- [Data Model](docs\DataModel.md)
-- [GHI](docs\GHI.md)
+- [API Design](https://gitlab.com/amegue97/paw-wow/-/blob/main/doc/APIDesign.md)
+- [Data Model](https://gitlab.com/amegue97/paw-wow/-/blob/main/doc/DataModel.md)
+- [GHI](https://gitlab.com/amegue97/paw-wow/-/blob/main/doc/GHI.md)
 
 
 ## Intended Market
