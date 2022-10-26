@@ -7,8 +7,7 @@ export default function OtherProfile() {
     const currentUser = localStorage.getItem('profileId');
     const {id} = useParams();
     const [ friends, setFriends ] = useState([]);
-    const [ pending_friends, setPending ] = useState([]);
-    const [ pending, setCurrentPending ]  = useState(false);
+    const [ pendingFriends, setPendingFriends ] = useState([]);
 
 
     function charEnergy(charE) {
@@ -53,6 +52,15 @@ export default function OtherProfile() {
         }
     }
     
+    async function getPending() {
+      const url = `http://localhost:8100/api/friendships/${id}/pending`;
+      const pendingResponse = await fetch(url);
+      if(pendingResponse.ok) {
+        const pendingData = await pendingResponse.json();
+        setPendingFriends(pendingData)
+        console.log('PENDING HERE', pendingData)
+      }
+    }  
     useEffect(() => {
         async function getProfile() {
             const url = `http://localhost:8100/api/profile/${id}`;
@@ -70,15 +78,7 @@ export default function OtherProfile() {
             setFriends(friendData)
           }
         } getFriendship();
-        async function getPending() {
-          const url = `http://localhost:8100/api/friendships/${id}/pending`;
-          const pendingResponse = await fetch(url);
-          if(pendingResponse.ok) {
-            const pendingData = await pendingResponse.json();
-            setPending(pendingData)
-            console.log('PENDING HERE', pendingData)
-          }
-        } getPending();
+        getPending();
     }, [id])
 
 
@@ -92,9 +92,7 @@ export default function OtherProfile() {
     }
 
     function checkPending(currentUser) {
-      console.log('THE ID IS', currentUser)
-      for (let pending of pending_friends) {
-        console.log('LOOK HERE', pending_friends) 
+      for (let pending of pendingFriends) {
         if (String(pending.user_one) === currentUser) {
           return true;
         }
@@ -119,7 +117,8 @@ export default function OtherProfile() {
         };
         const reqResponse = await fetch(requestUrl, fetchConfig);
         if (reqResponse.ok) {
-          setCurrentPending(true);
+          getPending();
+          checkPending(currentUser);
         }
     }
 
@@ -141,9 +140,6 @@ export default function OtherProfile() {
               {
                 checkFriends(id) ?
                 <Button className='disabled'>Friends</Button>
-                :
-                pending ?
-                <Button className='disabled'>Pending</Button>
                 :
                 checkPending(currentUser) ?
                 <Button className='disabled'>Pending</Button>
