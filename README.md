@@ -1,4 +1,5 @@
 # Paw Wow
+
 *Designed and Created By*
 - America Guerrero
 - Henry Tran
@@ -14,24 +15,68 @@
 - Data Model (Create this MD file and link here)
 - GHI (Create this MD file and link here)
 
-## Target Audience
+----
 
+## Intended Market
 
-## Description
+Paw Wow has been created for dog-owners who want to socialize their companion. Whether they stay local or travel to another city, they'll easily be able to find other dogs nearby and make arrangements for a doggy-play-date! 
 
+----
 
+## Functionality
+
+- Visitors to our site can create an account with a username and password
+    - from there, users can create their profile with basic information about themselves and their dog
+    - once that is complete, users are routed to their profile and are provided a standard image until they upload their own
+    - at their profile page, users can update a multitude of profile details:  
+        - profile picture
+        - dog bio and characteristics
+        - owner bio
+        - vaccination records
+- Users can then search for other local dogs in their city
+    - using the search feature allows others to view and navigate to other profiles
+- Upon viewing another profile, users will have the ability to send a friend request or a message
+- Users can access their messages from the navbar
+    - here, they will see all of their conversations
+    - clicking into a selected conversation allows users to communicate live
+- Users can access their friends from the navbar
+    - here, they will see their current 'Paw Pals'
+        - there is the ability to view the friends profile as well as removing them from the friends list 
+    - the friends list page holds the navigation to the user's incoming, pending friend requests 
+        - here, a user will be able to view the profile of the other user and be able to approve or deny the request
+
+----
 
 ## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+1. Clone the repository down to your local machine
+
+2. CD into the new project directory
+
+3. Run docker volume create postgres-data
+
+4. Run docker compose build
+
+5. Run docker compose up
+
+6. Run docker exec -it paw-wow-profile-1 bash
+
+7. Run python -m migrations up
+
+8. Exit the container's CLI
+
+9. Open a new terminal
+
+10. CD into project directory
+
+11. CD into ghi and run ```npm install cdbreact --force```
+
+12. Enjoy making friends on Paw-Wow!
 
 
 ## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
 
-
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+- Implement Notifications
+- Show Mutual Friends
+- Include a Searchable Map
+- Implement Geo-location

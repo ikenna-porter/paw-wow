@@ -24,7 +24,7 @@ export default function App() {
     <div id="static">
       <Nav resize={resize} setResize={setResize}/>
       </div>
-      <div id="content" style={{paddingLeft:resize ? "0px": "270px"}}>
+      <div id="content" style={{paddingLeft:resize ? "0px": "310px"}}>
       <Routes>
         <Route path="/" element={<AuthenticateUser />} />
         <Route path="create-profile" element={<CreateProfile />} />

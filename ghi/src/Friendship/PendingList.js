@@ -2,12 +2,11 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
-function PendingList(props) {
-  const [pending_friends, setPending] = useState([]);
-  const [error, setError] = useState('');
-  const user_two = localStorage.getItem('profileId')
+function PendingList() {
+  const [ pending_friends, setPending ] = useState([]);
+  const user_two = localStorage.getItem('profileId');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,12 +16,11 @@ function PendingList(props) {
           if (response.ok) {
               const data = await response.json();
               setPending(data);
-              console.log('PRINTING',data)
           } else {
-              setError('Could not get pending friend requests');
+              console.log('Could not get pending friend requests.');
           }
-      } getPendingData()
-  }, [setPending, setError, user_two])
+      } getPendingData();
+  }, [user_two])
 
   const handleAccept = async (e) => {
       const user_one = e.target.value;
@@ -37,7 +35,7 @@ function PendingList(props) {
       if (acceptResponse.ok) {
           setPending(
               pending_friends.filter(pending => pending.user_one != user_one)
-          )
+          );
       }
   }
 
@@ -54,27 +52,32 @@ function PendingList(props) {
       if (pendingResponse.ok) {
           setPending(
               pending_friends.filter(pending => pending.user_one != user_one)
-          )
+          );
       }
   }
 
   const handleConnect = (e) => {
     e.preventDefault();
-    navigate(`/profile/${e.target.value}`)
+    navigate(`/profile/${e.target.value}`);
   }
 
-  console.log('PENDING', pending_friends)
+
   return (
   <>
+  <div className='container pt-5 text-center'>
+    <h2 className='pb-3'>Your Pending Pals</h2>
+    <div className='text-center'>
     {pending_friends.map((pending, idx) => {
       return ( 
-        <div key={idx} className="container fluid-sm mt-4">
-          <div className='row col-lg-4'>
-            <div className='card shadow-sm'>
+        <div key={idx} className="container">
+          <div className='row col-lg-4 text-center'>
+            <div className='card shadow-sm text-center'>
               <div className='card-header bg-transparent text-center'>
                 <h4>{pending.dog_name}<small className='text-muted'> wants to be your furiend!</small></h4>
               </div>
-              <Button value={pending.user_one} onClick={handleConnect}>View Profile</Button>
+              <div className='text-center pt-2'>
+                <Button className="btn-light form-btn" value={pending.user_one} onClick={handleConnect}>View Profile</Button>
+              </div>
               <div className='text-center p-2'>
                 {
                   pending.image ?
@@ -97,6 +100,8 @@ function PendingList(props) {
         </div>
       )
     })}
+    </div>
+    </div>
   </>
   )
 }

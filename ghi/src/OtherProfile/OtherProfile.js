@@ -3,13 +3,11 @@ import Button from 'react-bootstrap/Button';
 import { useParams, Link } from 'react-router-dom';
 
 export default function OtherProfile() {
-    const [profile, setProfile] = useState({});
+    const [ profile, setProfile ] = useState({});
     const currentUser = localStorage.getItem('profileId');
-    const {id} = useParams();
+    const { id } = useParams();
     const [ friends, setFriends ] = useState([]);
-    const [ pending_friends, setPending ] = useState([]);
-    const [ pending, setCurrentPending ]  = useState(false);
-    const profileId = localStorage.getItem('profileId')
+    const [ pendingFriends, setPendingFriends ] = useState([]);
 
 
     function charEnergy(charE) {
@@ -20,7 +18,7 @@ export default function OtherProfile() {
             4: "I love to run and play",
             5: "I have infinite energy!"
         }
-        return rateForEnergy[charE]
+        return rateForEnergy[charE];
     }
 
     function charOthers(charO) {
@@ -31,33 +29,41 @@ export default function OtherProfile() {
             4: "I like them!",
             5: "I LOVE them!"
         }
-        return rateForOthers[charO]
+        return rateForOthers[charO];
     }
 
     function calculateAge(DOB) {
         if (DOB) {
-            let arr = DOB.split('-')
-            let newDOB = arr.map(num => parseInt(num))
-            let y = newDOB[0]
-            let m = newDOB[1]
-            const date = new Date()
-            let ageY = date.getFullYear() - y
-            let ageM = (date.getMonth() + 1) - m
+            let arr = DOB.split('-');
+            let newDOB = arr.map(num => parseInt(num));
+            let y = newDOB[0];
+            let m = newDOB[1];
+            const date = new Date();
+            let ageY = date.getFullYear() - y;
+            let ageM = (date.getMonth() + 1) - m;
 
             if (ageM === 0) {
-                return `${ageY} years`
+                return `${ageY} years`;
             } else if (ageM < 0) {
-                return `${ageY - 1} years, ${12+ageM} months`
+                return `${ageY - 1} years, ${12+ageM} months`;
             } else if (ageM > 0) {
-                return `${ageY} years, ${ageM} months`
+                return `${ageY} years, ${ageM} months`;
             }
         }
     }
     
+    async function getPending() {
+      const url = `http://localhost:8100/api/friendships/${id}/pending`;
+      const pendingResponse = await fetch(url);
+      if(pendingResponse.ok) {
+        const pendingData = await pendingResponse.json();
+        setPendingFriends(pendingData);
+      };
+    }  
     useEffect(() => {
         async function getProfile() {
             const url = `http://localhost:8100/api/profile/${id}`;
-            const response = await fetch(url)
+            const response = await fetch(url);
             if(response.ok) {
                 const data = await response.json();
                 setProfile(data);
@@ -68,24 +74,14 @@ export default function OtherProfile() {
           const friendResponse = await fetch(url);
           if(friendResponse.ok) {
             const friendData = await friendResponse.json();
-            setFriends(friendData)
+            setFriends(friendData);
           }
         } getFriendship();
-        async function getPending() {
-          const url = `http://localhost:8100/api/friendships/${id}/pending`;
-          const pendingResponse = await fetch(url);
-          if(pendingResponse.ok) {
-            const pendingData = await pendingResponse.json();
-            setPending(pendingData)
-            console.log('PENDING HERE', pendingData)
-          }
-        } getPending();
+        getPending();
     }, [id])
-
 
     function checkFriends(otherProfileId) {
       for (let friend of friends) {
-        console.log('FRIENDS', friends)
         if (String(friend.id) === otherProfileId) {
           return true;
         }
@@ -93,9 +89,7 @@ export default function OtherProfile() {
     }
 
     function checkPending(currentUser) {
-      console.log('THE ID IS', currentUser)
-      for (let pending of pending_friends) {
-        console.log('LOOK HERE', pending_friends) 
+      for (let pending of pendingFriends) {
         if (String(pending.user_one) === currentUser) {
           return true;
         }
@@ -120,7 +114,8 @@ export default function OtherProfile() {
         };
         const reqResponse = await fetch(requestUrl, fetchConfig);
         if (reqResponse.ok) {
-          setCurrentPending(true);
+          getPending();
+          checkPending(currentUser);
         }
     }
 
@@ -138,34 +133,6 @@ export default function OtherProfile() {
           <div className="col-lg-4">
             <div className='container p-3'>
             </div>
-            <div className="pb-3">
-              {
-                checkFriends(id) ?
-                <Button className='disabled'>Friends</Button>
-                :
-                pending ?
-                <Button className='disabled'>Pending</Button>
-                :
-                checkPending(currentUser) ?
-                <Button className='disabled'>Pending</Button>
-                :
-                <Button className="btn btn-info btn-sm" value={profile.id} onClick={handleAdd}>
-                    Add {profile.dog_name}
-                </Button>
-              }
-              {
-                profile.id != profileId
-                ?
-                <Fragment>
-                    <Link to='/messages' state={{othersId: profile.id}}>
-                        <Button className="btn btn-info btn-sm"> Message {profile.dog_name} </Button>
-                    </Link>
-                </Fragment>
-                :
-                <Fragment />
-              }
-
-            </div>
             <div className="card shadow-sm">
               <div className="card-header bg-transparent text-center">
                 {
@@ -175,6 +142,19 @@ export default function OtherProfile() {
                   <img className='profile-pic' src={require('../Images/dogoutline.png')}/>
                 }
                 <h2>{profile.dog_name}</h2>
+                  <div className="pb-3">
+                    {
+                      checkFriends(id) ?
+                      <Button className='disabled'>Friends</Button>
+                      :
+                      checkPending(currentUser) ?
+                      <Button className='disabled btn-light'>Pending</Button>
+                      :
+                      <Button className="btn btn-light form-btn btn-sm" value={profile.id} onClick={handleAdd}>
+                          Add {profile.dog_name}
+                      </Button>
+                    }
+                  </div>
               </div>
               <div className="card-header bg-transparent card-body">
                 <h5>{profile.dog_name}'s Bio</h5>
