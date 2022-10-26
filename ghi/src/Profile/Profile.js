@@ -135,7 +135,7 @@ export default function Profile() {
     <div className="container">
       <div className="dog-profile py-4">
         <div className="profile-div row">
-          <div className="col-lg-4">
+          <div className="col-lg-7">
             <div className='container p-3'>
             </div>
             <div className="card shadow-sm">
