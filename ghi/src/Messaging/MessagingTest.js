@@ -38,7 +38,8 @@ export default function MessagingTest(props) {
         //fetch to create conversation
         const response = await fetch(url, fetchConfig);
         if (response.ok) {
-            console.log('conversation created');
+            console.log(response);
+            console.log(response.json)
         }
     }
     
@@ -123,6 +124,7 @@ export default function MessagingTest(props) {
                     {!selectedConversation
                     ? <NoChat />
                     : <Chat
+                        conversations={conversations}
                         selectedConversation={selectedConversation}
                         messages={messages}
                         primaryUserId={profileId}

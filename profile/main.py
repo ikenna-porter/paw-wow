@@ -49,30 +49,69 @@ def timestamp():
 
 class ConnectionManager:
     def __init__(self):
-        self.active_connections: List[WebSocket] = []
+        self.active_connections = []
         self.current_message_id = 0
 
     async def connect(
         self,
-        websocket: WebSocket,
-        conversation_id: int,
+        socket_dict
     ):
-        await websocket.accept()
-        self.active_connections.append(websocket)
-        print(self.active_connections)
+        await socket_dict["websocket"].accept()
+
+        self.active_connections.append(socket_dict)
+        print("active connections:", self.active_connections)
 
 
-    def disconnect(self, websocket: WebSocket):
-        self.active_connections.remove(websocket)
+    def disconnect(self, socket_dict):
+        self.active_connections.remove(socket_dict)
+
+
+    # async def send_personal_message(
+    #     self,
+    #     message: str,
+    #     conversation_id: int,
+    #     websocket: WebSocket,
+    # ):
+
+    #     message_dict = json.loads(message)
+    #     payload = json.dumps({
+    #         "sender" : message_dict["sender"],
+    #         "recipient": message_dict["recipient"],
+    #         "timestamp": message_dict["timestamp"],
+    #         "content": message_dict["content"],
+    #         "conversation_id": message_dict["conversation_id"],
+    #     })
+    #     print("websocket:_____________________-----------------",websocket)
+    #     await websocket.send_text(payload)
 
     async def broadcast(self, websocket: WebSocket, message: str, conversation_id: int):
+        message_dict = json.loads(message)
+
         payload = json.dumps({
-            "conversation_id": conversation_id,
-            "content": message,
-            "timestamp": timestamp(),
+            "sender" : message_dict["sender"],
+            "recipient": message_dict["recipient"],
+            "timestamp": message_dict["timestamp"],
+            "content": message_dict["content"],
+            "conversation_id": message_dict["conversation_id"],
         })
-        print('active connections:', len(self.active_connections))
-        await websocket.send_text(payload)
+
+        print(self.active_connections)
+
+        for dict in self.active_connections:
+            if conversation_id == dict["conversation_id"]:
+                await dict["websocket"].send_text(payload)
+            
+
+    # async def something_else (self, message: str, conversation_id: int):
+    #     payload = json.dumps({
+    #         "conversation_id": conversation_id,
+    #         "content": message,
+    #         "timestamp": timestamp(),
+    #         "message_id": self.next_message_id(),
+    #     })
+    #     print('active connections:', len(self.active_connections))
+    #     for connection in self.active_connections:
+    #         await connection.send_text(payload)
 
 
 manager = ConnectionManager()
@@ -82,7 +121,12 @@ async def websocket_endpoint(
     conversation_id: int,
     repo: MessageRepository = Depends()
 ):
-    await manager.connect(websocket, conversation_id)
+
+    socket_dict = {
+        "websocket": websocket,
+        "conversation_id": conversation_id
+    }
+    await manager.connect(socket_dict)
     try:
         while True:
             message = await websocket.receive_text()
@@ -100,8 +144,8 @@ async def websocket_endpoint(
             repo.create(stored_message)
 
     except WebSocketDisconnect:
-        manager.disconnect(websocket)
-        await manager.broadcast("Disconnected", conversation_id)
+        manager.disconnect(socket_dict) 
+        # await manager.broadcast("Disconnected", conversation_id)
 
 
 app.include_router(router)
