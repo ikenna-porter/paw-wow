@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from 'react';
+import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import { useParams, Link } from 'react-router-dom';
 
@@ -106,7 +106,6 @@ export default function OtherProfile() {
     const handleAdd = async (e) => {
         e.preventDefault();
         const id = e.target.value;
-        console.log(e.target)
         const requestUrl = `http://localhost:8100/api/friendships/${id}`;
         const fetchConfig = {
             method: 'POST',
@@ -128,7 +127,7 @@ export default function OtherProfile() {
 
     if (!profile.dog_name) {
         return(
-            <>Loading Profile</>
+            <div className='container'>Loading Profile</div>
         )
     }
 

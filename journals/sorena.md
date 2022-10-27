@@ -12,6 +12,20 @@ At least one ah-ha! moment that you had during your coding, however small
 
 ----
 
+## October 27, 2022
+
+Today I worked on:
+
+*Writing Unit Test and Minor Fixes for Friendships*
+
+For part of the day, I helped Henry with having our logout button actually function as a logout button instead of a redirect. That now clears the local storage upon logging out. With help from America, I implemented an authentication layer for the friends feature, so only logged in users can see their friends. Then, I worked on writing a new unit test that actually creates fake data and passes! I also added a clickable link on the logo to take someone back to the login page and added images in place of the headers for the friends list and pending list. 
+
+We discussed how we would have our logout button looking slightly different on our nav bar. 
+
+When writing a unit test, you will have to use the proper name of the actual function within the one being made up. 
+
+----
+
 ## October 26, 2022
 
 Today I worked on:
