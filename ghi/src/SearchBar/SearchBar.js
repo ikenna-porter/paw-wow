@@ -98,44 +98,46 @@ export default function SearchBar() {
                         <button className="btn btn-outline-secondary" type="submit">Search</button>
                     </div>    
                 </form>
-                <h3>Other Pups</h3>
-                <div className="row row-cols-1 row-cols-md-3 g-4">
-                {filteredUsers.map(user => {
-                    return(
-                            <div key={user.profile_id} className="col">
-                                <div className="card text-center h-100" style={{width: "14rem"}}>
-                                <div className="card-header">{user.dog_name}</div>
-                                    {
-                                        user.img ?
-                                        <div className="search-card-image">
-                                            <img src={user.img} className='profile-pic' alt="..." />
-                                        </div>
-                                        :
-                                        <img className='card-img-top' src={require('../Images/dogoutline.png')}/>
-                                    }
-                                    <div className="card-body">
-                                        <h4 className="card-title">About {user.dog_name}:</h4>
-                                        <blockquote className="blockquote mb-3">{user.dog_bio}</blockquote>
-                                        <ul class="list-group list-group-flush">
-                                        <li className="list-group-item">{calculateAge(user.DOB)}</li>
-                                        <li className="list-group-item">{user.size}</li>
-                                        <li className="list-group-item">{user.gender}</li>
-                                        { user.fixed 
-                                            ? <li className="list-group-item">Fixed</li>
-                                            : null
+                <div className="container p-4">
+                    <h3>Other Pups</h3>
+                    <div className="row row-cols-1 row-cols-md-3 g-4">
+                    {filteredUsers.map(user => {
+                        return(
+                                <div key={user.profile_id} className="col-3">
+                                    <div className="card text-center h-100" style={{width: "14rem"}}>
+                                    <div className="card-header">{user.dog_name}</div>
+                                        {
+                                            user.img ?
+                                            <div className="search-card-image">
+                                                <img src={user.img} className='profile-pic' alt="..." />
+                                            </div>
+                                            :
+                                            <img className='card-img-top' src={require('../Images/dogoutline.png')}/>
                                         }
-                                        <li className="list-group-item">{user.city} {user.state}</li>
-                                        </ul>
-                                    </div>    
-                                    {String(user.profile_id) !== currentUser
-                                        ? <Button onClick={handleConnect} value={user.profile_id} className="btn btn-light form-btn btn-md">See more info</Button>
-                                        : null 
-                                    }
-                                </div>   
-                            </div>    
-                    )
-                })}
-                </div>  
+                                        <div className="card-body">
+                                            <h4 className="card-title">About {user.dog_name}:</h4>
+                                            <blockquote className="blockquote mb-3">{user.dog_bio}</blockquote>
+                                            <ul className="list-group list-group-flush">
+                                            <li className="list-group-item">{calculateAge(user.DOB)}</li>
+                                            <li className="list-group-item">{user.size}</li>
+                                            <li className="list-group-item">{user.gender}</li>
+                                            { user.fixed 
+                                                ? <li className="list-group-item">Fixed</li>
+                                                : null
+                                            }
+                                            <li className="list-group-item">{user.city} {user.state}</li>
+                                            </ul>
+                                        </div>    
+                                        {String(user.profile_id) !== currentUser
+                                            ? <Button onClick={handleConnect} value={user.profile_id} className="btn btn-light form-btn btn-md">See more info</Button>
+                                            : null 
+                                        }
+                                    </div>   
+                                </div>    
+                        )
+                    })}
+                    </div> 
+                </div> 
             </div>
         )
     }

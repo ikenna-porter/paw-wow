@@ -37,8 +37,6 @@ async def get_token(
     account: AccountOut = Depends(authenticator.try_get_current_account_data)
 ) -> AccountToken | None:
     if authenticator.cookie_name in request.cookies:
-        print("TESTING 2:", account)
-        print("REQUEST:", request)
         return {
             "access_token": request.cookies[authenticator.cookie_name],
             "type": "Bearer",
@@ -68,10 +66,7 @@ async def create_account(
             detail="Cannot create an account with those credentials",
         )
     form = AccountForm(username=info.username, password=info.password)
-    print("form", form)
     token = await authenticator.login(response, request, form, accounts)
-    print("token:", token)
-    print("account:", account)
     return AccountToken(account=account, **token.dict())
 
 

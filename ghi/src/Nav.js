@@ -1,10 +1,3 @@
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import Notification from './Images/Notification.svg'
-import Messages from "./Images/Messages.svg"
-import dogMessage from "./Images/dogMessage.svg"
-import paw from "./Images/paw.svg"
-
 import {CDBSidebar,
   CDBSidebarContent,
   CDBSidebarFooter,
@@ -12,8 +5,9 @@ import {CDBSidebar,
   CDBSidebarMenu,
   CDBSidebarMenuItem,
 } from 'cdbreact';
-
+import Logout from './Authenticate/Logout';
 import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
 import Logout from './Authenticate/Logout';
 
 

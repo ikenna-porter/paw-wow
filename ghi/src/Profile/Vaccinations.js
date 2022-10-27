@@ -30,6 +30,13 @@ export default function Vaccinations(props) {
         }
     } 
 
+    function checkVacc(vacc) {
+        if (vacc) {
+            return '✅'
+        }
+        return '❌'
+    }
+
     useEffect(() => {
         getVaccines();
     }, [profileId]);
@@ -63,23 +70,23 @@ export default function Vaccinations(props) {
                                 <tbody>
                                     <tr>
                                         <td>Distemper</td>
-                                        <td>{String(vaccines.distemper)}</td>
+                                        <td>{checkVacc(vaccines.distemper)}</td>
                                     </tr>
                                     <tr>
                                         <td>Parvo</td>    
-                                        <td>{String(vaccines.parvo)}</td>
+                                        <td>{checkVacc(vaccines.parvo)} </td>
                                     </tr>
                                     <tr>  
                                         <td>Adeno</td>  
-                                        <td>{String(vaccines.adeno)}</td>
+                                        <td>{checkVacc(vaccines.adeno)}</td>
                                     </tr>    
                                     <tr>
                                         <td>Rabies</td>
-                                        <td>{String(vaccines.rabies)}</td>
+                                        <td>{checkVacc(vaccines.rabies)}</td>
                                     </tr>
                                     <tr>    
                                         <td>Other</td>
-                                        <td>{String(vaccines.other)}</td>
+                                        <td>{checkVacc(vaccines.other)}</td>
                                     </tr>
                                 </tbody>
                             </table>
