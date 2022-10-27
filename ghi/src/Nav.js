@@ -21,11 +21,13 @@ const Nav = (props) => {
         <CDBSidebar className="totalSidebar" textColor="#fff">
           <CDBSidebarHeader prefix={<i className="fa fa-bars fa-2x" onClick={(() => props.setResize(!props.resize))}></i>}>
             <div className="container ">
-              <img
-                src={require("./Images/paw.png")}
-                className="menuLogo"
-                alt=""
-              />
+              <NavLink to='/'>
+                <img
+                  src={require("./Images/paw.png")}
+                  className="menuLogo"
+                  alt=""
+                />
+              </NavLink>
             </div>
           </CDBSidebarHeader>
           <CDBSidebarContent className="sidebar-content">
