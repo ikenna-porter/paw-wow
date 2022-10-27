@@ -20,10 +20,14 @@ export default function Logout(props) {
                 headers: {'accept': 'application/json'}
             }
         )
+        console.log("checking logout")
         if (logout.ok) {
             console.log("I am logged out")
             localStorage.removeItem('currentUser')
+            console.log("is logout ok")
             localStorage.removeItem('profileId')
+            localStorage.removeItem('dogName')
+            localStorage.clear()
             navigate("/")
         }
     }

@@ -8,48 +8,48 @@ export default function Chat(props) {
     const otherUserId = props.otherUserId;
     const primaryUserId = props.primaryUserId;
     const selectedConversation = props.selectedConversation;
-    const [ws, setWs] = useState(new WebSocket(`ws://localhost:8100/ws/conversations/${selectedConversation}`));
+    const [currentMessage, setCurrentMessage] = useState('');
+    const [formSubmitted, setFormSubmitted] = useState('false');
     let selectedUser = null;
+    
 
+    let ws = new WebSocket(`ws://localhost:8100/ws/conversations/${selectedConversation}`);
+    // console.log(ws.readyState)
+    
+    ws.addEventListener('message', event => {
+        //retrieves list of messages
+        const previousMessages = document.getElementById('messages');
 
-    useEffect(() => {
-        console.log(ws.readyState)
+        //creates outer-most message container div and adds appropriate class to it
+        const recentMessage = document.createElement('div');
+        recentMessage.classList.add("message-container");
+
+        //Takes in message data and extracts out text and dates
+        const messageData = JSON.parse(event.data).content;
+        const messageText = JSON.parse(messageData).content;
+        const messageDate = JSON.parse(messageData).timestamp;
         
-        ws.addEventListener('message', event => {
-            //retrieves list of messages
-            const previousMessages = document.getElementById('messages');
-    
-            //creates outer-most message container div and adds appropriate class to it
-            const recentMessage = document.createElement('div');
-            recentMessage.classList.add("message-container");
-    
-            //Takes in message data and extracts out text and dates
-            const messageText = JSON.parse(event.data).content;
-            const messageDate = JSON.parse(event.data).timestamp;
-            
-            //creates text/date divs to go inside of recentMessage
-            const textDiv = document.createElement("div");
-            const dateDiv = document.createElement("div");
-    
-            //creates text nodes, appends them to corresponding divs and adds corresponding classes
-            const textTextContent = document.createTextNode(messageText);
-            const dateTextContent = document.createTextNode(messageDate); //NEED TO CHANGE THE FORMAT OF DATE
-            textDiv.append(textTextContent);
-            dateDiv.append(dateTextContent);
-            textDiv.classList.add("message-text");
-            dateDiv.classList.add("message-timestamp");
-    
-            //appends text and date divs to message-container
-            recentMessage.appendChild(textDiv);
-            recentMessage.appendChild(dateDiv);
-    
-            // recentMessage.appendChild(messageText);
-            previousMessages.appendChild(recentMessage);
-    
-            updateScroll();
-        },);
-    }, []);
+        //creates text/date divs to go inside of recentMessage
+        const textDiv = document.createElement("div");
+        const dateDiv = document.createElement("div");
 
+        //creates text nodes, appends them to corresponding divs and adds corresponding classes
+        const textTextContent = document.createTextNode(messageText);
+        const dateTextContent = document.createTextNode(messageDate); //NEED TO CHANGE THE FORMAT OF DATE
+        textDiv.append(textTextContent);
+        dateDiv.append(dateTextContent);
+        textDiv.classList.add("message-text");
+        dateDiv.classList.add("message-timestamp");
+
+        //appends text and date divs to message-container
+        recentMessage.appendChild(textDiv);
+        recentMessage.appendChild(dateDiv);
+
+        // recentMessage.appendChild(messageText);
+        previousMessages.appendChild(recentMessage);
+
+        updateScroll();
+    },);
     
 
     // //closes WebSocket when a new conversation is selected
@@ -73,8 +73,13 @@ export default function Chat(props) {
             }
         }
 
+        console.log(selectedUser);
+        console.log(otherUserId);
+        console.log(selectedConversation);
+
         let recipientInput = null;
         selectedUser ? recipientInput = selectedUser : recipientInput = otherUserId
+        console.log(recipientInput)
 
         const message = document.querySelector("#chat-input");
         const input = {
@@ -86,7 +91,6 @@ export default function Chat(props) {
         }
 
         ws.send(JSON.stringify(input));
-
         updateScroll();
     }
 

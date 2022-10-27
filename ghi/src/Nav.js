@@ -8,13 +8,14 @@ import {CDBSidebar,
 import Logout from './Authenticate/Logout';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
+import Logout from './Authenticate/Logout';
+
 
 
 const Nav = (props) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   return (
     <div className='position-absolute top-0' style={{display: 'flex', flexDirection: 'column'}}>      
       <div className='v-100' style={{height: '100vh', position: 'sticky', top: 0}}>
@@ -44,8 +45,12 @@ const Nav = (props) => {
               <NavLink to="search">
                 <CDBSidebarMenuItem className={"pb-2"} icon="search">Search</CDBSidebarMenuItem>
               </NavLink>
-              <Logout show={show} handleClose={handleClose} />
-                <button className="logout-btn" onClick={handleShow}>Logout</button>
+              <div className="text-center">
+                  <Logout show={show} handleClose={handleClose} />
+                    <button className="logout-btn text-center" onClick={handleShow}>
+                      Logout
+                    </button>
+              </div>
             </CDBSidebarMenu>
           </CDBSidebarContent>
         </CDBSidebar>

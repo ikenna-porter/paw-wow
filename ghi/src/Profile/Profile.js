@@ -103,6 +103,7 @@ export default function Profile() {
             localStorage.setItem('profileId', `${data.id}`)
             localStorage.setItem('userCity', data.city)
             localStorage.setItem('userState', data.state)
+            localStorage.setItem('dogName', data.dog_name)
             getChars(profileId);
             getProfilePic(profileId);
         }
