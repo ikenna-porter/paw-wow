@@ -2,25 +2,57 @@
 
 ---
 
-## Login form (login form) 
+## Account
+
+#### Signup
+
+Endpoint path: /api/accounts
+Endpoint method: “POST”
+
+Request shape:
+  ```json
+  "username": string,
+  "password": string
+  ```
+
+Response: User information and token
+Response shape (JSON):
+  ``` json
+  {
+    "access_token": "string",
+    "token_type": "Bearer",
+    "account": {
+      "id": int,
+      "username": "string"
+    }
+  }
+  ```
+
+
+
+## Login/LogOut
 
 #### *Login*
 
 Endpoint path: /token
 Endpoint method: “POST”
 
-Request shape (form):
-  Username: string
-  Password: string
+Request shape:
+  ```json
+  "username": string,
+  "password": string
+  ```
 
 Response: User information and token
 Response shape (JSON):
   ``` json
   {
-    "Account": {
-      Key: string,
-    },
-    "Token": string
+    "access_token": "string",
+    "token_type": "Bearer",
+    "account": {
+      "id": int,
+      "username": "string"
+    }
   }
   ```
 
@@ -41,36 +73,9 @@ Response shape (JSON):
 
 ---
 
+## Profile
 
-## Sign Up Endpoint 
-* Endpoint path: /api/accounts
-* Endpoint method: POST
-
-* Request shape (form):
-  * username: string
-  * password: string
-
-* Response: Account information and a token
-* Response shape (JSON):
-    ```json
-    {
-      "account": {
-        «key»: type»,
-      },
-      "token": string,
-      "content": {
-        "username": string,
-        "password": string,
-        "email": string,
-        "city": string,
-        "state": string
-      }
-    }
-    ```
-
----
-
-## Main page/profile (*when user is logged in*)
+#### Main Profile (*when user is logged in*)
 Endpoint path: /api/profiles/{username}
 Endpoint method: GET
 
@@ -81,22 +86,19 @@ Response: A detail of a profile
 Response shape (JSON):
   ``` json
   {
-    "dog_name": string,
-    "city": string,
-    "state": string,
-    "owner_name": string,
-    "img": string,
-    "DOB": date,
-    "fixed": boolean,
-    "size": string,
-    "gender": string,
-    "dog_bio": string
+    "id": int,
+    "dog_name": "string",
+    "city": "string",
+    "state": "string",
+    "owner_name": "string",
+    "owner_description": "string",
+    "account_id": int
   }
   ```
 
 ---
 
-## Edit profile (form)
+#### Edit profile *form*
 Endpoint path: /api/profiles/{username}
 Endpoint method: PATCH
 
@@ -106,16 +108,11 @@ Headers:
 Request body:
   ``` json
   {
-    "dog_name": string,
-    "city": string,
-    "state": string,
-    "owner_name": string,
-    "img": string,
-    "DOB": date,
-    "fixed": boolean,
-    "size": string,
-    "gender": string,
-    "dog_bio": string
+    "dog_name": "string",
+    "city": "string",
+    "state": "string",
+    "owner_name": "string",
+    "owner_description": "string"
   }
   ```
 
@@ -123,18 +120,207 @@ Response: the profile page (detail of a profile)
 Response shape: 
   ``` json
   {
-    "dog_name": string,
-    "city": string,
-    "state": string,
-    "owner_name": string,
-    "img": string,
-    "DOB": date,
-    "fixed": boolean,
-    "size": string,
-    "gender": string,
-    "dog_bio": string
+  "message": "string"
   }
   ```
+
+#### Create profile 
+Endpoint path: /api/profiles
+Endpoint method: PUT
+
+Headers:
+  Authorization: Bearer token
+
+Request body:
+  ``` json
+  {
+    "dog_name": "string",
+    "city": "string",
+    "state": "string",
+    "owner_name": "string",
+    "owner_description": "string"
+  }
+  ```
+
+Response: the profile page (detail of a profile)
+Response shape: 
+  ``` json
+  {
+    "id": int,
+    "dog_name": "string",
+    "city": "string",
+    "state": "string",
+    "owner_name": "string",
+    "owner_description": "string",
+    "account_id": int
+  }
+  ```
+
+#### Vaccination *create*
+Endpoint path: /api/vaccinations
+Endpoint method: POST
+
+Headers:
+  Authorization: Bearer token
+
+Request body:
+  ``` json
+  {
+    "distemper": true,
+    "parvo": true,
+    "adeno": true,
+    "rabies": true,
+    "other": "string"
+  }
+  ```
+
+Response: the profile page (detail of a profile)
+Response shape: 
+  ``` json
+  {
+    "id": int,
+    "distemper": true,
+    "parvo": true,
+    "adeno": true,
+    "rabies": true,
+    "other": "string",
+    "profile_id": int
+  }
+  ```
+
+#### Vaccination *update*
+Endpoint path: /api/vaccinations/{profile_id}
+Endpoint method: PUT
+
+Headers:
+  Authorization: Bearer token
+
+Request body:
+  ``` json
+  {
+    "distemper": true,
+    "parvo": true,
+    "adeno": true,
+    "rabies": true,
+    "other": "string"
+  }
+  ```
+
+Response: the profile page (detail of a profile)
+Response shape: 
+  ``` json
+  {
+    "id": int,
+    "distemper": true,
+    "parvo": true,
+    "adeno": true,
+    "rabies": true,
+    "other": "string",
+    "profile_id": int
+  }
+  ```
+
+#### Characteristics *create*
+Endpoint path: /api/characteristics
+Endpoint method: POST
+
+Headers:
+  Authorization: Bearer token
+
+Request body:
+  ``` json
+  {
+    "dog_friendly": int,
+    "kid_friendly": int,
+    "people_friendly": int,
+    "energy_level": int,
+    "DOB": "2022-10-27",
+    "breed": "string",
+    "fixed": true,
+    "size": "string",
+    "gender": "string",
+    "dog_bio": "string"
+  }
+  ```
+
+Response: the profile page (detail of a profile)
+Response shape: 
+  ``` json
+    "string"
+  ```
+
+#### Characteristics *update*
+Endpoint path: /api/characteristics/{profile_id)}
+Endpoint method: PUT
+
+Headers:
+  Authorization: Bearer token
+
+Request body:
+  ``` json
+  {
+    "dog_friendly": int,
+    "kid_friendly": int,
+    "people_friendly": int,
+    "energy_level": int,
+    "DOB": "2022-10-27",
+    "breed": "string",
+    "fixed": true,
+    "size": "string",
+    "gender": "string",
+    "dog_bio": "string"
+  }
+  ```
+
+Response: the profile page (detail of a profile)
+Response shape: 
+  ``` json
+    "string"
+  ```
+
+#### Get Other Profile
+Endpoint path: /api/profile/{id}}
+Endpoint method: GET
+
+Headers:
+  Authorization: Bearer token
+
+Request body:
+  ``` json
+    {
+    "id": int,
+  }
+  ```
+
+Response: the profile page (detail of a profile)
+Response shape: 
+  ``` json
+    {
+    "id": int,
+    "dog_friendly": int,
+    "kid_friendly": int,
+    "people_friendly": int,
+    "energy_level": int,
+    "DOB": "2022-10-27",
+    "breed": "string",
+    "fixed": true,
+    "size": "string",
+    "gender": "string",
+    "dog_bio": "string",
+    "image": "string",
+    "dog_name": "string",
+    "city": "string",
+    "state": "string",
+    "owner_name": "string",
+    "owner_description": "string",
+    "distemper": true,
+    "parvo": true,
+    "adeno": true,
+    "rabies": true,
+    "other": "string"
+    }
+  ```
+
 
 ---
 
@@ -180,16 +366,21 @@ Endpoint method: GET
 Headers:
   Authorization: Bearer token
 
+Request body:
+  ```json
+    "id": int
+  ```
+
 Response: A list of friends
 Response shape: 
 ``` json
   {
-    "friends": [
+    [
       {
-        "image": string,
-        "dog_name": string,
-        "city": string,
-        "state": string,
+        "image": "string",
+        "dog_name": "string",
+        "city": "string",
+        "state": "string",
         "id": int
       }
     ]
@@ -204,10 +395,20 @@ Endpoint method: POST
 Headers:
   Authorization: Bearer token
 
+Request body:
+  ```json
+    {
+      "status": int,
+      "user_one": int,
+      "user_two": int
+    }
+  ```
+
 Response: A friendship instance
 Response shape:
 ```json
   {
+    "id": int,
     "status": int,
     "user_one": int,
     "user_two": int
@@ -222,15 +423,18 @@ Endpoint method: PUT
 Headers:
   Authorization: Bearer token
 
+Request body:
+  ```json
+    {
+      "user_one": int
+    }
+  ```
+
 Response: A friendship instance
 Response shape:
-```json
-  {
-    "status": int,
-    "user_one": int,
-    "user_two": int
-  }
-```
+  ```json
+    "string"
+  ```
 
 *Deleting a friendship*
 
@@ -240,14 +444,17 @@ Endpoint method: DELETE
 Headers:
   Authorization: Bearer token
 
-Response: A friendship instance
+Request body:
+  ```json
+    {
+      "user_one": int
+    }
+  ```
+
+Response: Removing instance
 Response shape:
 ```json
-  {
-    "status": int,
-    "user_one": int,
-    "user_two": int
-  }
+  "string"
 ```
 
 *List of Pending Requests*
@@ -258,11 +465,18 @@ Endpoint method: GET
 Headers:
   Authorization: Bearer token
 
+Request body:
+  ```json
+    {
+      "user_two": int
+    }
+  ```
+
 Response: A list of pending requests
 Response shape:
 ```json
   { 
-    "pending": [
+    [
       "dog_name": string,
       "city": string,
       "state": string,
@@ -285,18 +499,24 @@ Response shape:
 * Headers:
     * Authorization: Bearer token
 
+* Request body:
+  ```json
+    "primary_user": int
+  ```
+
 * Response: A list of conversations
 * Response shape:
     ```json
-    {
-        "conversations": [
-            "id": int,
-            "primary_user": int,
-            "other_user": int,
-            "other_user_dog_name": string,
-            "other_user_picture": string
-        ]
-    }
+      [
+        {
+          "id": 0,
+          "primary_user": 0,
+          "other_user": 0,
+          "other_user_dog_name": "string",
+          "other_user_picture": "string"
+        }
+      ]
+  ```
 
 *Get a message detail*
 
@@ -325,41 +545,24 @@ Response shape:
 
 *Post message to a conversation*
 
-* Endpoint path: /api/messages
+* Endpoint path: /api/conversations
 * Endpoint method: POST
 
 * Headers:
     * Authorization: Bearer token
 
 * Request Body:
-      ```json
+  ```json
     {
-      "message": { 
-          "sender": int,
-          "recipient": int,
-          "timestamp": datetime,
-          "content": string,
-          "read": boolean,
-          "conversation_id": int
-      },
+      "primary_user": 0,
+      "other_user": 0
     }
     ```
 
 * Response: A detail of a conversation
 * Response shape:
-    ```json
-    {
-      "messages": [
-          "message": { 
-              "recipient": int,
-              "sender": int,
-              "timestamp": datetime,
-              "content": string,
-              "read": boolean,
-              "conversation_id": int
-          },
-      ]
-    }
-    ```
+  ```json
+    "string"
+  ```
 
 
