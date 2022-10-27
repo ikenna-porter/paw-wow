@@ -145,7 +145,7 @@ export default function OtherProfile() {
                   <div className="pb-3">
                     {
                       checkFriends(id) ?
-                      <Button className='disabled'>Friends</Button>
+                      <Button className='disabled disabled btn-light'>Friends</Button>
                       :
                       checkPending(currentUser) ?
                       <Button className='disabled btn-light'>Pending</Button>
@@ -154,12 +154,10 @@ export default function OtherProfile() {
                           Add {profile.dog_name}
                       </Button>
                     }
-                     {
-                      <Fragment>
-                              <Link to='/messages' state={{othersId: profile.id}}>
-                                  <Button size='md'> Message </Button>
-                              </Link>
-                      </Fragment>
+                    {
+                      <Link to='/messages' state={{profileId: profile.id}}>
+                          <Button className='btn btn-light form-btn btn-sm'> Message </Button>
+                      </Link>
                     }
                   </div>
               </div>

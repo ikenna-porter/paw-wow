@@ -20,10 +20,8 @@ async def get_pic(
     repo: ProfilePicRepository = Depends()
 ):
     pic = repo.get_one(profile_id)
-
     if pic == None:
-        return {"message": "Could not retrieve picture for this profile"}
-        
+        return {"message": "Could not retrieve picture for this profile"}     
     return pic
 
 @router.put("/api/profile-pic/{profile_id}") 

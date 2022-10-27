@@ -12,6 +12,20 @@ At least one ah-ha! moment that you had during your coding, however small
 
 ----
 
+## October 26, 2022
+
+Today I worked on:
+
+*Fixing Small Details and ReadMe*
+
+Most of today, I worked on aligning the friend list and request profile cards. Then, I worked on the ReadMe document. There, I wrote out the ReadMe file, reworked our API Design document, created a Database Design document with all of our tables, and redesigned our GHI photos and put them in that document with brief descriptions of each page. 
+
+We had a short conversation about a button placement on another user's profile. We decided to put it under the dog's name inside the card, instead of above it.
+
+Being organized and consistent is really helpful to make styling your page much easier. 
+
+----
+
 ## October 25, 2022
 
 Today I worked on:
