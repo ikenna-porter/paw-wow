@@ -7,6 +7,7 @@ export default function Logout(props) {
     const show = props.show;
     const handleClose = props.handleClose;
     const navigate = useNavigate();
+    console.log("not logged out yet")
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -20,6 +21,7 @@ export default function Logout(props) {
             }
         )
         if (logout.ok) {
+            console.log("I am logged out")
             localStorage.removeItem('currentUser')
             localStorage.removeItem('profileId')
             navigate("/")
@@ -34,10 +36,10 @@ export default function Logout(props) {
                 <form onSubmit={handleSubmit}>
                     <p>Are you sure you want to logout?</p>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
+                    <Button className="btn-light close-btn" onClick={handleClose}>
                         Remain Logged in
                     </Button>
-                    <Button variant="primary" type="submit" onClick={handleClose}>
+                    <Button className="btn-light form-btn" type="submit" onClick={handleClose}>
                         Logout
                     </Button>
                 </Modal.Footer>

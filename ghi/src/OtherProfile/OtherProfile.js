@@ -52,6 +52,13 @@ export default function OtherProfile() {
         }
     }
     
+    function checkVacc(vacc) {
+      if (vacc) {
+          return '✅'
+      }
+      return '❌'
+    } 
+
     async function getPending() {
       const url = `http://localhost:8100/api/friendships/${id}/pending`;
       const pendingResponse = await fetch(url);
@@ -130,7 +137,7 @@ export default function OtherProfile() {
     <div className="container">
       <div className="dog-profile py-4">
         <div className="profile-div row">
-          <div className="col-lg-4">
+          <div className="col-lg-7">
             <div className='container p-3'>
             </div>
             <div className="card shadow-sm">
@@ -222,20 +229,30 @@ export default function OtherProfile() {
                     <table className="table table-striped">
                         <thead>
                             <tr>
-                                <th>Distemper</th>
-                                <th>Parvo</th>
-                                <th>Adeno</th>
-                                <th>Rabies</th>
-                                <th>Other</th>
+                                <th>Vaccination</th>
+                                <th>{profile.dog_name}'s Records</th>
                             </tr>
                         </thead>
                     <tbody>
                         <tr>
-                            <td>{String(profile.distemper)}</td>
-                            <td>{String(profile.parvo)}</td>
-                            <td>{String(profile.adeno)}</td>
-                            <td>{String(profile.rabies)}</td>
-                            <td>{String(profile.other)}</td>
+                          <td>Distemper</td>
+                          <td>{checkVacc(profile.distemper)}</td>
+                        </tr>
+                        <tr>
+                          <td>Parvo</td>
+                          <td>{checkVacc(profile.parvo)}</td>
+                        </tr>
+                        <tr>
+                          <td>Adeno</td>  
+                          <td>{checkVacc(profile.adeno)}</td>
+                        </tr>
+                        <tr>  
+                          <td>Rabies</td>
+                          <td>{checkVacc(profile.rabies)}</td>
+                        </tr>
+                        <tr>
+                          <td>Other</td>  
+                          <td>{checkVacc(profile.other)}</td>
                         </tr>
                     </tbody>
                     </table>
