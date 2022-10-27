@@ -15,6 +15,7 @@ import ListFriends from './Friendship/FriendList'
 import PendingList from './Friendship/PendingList'
 import SearchBar from './SearchBar/SearchBar'
 import OtherProfile from './OtherProfile/OtherProfile'
+import Logout from './Authenticate/Logout';
 
 export default function App() {
     const [resize, setResize] = useState(false)
