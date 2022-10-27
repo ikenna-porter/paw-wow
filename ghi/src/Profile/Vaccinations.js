@@ -86,7 +86,7 @@ export default function Vaccinations(props) {
                                     </tr>
                                     <tr>    
                                         <td>Other</td>
-                                        <td>{checkVacc(vaccines.other)}</td>
+                                        <td>{vaccines.other}</td>
                                     </tr>
                                 </tbody>
                             </table>
