@@ -8,7 +8,6 @@ import {CDBSidebar,
 import Logout from './Authenticate/Logout';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
-import Logout from './Authenticate/Logout';
 
 
 
