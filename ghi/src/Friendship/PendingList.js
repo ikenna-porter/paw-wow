@@ -70,7 +70,7 @@ function PendingList() {
   return (
     <>
     <div className='pt-5 parent text-center'>
-      <h2 className='pb-3'>Your Pending Pals</h2>
+      <img src={require('../Images/pending.png')} className='pb-3 img-responsive'/>
       <div className='container d-inline-flex text-center row row-cols-1 row-cols-md-3'>
       {
         pending_friends.map((pending, idx) => {
