@@ -61,7 +61,7 @@ export default function OtherProfile() {
 
     async function getPending() {
       const url = `http://localhost:8100/api/friendships/${id}/pending`;
-      const pendingResponse = await fetch(url);
+      const pendingResponse = await fetch(url, {credentials: 'include'});
       if(pendingResponse.ok) {
         const pendingData = await pendingResponse.json();
         setPendingFriends(pendingData);
@@ -70,7 +70,7 @@ export default function OtherProfile() {
     useEffect(() => {
         async function getProfile() {
             const url = `http://localhost:8100/api/profile/${id}`;
-            const response = await fetch(url);
+            const response = await fetch(url, {credentials: 'include'});
             if(response.ok) {
                 const data = await response.json();
                 setProfile(data);
@@ -78,7 +78,7 @@ export default function OtherProfile() {
         } getProfile()
         async function getFriendship() {
           const url = `http://localhost:8100/api/friendships/${currentUser}`;
-          const friendResponse = await fetch(url);
+          const friendResponse = await fetch(url, {credentials: 'include'});
           if(friendResponse.ok) {
             const friendData = await friendResponse.json();
             setFriends(friendData);
@@ -119,7 +119,7 @@ export default function OtherProfile() {
                 'user_two': Number(id)
             })
         };
-        const reqResponse = await fetch(requestUrl, fetchConfig);
+        const reqResponse = await fetch(requestUrl, fetchConfig, {credentials: 'include'});
         if (reqResponse.ok) {
           getPending();
           checkPending(currentUser);

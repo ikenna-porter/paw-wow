@@ -12,7 +12,7 @@ function PendingList() {
   useEffect(() => {
       async function getPendingData() {
           const url = `http://localhost:8100/api/friendships/${user_two}/pending`;
-          const response = await fetch(url);
+          const response = await fetch(url, {credentials: 'include'});
           if (response.ok) {
               const data = await response.json();
               setPending(data);
@@ -31,7 +31,7 @@ function PendingList() {
               'Content-Type': 'application/json'
           }
       };
-      const acceptResponse = await fetch(acceptUrl, fetchConfig);
+      const acceptResponse = await fetch(acceptUrl, fetchConfig, {credentials: 'include'});
       if (acceptResponse.ok) {
           setPending(
               pending_friends.filter(pending => pending.user_one != user_one)
@@ -48,7 +48,7 @@ function PendingList() {
               'Content-Type': 'application/json'
           }
       };
-      const pendingResponse = await fetch(pendingUrl, fetchConfig);
+      const pendingResponse = await fetch(pendingUrl, fetchConfig, {credentials: 'include'});
       if (pendingResponse.ok) {
           setPending(
               pending_friends.filter(pending => pending.user_one != user_one)
@@ -71,7 +71,7 @@ function PendingList() {
     <>
     <div className='pt-5 parent text-center'>
       <h2 className='pb-3'>Your Pending Pals</h2>
-      <div className='container d-inline-flex text-center'>
+      <div className='container d-inline-flex text-center row row-cols-1 row-cols-md-3'>
       {
         pending_friends.map((pending, idx) => {
           return ( 

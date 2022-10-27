@@ -11,7 +11,7 @@ export default function ListFriends() {
     useEffect(() => {
         async function getFriendList() {
             const url = `http://localhost:8100/api/friendships/${id}`;
-            const response = await fetch(url);
+            const response = await fetch(url, {credentials: 'include'});
             if (response.ok) {
                 const data = await response.json();
                 setFriends(data);
@@ -35,7 +35,7 @@ export default function ListFriends() {
                     'Content-Type': 'application/json'
                 }
             };
-            const pendingResponse = await fetch(pendingUrl, fetchConfig);
+            const pendingResponse = await fetch(pendingUrl, fetchConfig, {credentials: 'include'});
             if (pendingResponse.ok) {
                 setFriends(
                     friends.filter(friend => friend.id != user_one)
@@ -53,7 +53,7 @@ export default function ListFriends() {
         return(
             <div className='pt-5 parent text-center'>
                 <h2 className='pb-3'>Your Paw Pals</h2>
-                    <div className='container d-inline-flex text-center'>
+                    <div className='container d-inline-flex text-center row row-cols-1 row-cols-md-3'>
                         {friends.length > 0 ?
                             friends.map((friend, idx) => {
                                 return (
