@@ -126,8 +126,7 @@ class FriendshipRepository:
                         return True
                     return False
         except Exception as e:
-            print(e)
-            return {"Message": "This request does not exist."}
+            return e
 
     def deny_request(self, user_one):
         try:
@@ -144,5 +143,4 @@ class FriendshipRepository:
                         return True
                     return False
         except Exception as e:
-            print(e)
-            return {"Message": "This request does not exist."}
+            return e
