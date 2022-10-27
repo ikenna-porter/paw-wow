@@ -19,12 +19,9 @@ import Logout from './Authenticate/Logout';
 
 
 const Nav = (props) => {
-  // const name = localStorage.getItem("dogName")
-  const username = localStorage.getItem('currentUser')
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  console.log(username)
   return (
     <div className='position-absolute top-0' style={{display: 'flex', flexDirection: 'column'}}>      
       <div className='v-100' style={{height: '100vh', position: 'sticky', top: 0}}>
@@ -39,12 +36,6 @@ const Nav = (props) => {
             </div>
           </CDBSidebarHeader>
           <CDBSidebarContent className="sidebar-content">
-            {/* {
-              username ?
-              <div className={""}>Hi, {name}!</div>
-              :
-              null
-            } */}
             <CDBSidebarMenu>
               <NavLink to="/profile" >
                 <CDBSidebarMenuItem className={"pb-2"} icon="user">Profile</CDBSidebarMenuItem>
@@ -60,16 +51,12 @@ const Nav = (props) => {
               <NavLink to="search">
                 <CDBSidebarMenuItem className={"pb-2"} icon="search">Search</CDBSidebarMenuItem>
               </NavLink>
-              {/* <NavLink to="/"> */}
               <div className="text-center">
                   <Logout show={show} handleClose={handleClose} />
                     <button className="logout-btn text-center" onClick={handleShow}>
                       Logout
                     </button>
               </div>
-                    {/* <CDBSidebarMenuItem className={""} icon="fa fa-arrow-left">       
-                      </CDBSidebarMenuItem> */}
-              {/* </NavLink> */}
             </CDBSidebarMenu>
           </CDBSidebarContent>
         </CDBSidebar>
