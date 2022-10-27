@@ -42,6 +42,7 @@ class ConnectionManager:
     ):
         await websocket.accept()
         self.active_connections.append(websocket)
+        print("connected to...", conversation_id)
 
     #     await self.send_personal_message(
     #         "Welcome!",
