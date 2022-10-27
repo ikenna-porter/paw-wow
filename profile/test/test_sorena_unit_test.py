@@ -34,15 +34,49 @@ def test_get_account():
 
 
 
-# Arrange
+class FakeFriendshipRepository:
+    def get_friend_list(self, id: int):
+        return [  {
+            "image": None,
+            "dog_name": "Testing",
+            "city": "Nashville",
+            "state": "TN",
+            "id": 5
+            },
+            {
+            "image": None,
+            "dog_name": "Potato",
+            "city": "Here",
+            "state": "TX",
+            "id": 6
+            }
+        ]
+    
 
-# app.dependency_overrides[get_list_friends] = FriendshipRepository
 
-# def test_get_all_friends_when_empty():
-#     # Act
-#     response = client.get("/api/friendships/100")
 
-#     # Assert
-#     assert response.status_code == 200
-#     assert response.json() == []
+def test_get_all_friends_when_empty():
 
+    app.dependency_overrides[FriendshipRepository] = FakeFriendshipRepository
+    # Act
+    response = client.get("/api/friendships/6", data=fakeAccOut)
+
+    app.dependency_overrides = {}
+
+    # Assert
+    assert response.status_code == 200
+    assert response.json() == [  {
+            "image": None,
+            "dog_name": "Testing",
+            "city": "Nashville",
+            "state": "TN",
+            "id": 5
+            },
+            {
+            "image": None,
+            "dog_name": "Potato",
+            "city": "Here",
+            "state": "TX",
+            "id": 6
+            }
+        ]

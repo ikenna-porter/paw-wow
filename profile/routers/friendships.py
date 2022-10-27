@@ -7,6 +7,7 @@ from queries.friendships import (
     FriendListOut,
     FriendsOut
 )
+from authenticator import authenticator
 
 router = APIRouter()
 
@@ -20,6 +21,7 @@ def create_friendship(
 @router.get("/api/friendships/{id}", response_model = List[FriendsOut])
 def get_list_friends(
     id: int,
+    account_data: dict = Depends(authenticator.get_current_account_data),
     repo: FriendshipRepository = Depends()
 ):
     return repo.get_friend_list(id)
@@ -27,6 +29,7 @@ def get_list_friends(
 @router.get("/api/friendships/{user_two}/pending", response_model = List[FriendListOut])
 def get_pending(
     user_two: int,
+    account_data: dict = Depends(authenticator.get_current_account_data),
     repo: FriendshipRepository = Depends()
 ):
     return repo.get_pending_requests(user_two)

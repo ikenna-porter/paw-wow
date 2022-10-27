@@ -80,8 +80,7 @@ class FriendshipRepository:
                     for record in db]
                     return result
         except Exception as e:
-            print(e)
-            return {"Message": "You have no Paw Pals yet"}
+            return e 
 
     def get_pending_requests(self, user_two) -> List[FriendListOut]:
         try:
@@ -109,8 +108,7 @@ class FriendshipRepository:
                     for record in real_result]
                     return return_list
         except Exception as e:
-            print(e)
-            return {"Message": "You have no pending requests"}
+            return e
 
     def approve_request(self, user_one):
         try:

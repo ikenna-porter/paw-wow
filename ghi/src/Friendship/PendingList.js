@@ -61,6 +61,12 @@ function PendingList() {
     navigate(`/profile/${e.target.value}`);
   }
 
+  if (!user_two) {
+    return(
+        <h2 className='text-center pt-4'>You must login to view your pending requests!</h2>
+    )
+}
+
   return (
     <>
     <div className='pt-5 parent text-center'>

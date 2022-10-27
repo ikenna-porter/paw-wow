@@ -43,6 +43,13 @@ export default function ListFriends() {
             }
         }
 
+
+        if (!id) {
+            return(
+                <h2 className='text-center pt-4'>You must login to view your friends!</h2>
+            )
+        }
+
         return(
             <div className='pt-5 parent text-center'>
                 <h2 className='pb-3'>Your Paw Pals</h2>
