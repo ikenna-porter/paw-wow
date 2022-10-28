@@ -1,4 +1,5 @@
 from fastapi.testclient import TestClient
+from unittest import TestCase
 from main import app
 from queries.friendships import FriendshipRepository
 from routers.friendships import create_friendship
@@ -6,27 +7,42 @@ from routers.friendships import create_friendship
 
 client = TestClient(app)
 
-#Arrange
-app.dependency_overrides[create_friendship] = FriendshipRepository
-data = {
-  "status": 1,
-  "user_one": 2,
-  "user_two": 1
-}
+class CreateFriendshipQueries(TestCase):
+  def create(self, friendship):
+      result = {
+          "id": 6,
+          "status": 1,
+          "user_one": 2,
+          "user_two": 1,
+      }
+      result.update(friendship)
+      return result
 
-expected = {
-  "id": 6,
-  "status": 1,
-  "user_one": 2,
-  "user_two": 1
-}
+ 
 
-#Act
-response = client.post("/api/friendships/1", json=data)
+def test_case():
+  #Arrange
+  app.dependency_overrides[FriendshipRepository] = CreateFriendshipQueries
 
-#clean up
-app.dependency_overrides = {}
+  data = {
+    "status": 1,
+    "user_one": 2,
+    "user_two": 1
+  }
 
-#Assert
-assert response.status_code == 200
-assert response.json() == expected
+  expected = {
+    "id": 6,
+    "status": 1,
+    "user_one": 2,
+    "user_two": 1,
+  }
+
+  #Act
+  response = client.post("/api/friendships/1", json=data)
+
+  #clean up
+  app.dependency_overrides = {}
+
+  #Assert
+  assert response.status_code == 200
+  assert response.json() == expected
