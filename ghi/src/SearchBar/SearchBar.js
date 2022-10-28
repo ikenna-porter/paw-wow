@@ -98,8 +98,8 @@ export default function SearchBar() {
                         <button className="btn btn-outline-secondary" type="submit">Search</button>
                     </div>    
                 </form>
-                <div className="container p-4">
-                    <h3>Other Pups</h3>
+                <div className="container p-4 text-center">
+                    <img src={require('../Images/other.png')} className='pb-3 img-responsive'/>
                     <div className="row row-cols-1 row-cols-md-3 g-4">
                     {filteredUsers.map(user => {
                         return(
