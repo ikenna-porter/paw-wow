@@ -6,8 +6,8 @@
 
 #### Signup
 
--Endpoint path: /api/accounts
--Endpoint method: “POST”
+- Endpoint path: ```/api/accounts```
+- Endpoint method: “POST”
 
 - Request shape:
   ```json
@@ -34,7 +34,7 @@
 
 #### *Login*
 
-- Endpoint path: /token
+- Endpoint path: ```/token```
 - Endpoint method: “POST”
 
 - Request shape:
@@ -59,7 +59,7 @@
 
 #### *Log out*
 
-- Endpoint path: /token
+- Endpoint path: ```/token```
 - Endpoint method: DELETE
 
 - Headers:
@@ -76,7 +76,7 @@
 ## Profile
 
 #### Main Profile (*when user is logged in*)
-- Endpoint path: /api/profiles/{username}
+- Endpoint path: ```/api/profiles/{username}```
 - Endpoint method: GET
 
 - Headers: 
@@ -100,7 +100,7 @@
 
 #### Edit profile *form*
 
-- Endpoint path: /api/profiles/{username}
+- Endpoint path: ```/api/profiles/{username}```
 - Endpoint method: PATCH
 
 - Headers:
@@ -127,7 +127,7 @@
 
 #### Create profile 
 
-- Endpoint path: /api/profiles
+- Endpoint path: ```/api/profiles```
 - Endpoint method: PUT
 
 - Headers:
@@ -160,7 +160,7 @@
 
 #### Vaccination *create*
 
-- Endpoint path: /api/vaccinations
+- Endpoint path: ```/api/vaccinations```
 - Endpoint method: POST
 
 - Headers:
@@ -193,7 +193,7 @@
 
 #### Vaccination *update*
 
-- Endpoint path: /api/vaccinations/{profile_id}
+- Endpoint path: ```/api/vaccinations/{profile_id}```
 - Endpoint method: PUT
 
 - Headers:
@@ -226,7 +226,7 @@
 
 #### Characteristics *create*
 
-- Endpoint path: /api/characteristics
+- Endpoint path: ```/api/characteristics```
 - Endpoint method: POST
 
 - Headers:
@@ -256,7 +256,7 @@
 
 #### Characteristics *update*
 
-- Endpoint path: /api/characteristics/{profile_id)}
+- Endpoint path: ```/api/characteristics/{profile_id)}```
 - Endpoint method: PUT
 
 - Headers:
@@ -286,7 +286,7 @@
 
 #### Get Other Profile
 
-- Endpoint path: /api/profile/{id}}
+- Endpoint path: ```/api/profile/{id}```
 - Endpoint method: GET
 
 - Headers:
@@ -333,7 +333,7 @@
 
 ## Search Bar 
 
-- Endpoint path: api/profiles
+- Endpoint path: ```api/profiles```
 - Endpoint method: “GET”
 
 - Query parameters:
@@ -368,7 +368,7 @@
 
 *List of Friends*
 
-- Endpoint path: /api/friendships/{id}
+- Endpoint path: ```/api/friendships/{id}```
 - Endpoint method: GET
 
 - Headers:
@@ -397,7 +397,7 @@
 
 *Creating a Friendship*
 
-- Endpoint path: /api/friendships/{id}
+- Endpoint path: ```/api/friendships/{id}```
 - Endpoint method: POST
 
 - Request body:
@@ -422,7 +422,7 @@
 
 *Updating a Friendship*
 
-- Endpoint path: /api/friendships/{user_one}/pending
+- Endpoint path: ```/api/friendships/{user_one}/pending```
 - Endpoint method: PUT
 
 - Request body:
@@ -440,7 +440,7 @@
 
 *Deleting a friendship*
 
-- Endpoint path: /api/friendships/{user_one}/pending
+- Endpoint path: ```/api/friendships/{user_one}/pending```
 - Endpoint method: DELETE
 
 - Request body:
@@ -458,7 +458,7 @@
 
 *List of Pending Requests*
 
-- Endpoint path: /api/friendships/{user_two}/pending
+- Endpoint path: ```/api/friendships/{user_two}/pending```
 - Endpoint method: GET
 
 - Headers:
