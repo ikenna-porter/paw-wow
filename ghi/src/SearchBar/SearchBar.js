@@ -54,7 +54,7 @@ export default function SearchBar() {
             let filteredResults = []
             users.forEach( user => {
                 let dog = user.dog_name.toLowerCase()
-                if (dog.includes(searchInput)) {
+                if (dog.includes(searchInput) || user.dog_name.includes(searchInput)) {
                     filteredResults.push(user)
                 }
             })
