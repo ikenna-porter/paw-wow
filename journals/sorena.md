@@ -12,6 +12,19 @@ At least one ah-ha! moment that you had during your coding, however small
 
 ----
 
+## October 28, 2022 
+
+Today I worked on: 
+
+*Writing a New Unit Test and Fixing Deleting a Friend*
+
+At one point today, as I was making a new test since my previous one broke, I realized the way to delete a friend in your friends list is not *fully* functional. Because a user can be in either column of user_one *or* user_two. So I worked on making a new endpoint for that and implemented it into the application. Then I wrote a new unit test with for that. 
+
+We agreed that I could create a new image for the search page and put that in place of the header text.
+
+It is really important to think through edge-cases and testing things fully!
+
+
 ## October 27, 2022
 
 Today I worked on:
