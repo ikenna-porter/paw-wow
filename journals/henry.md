@@ -75,3 +75,11 @@ I also need to test the getOtherProfile function that I added to the front-end. 
 Sorena helped me with being able to view other profiles today. The issue was different
 from how I understood it. Profiles are attached to usernames and we didn't want to be
 able to view another person's username so having the router go to the username didn't make sense. We ended up using profile IDs and making a new query and router for displaying other profiles. So we spent the morning working on the backend and most of the late morning/afternoon on the frontend portion of displaying another person's profile. We had to join 4 tables so writing out all the column names out multiple times was really fun.
+
+# October 26, 2022
+Today after meeting up with the group I looked into the unit test documentation and read up on that. I tried to think of ideas that would let a user know that they're logged in an took some steps trying to implement that.
+
+# October 27, 2022
+We worked on getting our unit tests to work today. I tried to add in a feature that would display the name of the logged in user but we ran into an issue where the local storage wasn't cleared after logging out. After looking at it, the nav bar just redirected to the home page instead of using the logout function. I wasn't able to implement the feature I wanted to implement because it wasn't updating on logout without a refresh but that's something that can be worked on. The logout functionality on the nav bar was eventually fixed and we all got together to work on unit tests.
+
+# October 28, 2022
