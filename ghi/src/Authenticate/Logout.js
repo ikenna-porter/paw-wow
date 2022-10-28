@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -16,18 +15,18 @@ export default function Logout(props) {
             {
                 method: 'DELETE',
                 credentials: 'include',
-                headers: {'accept': 'application/json'}
+                headers: { 'accept': 'application/json' }
             }
-        )
+        );
         if (logout.ok) {
-            localStorage.removeItem('currentUser')
-            localStorage.removeItem('profileId')
-            localStorage.removeItem('dogName')
-            localStorage.clear()
-            navigate("/")
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('profileId');
+            localStorage.removeItem('dogName');
+            localStorage.clear();
+            navigate("/");
         }
     }
-    return(
+    return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
                 <Modal.Title>Logout</Modal.Title>
@@ -35,14 +34,14 @@ export default function Logout(props) {
             <Modal.Body>
                 <form onSubmit={handleSubmit}>
                     <p>Are you sure you want to logout?</p>
-                <Modal.Footer>
-                    <Button className="btn-light close-btn" onClick={handleClose}>
-                        Remain Logged in
-                    </Button>
-                    <Button className="btn-light form-btn" type="submit" onClick={handleClose}>
-                        Logout
-                    </Button>
-                </Modal.Footer>
+                    <Modal.Footer>
+                        <Button className="btn-light close-btn" onClick={handleClose}>
+                            Remain Logged in
+                        </Button>
+                        <Button className="btn-light form-btn" type="submit" onClick={handleClose}>
+                            Logout
+                        </Button>
+                    </Modal.Footer>
                 </form>
             </Modal.Body>
         </Modal>

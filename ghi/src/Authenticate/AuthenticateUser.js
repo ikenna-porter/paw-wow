@@ -3,7 +3,7 @@ import Login from './Login'
 import SignUp from './SignUp'
 
 export default function AuthenticateUser(props) {
-    const [showSignUp, setShowSignUp] = useState(false)
+    const [showSignUp, setShowSignUp] = useState(false);
 
     if (showSignUp) {
         return (

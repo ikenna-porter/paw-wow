@@ -146,3 +146,26 @@ class FriendshipRepository:
                     return False
         except Exception as e:
             return e
+<<<<<<< HEAD
+=======
+
+    def remove_friend(self, id, user_two):
+        try:
+            with pool.connection() as conn:
+                with conn.cursor() as db:
+                    result = db.execute(
+                        """
+                    DELETE FROM friendships
+                    WHERE (user_one = %(user_one)s OR user_two = %(user_one)s)
+                    AND (user_one = %(user_two)s OR user_two = %(user_two)s);
+                        """,
+                        {"user_one": id, "user_two": user_two}
+                    )
+                    print(result)
+                    if result:
+                        return True
+                    return False
+        except Exception as e:
+            print(e)
+            return e
+>>>>>>> main

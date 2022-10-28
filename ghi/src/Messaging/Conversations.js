@@ -1,11 +1,9 @@
-import {useEffect, useState} from 'react'
-import Conversation from './Conversation'
-import './style.css'
+import Conversation from './Conversation';
+import './style.css';
 
 export default function Conversations(props) {
-    const conversations = props.conversations
-    const setSelectedConversation = props.setSelectedConversation
-    const [loading, setLoading] = useState(true);
+    const conversations = props.conversations;
+    const setSelectedConversation = props.setSelectedConversation;
 
     //Function should change state of parent, thereby rendering a new chat window 
     const handleConversationClick = (conversation_id) => {
@@ -20,7 +18,7 @@ export default function Conversations(props) {
         <ul className="conversations-list">
             {conversations.map(conversation => {
                 return (
-                    <div key={conversation.id} onClick={ e => handleConversationClick(conversation.id)}>
+                    <div key={conversation.id} onClick={e => handleConversationClick(conversation.id)}>
                         <Conversation
                             conversation={conversation}
                         />

@@ -48,12 +48,21 @@ class FakeProfileRepository(TestCase):
             "owner_name": "Jamie",
             "owner_description": "Jamie loves the outdoors.",
             "account_id": 50,
+<<<<<<< HEAD
         }
 
 
 # USE AUTHENTICATION TO CREATE A PROFILE
 def test_create_profile():
     # Arrange
+=======
+            "social_media": "instagram.com/link"
+        }
+
+# # USE AUTHENTICATION TO CREATE A PROFILE
+def test_create_profile():
+#     #Arrange
+>>>>>>> main
     app.dependency_overrides[ProfileRepository] = FakeProfileRepository
 
     json = {
@@ -62,6 +71,10 @@ def test_create_profile():
         "state": "OR",
         "owner_name": "Jamie",
         "owner_description": "Jamie loves the outdoors.",
+<<<<<<< HEAD
+=======
+        "social_media": "instagram.com/link"
+>>>>>>> main
     }
     expected = {
         "id": 50,
@@ -71,6 +84,10 @@ def test_create_profile():
         "owner_name": "Jamie",
         "owner_description": "Jamie loves the outdoors.",
         "account_id": 50,
+<<<<<<< HEAD
+=======
+        "social_media": "instagram.com/link"
+>>>>>>> main
     }
 
     # Act

@@ -4,7 +4,6 @@
 - America Guerrero
 - Henry Tran
 - Ikenna Porter
-- Jason Olefson
 - Sorena Sawyer
 
 *Paw Wow* - a place for dog lovers to find new friends and socialize their dog, wherever they go!
