@@ -41,6 +41,10 @@ Paw Wow has been created for dog-owners who want to socialize their companion. W
         - here, a user will be able to view the profile of the other user and be able to approve or deny the request
 - Users can logout through the navbar, and upon logging out, the local storage clears
 
+## Preview
+
+![](doc\images\PawWow.Gif.gif)
+
 
 ## Installation
 
