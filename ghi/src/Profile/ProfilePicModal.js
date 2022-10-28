@@ -58,7 +58,6 @@ export default function ProfilePicModal(props) {
         e.preventDefault();
         convertImgToURI(image)
             .then(dataURI => {
-                // console.log(dataURI);
                 sendProfilePic(profileId, dataURI);
             })
             .catch((e) => {

@@ -106,7 +106,6 @@ export default function OtherProfile() {
     const handleAdd = async (e) => {
         e.preventDefault();
         const id = e.target.value;
-        console.log(e.target)
         const requestUrl = `http://localhost:8100/api/friendships/${id}`;
         const fetchConfig = {
             method: 'POST',
