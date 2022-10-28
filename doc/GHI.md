@@ -27,14 +27,6 @@ When a user goes to another profile page, they will see all the details of the u
 
 ![other-profile](./images/other-profile.png)
 
-## Messages
-
-A logged in user can go to their messages, see all of their conversations on the left-hand side and click on one to view the messages between that user. 
-
-These messages will be live and auto-updated.
-
-![messages](./images/messages.png)
-
 ## Friends List Page
 
 A logged in user can view their friends list and see any friends they have and be able to navigate to their page or remove them as a friend. This is also where a user can navigate to their pending requests.

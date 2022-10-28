@@ -7,7 +7,6 @@ export default function Logout(props) {
     const show = props.show;
     const handleClose = props.handleClose;
     const navigate = useNavigate();
-    console.log("not logged out yet")
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -20,11 +19,8 @@ export default function Logout(props) {
                 headers: {'accept': 'application/json'}
             }
         )
-        console.log("checking logout")
         if (logout.ok) {
-            console.log("I am logged out")
             localStorage.removeItem('currentUser')
-            console.log("is logout ok")
             localStorage.removeItem('profileId')
             localStorage.removeItem('dogName')
             localStorage.clear()

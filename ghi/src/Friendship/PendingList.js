@@ -16,8 +16,6 @@ function PendingList() {
           if (response.ok) {
               const data = await response.json();
               setPending(data);
-          } else {
-              console.log('Could not get pending friend requests.');
           }
       } getPendingData();
   }, [user_two])
