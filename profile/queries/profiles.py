@@ -161,7 +161,6 @@ class ProfileRepository:
                         [username],
                     )
                     info = result.fetchone()
-                    print(info)
 
                     db.execute(
                         """
