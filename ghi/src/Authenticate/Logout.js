@@ -16,7 +16,7 @@ export default function Logout(props) {
             {
                 method: 'DELETE',
                 credentials: 'include',
-                headers: {'accept': 'application/json'}
+                headers: { 'accept': 'application/json' }
             }
         )
         if (logout.ok) {
@@ -27,7 +27,7 @@ export default function Logout(props) {
             navigate("/")
         }
     }
-    return(
+    return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
                 <Modal.Title>Logout</Modal.Title>
@@ -35,14 +35,14 @@ export default function Logout(props) {
             <Modal.Body>
                 <form onSubmit={handleSubmit}>
                     <p>Are you sure you want to logout?</p>
-                <Modal.Footer>
-                    <Button className="btn-light close-btn" onClick={handleClose}>
-                        Remain Logged in
-                    </Button>
-                    <Button className="btn-light form-btn" type="submit" onClick={handleClose}>
-                        Logout
-                    </Button>
-                </Modal.Footer>
+                    <Modal.Footer>
+                        <Button className="btn-light close-btn" onClick={handleClose}>
+                            Remain Logged in
+                        </Button>
+                        <Button className="btn-light form-btn" type="submit" onClick={handleClose}>
+                            Logout
+                        </Button>
+                    </Modal.Footer>
                 </form>
             </Modal.Body>
         </Modal>

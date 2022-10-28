@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 import Conversation from './Conversation'
 import './style.css'
 
@@ -20,7 +20,7 @@ export default function Conversations(props) {
         <ul className="conversations-list">
             {conversations.map(conversation => {
                 return (
-                    <div key={conversation.id} onClick={ e => handleConversationClick(conversation.id)}>
+                    <div key={conversation.id} onClick={e => handleConversationClick(conversation.id)}>
                         <Conversation
                             conversation={conversation}
                         />

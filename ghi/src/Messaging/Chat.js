@@ -1,5 +1,5 @@
-import {useState, useEffect} from 'react'
-import {ReconnectingWebSocket} from './reconnectWebsocket';
+import { useState, useEffect } from 'react'
+import { ReconnectingWebSocket } from './reconnectWebsocket';
 import Message from './Message'
 
 export default function Chat(props) {
@@ -14,23 +14,23 @@ export default function Chat(props) {
 
     useEffect(() => {
         console.log(ws.readyState)
-        
+
         ws.addEventListener('message', event => {
             //retrieves list of messages
             const previousMessages = document.getElementById('messages');
-    
+
             //creates outer-most message container div and adds appropriate class to it
             const recentMessage = document.createElement('div');
             recentMessage.classList.add("message-container");
-    
+
             //Takes in message data and extracts out text and dates
             const messageText = JSON.parse(event.data).content;
             const messageDate = JSON.parse(event.data).timestamp;
-            
+
             //creates text/date divs to go inside of recentMessage
             const textDiv = document.createElement("div");
             const dateDiv = document.createElement("div");
-    
+
             //creates text nodes, appends them to corresponding divs and adds corresponding classes
             const textTextContent = document.createTextNode(messageText);
             const dateTextContent = document.createTextNode(messageDate); //NEED TO CHANGE THE FORMAT OF DATE
@@ -38,19 +38,19 @@ export default function Chat(props) {
             dateDiv.append(dateTextContent);
             textDiv.classList.add("message-text");
             dateDiv.classList.add("message-timestamp");
-    
+
             //appends text and date divs to message-container
             recentMessage.appendChild(textDiv);
             recentMessage.appendChild(dateDiv);
-    
+
             // recentMessage.appendChild(messageText);
             previousMessages.appendChild(recentMessage);
-    
+
             updateScroll();
         },);
     }, []);
 
-    
+
 
     // //closes WebSocket when a new conversation is selected
     // useEffect(() => {
@@ -62,7 +62,7 @@ export default function Chat(props) {
         updateScroll();
     })
 
-    const handleSubmission = (e) => { 
+    const handleSubmission = (e) => {
         e.preventDefault();
 
         //chooses the correct user, depending on how messaging was accessed:
@@ -82,7 +82,7 @@ export default function Chat(props) {
             recipient: recipientInput,
             timestamp: Date.now(),
             content: message.value,
-            conversation_id: selectedConversation 
+            conversation_id: selectedConversation
         }
 
         ws.send(JSON.stringify(input));
@@ -96,7 +96,7 @@ export default function Chat(props) {
         element.scrollTop = element.scrollHeight;
     }
 
-    return(
+    return (
         <div id="messages-form-container">
             <div id="messages-container">
                 <ul id="messages">
@@ -121,6 +121,6 @@ export default function Chat(props) {
                 </div>
             </form>
         </div>
-        
+
     )
 }

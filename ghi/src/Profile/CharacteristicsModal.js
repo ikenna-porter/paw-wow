@@ -7,15 +7,15 @@ export default function CharsModal(props) {
     const show = props.show;
     const handleClose = props.handleClose;
     const chars = props.chars;
-    const [ editChars, setEditChars ] = useState(chars);
+    const [editChars, setEditChars] = useState(chars);
     const details = props.dogDetails;
-    const [ editDetails, setEditDetails ] = useState(details);
+    const [editDetails, setEditDetails] = useState(details);
 
     function changeChar(char, value) {
         let targetObj = editChars.filter(obj => obj.char === char);
         let idx = editChars.indexOf(targetObj[0])
         let newArr = [...editChars]
-        newArr[idx] = {char: char, value: value}
+        newArr[idx] = { char: char, value: value }
         setEditChars(newArr)
     }
 
@@ -38,7 +38,7 @@ export default function CharsModal(props) {
             breed: editDetails.breed,
             dog_bio: editDetails.dog_bio
         };
-        
+
         if (props.hasChars) {
             const putUrl = `http://localhost:8100/api/characteristics/${profileId}`;
             const putFetchConfig = {
@@ -70,10 +70,10 @@ export default function CharsModal(props) {
         }
     }
 
-    return(
+    return (
         <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton> 
-                { props.hasChars 
+            <Modal.Header closeButton>
+                {props.hasChars
                     ? <Modal.Title>Edit {props.dogName}'s Characteristics</Modal.Title>
                     : <Modal.Title>Add Characteristics for {props.dogName}</Modal.Title>
                 }
@@ -84,38 +84,44 @@ export default function CharsModal(props) {
                         <label className="form-label fw-semibold">{props.dogName}'s Bio</label>
                         <div className="form-floating mb-3">
                             <input
-                                type="date" 
+                                type="date"
                                 value={editDetails.DOB}
-                                className="form-control" 
+                                className="form-control"
                                 id="floatingInput"
-                                onChange={(e) => {setEditDetails({
-                                    ...editDetails,
-                                    DOB: e.target.value
-                                })}}
+                                onChange={(e) => {
+                                    setEditDetails({
+                                        ...editDetails,
+                                        DOB: e.target.value
+                                    })
+                                }}
                             />
                             <label htmlFor="floatingInput">DOB</label>
                         </div>
                         <div className="form-floating mb-3">
                             <input
-                                type="text" 
+                                type="text"
                                 value={editDetails.breed}
-                                className="form-control" 
-                                id="floatingInput" 
+                                className="form-control"
+                                id="floatingInput"
                                 placeholder="breed"
-                                onChange={(e) => { setEditDetails({
-                                    ...editDetails,
-                                    breed: e.target.value
-                                })}}
+                                onChange={(e) => {
+                                    setEditDetails({
+                                        ...editDetails,
+                                        breed: e.target.value
+                                    })
+                                }}
                             />
                             <label htmlFor="floatingInput">Breed</label>
                         </div>
                         <div className="mb-3">
                             <select
-                                className="form-select" 
-                                onChange={(e) => {setEditDetails({
-                                    ...editDetails,
-                                    gender: e.target.value
-                                })}}
+                                className="form-select"
+                                onChange={(e) => {
+                                    setEditDetails({
+                                        ...editDetails,
+                                        gender: e.target.value
+                                    })
+                                }}
                             >
                                 <option defaultValue>Select Gender</option>
                                 <option value="Male">Male</option>
@@ -125,10 +131,12 @@ export default function CharsModal(props) {
                         <div className="mb-3">
                             <select
                                 className="form-select"
-                                onChange={(e) => {setEditDetails({
-                                    ...editDetails,
-                                    size: e.target.value
-                                })}}
+                                onChange={(e) => {
+                                    setEditDetails({
+                                        ...editDetails,
+                                        size: e.target.value
+                                    })
+                                }}
                             >
                                 <option defaultValue>Select a size</option>
                                 <option value="Small">Small</option>
@@ -138,52 +146,56 @@ export default function CharsModal(props) {
                         </div>
                         <div className="form-check mb-3 form-switch">
                             <input
-                                type="checkbox" 
+                                type="checkbox"
                                 checked={editDetails.fixed}
-                                className="form-check-input" 
-                                role="switch" 
+                                className="form-check-input"
+                                role="switch"
                                 id="flexSwitchCheckDefault"
-                                onChange={(e) => {setEditDetails({
-                                    ...editDetails,
-                                    fixed: e.target.checked
-                                })}}
+                                onChange={(e) => {
+                                    setEditDetails({
+                                        ...editDetails,
+                                        fixed: e.target.checked
+                                    })
+                                }}
                             />
                             <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Is {props.dogName} fixed?</label>
                         </div>
                         <div className="form-floating mb-3">
                             <textarea
-                                className="form-control" 
+                                className="form-control"
                                 value={editDetails.dog_bio}
-                                placeholder="dog bio" 
-                                id="floatingTextarea2" 
-                                style={{height: "100px"}}
-                                onChange={(e) => {setEditDetails({
-                                    ...editDetails,
-                                    dog_bio: e.target.value
-                                })}}
+                                placeholder="dog bio"
+                                id="floatingTextarea2"
+                                style={{ height: "100px" }}
+                                onChange={(e) => {
+                                    setEditDetails({
+                                        ...editDetails,
+                                        dog_bio: e.target.value
+                                    })
+                                }}
                             />
                             <label htmlFor="floatingTextarea2">Tell us more about {props.dogName}</label>
                         </div>
                     </div>
                     <div>
                         <label className="form-label fw-semibold">Characteristics</label>
-                            {editChars.map(obj => {
-                                return (
-                                    <div key={obj.char}>
-                                        <label htmlFor="customRange2" className="form-label">{obj.char}</label>
-                                        <input
-                                            type="range" 
-                                            name={obj.char}
-                                            value={obj.value} 
-                                            className="form-range" 
-                                            min="1" 
-                                            max="5" 
-                                            id="customRange2"
-                                            onInput={(e) => {changeChar(e.target.name, e.target.value)}}
-                                        />
-                                    </div>
-                                )
-                            })}
+                        {editChars.map(obj => {
+                            return (
+                                <div key={obj.char}>
+                                    <label htmlFor="customRange2" className="form-label">{obj.char}</label>
+                                    <input
+                                        type="range"
+                                        name={obj.char}
+                                        value={obj.value}
+                                        className="form-range"
+                                        min="1"
+                                        max="5"
+                                        id="customRange2"
+                                        onInput={(e) => { changeChar(e.target.name, e.target.value) }}
+                                    />
+                                </div>
+                            )
+                        })}
                     </div>
                     <Modal.Footer>
                         <Button className="btn-light close-btn" onClick={handleClose}>
@@ -192,9 +204,9 @@ export default function CharsModal(props) {
                         <Button className="btn-light form-btn" type="submit" onClick={handleClose}>
                             Save Changes
                         </Button>
-                    </Modal.Footer> 
+                    </Modal.Footer>
                 </form>
-            </Modal.Body>    
-        </Modal>   
+            </Modal.Body>
+        </Modal>
     )
 }

@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useLocation } from "react-router-dom";
 import Conversation from './Conversation';
 import Conversations from './Conversations';
@@ -42,7 +42,7 @@ export default function MessagingTest(props) {
             console.log(response.json)
         }
     }
-    
+
 
     useEffect(() => {
         //fetches all conversations
@@ -61,7 +61,7 @@ export default function MessagingTest(props) {
                     //check to see if other user's id is available and store in state
                     //this means we reached messaging through their profile
                     if (location.state.othersId) {
-                        const {othersId} = location.state;
+                        const { othersId } = location.state;
                         setOtherUserId(othersId);
 
                         //create variable to see if users have conversation history
@@ -71,7 +71,7 @@ export default function MessagingTest(props) {
                             if (conversation.other_user === othersId) {
                                 conversationHistory = true
                                 //once conversation is selected, it will render message history
-                                setSelectedConversation(conversation.id); 
+                                setSelectedConversation(conversation.id);
                             }
                         }
 
@@ -84,18 +84,18 @@ export default function MessagingTest(props) {
                     } else {
                         console.log("other user's info not available for some reason?") //delete else when finished testing
                     }
-                //else only runs when user has no conversations
+                    //else only runs when user has no conversations
                 } else {
                     console.log('conversation history does not exist...make a friend and message them') //delete else, when finished testing
                 }
-            } 
+            }
         }
         fetchConversations();
     }, [])
 
-    
+
     //gets all of the messages associated with the selected conversation
-    useEffect(() => { 
+    useEffect(() => {
         const fetchMessages = async () => {
             const response = await fetch(`http://localhost:8100/api/messages/${selectedConversation}`);
             if (response.ok) {
@@ -116,20 +116,20 @@ export default function MessagingTest(props) {
                         <h4>Messages</h4>
                     </div>
                     <Conversations
-                    conversations={conversations}
-                    setSelectedConversation={setSelectedConversation}
+                        conversations={conversations}
+                        setSelectedConversation={setSelectedConversation}
                     />
                 </div>
                 <div className="chat-container">
                     {!selectedConversation
-                    ? <NoChat />
-                    : <Chat
-                        conversations={conversations}
-                        selectedConversation={selectedConversation}
-                        messages={messages}
-                        primaryUserId={profileId}
-                        otherUserId={otherUserId}
-                      />
+                        ? <NoChat />
+                        : <Chat
+                            conversations={conversations}
+                            selectedConversation={selectedConversation}
+                            messages={messages}
+                            primaryUserId={profileId}
+                            otherUserId={otherUserId}
+                        />
                     }
                 </div>
             </div>

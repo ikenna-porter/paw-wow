@@ -1,5 +1,5 @@
-import {useState, useEffect} from 'react'
-import {ReconnectingWebSocket} from './reconnectWebsocket';
+import { useState, useEffect } from 'react'
+import { ReconnectingWebSocket } from './reconnectWebsocket';
 import Message from './Message'
 
 export default function Chat(props) {
@@ -11,11 +11,11 @@ export default function Chat(props) {
     const [currentMessage, setCurrentMessage] = useState('');
     const [formSubmitted, setFormSubmitted] = useState('false');
     let selectedUser = null;
-    
+
 
     let ws = new WebSocket(`ws://localhost:8100/ws/conversations/${selectedConversation}`);
     // console.log(ws.readyState)
-    
+
     ws.addEventListener('message', event => {
         //retrieves list of messages
         const previousMessages = document.getElementById('messages');
@@ -28,7 +28,7 @@ export default function Chat(props) {
         const messageData = JSON.parse(event.data).content;
         const messageText = JSON.parse(messageData).content;
         const messageDate = JSON.parse(messageData).timestamp;
-        
+
         //creates text/date divs to go inside of recentMessage
         const textDiv = document.createElement("div");
         const dateDiv = document.createElement("div");
@@ -50,7 +50,7 @@ export default function Chat(props) {
 
         updateScroll();
     },);
-    
+
 
     // //closes WebSocket when a new conversation is selected
     // useEffect(() => {
@@ -62,7 +62,7 @@ export default function Chat(props) {
         updateScroll();
     })
 
-    const handleSubmission = (e) => { 
+    const handleSubmission = (e) => {
         e.preventDefault();
 
         //chooses the correct user, depending on how messaging was accessed:
@@ -87,7 +87,7 @@ export default function Chat(props) {
             recipient: recipientInput,
             timestamp: Date.now(),
             content: message.value,
-            conversation_id: selectedConversation 
+            conversation_id: selectedConversation
         }
 
         ws.send(JSON.stringify(input));
@@ -100,7 +100,7 @@ export default function Chat(props) {
         element.scrollTop = element.scrollHeight;
     }
 
-    return(
+    return (
         <div id="messages-form-container">
             <div id="messages-container">
                 <ul id="messages">
@@ -125,6 +125,6 @@ export default function Chat(props) {
                 </div>
             </form>
         </div>
-        
+
     )
 }

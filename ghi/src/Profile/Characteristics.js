@@ -23,7 +23,7 @@ export default function Characteristics(props) {
     }
 
     return (
-        <div> 
+        <div>
             <table className="table table-striped">
                 <thead>
                     <tr>
@@ -31,10 +31,10 @@ export default function Characteristics(props) {
                         <th>Rating</th>
                         <th>How I feel</th>
                     </tr>
-                </thead>    
+                </thead>
                 <tbody>
                     {props.chars.map(obj => {
-                        return(
+                        return (
                             <tr key={obj.char}>
                                 <td>{obj.char}</td>
                                 <td>{obj.value}</td>
@@ -45,5 +45,5 @@ export default function Characteristics(props) {
                 </tbody>
             </table>
         </div>
-    )   
+    )
 }
