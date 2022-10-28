@@ -66,24 +66,3 @@
 | status | Int | True | No |
 | user_one | Int | True | No |
 | user_two | Int | True | No |
-
-----
-
-*For Messaging*
-
-### Conversations
-| Name | Type | Not Null | Primary Key |
-| --- | --- | --- | --- |
-| id | Int | True | Yes |
-| primary_user | Int | False | No |
-| other_user | Int | False | No |
-
-### Messages
-| Name | Type | Not Null | Primary Key |
-| --- | --- | --- | --- |
-| id | Int | True | Yes |
-| sender | Int | True | No |
-| recipient | Int | True | No |
-| timestamp | Time | True | No |
-| content | Str | True | No |
-| conversation_id | Int | True | No |

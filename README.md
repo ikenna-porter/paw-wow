@@ -19,10 +19,10 @@
 
 ## Intended Market
 
-Paw Wow has been created for dog-owners who want to socialize their companion. Whether they stay local or travel to another city, they'll easily be able to find other dogs nearby and make arrangements for a doggy-play-date! 
+Paw Wow has been created for dog-owners who want to socialize their companion. Whether they stay local or travel to another city, they'll easily be able to find other dogs nearby! 
 
 
-## Functionality
+## Functionality of MVP
 
 - Visitors to our site can create an account with a username and password
     - from there, users can create their profile with basic information about themselves and their dog
@@ -34,10 +34,7 @@ Paw Wow has been created for dog-owners who want to socialize their companion. W
         - vaccination records
 - Users can then search for other local dogs in their city
     - using the search feature allows others to view and navigate to other profiles
-- Upon viewing another profile, users will have the ability to send a friend request or a message
-- Users can access their messages from the navbar
-    - here, they will see all of their conversations
-    - clicking into a selected conversation allows users to communicate live
+- Upon viewing another profile, users will have the ability to send a friend request
 - Users can access their friends from the navbar
     - here, they will see their current 'Paw Pals'
         - there is the ability to view the friends profile as well as removing them from the friends list 
@@ -74,7 +71,17 @@ Paw Wow has been created for dog-owners who want to socialize their companion. W
 
 ## Roadmap
 
+- Complete Messaging Functionality
 - Implement Notifications
 - Show Mutual Friends
 - Include a Searchable Map
 - Implement Geo-location
+
+
+## Run Tests
+
+1. Open Docker
+
+2. From Containers, find and open Profile terminal
+
+3. Run ```pytest``` 
