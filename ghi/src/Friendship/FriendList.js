@@ -27,18 +27,18 @@ export default function ListFriends() {
   }
 
   const handleDelete = async (e) => {
-    const user_one = e.target.value;
-    const pendingUrl = `http://localhost:8100/api/friendships/${user_one}/pending`;
+    const user_two = e.target.value
+    const deleteUrl = `http://localhost:8100/api/friendships/${id}/${user_two}`;
     const fetchConfig = {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
-      }
+      },
     };
-    const pendingResponse = await fetch(pendingUrl, fetchConfig, {credentials: 'include'});
-    if (pendingResponse.ok) {
+    const deleteResponse = await fetch(deleteUrl, fetchConfig);
+    if (deleteResponse.ok) {
       setFriends(
-        friends.filter(friend => friend.id != user_one)
+        friends.filter(friend => friend.id != user_two)
       );
     }
   }
