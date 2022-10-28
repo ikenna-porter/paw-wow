@@ -7,8 +7,9 @@ export default function EditProfileModal(props) {
     const show = props.show;
     const handleClose = props.handleClose;
     const statesOptions = stateList; 
-    const profile = localStorage.getItem('profileId')
-    const username = localStorage.getItem('currentUser')
+    const profile = props.profile;
+    const profileId = localStorage.getItem('profileId');
+    const username = localStorage.getItem('currentUser');
     const [ editProfile, setEditProfile ] = useState(profile);
 
     const handleSubmit = async (e) => {
@@ -105,6 +106,20 @@ export default function EditProfileModal(props) {
                                 })}}
                             />
                             <label htmlFor="floatingTextarea2">More about owner</label>
+                        </div>
+                        <div className="form-floating mb-3">
+                            <input
+                                type="text" 
+                                value={editProfile.social_media}
+                                className="form-control" 
+                                id="floatingInput" 
+                                placeholder="breed"
+                                onChange={(e) => { setEditProfile({
+                                    ...editProfile,
+                                    social_media: e.target.value
+                                })}}
+                            />
+                            <label htmlFor="floatingInput">Owner Social Media</label>
                         </div>
                     </div>
                     <Modal.Footer>

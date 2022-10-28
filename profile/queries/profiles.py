@@ -13,6 +13,7 @@ class ProfileIn(BaseModel):
     state: str
     owner_name: Optional[str]
     owner_description: Optional[str]
+    social_media: Optional[str]
 
 class CompleteProfile(BaseModel):
     profile_id: int
@@ -36,6 +37,7 @@ class ProfileOut(BaseModel):
     owner_name: Optional[str]
     owner_description: Optional[str]
     account_id: int
+    social_media: Optional[str]
 
 
 class ProfileRepository:
@@ -45,9 +47,9 @@ class ProfileRepository:
                 result = db.execute(
                     """
                     INSERT INTO profiles
-                        (dog_name, city, state, owner_name, owner_description, account_id)
+                        (dog_name, city, state, owner_name, owner_description, account_id, social_media)
                     VALUES 
-                        (%s, %s, %s, %s, %s, %s)
+                        (%s, %s, %s, %s, %s, %s, %s)
                     RETURNING id;    
                     """,
                     [
@@ -56,7 +58,8 @@ class ProfileRepository:
                     profile.state,
                     profile.owner_name,
                     profile.owner_description,
-                    account_data['id']
+                    account_data['id'],
+                    profile.social_media
                     ]
                 )
                 profile_id = result.fetchone()[0]     
@@ -163,7 +166,8 @@ class ProfileRepository:
                             state = %s,
                             owner_name = %s,
                             owner_description = %s,
-                            account_id = %s
+                            account_id = %s,
+                            social_media = %s,
                         WHERE account_id= %s
                         """,
                         [
@@ -173,6 +177,7 @@ class ProfileRepository:
                             profile.owner_name, 
                             profile.owner_description, 
                             info[1],
+                            profile.social_media,
                             info[1]
                         ]
                     )
@@ -218,5 +223,6 @@ class ProfileRepository:
             state = record[3],
             owner_name = record[4],
             owner_description = record[5],
-            account_id = record[6]
+            account_id = record[6],
+            social_media = record[7]
         )

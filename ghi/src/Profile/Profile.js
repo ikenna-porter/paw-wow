@@ -25,7 +25,8 @@ export default function Profile() {
         owner_name: '',
         owner_description: '',
         city: '',
-        state: ''
+        state: '',
+        social_media: ''
     })
     const [ chars, setChars ] = useState([
         {char: 'dog friendly', value: 1},
@@ -221,6 +222,10 @@ export default function Profile() {
                     <p className="mb-0"><strong className="pr-1">My human is: </strong>{profile.owner_name}</p>
                     <p className="mb-0"><strong className="pr-1">{profile.owner_name} and I live in: </strong>{profile.city}, {profile.state}</p>
                     <p className="mb-0"><strong className="pr-1">More about my human: </strong>{profile.owner_description}</p>
+                    <p className="mb-0">
+                        <strong className="pr-1">Social Media link: </strong>
+                        <a href={profile.social_media} target="_blank">{profile.social_media}</a>
+                    </p>
                   </div>
                 </div>
                 <div>

@@ -6,17 +6,17 @@
 
 #### Signup
 
-Endpoint path: /api/accounts
-Endpoint method: “POST”
+- Endpoint path: ```/api/accounts```
+- Endpoint method: “POST”
 
-Request shape:
+- Request shape:
   ```json
   "username": string,
   "password": string
   ```
 
-Response: User information and token
-Response shape (JSON):
+- Response: User information and token
+- Response shape (JSON):
   ``` json
   {
     "access_token": "string",
@@ -34,17 +34,17 @@ Response shape (JSON):
 
 #### *Login*
 
-Endpoint path: /token
-Endpoint method: “POST”
+- Endpoint path: ```/token```
+- Endpoint method: “POST”
 
-Request shape:
+- Request shape:
   ```json
   "username": string,
   "password": string
   ```
 
-Response: User information and token
-Response shape (JSON):
+- Response: User information and token
+- Response shape (JSON):
   ``` json
   {
     "access_token": "string",
@@ -59,14 +59,14 @@ Response shape (JSON):
 
 #### *Log out*
 
-Endpoint path: /token
-Endpoint method: DELETE
+- Endpoint path: ```/token```
+- Endpoint method: DELETE
 
-Headers:
-  Authorization: Bearer token
+- Headers:
+  - Authorization: Bearer token
 
-Response: Always true
-Response shape (JSON):
+- Response: Always true
+- Response shape (JSON):
 ```json
     true
   ```
@@ -76,14 +76,14 @@ Response shape (JSON):
 ## Profile
 
 #### Main Profile (*when user is logged in*)
-Endpoint path: /api/profiles/{username}
-Endpoint method: GET
+- Endpoint path: ```/api/profiles/{username}```
+- Endpoint method: GET
 
-Headers: 
-  Authorization: Bearer token
+- Headers: 
+  - Authorization: Bearer token
 
-Response: A detail of a profile
-Response shape (JSON):
+- Response: A detail of a profile
+- Response shape (JSON):
   ``` json
   {
     "id": int,
@@ -99,13 +99,14 @@ Response shape (JSON):
 ---
 
 #### Edit profile *form*
-Endpoint path: /api/profiles/{username}
-Endpoint method: PATCH
 
-Headers:
-  Authorization: Bearer token
+- Endpoint path: ```/api/profiles/{username}```
+- Endpoint method: PATCH
 
-Request body:
+- Headers:
+  - Authorization: Bearer token
+
+- Request body:
   ``` json
   {
     "dog_name": "string",
@@ -116,8 +117,8 @@ Request body:
   }
   ```
 
-Response: the profile page (detail of a profile)
-Response shape: 
+- Response: the profile page (detail of a profile)
+- Response shape: 
   ``` json
   {
   "message": "string"
@@ -125,13 +126,14 @@ Response shape:
   ```
 
 #### Create profile 
-Endpoint path: /api/profiles
-Endpoint method: PUT
 
-Headers:
-  Authorization: Bearer token
+- Endpoint path: ```/api/profiles```
+- Endpoint method: PUT
 
-Request body:
+- Headers:
+  - Authorization: Bearer token
+
+- Request body:
   ``` json
   {
     "dog_name": "string",
@@ -142,8 +144,8 @@ Request body:
   }
   ```
 
-Response: the profile page (detail of a profile)
-Response shape: 
+- Response: the profile page (detail of a profile)
+- Response shape: 
   ``` json
   {
     "id": int,
@@ -157,13 +159,14 @@ Response shape:
   ```
 
 #### Vaccination *create*
-Endpoint path: /api/vaccinations
-Endpoint method: POST
 
-Headers:
-  Authorization: Bearer token
+- Endpoint path: ```/api/vaccinations```
+- Endpoint method: POST
 
-Request body:
+- Headers:
+  - Authorization: Bearer token
+
+- Request body:
   ``` json
   {
     "distemper": true,
@@ -174,8 +177,8 @@ Request body:
   }
   ```
 
-Response: the profile page (detail of a profile)
-Response shape: 
+- Response: the profile page (detail of a profile)
+- Response shape: 
   ``` json
   {
     "id": int,
@@ -189,13 +192,14 @@ Response shape:
   ```
 
 #### Vaccination *update*
-Endpoint path: /api/vaccinations/{profile_id}
-Endpoint method: PUT
 
-Headers:
-  Authorization: Bearer token
+- Endpoint path: ```/api/vaccinations/{profile_id}```
+- Endpoint method: PUT
 
-Request body:
+- Headers:
+  - Authorization: Bearer token
+
+- Request body:
   ``` json
   {
     "distemper": true,
@@ -206,8 +210,8 @@ Request body:
   }
   ```
 
-Response: the profile page (detail of a profile)
-Response shape: 
+- Response: the profile page (detail of a profile)
+- Response shape: 
   ``` json
   {
     "id": int,
@@ -221,13 +225,14 @@ Response shape:
   ```
 
 #### Characteristics *create*
-Endpoint path: /api/characteristics
-Endpoint method: POST
 
-Headers:
-  Authorization: Bearer token
+- Endpoint path: ```/api/characteristics```
+- Endpoint method: POST
 
-Request body:
+- Headers:
+  - Authorization: Bearer token
+
+- Request body:
   ``` json
   {
     "dog_friendly": int,
@@ -243,20 +248,21 @@ Request body:
   }
   ```
 
-Response: the profile page (detail of a profile)
-Response shape: 
+- Response: the profile page (detail of a profile)
+- Response shape: 
   ``` json
     "string"
   ```
 
 #### Characteristics *update*
-Endpoint path: /api/characteristics/{profile_id)}
-Endpoint method: PUT
 
-Headers:
-  Authorization: Bearer token
+- Endpoint path: ```/api/characteristics/{profile_id)}```
+- Endpoint method: PUT
 
-Request body:
+- Headers:
+  - Authorization: Bearer token
+
+- Request body:
   ``` json
   {
     "dog_friendly": int,
@@ -272,28 +278,29 @@ Request body:
   }
   ```
 
-Response: the profile page (detail of a profile)
-Response shape: 
+- Response: the profile page (detail of a profile)
+- Response shape: 
   ``` json
     "string"
   ```
 
 #### Get Other Profile
-Endpoint path: /api/profile/{id}}
-Endpoint method: GET
 
-Headers:
-  Authorization: Bearer token
+- Endpoint path: ```/api/profile/{id}```
+- Endpoint method: GET
 
-Request body:
+- Headers:
+  - Authorization: Bearer token
+
+- Request body:
   ``` json
     {
     "id": int,
   }
   ```
 
-Response: the profile page (detail of a profile)
-Response shape: 
+- Response: the profile page (detail of a profile)
+- Response shape: 
   ``` json
     {
     "id": int,
@@ -325,18 +332,19 @@ Response shape:
 ---
 
 ## Search Bar 
-  Endpoint path: api/profiles
-  Endpoint method: “GET”
 
-  Query parameters:
-    q: search option
+- Endpoint path: ```api/profiles```
+- Endpoint method: “GET”
 
-  Headers:
-    Authorization: Bearer token
+- Query parameters:
+  - q: search option
 
-  Response: 
-    Dog search: A list of user (dog) instances (objects)
-  Response shape:
+- Headers:
+  - Authorization: Bearer token
+
+- Response: 
+  - Dog search: A list of user (dog) instances (objects)
+- Response shape:
   ``` json
   {
     "dogs": [
@@ -360,19 +368,19 @@ Response shape:
 
 *List of Friends*
 
-Endpoint path: /api/friendships/{id}
-Endpoint method: GET
+- Endpoint path: ```/api/friendships/{id}```
+- Endpoint method: GET
 
-Headers:
-  Authorization: Bearer token
+- Headers:
+  - Authorization: Bearer token
 
-Request body:
+- Request body:
   ```json
     "id": int
   ```
 
-Response: A list of friends
-Response shape: 
+- Response: A list of friends
+- Response shape: 
 ``` json
   {
     [
@@ -389,13 +397,10 @@ Response shape:
 
 *Creating a Friendship*
 
-Endpoint path: /api/friendships/{id}
-Endpoint method: POST
+- Endpoint path: ```/api/friendships/{id}```
+- Endpoint method: POST
 
-Headers:
-  Authorization: Bearer token
-
-Request body:
+- Request body:
   ```json
     {
       "status": int,
@@ -404,8 +409,8 @@ Request body:
     }
   ```
 
-Response: A friendship instance
-Response shape:
+- Response: A friendship instance
+- Response shape:
 ```json
   {
     "id": int,
@@ -417,63 +422,57 @@ Response shape:
 
 *Updating a Friendship*
 
-Endpoint path: /api/friendships/{user_one}/pending
-Endpoint method: PUT
+- Endpoint path: ```/api/friendships/{user_one}/pending```
+- Endpoint method: PUT
 
-Headers:
-  Authorization: Bearer token
-
-Request body:
+- Request body:
   ```json
     {
       "user_one": int
     }
   ```
 
-Response: A friendship instance
-Response shape:
+- Response: A friendship instance
+- Response shape:
   ```json
     "string"
   ```
 
 *Deleting a friendship*
 
-Endpoint path: /api/friendships/{user_one}/pending
-Endpoint method: DELETE
+- Endpoint path: ```/api/friendships/{user_one}/pending```
+- Endpoint method: DELETE
 
-Headers:
-  Authorization: Bearer token
-
-Request body:
+- Request body:
   ```json
     {
       "user_one": int
     }
   ```
 
-Response: Removing instance
-Response shape:
+- Response: Removing instance
+- Response shape:
 ```json
   "string"
 ```
 
 *List of Pending Requests*
 
-Endpoint path: /api/friendships/{user_two}/pending
-Endpoint method: GET
+- Endpoint path: ```/api/friendships/{user_two}/pending```
+- Endpoint method: GET
 
-Headers:
-  Authorization: Bearer token
+- Headers:
+  - Authorization: Bearer token
 
-Request body:
+- Request body:
   ```json
     {
       "user_two": int
     }
   ```
 
-Response: A list of pending requests
-Response shape:
+- Response: A list of pending requests
+- Response shape:
 ```json
   { 
     [
@@ -485,84 +484,3 @@ Response shape:
     ]
   }
 ```
-
-
----
-
-## Conversations
-
-*Get a list of conversations*
-
-* Endpoint path: /api/users_conversations/{primary_user}
-* Endpoint method: GET
-
-* Headers:
-    * Authorization: Bearer token
-
-* Request body:
-  ```json
-    "primary_user": int
-  ```
-
-* Response: A list of conversations
-* Response shape:
-    ```json
-      [
-        {
-          "id": 0,
-          "primary_user": 0,
-          "other_user": 0,
-          "other_user_dog_name": "string",
-          "other_user_picture": "string"
-        }
-      ]
-  ```
-
-*Get a message detail*
-
-* Endpoint path: /api/messages/{message_id}
-* Endpoint method: GET
-
-* Headers:
-    * Authorization: Bearer token
-
-* Response: A detail of a message
-* Response shape:
-    ```json
-    {
-      "messages": [
-          "message": { 
-              "recipient": int,
-              "sender": int,
-              "timestamp": datetime,
-              "content": string,
-              "read": boolean,
-              "conversation_id": int
-          },
-      ]
-    }
-    ```
-
-*Post message to a conversation*
-
-* Endpoint path: /api/conversations
-* Endpoint method: POST
-
-* Headers:
-    * Authorization: Bearer token
-
-* Request Body:
-  ```json
-    {
-      "primary_user": 0,
-      "other_user": 0
-    }
-    ```
-
-* Response: A detail of a conversation
-* Response shape:
-  ```json
-    "string"
-  ```
-
-
