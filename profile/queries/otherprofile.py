@@ -21,6 +21,7 @@ class OtherProfile(BaseModel):
     state: str
     owner_name: Optional[str]
     owner_description: Optional[str]
+    social_media: Optional[str]
     distemper: Optional[bool]
     parvo: Optional[bool]
     adeno: Optional[bool]
@@ -38,7 +39,7 @@ class OtherProfileRepository:
                     SELECT profiles.id, characteristics.dog_friendly, characteristics.kid_friendly, characteristics.people_friendly
                     , characteristics.energy_level, characteristics.dob, characteristics.breed, characteristics.fixed
                     , characteristics.size, characteristics.gender, characteristics.dog_bio, profile_pictures.image
-                    , profiles.dog_name, profiles.city, profiles.state, profiles.owner_name, profiles.owner_description
+                    , profiles.dog_name, profiles.city, profiles.state, profiles.owner_name, profiles.owner_description, profiles.social_media
                     , vaccination_records.distemper, vaccination_records.parvo, vaccination_records.adeno
                     , vaccination_records.rabies, vaccination_records.other
                     FROM profiles
@@ -68,9 +69,10 @@ class OtherProfileRepository:
                         state = result[14],
                         owner_name = result[15],
                         owner_description = result[16],
-                        distemper = result[17],
-                        parvo = result[18],
-                        adeno = result[19],
-                        rabies = result[20],
-                        other = result[21]
+                        social_media = result[17],
+                        distemper = result[18],
+                        parvo = result[19],
+                        adeno = result[20],
+                        rabies = result[21],
+                        other = result[22]
                         )

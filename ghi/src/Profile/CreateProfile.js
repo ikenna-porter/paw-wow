@@ -9,6 +9,7 @@ export default function CreateProfile(props) {
     const [ states, setStates ] = useState(stateList);
     const [ ownerName, setOwnerName ] = useState('');
     const [ ownerDescription, setOwnerDescription ] = useState('');
+    const [ socialMedia, setSocialMedia ] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -19,7 +20,8 @@ export default function CreateProfile(props) {
             state: state,
             dog_name: dogName,
             owner_name: ownerName,
-            owner_description: ownerDescription
+            owner_description: ownerDescription,
+            social_media: socialMedia
         };
         const url = 'http://localhost:8100/api/profiles';
         const fetchConfig = {
@@ -39,6 +41,7 @@ export default function CreateProfile(props) {
             setDogName('');
             setOwnerName('');
             setOwnerDescription('');
+            setSocialMedia('');
             navigate("/profile");
         }
 
@@ -111,6 +114,15 @@ export default function CreateProfile(props) {
                         rows="4"
                         onChange={e => setOwnerDescription(e.target.value)} 
                         value={ownerDescription}
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label className="form-label">Social Media</label>
+                        <input
+                            type="text" 
+                            value={socialMedia}
+                            className="form-control" 
+                            onChange={ e => setSocialMedia(e.target.value)}
                         />
                     </div>
                     <button type="submit" className="btn btn-light form-btn mb-2">Sign Up</button>
