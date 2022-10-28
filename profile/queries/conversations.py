@@ -70,9 +70,6 @@ class ConversationRepository:
 
                     id = result.fetchone()[0]
                     old_data = conversation.dict()
-                    print(conversation)
-                    print(id)
-                    print(old_data)
 
                     return ConversationOut(id=id, **old_data)
         except Exception as e:

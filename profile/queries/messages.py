@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional, List, Union
+from typing import List
 from queries.pool import pool
 from datetime import datetime
 
@@ -40,7 +40,7 @@ class MessageRepository:
                         """,
                     [conversation_id],
                 )
-                print("*********************************************")
+
                 result = [
                     MessageOut(
                         id=record[0],
@@ -54,10 +54,6 @@ class MessageRepository:
                 ]
                 print(result)
                 return result
-
-    # except Exception as e:
-    #     print(e)
-    #     return {"message": "Could not retrieve chat history."}
 
     def get_one(self, message_id: int) -> MessageOut:
         # try:
@@ -81,12 +77,8 @@ class MessageRepository:
                     content=record[4],
                     conversation_id=record[6],
                 )
-                print("################################", result)
-                return result
 
-    # except Exception as e:
-    #     print(e)
-    #     return {"message": "Error in retrieving message."}
+                return result
 
     def create(self, message: MessageIn) -> MessageOut:
         with pool.connection() as conn:

@@ -10,6 +10,7 @@ def get_all_messages(conversation_id: int, repo: MessageRepository = Depends()):
     return repo.get_all(conversation_id)
 
 
+### KEEP FOR MESSAGING###
 # @router.get("/api/messages/{message_id}", response_model = MessageOut)
 # def get_one(
 #     message_id: int,

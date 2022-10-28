@@ -3,7 +3,6 @@ from queries.accounts import AccountOut
 from main import app
 from fastapi.testclient import TestClient
 from authenticator import authenticator
-from routers.friendships import get_list_friends
 from queries.friendships import FriendshipRepository
 
 client = TestClient(app)

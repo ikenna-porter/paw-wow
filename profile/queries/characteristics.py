@@ -45,7 +45,6 @@ class CharacteristicsRepository:
                     [account_data["id"]],
                 )
                 profile_id = profile_result.fetchone()[0]
-                print("profile_id", profile_id)
 
                 result = db.execute(
                     """

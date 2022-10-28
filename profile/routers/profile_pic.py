@@ -1,6 +1,5 @@
-from fastapi import APIRouter, File, UploadFile, Depends, Form
+from fastapi import APIRouter, Depends, Form
 from queries.profile_pic import ProfilePicRepository
-import base64
 from authenticator import authenticator
 
 router = APIRouter()

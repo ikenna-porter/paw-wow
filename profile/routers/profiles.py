@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Response
+from fastapi import APIRouter, Depends
 from typing import List, Union, Optional
 from queries.profiles import (
     ProfileIn,

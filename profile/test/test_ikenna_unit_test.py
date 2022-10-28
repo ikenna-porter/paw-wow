@@ -2,7 +2,6 @@ from fastapi.testclient import TestClient
 from unittest import TestCase
 from main import app
 from queries.friendships import FriendshipRepository
-from routers.friendships import create_friendship
 
 
 client = TestClient(app)
