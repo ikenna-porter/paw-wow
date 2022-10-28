@@ -50,7 +50,6 @@ class OtherProfileRepository:
                     [id]
                     )
                     result = profile.fetchone()
-                    print(result)
                     return OtherProfile(
                         id = result[0],
                         dog_friendly = result[1],
