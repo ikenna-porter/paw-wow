@@ -18,15 +18,19 @@ from queries.accounts import (
     DuplicateAccountError,
 )
 
+
 class AccountForm(BaseModel):
     username: str
     password: str
 
+
 class AccountToken(Token):
     account: AccountOut
 
+
 class HttpError(BaseModel):
     detail: str
+
 
 router = APIRouter()
 
@@ -34,7 +38,7 @@ router = APIRouter()
 @router.get("/token", response_model=AccountToken | None)
 async def get_token(
     request: Request,
-    account: AccountOut = Depends(authenticator.try_get_current_account_data)
+    account: AccountOut = Depends(authenticator.try_get_current_account_data),
 ) -> AccountToken | None:
     if authenticator.cookie_name in request.cookies:
         return {
@@ -47,7 +51,7 @@ async def get_token(
             status_code=404,
             detail="Item not found",
             headers={"X-Error": "There goes my error"},
-        )    
+        )
 
 
 @router.post("/api/accounts", response_model=AccountToken | HttpError)
@@ -75,4 +79,4 @@ def delete_account(
     accounts_id: int,
     repo: AccountRepository = Depends(),
 ) -> bool:
-    return repo.delete(accounts_id)    
+    return repo.delete(accounts_id)

@@ -3,6 +3,7 @@ from datetime import date
 from typing import Optional
 from queries.pool import pool
 
+
 class OtherProfile(BaseModel):
     id: int
     dog_friendly: Optional[int]
@@ -29,12 +30,11 @@ class OtherProfile(BaseModel):
     other: Optional[str]
 
 
-
 class OtherProfileRepository:
     def get_single_profile(self, id: int) -> OtherProfile:
-            with pool.connection() as conn:
-                with conn.cursor() as db:
-                    profile = db.execute(
+        with pool.connection() as conn:
+            with conn.cursor() as db:
+                profile = db.execute(
                     """
                     SELECT profiles.id, characteristics.dog_friendly, characteristics.kid_friendly, characteristics.people_friendly
                     , characteristics.energy_level, characteristics.dob, characteristics.breed, characteristics.fixed
@@ -48,31 +48,31 @@ class OtherProfileRepository:
                     LEFT JOIN vaccination_records ON profiles.id = vaccination_records.profile_id
                     WHERE profiles.id = %s
                     """,
-                    [id]
-                    )
-                    result = profile.fetchone()
-                    return OtherProfile(
-                        id = result[0],
-                        dog_friendly = result[1],
-                        kid_friendly = result[2],
-                        people_friendly = result[3],
-                        energy_level = result[4],
-                        DOB = result[5],
-                        breed = result[6],
-                        fixed = result[7],
-                        size = result[8],
-                        gender = result[9],
-                        dog_bio = result[10],
-                        image = result[11],
-                        dog_name = result[12],
-                        city = result[13],
-                        state = result[14],
-                        owner_name = result[15],
-                        owner_description = result[16],
-                        social_media = result[17],
-                        distemper = result[18],
-                        parvo = result[19],
-                        adeno = result[20],
-                        rabies = result[21],
-                        other = result[22]
-                        )
+                    [id],
+                )
+                result = profile.fetchone()
+                return OtherProfile(
+                    id=result[0],
+                    dog_friendly=result[1],
+                    kid_friendly=result[2],
+                    people_friendly=result[3],
+                    energy_level=result[4],
+                    DOB=result[5],
+                    breed=result[6],
+                    fixed=result[7],
+                    size=result[8],
+                    gender=result[9],
+                    dog_bio=result[10],
+                    image=result[11],
+                    dog_name=result[12],
+                    city=result[13],
+                    state=result[14],
+                    owner_name=result[15],
+                    owner_description=result[16],
+                    social_media=result[17],
+                    distemper=result[18],
+                    parvo=result[19],
+                    adeno=result[20],
+                    rabies=result[21],
+                    other=result[22],
+                )
