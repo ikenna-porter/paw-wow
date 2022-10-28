@@ -8,11 +8,13 @@ class FriendshipIn(BaseModel):
     user_one: int
     user_two: int
 
+
 class FriendshipOut(BaseModel):
     id: int
-    status:int
+    status: int
     user_one: int
     user_two: int
+
 
 class FriendListOut(BaseModel):
     dog_name: str
@@ -21,13 +23,13 @@ class FriendListOut(BaseModel):
     user_one: int
     image: str | None
 
+
 class FriendsOut(BaseModel):
     image: str | None
     dog_name: str
     city: str
     state: str
     id: int
-
 
 
 class FriendshipRepository:
@@ -43,11 +45,7 @@ class FriendshipRepository:
                         (%s, %s, %s)
                     RETURNING id;
                     """,
-                    [
-                    friendship.status,
-                    friendship.user_one,
-                    friendship.user_two
-                    ]
+                    [friendship.status, friendship.user_one, friendship.user_two],
                 )
                 id = result.fetchone()[0]
                 incoming_data = friendship.dict()
@@ -68,19 +66,21 @@ class FriendshipRepository:
                         OR user_two = %(user_one)s)
                         AND NOT profiles.id = %(user_one)s;
                         """,
-                        {"user_one": id}
+                        {"user_one": id},
                     )
-                    result = [FriendsOut(
-                        image = record[0],
-                        dog_name = record[1],
-                        city = record[2],
-                        state = record[3],
-                        id = record[4]
-                    )
-                    for record in db]
+                    result = [
+                        FriendsOut(
+                            image=record[0],
+                            dog_name=record[1],
+                            city=record[2],
+                            state=record[3],
+                            id=record[4],
+                        )
+                        for record in db
+                    ]
                     return result
         except Exception as e:
-            return e 
+            return e
 
     def get_pending_requests(self, user_two) -> List[FriendListOut]:
         try:
@@ -95,17 +95,19 @@ class FriendshipRepository:
                         WHERE user_two = %s
                         AND status = 0;
                         """,
-                        [user_two]
+                        [user_two],
                     )
                     real_result = data_back.fetchall()
-                    return_list = [FriendListOut(
-                        dog_name = record[0],
-                        city = record[1],
-                        state = record[2],
-                        user_one = record[3],
-                        image = record[4]
-                    )
-                    for record in real_result]
+                    return_list = [
+                        FriendListOut(
+                            dog_name=record[0],
+                            city=record[1],
+                            state=record[2],
+                            user_one=record[3],
+                            image=record[4],
+                        )
+                        for record in real_result
+                    ]
                     return return_list
         except Exception as e:
             return e
@@ -120,7 +122,7 @@ class FriendshipRepository:
                         SET status = 1
                         WHERE user_one = %s
                         """,
-                        [user_one]
+                        [user_one],
                     )
                     if result:
                         return True
@@ -137,7 +139,7 @@ class FriendshipRepository:
                         DELETE FROM friendships
                         WHERE user_one = %s;
                         """,
-                        [user_one]
+                        [user_one],
                     )
                     if result:
                         return True

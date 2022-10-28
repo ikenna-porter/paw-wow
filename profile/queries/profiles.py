@@ -7,6 +7,7 @@ from queries.pool import pool
 class Error(BaseModel):
     message: str
 
+
 class ProfileIn(BaseModel):
     dog_name: str
     city: str
@@ -14,6 +15,7 @@ class ProfileIn(BaseModel):
     owner_name: Optional[str]
     owner_description: Optional[str]
     social_media: Optional[str]
+
 
 class CompleteProfile(BaseModel):
     profile_id: int
@@ -53,19 +55,20 @@ class ProfileRepository:
                     RETURNING id;    
                     """,
                     [
-                    profile.dog_name,
-                    profile.city,
-                    profile.state,
-                    profile.owner_name,
-                    profile.owner_description,
-                    account_data['id'],
-                    profile.social_media
-                    ]
+                        profile.dog_name,
+                        profile.city,
+                        profile.state,
+                        profile.owner_name,
+                        profile.owner_description,
+                        account_data["id"],
+                        profile.social_media,
+                    ],
                 )
-                profile_id = result.fetchone()[0]     
+                profile_id = result.fetchone()[0]
                 old_data = profile.dict()
-                return ProfileOut(id=profile_id, account_id=account_data['id'], **old_data)
-         
+                return ProfileOut(
+                    id=profile_id, account_id=account_data["id"], **old_data
+                )
 
     def get_all(self) -> Union[Error, List[CompleteProfile]]:
         try:
@@ -92,26 +95,27 @@ class ProfileRepository:
                         ON p.id = pp.profile_id
                         """
                     )
-                    return [CompleteProfile(
-                        profile_id = record[0],
-                        dog_name = record[1],
-                        city = record[2],
-                        state = record[3],
-                        owner_name = record[4],
-                        img = record[5],
-                        DOB = record[6],
-                        fixed = record[7],
-                        size = record[8],
-                        gender = record[9],
-                        dog_bio = record[10]
-                    )
-                    for record in db 
+                    return [
+                        CompleteProfile(
+                            profile_id=record[0],
+                            dog_name=record[1],
+                            city=record[2],
+                            state=record[3],
+                            owner_name=record[4],
+                            img=record[5],
+                            DOB=record[6],
+                            fixed=record[7],
+                            size=record[8],
+                            gender=record[9],
+                            dog_bio=record[10],
+                        )
+                        for record in db
                     ]
         except Exception as e:
             print(e)
-            return {"message": "Could not get all profiles"}     
+            return {"message": "Could not get all profiles"}
 
-    def get_one(self, username: str)  -> Optional[ProfileOut]:
+    def get_one(self, username: str) -> Optional[ProfileOut]:
         try:
             with pool.connection() as conn:
                 with conn.cursor() as db:
@@ -121,7 +125,7 @@ class ProfileRepository:
                         FROM accounts
                         WHERE username = %s
                         """,
-                        [username]
+                        [username],
                     )
                     account_info = account.fetchone()
 
@@ -131,18 +135,18 @@ class ProfileRepository:
                         FROM profiles
                         WHERE account_id = %s
                         """,
-                        [account_info[0]]
+                        [account_info[0]],
                     )
                     record = result.fetchone()
 
                     if record is None:
                         return None
-                    
+
                     return self.record_to_profile_out(record)
 
         except Exception as e:
             return {"message": "Error in retrieving profile detail."}
-    
+
     def update(self, profile: ProfileIn, username: str) -> Union[ProfileOut, Error]:
         try:
             with pool.connection() as conn:
@@ -154,7 +158,7 @@ class ProfileRepository:
                         INNER JOIN profiles
                         ON accounts.id = profiles.account_id AND accounts.username = %s
                         """,
-                        [username]
+                        [username],
                     )
                     info = result.fetchone()
 
@@ -171,15 +175,15 @@ class ProfileRepository:
                         WHERE account_id= %s
                         """,
                         [
-                            profile.dog_name, 
-                            profile.city, 
-                            profile.state, 
-                            profile.owner_name, 
-                            profile.owner_description, 
+                            profile.dog_name,
+                            profile.city,
+                            profile.state,
+                            profile.owner_name,
+                            profile.owner_description,
                             info[1],
                             profile.social_media,
-                            info[1]
-                        ]
+                            info[1],
+                        ],
                     )
                     old_data = profile.dict()
                     return ProfileOut(id=info[2], account_id=info[1], **old_data)
@@ -187,7 +191,7 @@ class ProfileRepository:
         except Exception as e:
             print(e)
             return {"message": "Could not update profile detail."}
-    
+
     def delete(self, username: str):
         try:
             with pool.connection() as conn:
@@ -198,7 +202,7 @@ class ProfileRepository:
                         FROM accounts
                         WHERE username = %s
                         """,
-                        [username]
+                        [username],
                     )
                     account_info = account.fetchone()
 
@@ -207,22 +211,21 @@ class ProfileRepository:
                         DELETE FROM profiles
                         WHERE account_id = %s
                         """,
-                        [account_info[0]]
+                        [account_info[0]],
                     )
                 return True
 
         except Exception as e:
             return False
 
-
     def record_to_profile_out(self, record):
         return ProfileOut(
-            id = record[0],
-            dog_name = record[1],
-            city = record[2],
-            state = record[3],
-            owner_name = record[4],
-            owner_description = record[5],
-            account_id = record[6],
-            social_media = record[7]
+            id=record[0],
+            dog_name=record[1],
+            city=record[2],
+            state=record[3],
+            owner_name=record[4],
+            owner_description=record[5],
+            account_id=record[6],
+            social_media=record[7],
         )

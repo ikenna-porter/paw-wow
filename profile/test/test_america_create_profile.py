@@ -9,7 +9,7 @@ client = TestClient(app)
 
 # AUTHENTICATION CHECK
 # Arrange
-fakeAccount = {"id":50, "username":"Jamie123"}
+fakeAccount = {"id": 50, "username": "Jamie123"}
 
 fakeAccountToken = {
     "access_token": "thisisareallylong10000accesstoken999999",
@@ -21,15 +21,22 @@ fakeAccountToken = {
 async def account_out_override():
     return fakeAccount
 
-app.dependency_overrides[authenticator.try_get_current_account_data] = account_out_override
+
+app.dependency_overrides[
+    authenticator.try_get_current_account_data
+] = account_out_override
+
 
 def test_get_account():
-    response = client.get("/token", cookies={"fastapi_token":"thisisareallylong10000accesstoken999999"})
+    response = client.get(
+        "/token", cookies={"fastapi_token": "thisisareallylong10000accesstoken999999"}
+    )
 
-# Assert
+    # Assert
     assert response.status_code == 200
     print(response.json())
     assert response.json() == fakeAccountToken
+
 
 class FakeProfileRepository(TestCase):
     def create(self, profile, account_data):
@@ -40,12 +47,13 @@ class FakeProfileRepository(TestCase):
             "state": "OR",
             "owner_name": "Jamie",
             "owner_description": "Jamie loves the outdoors.",
-            "account_id": 50
+            "account_id": 50,
         }
+
 
 # USE AUTHENTICATION TO CREATE A PROFILE
 def test_create_profile():
-    #Arrange
+    # Arrange
     app.dependency_overrides[ProfileRepository] = FakeProfileRepository
 
     json = {
@@ -53,7 +61,7 @@ def test_create_profile():
         "city": "Portland",
         "state": "OR",
         "owner_name": "Jamie",
-        "owner_description": "Jamie loves the outdoors."
+        "owner_description": "Jamie loves the outdoors.",
     }
     expected = {
         "id": 50,
@@ -62,16 +70,14 @@ def test_create_profile():
         "state": "OR",
         "owner_name": "Jamie",
         "owner_description": "Jamie loves the outdoors.",
-        "account_id": 50
+        "account_id": 50,
     }
 
-    #Act
+    # Act
     response = client.post("/api/profiles", json=json, data=test_get_account())
 
-    #Assert
+    # Assert
     assert response.status_code == 200
     assert response.json() == expected
 
     app.dependency_overrides = {}
-
-

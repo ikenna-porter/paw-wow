@@ -12,47 +12,50 @@ client = TestClient(app)
 fakeAccOut = AccountOut(id="1", username="username")
 
 fakeAccToken = AccountToken(
-    access_token= "greatbig1337elephants1234",
-    token_type= "Bearer",
-    account= fakeAccOut,
+    access_token="greatbig1337elephants1234",
+    token_type="Bearer",
+    account=fakeAccOut,
 )
 
 # Act
 async def account_out_override():
     return fakeAccOut
 
-app.dependency_overrides[authenticator.try_get_current_account_data] = account_out_override
+
+app.dependency_overrides[
+    authenticator.try_get_current_account_data
+] = account_out_override
 
 
 def test_get_account():
-    response = client.get("/token", cookies={"fastapi_token":"greatbig1337elephants1234"})
+    response = client.get(
+        "/token", cookies={"fastapi_token": "greatbig1337elephants1234"}
+    )
 
-# Assert
+    # Assert
     assert response.status_code == 200
     print(response.json())
     assert response.json() == fakeAccToken
 
 
-
 class FakeFriendshipRepository:
     def get_friend_list(self, id: int):
-        return [  {
-            "image": None,
-            "dog_name": "Testing",
-            "city": "Nashville",
-            "state": "TN",
-            "id": 5
+        return [
+            {
+                "image": None,
+                "dog_name": "Testing",
+                "city": "Nashville",
+                "state": "TN",
+                "id": 5,
             },
             {
-            "image": None,
-            "dog_name": "Potato",
-            "city": "Here",
-            "state": "TX",
-            "id": 6
-            }
+                "image": None,
+                "dog_name": "Potato",
+                "city": "Here",
+                "state": "TX",
+                "id": 6,
+            },
         ]
-    
-
 
 
 def test_get_all_friends_when_empty():
@@ -65,18 +68,13 @@ def test_get_all_friends_when_empty():
 
     # Assert
     assert response.status_code == 200
-    assert response.json() == [  {
+    assert response.json() == [
+        {
             "image": None,
             "dog_name": "Testing",
             "city": "Nashville",
             "state": "TN",
-            "id": 5
-            },
-            {
-            "image": None,
-            "dog_name": "Potato",
-            "city": "Here",
-            "state": "TX",
-            "id": 6
-            }
-        ]
+            "id": 5,
+        },
+        {"image": None, "dog_name": "Potato", "city": "Here", "state": "TX", "id": 6},
+    ]
