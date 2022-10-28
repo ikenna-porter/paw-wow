@@ -43,7 +43,7 @@ Paw Wow has been created for dog-owners who want to socialize their companion. W
 
 ## Preview
 
-![](doc\images\PawWow.Gif.gif)
+![](doc/images/PawWow.Gif.gif)
 
 
 ## Installation
