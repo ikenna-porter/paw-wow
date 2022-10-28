@@ -5,14 +5,14 @@ export default function Characteristics(props) {
         3: "I can go for some play",
         4: "I love to run and play",
         5: "I have infinite energy!"
-    }
+    };
     const rateForOthers = {
         1: "They are not my favorite",
         2: "I am shy around them",
         3: "I do not have much experience with them",
         4: "I like them!",
         5: "I LOVE them!"
-    }
+    };
 
     function rate(char, value) {
         if (char === "energy level") {

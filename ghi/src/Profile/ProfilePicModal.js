@@ -6,12 +6,12 @@ export default function ProfilePicModal(props) {
     const show = props.show;
     const handleClose = props.handleClose;
     const [image, setImage] = useState(null);
-    const profileId = localStorage.getItem('profileId')
+    const profileId = localStorage.getItem('profileId');
 
     const sendProfilePic = async (profileId, dataURI) => {
         const url = `http://localhost:8100/api/profile-pic/${profileId}`;
         const form = new FormData();
-        form.append('data_URI', dataURI)
+        form.append('data_URI', dataURI);
 
         if (props.hasPic) {
             const putFetchConfig = {
@@ -19,7 +19,7 @@ export default function ProfilePicModal(props) {
                 body: form,
                 credentials: 'include',
                 headers: { 'accept': 'application/json' }
-            }
+            };
             const putResponse = await fetch(url, putFetchConfig);
             if (putResponse.ok) {
                 props.getProfilePic(profileId);

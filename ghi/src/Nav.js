@@ -1,7 +1,6 @@
 import {
     CDBSidebar,
     CDBSidebarContent,
-    CDBSidebarFooter,
     CDBSidebarHeader,
     CDBSidebarMenu,
     CDBSidebarMenuItem,
@@ -58,7 +57,6 @@ const Nav = (props) => {
                 </CDBSidebar>
             </div>
             <div style={{ height: '100vh', backgroundColor: '#C0DECE' }}>
-                {/* Position Sticky will not work if it does not have sibling elements.*/}
             </div>
         </div>
     );

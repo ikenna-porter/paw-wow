@@ -27,7 +27,7 @@ export default function Profile() {
         city: '',
         state: '',
         social_media: ''
-    })
+    });
     const [chars, setChars] = useState([
         { char: 'dog friendly', value: 1 },
         { char: 'kid friendly', value: 1 },
@@ -41,19 +41,19 @@ export default function Profile() {
         breed: '',
         gender: '',
         dog_bio: ''
-    })
-    const profileId = localStorage.getItem('profileId')
-    const username = localStorage.getItem('currentUser')
+    });
+    const profileId = localStorage.getItem('profileId');
+    const username = localStorage.getItem('currentUser');
 
     function calculateAge(DOB) {
         if (DOB) {
-            let arr = DOB.split('-')
-            let newDOB = arr.map(num => parseInt(num))
-            let y = newDOB[0]
-            let m = newDOB[1]
-            const date = new Date()
-            let ageY = date.getFullYear() - y
-            let ageM = (date.getMonth() + 1) - m
+            let arr = DOB.split('-');
+            let newDOB = arr.map(num => parseInt(num));
+            let y = newDOB[0];
+            let m = newDOB[1];
+            const date = new Date();
+            let ageY = date.getFullYear() - y;
+            let ageM = (date.getMonth() + 1) - m;
 
             if (ageM === 0) {
                 return `${ageY} years`
@@ -69,7 +69,7 @@ export default function Profile() {
         const charsResponse = await fetch(
             `http://localhost:8100/api/characteristics/${profileId}`,
             { credentials: 'include' }
-        )
+        );
 
         if (charsResponse.ok) {
             const charsData = await charsResponse.json();
@@ -97,14 +97,13 @@ export default function Profile() {
         const profileResponse = await fetch(
             `http://localhost:8100/api/profiles/${username}`,
             { credentials: 'include' }
-        )
+        );
         if (profileResponse.ok) {
             const data = await profileResponse.json();
             setProfile({ ...data });
-            localStorage.setItem('profileId', `${data.id}`)
-            localStorage.setItem('userCity', data.city)
-            localStorage.setItem('userState', data.state)
-            localStorage.setItem('dogName', data.dog_name)
+            localStorage.setItem('profileId', `${data.id}`);
+            localStorage.setItem('userCity', data.city);
+            localStorage.setItem('userState', data.state);
             getChars(profileId);
             getProfilePic(profileId);
         }

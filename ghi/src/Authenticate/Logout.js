@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -18,13 +17,13 @@ export default function Logout(props) {
                 credentials: 'include',
                 headers: { 'accept': 'application/json' }
             }
-        )
+        );
         if (logout.ok) {
-            localStorage.removeItem('currentUser')
-            localStorage.removeItem('profileId')
-            localStorage.removeItem('dogName')
-            localStorage.clear()
-            navigate("/")
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('profileId');
+            localStorage.removeItem('dogName');
+            localStorage.clear();
+            navigate("/");
         }
     }
     return (

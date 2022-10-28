@@ -1,6 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { useState, useEffect } from 'react'
+import { useState } from 'react';
 
 export default function VacctinationsModal(props) {
     const show = props.show;
@@ -38,7 +38,7 @@ export default function VacctinationsModal(props) {
                 props.getVaccines()
             }
         } else {
-            const postUrl = 'http://localhost:8100/api/vaccinations'
+            const postUrl = 'http://localhost:8100/api/vaccinations';
             const postFetchConfig = {
                 method: 'POST',
                 body: JSON.stringify(data),
@@ -46,11 +46,11 @@ export default function VacctinationsModal(props) {
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            }
+            };
 
             const postResponse = await fetch(postUrl, postFetchConfig);
             if (postResponse.ok) {
-                props.getVaccines()
+                props.getVaccines();
             }
         }
     }

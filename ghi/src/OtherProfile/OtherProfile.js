@@ -17,8 +17,8 @@ export default function OtherProfile() {
             3: "I can go for some play",
             4: "I love to run and play",
             5: "I have infinite energy!"
-        }
-        return rateForEnergy[charE];
+        };
+        return rateForEnergy[charE]
     }
 
     function charOthers(charO) {
@@ -28,8 +28,8 @@ export default function OtherProfile() {
             3: "I do not have much experience with them",
             4: "I like them!",
             5: "I LOVE them!"
-        }
-        return rateForOthers[charO];
+        };
+        return rateForOthers[charO]
     }
 
     function calculateAge(DOB) {
@@ -43,11 +43,11 @@ export default function OtherProfile() {
             let ageM = (date.getMonth() + 1) - m;
 
             if (ageM === 0) {
-                return `${ageY} years`;
+                return `${ageY} years`
             } else if (ageM < 0) {
-                return `${ageY - 1} years, ${12 + ageM} months`;
+                return `${ageY - 1} years, ${12 + ageM} months`
             } else if (ageM > 0) {
-                return `${ageY} years, ${ageM} months`;
+                return `${ageY} years, ${ageM} months`
             }
         }
     }
@@ -65,7 +65,7 @@ export default function OtherProfile() {
         if (pendingResponse.ok) {
             const pendingData = await pendingResponse.json();
             setPendingFriends(pendingData);
-        };
+        }
     }
     useEffect(() => {
         async function getProfile() {
@@ -74,7 +74,7 @@ export default function OtherProfile() {
             if (response.ok) {
                 const data = await response.json();
                 setProfile(data);
-            };
+            }
         } getProfile()
         async function getFriendship() {
             const url = `http://localhost:8100/api/friendships/${currentUser}`;
@@ -90,17 +90,17 @@ export default function OtherProfile() {
     function checkFriends(otherProfileId) {
         for (let friend of friends) {
             if (String(friend.id) === otherProfileId) {
-                return true;
+                return true
             }
-        } return false;
+        } return false
     }
 
     function checkPending(currentUser) {
         for (let pending of pendingFriends) {
             if (String(pending.user_one) === currentUser) {
-                return true;
+                return true
             }
-        } return false;
+        } return false
     }
 
     const handleAdd = async (e) => {

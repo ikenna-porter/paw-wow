@@ -13,13 +13,13 @@ export default function SearchBar() {
 
     function calculateAge(DOB) {
         if (DOB) {
-            let arr = DOB.split('-')
-            let newDOB = arr.map(num => parseInt(num))
-            let y = newDOB[0]
-            let m = newDOB[1]
-            const date = new Date()
-            let ageY = date.getFullYear() - y
-            let ageM = (date.getMonth() + 1) - m
+            let arr = DOB.split('-');
+            let newDOB = arr.map(num => parseInt(num));
+            let y = newDOB[0];
+            let m = newDOB[1];
+            const date = new Date();
+            let ageY = date.getFullYear() - y;
+            let ageM = (date.getMonth() + 1) - m;
 
             if (ageM === 0) {
                 return `${ageY} years`
@@ -47,24 +47,24 @@ export default function SearchBar() {
     }, [currentUser])
 
     const handleSearch = (event) => {
-        let searchInput = event.target.value
+        let searchInput = event.target.value;
         if (searchInput.length === 0) {
-            setFilteredUsers(standardResults)
+            setFilteredUsers(standardResults);
         } else {
-            let filteredResults = []
+            let filteredResults = [];
             users.forEach(user => {
-                let dog = user.dog_name.toLowerCase()
+                let dog = user.dog_name.toLowerCase();
                 if (dog.includes(searchInput) || user.dog_name.includes(searchInput)) {
-                    filteredResults.push(user)
+                    filteredResults.push(user);
                 }
             })
-            setFilteredUsers(filteredResults)
+            setFilteredUsers(filteredResults);
         }
     }
 
     const handleConnect = (event) => {
         event.preventDefault();
-        navigate(`/profile/${event.target.value}`)
+        navigate(`/profile/${event.target.value}`);
     }
 
     if (filteredUsers.length === 0) {

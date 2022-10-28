@@ -2,7 +2,7 @@ import { useState } from 'react'
 import stateList from './States'
 import { useNavigate } from "react-router-dom";
 
-export default function CreateProfile(props) {
+export default function CreateProfile() {
     const [dogName, setDogName] = useState('');
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
@@ -31,7 +31,7 @@ export default function CreateProfile(props) {
                 'Content-Type': 'application/json'
             },
             credentials: 'include'
-        }
+        };
 
         const response = await fetch(url, fetchConfig);
         if (response.ok) {

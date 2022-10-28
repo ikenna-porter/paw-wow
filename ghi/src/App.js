@@ -1,24 +1,22 @@
-import { useState, Component, useEffect } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Nav from './Nav'
-import AuthenticateUser from './Authenticate/AuthenticateUser'
-import CreateProfile from './Profile/CreateProfile'
-import Profile from './Profile/Profile'
-import MessagingTest from './Messaging/MessagingTest'
-import Conversations from './Messaging/Conversations'
-import Vaccinations from './Profile/Vaccinations'
-import VaccinationsModal from './Profile/VaccinationsModal'
-import Characteristics from './Profile/Characteristics'
-import CharsModal from './Profile/CharacteristicsModal'
-import EditProfileModal from './Profile/EditProfileModal'
-import ListFriends from './Friendship/FriendList'
-import PendingList from './Friendship/PendingList'
-import SearchBar from './SearchBar/SearchBar'
-import OtherProfile from './OtherProfile/OtherProfile'
-import Logout from './Authenticate/Logout';
+import { useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Nav from './Nav';
+import AuthenticateUser from './Authenticate/AuthenticateUser';
+import CreateProfile from './Profile/CreateProfile';
+import Profile from './Profile/Profile';
+import MessagingTest from './Messaging/MessagingTest';
+import Vaccinations from './Profile/Vaccinations';
+import VaccinationsModal from './Profile/VaccinationsModal';
+import Characteristics from './Profile/Characteristics';
+import CharsModal from './Profile/CharacteristicsModal';
+import EditProfileModal from './Profile/EditProfileModal';
+import ListFriends from './Friendship/FriendList';
+import PendingList from './Friendship/PendingList';
+import SearchBar from './SearchBar/SearchBar';
+import OtherProfile from './OtherProfile/OtherProfile';
 
 export default function App() {
-    const [resize, setResize] = useState(false)
+    const [resize, setResize] = useState(false);
 
     return (
         <BrowserRouter>

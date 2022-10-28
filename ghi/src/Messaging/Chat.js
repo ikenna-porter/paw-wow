@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { ReconnectingWebSocket } from './reconnectWebsocket';
 import Message from './Message'
 
 export default function Chat(props) {
@@ -13,7 +12,7 @@ export default function Chat(props) {
 
 
     useEffect(() => {
-        console.log(ws.readyState)
+        console.log(ws.readyState);
 
         ws.addEventListener('message', event => {
             //retrieves list of messages

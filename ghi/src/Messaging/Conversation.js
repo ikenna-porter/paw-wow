@@ -1,9 +1,5 @@
-import { useEffect, useState } from 'react'
-
 export default function Conversation(props) {
-    const conversation = props.conversation
-    const [connected, setConnected] = useState(false);
-    const [loading, setLoading] = useState(true);
+    const conversation = props.conversation;
 
     return (
         <li>

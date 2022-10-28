@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 export default function Login(props) {
@@ -10,15 +10,15 @@ export default function Login(props) {
         e.preventDefault();
 
         const form = new FormData();
-        form.append('username', username)
-        form.append('password', password)
+        form.append('username', username);
+        form.append('password', password);
 
         const url = 'http://localhost:8100/token';
         const fetchConfig = {
             method: 'POST',
             body: form,
             credentials: "include"
-        }
+        };
 
         const response = await fetch(url, fetchConfig);
         if (response.ok) {

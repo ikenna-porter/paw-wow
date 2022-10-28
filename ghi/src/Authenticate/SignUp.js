@@ -23,7 +23,7 @@ export default function SignUp(props) {
                 'Content-Type': 'application/json'
             },
             credentials: 'include'
-        }
+        };
 
         const accountResponse = await fetch(url, fetchConfig);
         if (accountResponse.ok) {

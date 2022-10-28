@@ -157,6 +157,7 @@ class ProfileRepository:
                         [username]
                     )
                     info = result.fetchone()
+                    print(info)
 
                     db.execute(
                         """
@@ -167,7 +168,7 @@ class ProfileRepository:
                             owner_name = %s,
                             owner_description = %s,
                             account_id = %s,
-                            social_media = %s,
+                            social_media = %s
                         WHERE account_id= %s
                         """,
                         [

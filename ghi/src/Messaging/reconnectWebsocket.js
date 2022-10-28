@@ -34,7 +34,6 @@ export class ReconnectingWebSocket {
     };
 
     connect() {
-        console.log('Socket connecting...');
         this._socket = new WebSocket(this._url);
         this._socket.addEventListener('open', this.handleConnect);
         this._socket.addEventListener('close', this.handleReconnect);
@@ -42,7 +41,6 @@ export class ReconnectingWebSocket {
     }
 
     handleConnect() {
-        console.log('Socket connected.');
         this.addListeners();
         clearTimeout(this._retry);
         this._timeout = DEFAULT_TIMEOUT_MS;

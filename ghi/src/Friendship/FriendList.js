@@ -27,7 +27,7 @@ export default function ListFriends() {
     }
 
     const handleDelete = async (e) => {
-        const user_two = e.target.value
+        const user_two = e.target.value;
         const deleteUrl = `http://localhost:8100/api/friendships/${id}/${user_two}`;
         const fetchConfig = {
             method: 'DELETE',

@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react'
-import { ReconnectingWebSocket } from './reconnectWebsocket';
-import Message from './Message'
+import { useEffect } from 'react';
+import Message from './Message';
 
 export default function Chat(props) {
     const messages = props.messages;
@@ -8,8 +7,6 @@ export default function Chat(props) {
     const otherUserId = props.otherUserId;
     const primaryUserId = props.primaryUserId;
     const selectedConversation = props.selectedConversation;
-    const [currentMessage, setCurrentMessage] = useState('');
-    const [formSubmitted, setFormSubmitted] = useState('false');
     let selectedUser = null;
 
 

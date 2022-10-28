@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import VacctinationsModal from './VaccinationsModal';
 
 export default function Vaccinations(props) {
-    const profileId = localStorage.getItem('profileId')
+    const profileId = localStorage.getItem('profileId');
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -20,7 +20,7 @@ export default function Vaccinations(props) {
         const response = await fetch(
             `http://localhost:8100/api/vaccinations/${profileId}`,
             { credentials: 'include' }
-        )
+        );
         if (response.ok) {
             const data = await response.json();
             if (Object.keys(data).length > 1) {

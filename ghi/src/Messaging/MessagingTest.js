@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Conversation from './Conversation';
 import Conversations from './Conversations';
 import NoChat from './NoChat';
@@ -8,22 +8,19 @@ import './style.css';
 // import {ReconnectingWebSocket} from './reconnectWebsocket';
 
 export default function MessagingTest(props) {
-    const [loading, setLoading] = useState(true);
-    const [connected, setConnected] = useState(false);
     const [selectedConversation, setSelectedConversation] = useState(0);
     const [messages, setMessages] = useState(['']);
     const [conversations, setConversations] = useState([]);
     const location = useLocation();
     const [otherUserId, setOtherUserId] = useState(0);
     const profileId = localStorage.getItem('profileId');
-    const username = localStorage.getItem('currentUser');
 
 
     const createConversation = async () => {
         const userIds = {
             primary_user: parseInt(profileId),
             other_user: otherUserId
-        }
+        };
         const url = "http://localhost:8100/api/conversations";
         const fetchConfig = {
             headers: {
@@ -33,7 +30,7 @@ export default function MessagingTest(props) {
             method: "POST",
             mode: "cors",
             body: JSON.stringify(userIds)
-        }
+        };
 
         //fetch to create conversation
         const response = await fetch(url, fetchConfig);

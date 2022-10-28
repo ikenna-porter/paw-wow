@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
 
 export default function CharsModal(props) {
-    const profileId = localStorage.getItem('profileId')
+    const profileId = localStorage.getItem('profileId');
     const show = props.show;
     const handleClose = props.handleClose;
     const chars = props.chars;
@@ -13,10 +13,10 @@ export default function CharsModal(props) {
 
     function changeChar(char, value) {
         let targetObj = editChars.filter(obj => obj.char === char);
-        let idx = editChars.indexOf(targetObj[0])
-        let newArr = [...editChars]
-        newArr[idx] = { char: char, value: value }
-        setEditChars(newArr)
+        let idx = editChars.indexOf(targetObj[0]);
+        let newArr = [...editChars];
+        newArr[idx] = { char: char, value: value };
+        setEditChars(newArr);
     }
 
     const handleSubmit = async (e) => {
@@ -24,7 +24,7 @@ export default function CharsModal(props) {
 
         const updatedChars = {};
         for (let obj of editChars) {
-            updatedChars[obj.char] = obj.value
+            updatedChars[obj.char] = obj.value;
         };
         const data = {
             dog_friendly: parseInt(updatedChars['dog friendly']),
@@ -48,13 +48,13 @@ export default function CharsModal(props) {
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            }
+            };
             const putResponse = await fetch(putUrl, putFetchConfig);
             if (putResponse.ok) {
-                props.getChars(profileId)
+                props.getChars(profileId);
             }
         } else {
-            const postUrl = `http://localhost:8100/api/characteristics`
+            const postUrl = `http://localhost:8100/api/characteristics`;
             const postFetchConfig = {
                 method: 'POST',
                 body: JSON.stringify(data),
@@ -62,10 +62,10 @@ export default function CharsModal(props) {
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            }
+            };
             const postResponse = await fetch(postUrl, postFetchConfig);
             if (postResponse.ok) {
-                props.getChars(profileId)
+                props.getChars(profileId);
             }
         }
     }
