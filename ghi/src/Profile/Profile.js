@@ -229,9 +229,7 @@ export default function Profile() {
                   </div>
                 </div>
                 <div>
-                  <div className="col-lg-8">
                     <Vaccinations dogName ={profile.dog_name} />
-                  </div>
               </div>    
             </div>      
           </div>

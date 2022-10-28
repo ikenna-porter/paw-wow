@@ -42,7 +42,6 @@ export default function Vaccinations(props) {
     }, [profileId]);
 
     return(
-        <div className="col">
             <div className="card">
                 <div className="card-body">
                     <h5 className="card-title">Vaccination Records</h5>
@@ -99,7 +98,6 @@ export default function Vaccinations(props) {
                         </div>
                     }
                 </div>
-            </div>
-        </div>    
+            </div>   
     )
 }
