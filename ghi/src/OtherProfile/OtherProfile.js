@@ -161,7 +161,7 @@ export default function OtherProfile() {
                                                 </Button>
                                     }
                                     {
-                                        <Link to='/messages' state={{ profileId: profile.id }}>
+                                        <Link to='/messages' state={{ othersId: profile.id }}>
                                             <Button className='btn btn-light form-btn btn-sm'> Message </Button>
                                         </Link>
                                     }

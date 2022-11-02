@@ -19,7 +19,7 @@ export default function MessagingTest(props) {
     const createConversation = async () => {
         const userIds = {
             primary_user: parseInt(profileId),
-            other_user: otherUserId
+            other_user: parseInt(location.state.othersId)
         };
         const url = "http://localhost:8100/api/conversations";
         const fetchConfig = {
@@ -31,14 +31,59 @@ export default function MessagingTest(props) {
             mode: "cors",
             body: JSON.stringify(userIds)
         };
+        console.log(profileId, location.state.othersId)
 
         //fetch to create conversation
         const response = await fetch(url, fetchConfig);
         if (response.ok) {
-            console.log(response);
-            console.log(response.json)
+            const data = await response.json();
+            console.log(data.id)
+            return data.id;
         }
     }
+
+    // //temporarily renders conversation card once it has been created
+    // const renderNewConversationCard = async (conversationId) => {
+    //     console.log(conversationId)
+    //     const response = await fetch(`http://localhost:8100/api/conversations/${conversationId}`);
+
+    //         if (response.ok) {
+    //             const conversationData = await response.json();
+    //             console.log(conversationData)
+    //             const dogName = conversationData.other_user_dog_name;
+    //             let dogPic = conversationData.other_user_picture;
+    //             dogPic.length > 0? dogPic = dogPic : dogPic = require("./images/default-dog-img.png");
+
+    //             //creates DOM elements and grabs the outer-most one
+    //             const conversationsList = document.getElementsByClassName('conversations-list')[0];
+    //             const outerDiv = document.createElement('div');
+    //             const listItem = document.createElement('li');
+    //             const conversationCard = document.createElement('div');
+    //             const conversationCardImage = document.createElement('div');
+    //             const conversationCardMainContent = document.createElement('div');
+    //             const paragraph = document.createElement('p');
+    //             const image = document.createElement('img');
+    //             image.setAttribute('src', {dogPic});
+    //             const name = document.createTextNode(dogName);
+
+    //             //adds appropriate classes to each element
+    //             conversationCard.classList.add("conversation-card");
+    //             conversationCardImage.classList.add("conversation-card-image-container");
+    //             conversationCardMainContent.classList.add("conversation-card-main-content");
+    //             paragraph.classList.add("conversation-card-name");
+    //             image.classList.add("conversation-card-image");
+
+    //             //appends each element to its parent
+    //             paragraph.appendChild(name)
+    //             conversationCardMainContent.appendChild(paragraph);
+    //             conversationCardImage.appendChild(image)
+    //             conversationCard.appendChild(conversationCardImage);
+    //             conversationCard.appendChild(conversationCardMainContent);
+    //             listItem.appendChild(conversationCard);
+    //             outerDiv.appendChild(listItem);
+    //             conversationsList.prepend(outerDiv);
+    //         }
+    // }
 
 
     useEffect(() => {
@@ -62,7 +107,7 @@ export default function MessagingTest(props) {
                         setOtherUserId(othersId);
 
                         //create variable to see if users have conversation history
-                        let conversationHistory = false
+                        let conversationHistory = false;
                         for (let conversation of conversationData) {
                             //selects the appropriate conversation given the other user's id 
                             if (conversation.other_user === othersId) {
@@ -74,10 +119,23 @@ export default function MessagingTest(props) {
 
                         //if the two users don't have conversation history, create new conversation and select it
                         if (!conversationHistory) {
-                            const newConversation = createConversation();
-                            console.log(newConversation);
-                            setSelectedConversation(newConversation.id);
+                            const conversationId = await createConversation(); //creates conversation in database
+                            // setSelectedConversation(conversationId) //selects conversation id, thereby opening it's chat window
+                            
+                            //fetch all conversations again -- including recently created one
+                            const fetchConvos = async () => {
+                                const response = await fetch(`http://localhost:8100/api/users_conversations/${profileId}`);
+                    
+                                //if conversations fetch successful
+                                if (response.ok) {
+                                    const conversationData = await response.json();
+                                    setConversations(conversationData);
+                                    setSelectedConversation(conversationId) //selects conversation id, thereby opening it's chat window
+                                }
+                            }
+                            await fetchConvos();
                         }
+
                     } else {
                         console.log("other user's info not available for some reason?") //delete else when finished testing
                     }
@@ -94,6 +152,7 @@ export default function MessagingTest(props) {
     //gets all of the messages associated with the selected conversation
     useEffect(() => {
         const fetchMessages = async () => {
+            console.log(selectedConversation)
             const response = await fetch(`http://localhost:8100/api/messages/${selectedConversation}`);
             if (response.ok) {
                 const data = await response.json()
