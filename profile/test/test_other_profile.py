@@ -28,7 +28,8 @@ class FakeOtherProfileRepository:
                 "parvo": True,
                 "adeno": True,
                 "rabies": True,
-                "other": "1"
+                "other": "1",
+                "social_media": "cat"
                 }
 
 def test_get_single_profile():
@@ -57,5 +58,6 @@ def test_get_single_profile():
                 "parvo": True,
                 "adeno": True,
                 "rabies": True,
-                "other": "1"
+                "other": "1",
+                "social_media": "cat"
                 }
