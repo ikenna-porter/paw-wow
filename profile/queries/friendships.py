@@ -165,4 +165,8 @@ class FriendshipRepository:
                     return False
         except Exception as e:
             print(e)
+<<<<<<< HEAD
             return e
+=======
+            return e
+>>>>>>> main
