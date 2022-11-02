@@ -55,14 +55,24 @@ export default function SignUp(props) {
 
                                 <form onSubmit={handleSubmit} className='signin-form'>
                                     <div className="form-group mt-3">
-                                        <input type="text" className="form-control" onChange={e => setUsername(e.target.value)}
-                                            value={username} required />
+                                        <input
+                                            type="text" 
+                                            required
+                                            className="form-control" 
+                                            onChange={e => setUsername(e.target.value)}
+                                            value={username}
+                                        />
                                         <label className="form-control-placeholder" htmlFor="username">Username</label>
                                     </div>
 
                                     <div className="form-group">
-                                        <input id="password-field" type="password" className="form-control" required onChange={e => setPassword(e.target.value)}
-                                            value={password} />
+                                        <input
+                                            type="password" 
+                                            className="form-control" 
+                                            required 
+                                            onChange={e => setPassword(e.target.value)}
+                                            value={password} 
+                                        />
                                         <label className="form-control-placeholder" htmlFor="password">Password</label>
                                     </div>
 

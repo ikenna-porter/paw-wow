@@ -108,7 +108,6 @@ export default function CreateProfile() {
                                 Owner Description
                             </label>
                             <textarea
-                                required
                                 type="text"
                                 className="form-control"
                                 rows="4"
