@@ -146,8 +146,6 @@ class FriendshipRepository:
                     return False
         except Exception as e:
             return e
-<<<<<<< HEAD
-=======
 
     def remove_friend(self, id, user_two):
         try:
@@ -168,4 +166,3 @@ class FriendshipRepository:
         except Exception as e:
             print(e)
             return e
->>>>>>> main

@@ -42,6 +42,7 @@
 
 .conversation-card {
     display: flex;
+    align-items: center;
     padding: 5px;
     height: 8vh;
     border: black;
@@ -58,17 +59,23 @@
 
 .conversation-card-image {
     border-radius: 50%;
+    border: 1px black solid;
     height: 50px;
     width: 50px;
+    margin: 5px;
+    margin-left: 20px;
 }
 
 .conversation-card-main-content {
+    display: flex;
+    align-items: center;
     flex-grow: 3;
     height: 100%;
 }
 
 .conversation-card-name {
-    margin-bottom: .25em;
+    margin: .25em;
+    font-size: 1.25em;
 }
 
 .conversation-card-text {
@@ -110,6 +117,7 @@
 
 #messages-header-container {
     border-bottom: solid gray 1px;
+    margin-bottom: 10px;
 }
 
 #messages-header-container > h4 {
